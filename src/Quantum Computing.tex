@@ -1,0 +1,120 @@
+\documentclass[a4paper, 12pt]{report}
+
+\usepackage[dvipsnames]{xcolor}
+
+%%%%%%%%%%%%%%%%
+% Set Variables %
+%%%%%%%%%%%%%%%%
+
+\def\useItalian{0}  % 1 = Italian, 0 = English
+
+\def\courseName{Quantum Computing}
+
+\def\coursePrerequisites{TODO}
+
+% \def\book{"My book",\\Author 1, ...}
+
+% \def\authorName{Simone Bianco}
+% \def\email{bianco.simone@outlook.it}
+% \def\github{https://github.com/Exyss/university-notes}
+% \def\linkedin{https://www.linkedin.com/in/simone-bianco}
+
+\def\authorName{Alessio Bandiera}
+\def\email{alessio.bandiera02@gmail.com}
+\def\github{https://github.com/aflaag-notes}
+\def\linkedin{https://www.linkedin.com/in/alessio-bandiera-a53767223}
+
+% Do not change
+
+%%%%%%%%%%%%
+% Packages %
+%%%%%%%%%%%%
+
+\usepackage{../../packages/Nyx/nyx-packages}
+\usepackage{../../packages/Nyx/nyx-styles}
+\usepackage{../../packages/Nyx/nyx-frames}
+\usepackage{../../packages/Nyx/nyx-macros}
+\usepackage{../../packages/Nyx/nyx-title}
+\usepackage{../../packages/Nyx/nyx-intro}
+
+%%%%%%%%%%%%%%
+% Title-page %
+%%%%%%%%%%%%%%
+
+\logo{../../packages/Nyx/logo.png}
+
+\if\useItalian1
+    \institute{\curlyquotes{\hspace{0.25mm}Sapienza} Università di Roma}
+    \faculty{Ingegneria dell'Informazione,\\Informatica e Statistica}
+    \department{Dipartimento di Informatica}
+    \ifdefined\book
+        \subtitle{Appunti integrati con il libro \book}
+    \fi
+    \author{\textit{Autore}\\\authorName}
+\else
+    \institute{\curlyquotes{\hspace{0.25mm}Sapienza} University of Rome}
+    \faculty{Faculty of Information Engineering,\\Informatics and Statistics}
+    \department{Department of Computer Science}
+    \ifdefined\book
+        \subtitle{Lecture notes integrated with the book \book}
+    \fi
+    \author{\textit{Author}\\\authorName}
+\fi
+
+\title{\courseName}
+\date{\today}
+
+% \supervisor{Linus \textsc{Torvalds}}
+% \context{Well, I was bored\ldots}
+
+\addbibresource{./references.bib}
+
+%%%%%%%%%%%%
+% Document %
+%%%%%%%%%%%%
+
+\begin{document}
+\maketitle
+
+% The following style changes are valid only inside this scope 
+{
+	\hypersetup{allcolors=black}
+	\fancypagestyle{plain}{%
+		\fancyhead{}        % clear all header fields
+		\fancyfoot{}        % clear all header fields
+		\fancyfoot[C]{\thepage}
+		\renewcommand{\headrulewidth}{0pt}
+		\renewcommand{\footrulewidth}{0pt}}
+
+	\romantableofcontents
+}
+
+\introduction
+
+%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{TODO}
+
+\section{TODO}
+
+\href{https://en.wikipedia.org/wiki/Quantum_computing}{Quantum computing} is a rapidly developing discipline that explores how the laws of quantum mechanics can be used to \tit{process information}. While classical computation is based on \tit{bits} that take values of either 0 or 1, quantum computation relies on quantum bits, or \tbf{qubits}. A qubit can exist in a \curlyquotes{superposition} of classical states, allowing it to encode richer information than a single bit. Furthermore, qubits can exhibit particular properties that enable forms of information processing with no classical counterpart. Such properties provide the foundation for algorithms that promise to solve certain problems more efficiently than their classical analogues.
+
+The design of quantum algorithms requires a different perspective from that of classical computation. In classical computer science, the majority of widely studied algorithms are \tit{deterministic}, meaning that for a given input they will always produce the \tit{same output}. Some algorithms are \tit{randomized}, making use of probability to achieve efficiency or simplicity, yet even in those cases the computation itself is ultimately classical in nature. In fact, to achieve such \tit{randomness} classical algorithms employ \tbf{pseudo-random number generation}, which must ultimately produce \underline{finite} sequences.
+
+Quantum computation, by contrast, \tit{incorporates probability} at its core. The act of measuring a quantum system does not reveal a single, predetermined result, but rather yields one outcome from a distribution of possible outcomes, with probabilities governed by the system's quantum state. This fundamental probabilistic character distinguishes quantum algorithms from their classical counterparts.
+
+In fact, in the context of quantum computing we are often interested in \tbf{probabilistic algorithms}: for such algorithms, a given input $i$ can lead to a finite set of possible outputs $o_1, \ldots, o_N$, each occurring with an associated probability $p_1, \ldots, p_N$ --- where $\sum_{i = 1}^n{p_i} = 1$.
+
+As previously mentioned, the quantum equivalent of the classical bits are the \tbf{qubit}, which are nothing but vectors: $$\mathbf 0 := \ket{0} = \rmat{1 \\ 0} \quad \quad \mathbf 1 := \ket 1 = \rmat{0 \\ 1}$$ The notation above is called \curlyquotes{braket} notation and it will be explored in greater detail in later sections.
+
+Furtmerore, the state of a qubit is a \tbf{superposition} $$\ket \psi = \alpha \ket 0 + \beta \ket 1 = \alpha \rmat{1 \\ 0 } + \beta \rmat{0 \\ 1}$$ where $\alpha, \beta \in \C$ such that $\abs \alpha ^2 + \abs \beta ^2 = 1$ are called \tbf{probability amplitudes}. This means that \todo{what} In fact, the \curlyquotes{true} state of a qubit \tbf{cannot be observed}, i.e. we cannot find out precisely the value of $\alpha$ and $\beta$.
+
+Since the state of qubit is a superposition, to know the value of a qubit we have to \tit{measure it}, but unfortunately the measurement operations itself will make the qubit \tit{collapse} into either $\ket 0$ or $\ket 1$ with probabilities $\abs \alpha ^2$ and $\abs \beta ^2$ respectively, i.e. $$\Pr[\ket 0] = \abs \alpha ^2 \quad \quad \Pr[\ket 1] = \abs \beta ^2$$ Note that if we measure a collapsed qubit we will keep observing the same state indefinitely.
+
+In reality, to be precise qubits actually collapse into any multiple $z \in \C$ of either $\ket 0$ or $\ket 1$ such that $\abs z = 1$, but this is not relevant from a physical point of view. In fact, for any $\theta$ physicist treat $\ket \psi = \ket 0$ and $\ket {\psi'} = e^{i \theta} \ket 0 $ as the \tit{same physical state}, because probabilities depend on squared magnitudes and thus $$\abs{e^{i \theta} \alpha}^2 = \abs \alpha^2$$ (and the same applies for $\beta$ too) even though $\ket \psi$ and $\ket {\psi'}$ are different vectors mathematically.
+
+% To be precise, after the measurement the qubit will be either a \tit{multiple} of $\ket 0$ or $\ket 1$: given two complex numbers $z, w \in \C$, since $\abs{z \cdot w} = \abs z \abs w$, we get that if $\abs z = 1$ then $\abs{z \cdot w} = 1 \cdot \abs w = \abs w$; this implies that for any $\alpha, \beta \in \C$ and any $z \in \C$ we have that
+
+% \printbibliography % UNCOMMENT FOR BIBLIOGRAPHY
+
+\end{document}
