@@ -1,6 +1,6 @@
 # Fdb version 4
-["bibtex Quantum Computing"] 0 "Quantum Computing.aux" "Quantum Computing.bbl" "Quantum Computing" 1759167765.8816 0
-  "./Quantum_Computing-blx.bib" 1759167765.46048 344 b9a53cb296db97caea92c7ca383542c0 ""
+["bibtex Quantum Computing"] 0 "Quantum Computing.aux" "Quantum Computing.bbl" "Quantum Computing" 1759256625.97961 0
+  "./Quantum_Computing-blx.bib" 1759256625.61399 344 b9a53cb296db97caea92c7ca383542c0 ""
   "./references.bib" 0 -1 0 ""
   "/usr/share/texmf-dist/bibtex/bst/biblatex/biblatex.bst" 1755987285 65510 b1f696b0241395385f422f67543c37fd ""
   "Quantum Computing.aux" 0 -1 0 "pdflatex"
@@ -8,12 +8,12 @@
   "Quantum Computing.bbl"
   "Quantum Computing.blg"
   (rewritten before read)
-["pdflatex"] 1759167762.46283 "Quantum Computing.tex" "Quantum Computing.pdf" "Quantum Computing" 1759167765.88219 0
+["pdflatex"] 1759256622.88314 "Quantum Computing.tex" "Quantum Computing.pdf" "Quantum Computing" 1759256625.97995 0
   "../../packages/Nyx/logo.png" 1710239380.27782 91419 8de48debf770a599a084520c83ce5d80 ""
   "../../packages/Nyx/nyx-frames.sty" 1744281245.10092 4480 04a89589d0a12ba668ea579e07c3b82c ""
   "../../packages/Nyx/nyx-intro.sty" 1710239380.27782 3476 d82343305e561945eb7e4f3f9e3a4fe2 ""
   "../../packages/Nyx/nyx-macros.sty" 1747768846.93914 12491 1157c0db1779b1f1c8cd9421f06f3cbf ""
-  "../../packages/Nyx/nyx-packages.sty" 1759165669.49548 2164 8cdc25f62522fde011819c4b9ecf3c2b ""
+  "../../packages/Nyx/nyx-packages.sty" 1759172228.03644 2164 8cdc25f62522fde011819c4b9ecf3c2b ""
   "../../packages/Nyx/nyx-styles.sty" 1743671815.79002 2803 34c24d79e21bda443d59b64c442bbc8d ""
   "../../packages/Nyx/nyx-title.sty" 1710239380.27782 3255 b8b7faa898231df2f4371d144bf17fa9 ""
   "/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1755987285 2971 def0b6c1f0b107b3b936def894055589 ""
@@ -72,7 +72,6 @@
   "/usr/share/texmf-dist/fonts/tfm/public/stmaryrd/stmary6.tfm" 1755987285 848 068dd119e13b75777e62821af7d4f2a6 ""
   "/usr/share/texmf-dist/fonts/tfm/public/stmaryrd/stmary8.tfm" 1755987285 848 6125cdd3627e68d3db8013b98e587508 ""
   "/usr/share/texmf-dist/fonts/tfm/public/tex-gyre/ec-qtmr.tfm" 1755987285 11504 0b76b46eb90907e684139293e03c466a ""
-  "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1755987285 32080 340ef9bf63678554ee606688e7b5339d ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb" 1755987285 30251 6afa5cb1d0204815a708a080681d4674 ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb" 1755987285 36741 fa121aac0049305630cf160b86157ee4 ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb" 1755987285 35469 70d41d2b9ea31d5d813066df7c99281c ""
@@ -394,12 +393,12 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1755987285 42087 b0f9697c952c8f5a8eede4134282cb0d ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1756479450 5311557 9da84c45f5b388655502706482323571 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1756479348 2061861 222ceaad63638c4f9ad47b14b26d897e ""
-  "Quantum Computing.aux" 1759167765.41848 1423 6d1de8d54c701efd3b45fee99c25d20c "pdflatex"
+  "Quantum Computing.aux" 1759256625.58199 2037 bd10551bfeaa974eac740f00c69711e8 "pdflatex"
   "Quantum Computing.bbl" 0 -1 0 "bibtex Quantum Computing"
-  "Quantum Computing.out" 1759167765.45548 307 c15cdfd4f21c8a8c426f4f9643896ec6 "pdflatex"
-  "Quantum Computing.run.xml" 1759167765.46347 2661 cbba55ee3d1829b72bc1dffd16959b57 "pdflatex"
-  "Quantum Computing.tex" 1759167760.69348 6673 a6460f867340f9a5c561aab40218c829 ""
-  "Quantum Computing.toc" 1759167765.46347 360 24e9f3afe42de8ca4151b538f543da3e "pdflatex"
+  "Quantum Computing.out" 1759256625.60899 307 c15cdfd4f21c8a8c426f4f9643896ec6 "pdflatex"
+  "Quantum Computing.run.xml" 1759256625.61635 2661 cbba55ee3d1829b72bc1dffd16959b57 "pdflatex"
+  "Quantum Computing.tex" 1759256622.30199 13046 42a7bca4b844d2dded18bba436db8796 ""
+  "Quantum Computing.toc" 1759256625.61635 360 24e9f3afe42de8ca4151b538f543da3e "pdflatex"
   (generated)
   "Quantum Computing.aux"
   "Quantum Computing.log"
