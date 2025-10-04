@@ -93,9 +93,9 @@
 
 %%%%%%%%%%%%%%%%%%%%%
 
-\chapter{TODO}
+\chapter{Introduction on Quantum Computation}
 
-\section{TODO}
+\section{The Qubit}
 
 \href{https://en.wikipedia.org/wiki/Quantum_computing}{Quantum computing} is a rapidly developing discipline that explores how the laws of quantum mechanics can be used to \tit{process information}. While classical computation is based on \tit{bits} that take values of either 0 or 1, quantum computation relies on quantum bits, or \tbf{qubits}. A qubit can exist in a \curlyquotes{superposition} of classical states, allowing it to encode richer information than a single bit. Furthermore, qubits can exhibit particular properties that enable forms of information processing with no classical counterpart. Such properties provide the foundation for algorithms that promise to solve certain problems more efficiently than their classical analogues.
 
@@ -113,6 +113,8 @@ In practice, the state of a qubit is a vector $$\ket \psi = \alpha \ket 0 + \bet
 
 In reality, to be precise qubits actually collapse into any multiple $z \ket 0$ or $z\ket 1$, where $z \in \C$ is a complex number such that $\abs z = 1$, but this is not relevant from a physical point of view. In fact, for any $\theta$ physicists treat $\ket \psi = \ket 0$ and $\ket {\psi'} = e^{i \theta} \ket 0 $ as the \tit{same physical state}, because probabilities depend on squared magnitudes and thus $$\abs{e^{i \theta} \alpha}^2 = \abs \alpha^2$$ (and the same applies for $\beta$ too) even though $\ket \psi$ and $\ket {\psi'}$ are different vectors mathematically.
 
+\section{Qubit operations}
+
 What can we do with qubits other then \tit{measure them}? The operations that can be applied on qubits are restricted to \tbf{unitary transformations}.
 
 \begin{frameddefn}{Unitary transformation}
@@ -121,11 +123,13 @@ What can we do with qubits other then \tit{measure them}? The operations that ca
 
 For instance, the identity matrix $I$ is an example of trivial unitary transformation, but also the NOT matrix, which is the following $$\mbox{NOT} := \rmat{0 & 1 \\ 1 & 0}$$ which has the effect of \tit{swapping} the input basis state $$\mbox{NOT} \ket 0 = \ket 1 \quad \quad \mbox{NOT} \ket 1 = \ket 0$$ This matrix behaves as the classical NOT gate with the usual bits in classical computing, in fact will refer to \tit{transformations} and \tit{gates} interchangeably.
 
-Another very important transformation is represented by the \tbf{Hadamard gate}, which is the following matrix $$H := \dfrac{1}{\sqrt 2}\rmat{1 & 1 \\ 1 & -1}$$ This matrix has the effect of \curlyquotes{mapping} classical states into superpositions: $$H \ket 0 = \dfrac{1}{\sqrt 2}\rmat{1 & 1 \\ 1 & -1} \rmat{1 \\ 0} = \dfrac{1}{\sqrt 2} \rmat{1 \\ 0} = \dfrac{1}{\sqrt 2} (\ket 0 + \ket 1) \soe{ll}{\ket 0 & @ \  \frac{1}{2} \\ \ket 1 & @ \  \frac{1}{2}}$$ For instance, in this example given $\ket 0$ which represents the classical bit 0, we get a qubit as output of the linear transformation.
+Another very important transformation is represented by the \tbf{Hadamard gate}, which is the following matrix $$H := \dfrac{1}{\sqrt 2}\rmat{1 & 1 \\ 1 & -1}$$ This matrix has the effect of \curlyquotes{mapping} classical states into superpositions: $$H \ket 0 = \dfrac{1}{\sqrt 2}\rmat{1 & 1 \\ 1 & -1} \rmat{1 \\ 0} = \dfrac{1}{\sqrt 2} \rmat{1 \\ 0} = \dfrac{1}{\sqrt 2} (\ket 0 + \ket 1) \soe{ll}{\ket 0 & @ \  \frac{1}{2} \\ \ket 1 & @ \  \frac{1}{2}}$$ For instance, in this example given $\ket 0$ which represents the classical bit 0, we get a qubit as output of the linear transformation. In general, the operation performed by the Hadamard gate can be represented as follows: $$\forall a \in \{0, 1\} \quad \dfrac{1}{\sqrt 2} \rbk{\ket 0 + (-1)^a \ket 1}$$
 
 As a side note, as we mentioned at the beginning of the chapter quantum mechanics has randomness intrinsically, and since the operation $H \ket 0$ returns a qubit that has 50\% of probability of being either $\ket 0$ or $\ket 1$ once measured, this operation provides a \underline{true} random number generator. \todo{side note on Hadamard gate really implemented?}
 
 TODO \todo{bloch sphere too bored to do it}
+
+\subsection{The tensor product}
 
 So far we have dealt with only one qubit at a time, but what if we have two qubits? First, let's look at the classical counterpart. If we take two bits $a, b \in \{0, 1\}$, we can represent 4 possible binary numbers, namely 00, 01, 10 and 11, which we can algebraically obtain by computing the usual cartesian product $$\{0, 1\}^2 = \{0, 1\} \times \{0, 1\} = \{(0, 0), (0, 1), (1, 0), (1, 1)\}$$ Note that in the cartesian products it holds that:
 
@@ -152,10 +156,115 @@ For example, given two qubits $$\ket \phi = \dfrac{1}{\sqrt 2} (\ket 0 + \ket 1)
 		                            & \soe{ll}{\ket 0 \mbox{and} \ket 0                         & @ \ \tfrac{1}{4} \\ \ket 0 \mbox{and} \ket 1 & @ \ \tfrac{1}{4} \\ \ket 1 \mbox{and} \ket 0 & @ \ \tfrac{1}{4} \\ \ket 1 \mbox{and} \ket 1 & @ \ \tfrac{1}{4}}
 	\end{split}
 \end{equation*}
-where the probabilities at the end refer to the two individual qubits. To recap, in general the tensor product $\ket \psi \otimes \ket \phi$ of two qubits encodes the superposition of 4 basis states, namely $\ket {00}$, $\ket{01}$, $\ket{10}$ and $\ket 11$.
+where the probabilities at the end refer to the two individual qubits. To recap, in general the tensor product $\ket \psi \otimes \ket \phi$ of two qubits encodes the superposition of 4 basis states, namely $\ket {00}$, $\ket{01}$, $\ket{10}$ and $\ket {11}$.
 
-TODO \todo{da finire}
+Moreover, the following property can be proved easily.
 
-% \printbibliography % UNCOMMENT FOR BIBLIOGRAPHY
+\begin{framedprop}{Distributive property of $\otimes$}
+	Given three qubits $\ket \psi, \ket \phi$ and $\ket \chi$, it holds that $$(\ket \psi + \ket \phi) \otimes \ket \chi = \ket \psi \otimes + \ket \phi \otimes \ket \chi$$
+\end{framedprop}
+
+Another very important gate in quantum computing is the so called \tbf{Controlled NOT (CNOT)} gate, which is defined as follows:
+
+\begin{center}
+	\begin{tabular}{cc|c}
+		\hline
+		$a$ & $b$ & $\mbox{CNOT}(a, b)$ \\
+		\hline\hline
+		0   & 0   & 0                   \\
+		\hline
+		0   & 1   & 1                   \\
+		\hline
+		1   & 0   & 1                   \\
+		\hline
+		1   & 1   & 0                   \\
+		\hline
+	\end{tabular}
+\end{center}
+
+In fact, the names comes from the fact that the first input $a$ is called \tit{control bit}, which if set to 1 will flip the \tit{target bit} $b$ --- in fact, in its implementation what actually happens is that $b$'s wire itself is flipped. Therefore, in general we will write that $$\mbox{CNOT}(a, b) = (a, a \oplus b)$$
+
+First, we observe that this function is clearly not invertible, since for instance if we know that the output is 0 we still need the input $a$ to evaluate if $b$ was 0 or 1. Hence, to solve this issue we usually pair the output of CNOT with $a$ itself, so that we can actually invert the computation.
+
+Moreover, so far we only dealt with transformation that only expected one qubit argument as input, but the CNOT gate would certainly need 2 inputs to perform any computation, so how do we provide two inputs to it? As we showed before, we konw that $$\forall i, j \in \{0, 1\} \quad \ket i \otimes \ket j = \ket{i j}$$ which directly implies that the vector $\ket{ij}$ encapsulated two qubits at once without ambiguity. Hence, we can actually leverage the tensor product to provide the input to the CNOT matrix, such that the quantum CNOT will behave as follows $$\mbox{CNOT}(\ket a \otimes \ket b) = \ket a \otimes \ket{a \oplus b}$$ Hence, the matrix that behaves as such is the following $$\mbox{CNOT} := \rmat{1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 1 & 0}$$ which expects a $4 \times 1$ input vector, and outputs a $4 \times 1$ output vector as well.
+
+\subsection{Quantum circuits}
+
+Now that we introduced a couple of quantum gates, we can show how computation is actually represented in quantum computing. For instance, consider the following picture:
+
+\centeredimage[The NOT gate.]{0.8}{../assets/not.png}
+
+In this example, we have 1 single input qubit, namely $q$, and the box labeled with an $X$ represents the NOT gate. We observe that, by convetion, all qubits in quantum circuits are assumed to be set to $\ket 0$.
+
+In the following example, instead, it is represented how the Hadamard gate looks like in quantum circuits.
+
+\centeredimage[The Hadamard gate.]{0.8}{../assets/h.png}
+
+Moreover, if we consider two qubits as inputs $q_0$ and $q_1$, we can represent the CNOT operator as follows:
+
+\centeredimage[The CNOT gate.]{0.8}{../assets/cnot.png}
+
+We observe that $q_1$ then becomes the output of the CNOT operation, and $q_0$ remains unchanged. Lastly, the measurement operation is represented with the following picure:
+
+\centeredimage[The measure operation.]{0.8}{../assets/meas.png}
+
+In particular, in this cirtuit we see that:
+
+\begin{itemize}
+	\item the vertical \curlyquotes{double lines} reprents \tit{classical bits}
+	\item the number 1 next to the label \curlyquotes{meas} indicates the number of qubits that have been measured
+	\item the number 0 is the index of the measured qubit
+\end{itemize}
+
+\centeredimage[An exmaple of measurement of 2 qubits]{0.8}{../assets/meas2.png}
+
+\section{EPR}
+
+TODO \todo{talk about it}
+
+\section{No-cloning theorem and quantum teleportation}
+
+\subsection{No-cloning theorem}
+
+So far we described gates that enable to do stuff and to EPR, but what if we want to copy a qubit? can we do it like we can in normal bits? \todo{write this better after epr} In 1982 \textcite{nocloning} proved the so called \tbf{no-cloning theorem}, which states that it is impossible to create an independent and identical copy of an arbitrary \tit{unknown} quantum state.
+
+\begin{framedthm}{No-cloning theorem}
+	There is no quantum transformation that copies an unknown quantum state.
+\end{framedthm}
+
+\begin{proof}
+	by way of contradiction, suppose that there exists such a transformation CP that is able to copy an unknown quantum state --- and in particular, we observe that such transformation would have to be linear. But clearly, in order to have a copy we need to actually \tit{store} it somewhere, so we can assume that CP has to take two inputs, one being the state that we want to copy and the other one being the state that we want to replace with the copy of the first one. In other words, we are assuming that $$\exists y \forall x \quad \mbox{CP}(x \otimes y) = x \otimes x$$ Now, through some algebraic manipulation we get that
+	\begin{equation*}
+		\begin{alignedat}{2}
+			       & \exists y \forall x \quad \mbox{CP}(x \otimes y) = x \times x                                                  &                                         \\
+			\equiv & \exists y \forall x, a \quad \mbox{CP}((x + a) \otimes y) = (x + a) \otimes (x + a)                            &                                         \\
+			\equiv & \exists y \forall x, a \quad \mbox{CP}(x \otimes y + a \otimes y) = (x + a) \otimes (x + a)                    & (\mbox{by distributivity of $\otimes$}) \\
+			\equiv & \exists y \forall x, a \quad \mbox{CP}(x \otimes y) + \mbox{CP}(a \otimes y) = (x + a) \otimes (x + a)         & (\mbox{by linearity of CP})             \\
+			\equiv & \exists y \forall x, a \quad x \otimes x + a \otimes a = x \otimes x + x \otimes a + a \otimes x + a \otimes a & \quad (\mbox{by definition of CP})      \\
+			\equiv & \exists y \forall x, a \quad \mathbf 0 = x \otimes a + a \times x
+		\end{alignedat}
+	\end{equation*}
+	which should be true for every $x$ and every $a$, however it does not hold for $x = \ket 0$ and $a = \ket 1$, thus raising a contradiction $\lightning$.
+\end{proof}
+
+The no-cloning theorem represents an inherent limitation of quantum computation, and has direct impacts on \tbf{quantum cryptography} and \tbf{quantum error correction}, but must importantly it directly impacts a phenomenon called \tbf{quantum teleportation}
+
+\subsection{Quantum teleportation}
+
+So far we saw that quantum states cannot be cloned, but can we at least \tit{send} them? Suppose that Alice wants to send Bob $\ket \psi$, described by some $\alpha$ and $\beta$. Clearly, the only thing that Bob has to receive are indeed the probability amplitudes of $\ket \psi$, so even if Alice cannot clone her quantum state, nothing prevents her to build a quantum circuit which \tit{destroys} her $\ket \psi$ but does allow Bob to receive $\alpha$ and $\beta$.
+
+The following is the circuit that allows \tbf{quantum teleportation}:
+
+\centeredimage[The Quantum Teleportation circuit.]{0.8}{../assets/telep.png}
+
+There is quite a lot to unpack in this diagram. First, the quantum state that we want to teleport is $q_0$ in this diagram, and it will be teleported in $q_2$ at the end of the quantum computation.
+
+In the first part of the circuit, we see that $q_1$ and $q_2$ are entangled in a Bell state \todo{parlane nell'EPR} thanks to the Hadamard and the CNOT gates. In a real-world scenario, we will assume that $q_1$ and $q_2$ are given to Alice and Bob respectively, and quantum mechanics will guarantee that the teleportation will work even our two protagonists are thousands of kilometers away from each other.
+
+After entangling $q_1$ and $q_2$, we have the part of circuit that concerns Alice: in fact, she must apply a CNOT to her entangled qubit $q_1$, controlled by $q_0$, and then apply a Hadamard transformation to $q_0$. At this point, the circuit must apply a measurement to both $q_0$ and $q_1$ --- and in particular, this operation will \tit{destroy} the original state as previously anticipated.
+
+Finally, it's Bob's turn: to obtain the original quantum state of $q_0$, the only thing he needs to do is first apply a CNOT to his entangled qubit $q_2$, controlled by $q_1$'s outcome, followed by an application of a CZ \todo{spiega le pauli matrices}, controlled by $q_0$'s outcome instead --- we observe that this part is indicated in the diagram through the $0 \times 2$ and $0 \times 1$ labels respectively. In fact, in the label $0 \times X$ the number $X$ represents the hexadecimal representation of the binary number obtained by joining the classical bits all together --- for instance, in this circuit we have that 2 represents 10, meaning that only $q_1$ will be checked in the condition, and 1 represents 01, which means that only $q_0$ will be the control bit.
+
+\printbibliography % UNCOMMENT FOR BIBLIOGRAPHY
 
 \end{document}
