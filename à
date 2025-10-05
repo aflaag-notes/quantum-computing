@@ -232,8 +232,6 @@ In particular, in this cirtuit we see that:
 
 \centeredimage[An exmaple of measurement of 2 qubits]{0.8}{../assets/meas2.png}
 
-Another very important circuit is the TODO \todo{GHZ}
-
 \section{Peculiarities of quantum mechanics}
 
 \subsection{Quantum entanglment}
@@ -291,7 +289,7 @@ The following is the circuit that allows \tbf{quantum teleportation}:
 
 There is quite a lot to unpack in this diagram. First, the quantum state that we want to teleport is $q_0$ in this diagram, and it will be teleported in $q_2$ at the end of the quantum computation.
 
-In the first part of the circuit, we see that $q_1$ and $q_2$ are entangled in the Bell state $\ket{\Phi^+}$ thanks to the Hadamard and the CNOT gates --- as we described in previous sections. In a real-world scenario, we will assume that $q_1$ and $q_2$ are given to Alice and Bob respectively, and quantum mechanics will guarantee that the teleportation will work even our two protagonists are thousands of kilometers away from each other.
+In the first part of the circuit, we see that $q_1$ and $q_2$ are entangled in a Bell state thanks to the Hadamard and the CNOT gates --- as we described in previous sections. In a real-world scenario, we will assume that $q_1$ and $q_2$ are given to Alice and Bob respectively, and quantum mechanics will guarantee that the teleportation will work even our two protagonists are thousands of kilometers away from each other.
 
 After entangling $q_1$ and $q_2$, we have the part of circuit that concerns Alice: in fact, she must apply a CNOT to her entangled qubit $q_1$, controlled by $q_0$, and then apply a Hadamard transformation to $q_0$. At this point, the circuit must apply a measurement to both $q_0$ and $q_1$ --- and in particular, this operation will \tit{destroy} the original state as previously anticipated.
 

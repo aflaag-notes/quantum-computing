@@ -17,6 +17,53 @@
 \endgroup
 
 \datalist[entry]{anyt/global//global/global/global}
+  \entry{epr}{article}{}{}
+    \name{author}{3}{}{%
+      {{hash=EA}{%
+         family={Einstein},
+         familyi={E\bibinitperiod},
+         given={A.},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=PB}{%
+         family={Podolsky},
+         familyi={P\bibinitperiod},
+         given={B.},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=RN}{%
+         family={Rosen},
+         familyi={R\bibinitperiod},
+         given={N.},
+         giveni={N\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {American Physical Society (APS)}%
+    }
+    \strng{namehash}{EAPBRN1}
+    \strng{fullhash}{EAPBRN1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{EPR35}
+    \field{sortinit}{E}
+    \field{sortinithash}{E}
+    \verb{doi}
+    \verb 10.1103/physrev.47.777
+    \endverb
+    \field{issn}{0031-899X}
+    \field{number}{10}
+    \field{pages}{777–780}
+    \field{title}{Can Quantum-Mechanical Description of Physical Reality Be Considered Complete?}
+    \verb{url}
+    \verb http://dx.doi.org/10.1103/PhysRev.47.777
+    \endverb
+    \field{volume}{47}
+    \field{journaltitle}{Physical Review}
+    \field{month}{05}
+    \field{year}{1935}
+  \endentry
+
   \entry{nocloning}{article}{}{}
     \name{author}{2}{}{%
       {{hash=WWK}{%
