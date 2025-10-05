@@ -111,7 +111,7 @@ So what is a qubit? A qubit is the basic unit of information in quantum computin
 
 In practice, the state of a qubit is a vector $$\ket \psi = \alpha \ket 0 + \beta \ket 1 = \alpha \rmat{1 \\ 0 } + \beta \rmat{0 \\ 1} = \rmat{\alpha \\ \beta}$$ where $\alpha, \beta \in \C$ such that $\abs \alpha ^2 + \abs \beta ^2 = 1$ are called \tbf{probability amplitudes}. But why are we talking about probabilities in the first place? The \curlyquotes{true} state of a qubit \tbf{cannot be observed}, and we say that the qubit is in a \tit{superpotion} of $\ket 0$ and $\ket 1$ in the sense that $\alpha$ and $\beta$ describe the probabilities of getting either states once the qubit is measured. This is because to know the value of a qubit we have to \tit{measure it}, and the measurement operation itself will make the qubit \tit{collapse} into either $\ket 0$ or $\ket 1$ with probabilities $\abs \alpha ^2$ and $\abs \beta ^2$ respectively, i.e. $$\Pr[\mbox{measured qubit is $\ket 0$}] = \abs \alpha ^2 \quad \quad \Pr[\mbox{measured qubit is $\ket 1$}] = \abs \beta ^2$$ To use a more compact notation, we will denote this property as follows: $$\alpha \ket 0 + \beta \ket 1 \soe{ll}{\ket 0 & @ \  \abs{\alpha}^2 \\ \ket 1 & @ \ \abs{\beta}^2}$$ where the $@$ notation (read as \curlyquotes{at}) denotes the probabilty of the corresponding outcome. Note that if we measure a collapsed qubit we will keep observing the same state indefinitely.
 
-In reality, to be precise qubits actually collapse into any multiple $z \ket 0$ or $z\ket 1$, where $z \in \C$ is a complex number such that $\abs z = 1$, but this is not relevant from a physical point of view. In fact, for any $\theta$ physicists treat $\ket \psi = \ket 0$ and $\ket {\psi'} = e^{i \theta} \ket 0 $ as the \tit{same physical state}, because probabilities depend on squared magnitudes and thus $$\abs{e^{i \theta} \alpha}^2 = \abs \alpha^2$$ (and the same applies for $\beta$ too) even though $\ket \psi$ and $\ket {\psi'}$ are different vectors mathematically.
+In reality, to be precise qubits actually collapse into any multiple $z \ket 0$ or $z\ket 1$, where $z \in \C$ is a complex number such that $\abs z = 1$, but this is not relevant from a physical point of view. In fact, for any $\theta$ physicists treat $\ket \psi = \ket 0$ and $\ket {\psi'} = e^{i \theta} \ket 0 $ as the \tit{same physical state}, because probabilities depend on squared magnitudes and thus $$\abs{e^{i \theta} \alpha}^2 = \abs \alpha^2$$ (and the same applies for $\beta$ too) even though $\ket \psi$ and $\ket {\psi'}$ are different vectors mathematically. Therefore, in general we can actually drop the \tbf{global phases} from the qubits entirely.
 
 \section{Qubit operations}
 
@@ -133,9 +133,20 @@ In particular, we observe that the second matrix $\sigma_x$ is exactly the matri
 
 Another very important transformation is represented by the \tbf{Hadamard gate}, which is the following matrix $$H := \dfrac{1}{\sqrt 2}\rmat{1 & 1 \\ 1 & -1}$$ This matrix has the effect of \curlyquotes{mapping} classical states into superpositions: $$H \ket 0 = \dfrac{1}{\sqrt 2}\rmat{1 & 1 \\ 1 & -1} \rmat{1 \\ 0} = \dfrac{1}{\sqrt 2} \rmat{1 \\ 0} = \dfrac{1}{\sqrt 2} (\ket 0 + \ket 1) \soe{ll}{\ket 0 & @ \  \frac{1}{2} \\ \ket 1 & @ \  \frac{1}{2}}$$ For instance, in this example given $\ket 0$ which represents the classical bit 0, we get a qubit as output of the linear transformation. In general, the operation performed by the Hadamard gate can be represented as follows: $$\forall a \in \{0, 1\} \quad \dfrac{1}{\sqrt 2} \rbk{\ket 0 + (-1)^a \ket 1}$$
 
-As a side note, as we mentioned at the beginning of the chapter quantum mechanics has randomness intrinsically, and since the operation $H \ket 0$ returns a qubit that has 50\% of probability of being either $\ket 0$ or $\ket 1$ once measured, this operation provides a \underline{true} random number generator. \todo{side note on Hadamard gate really implemented?}
+As a side note, as we mentioned at the beginning of the chapter quantum mechanics has randomness intrinsically, and since the operation $H \ket 0$ returns a qubit that has 50\% of probability of being either $\ket 0$ or $\ket 1$ once measured, this operation provides a \underline{true} random number generator.
 
-TODO \todo{bloch sphere too bored to do it}
+Lastly, can we \tit{represent} qubits graphically? Well, we may be tempted to anwer negatively to this question, since a qubit is described by two complex numbers $\alpha, \beta \in \C$, which implies that we actually need 4 dimensions to correctly represent our vector. However, through polar coordinates we can actually define a graphical representation which allows us to \curlyquotes{picture} qubits, through the so called \tbf{Bloch sphere}. First, consider a qubit $$\ket \psi = \alpha \ket 0 + \beta \ket 1$$ for some $\alpha, \beta \in \C$ such that $\abs{\alpha}^2 + \abs{\beta}^2 = 1$, as usual. Now, recalling that any complex number $z \in \C$ can be actually written as follows $$z = \abs z e^{i \theta}$$ for some angle $\theta$, we can actually rewrite our qubit as follows:
+\begin{equation*}
+	\begin{alignedat}{2}
+		\ket \psi & = \abs \alpha e^{i \theta_\alpha} \ket 0 + \abs \beta e^{i \theta_\beta} \ket 1                             &                                                                            \\
+		          & = e^{i \theta_\alpha} \rbk{\abs \alpha \ket 0 + \abs \beta e^{i \rbk{\theta_\beta - \theta_\alpha}} \ket 1} &                                                                            \\
+		          & = \abs \alpha \ket 0 + \abs \beta e^{i \rbk{\theta_\beta - \theta_\alpha}} \ket 1                           & \quad \rbk{\mbox{$e^{i \theta_\alpha}$ is a global phase}}                 \\
+		          & = \abs \alpha \ket 0 + e^{i \varphi} \ket 1                                                                 & \quad (\mbox{let $\varphi: = \theta_\beta - \theta_\alpha \in [0, 2\pi)$}) \\
+	\end{alignedat}
+\end{equation*}
+and finally, since $\abs{\alpha}^2 + \abs{\beta}^2 = 1$, is precisely the equation of the circumference of radius 1, we usually rewrite the last equation as follows: $$\ket \psi = \cos{\rbk{\dfrac{\theta}{2}}} \ket 0+ e^{i \varphi} \sin{\rbk{\dfrac{\theta}{2}}} \ket 1$$ where $\theta \in [0, \pi], \varphi \in [0, 2\pi)$. This formulation of the qubit $\ket \psi$ allows us to represent it inside the Bloch sphere: in fact, in this formulation the qubit is normalized, which implies that it will lie on a 3 dimensional unit sphere, and it is described by the two phases $\theta$ and $\varphi$ --- in 2D polar coordinates there is only 1 angle, as in 3D polar coordinate there are two angles.
+
+\centeredimage[The Bloch sphere representing some qubit.]{0.2}{../assets/bloch.png}
 
 \subsection{The tensor product}
 
@@ -230,9 +241,13 @@ In particular, in this cirtuit we see that:
 	\item the number 0 is the index of the measured qubit
 \end{itemize}
 
-\centeredimage[An exmaple of measurement of 2 qubits]{0.8}{../assets/meas2.png}
+\centeredimage[An exmaple of measurement of 2 qubits.]{0.8}{../assets/meas2.png}
 
-Another very important circuit is the TODO \todo{GHZ}
+Lastly, another very important circuit is the following, which produces the so called \tbf{Greenberger-Horne-Zeilinger (GHZ)} state
+
+\centeredimage[The GHZ quantum circuit.]{0.8}{../assets/ghz.png}
+
+which is represented as follows $$\ket{\mbox{GHZ}} := \dfrac{1}{\sqrt 2}\rbk{\ket{000} + \ket{111}}$$
 
 \section{Peculiarities of quantum mechanics}
 
