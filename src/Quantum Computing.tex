@@ -236,7 +236,7 @@ We observe that $q_1$ then becomes the output of the CNOT operation, and $q_0$ r
 In particular, in this cirtuit we see that:
 
 \begin{itemize}
-	\item the vertical \curlyquotes{double lines} reprents \tit{classical bits}
+	\item the vertical \curlyquotes{double line} reprents \tit{classical bits}
 	\item the number 1 next to the label \curlyquotes{meas} indicates the number of qubits that have been measured
 	\item the number 0 is the index of the measured qubit
 \end{itemize}
@@ -251,7 +251,7 @@ which is represented as follows $$\ket{\mbox{GHZ}} := \dfrac{1}{\sqrt 2}\rbk{\ke
 
 \section{Peculiarities of quantum mechanics}
 
-\subsection{Quantum entanglment}
+\subsection{Quantum entanglement}
 
 Consider the following quantum state $$\ket \psi = \dfrac{1}{\sqrt 2}\rbk{\ket {01} + \ket {10}}$$ Can this state be rewritten as the tensor product of two distinct quantum states? We observe that for this to be possible we would require some complex values $\alpha_0, \alpha_1, \beta_0, \beta_1$ such that $$\soe{l}{\alpha_0 \beta_0 = \alpha_1 \beta_1 = 0 \\ \alpha_0 \beta_1 = \alpha_1 \beta_0 = \tfrac{1}{\sqrt 2}}$$ but $\alpha_0 \beta_0 = 0$ implies that at least one between $\alpha_0$ and $\beta_0$ has to be 0, meaning that at least one between $\alpha_0\beta_1$ and $\alpha_1\beta_0$ has to be 0 as well. This proves that there is no such pair of quantum states which can describe $\ket \psi$ through the tensor product operation. In fact, we see that $$\ket \psi = \dfrac{1}{\sqrt 2}\rbk{\ket{01} + \ket{10}}  \soe{ll}{\ket{01} & @ \ \tfrac{1}{2} \\ \ket{10} & @ \ \tfrac{1}{2}}$$ Indeed, this particular state we chose is one of the so called \tbf{Bell states}.
 
@@ -262,6 +262,8 @@ Consider the following quantum state $$\ket \psi = \dfrac{1}{\sqrt 2}\rbk{\ket {
 Whenever we have a state $\ket \psi$ that cannot be represented as the tensor product of two simpler quantum states, we say that the state is \tbf{entangled} --- or that its possible outcomes are entangled. In particular, entangled states describe a very weird phenomenon first proposed as a thought experiment in a groundbreaking paper by \tbf{Einstein, Podolsky and Rosen (EPR)} \cite{epr}, the so called \tbf{EPR paradox}.
 
 The thought experiment involves a pair of particles prepared in such \tit{entangled state}. Einstein, Podolsky, and Rosen pointed out that, in this state, if the position of the first particle were measured, the result of measuring the position of the second particle \tit{could be predicted}. If instead the momentum of the first particle were measured, then the result of measuring the momentum of the second particle could be predicted. They argued that no action taken on the first particle could instantaneously affect the other, since this would involve information being transmitted faster than light, which is impossible according to the theory of relativity. Einstein famously called this phenomenon \curlyquotes{spooky action at a distance}, and to the best of our knowledge the theory of quantum mechanics says that if we have two engangled states, and measure one of them --- for instance, say that it collapses to $\ket 0$ --- the other state will \tbf{instantaneously} collapse to $\ket 1$ (and viceversa). They are \tit{perfectly anti-correlated}, even if the two states are phisically light-years away from each other.
+
+To be precise, entanglement is \tit{not} a way to tranfer information --- collapsing happens instantaneously, which would violate the fact that nothing can travel faster than light, not even information. Instead, it is a way to share correlations nonlocally. In fact, it is a phenomenon that regards the \tit{whole quantum system} considered: for instance, given three qubits $q_0, q_1, q_2$, such that $q_1$ and $q_2$ are entangled, we might want to only measure $q_0 \otimes q_1$, which in turn will make $q_2$ collapse into some quantum state that has to be mathematically computed in order to be predicted --- this will be more clear when we will describe \tbf{quantum teleportation} in \cref{quantum teleportation}.
 
 To finish off this section, we can actually generate entangled states, or \tbf{EPR pairs} for short, through quantum gates as such:
 
@@ -296,21 +298,74 @@ In 1982 \textcite{nocloning} proved the so called \tbf{no-cloning theorem}, whic
 
 The no-cloning theorem represents an inherent limitation of quantum computation, and has direct impacts on \tbf{quantum cryptography} and \tbf{quantum error correction}, but must importantly it directly impacts a phenomenon called \tbf{quantum teleportation}
 
-\subsection{Quantum teleportation}
+\subsection{Quantum teleportation} \label{quantum teleportation}
 
-So far we saw that quantum states cannot be cloned, but can we at least \tit{send} them? Suppose that Alice wants to send Bob $\ket \psi$, described by some $\alpha$ and $\beta$. Clearly, the only thing that Bob has to receive are indeed the probability amplitudes of $\ket \psi$, so even if Alice cannot clone her quantum state, nothing prevents her to build a quantum circuit which \tit{destroys} her $\ket \psi$ but does allow Bob to receive $\alpha$ and $\beta$.
-
-The following is the circuit that allows \tbf{quantum teleportation}:
+So far we saw that quantum states cannot be cloned, but can we at least \tit{send} them? Suppose that Alice wants to send Bob $\ket \psi$, described by some $\alpha$ and $\beta$. Clearly, the only thing that Bob has to receive are indeed the probability amplitudes of $\ket \psi$, so even if Alice cannot clone her quantum state, nothing prevents her to build a quantum circuit which \tit{destroys} her $\ket \psi$ but does allow Bob to receive $\alpha$ and $\beta$. This process is called \tbf{quantum teleportation}, and can be achieved through the following quantum circuit:
 
 \centeredimage[The Quantum Teleportation circuit.]{0.8}{../assets/telep.png}
 
 There is quite a lot to unpack in this diagram. First, the quantum state that we want to teleport is $q_0$ in this diagram, and it will be teleported in $q_2$ at the end of the quantum computation.
 
-In the first part of the circuit, we see that $q_1$ and $q_2$ are entangled in the Bell state $\ket{\Phi^+}$ thanks to the Hadamard and the CNOT gates --- as we described in previous sections. In a real-world scenario, we will assume that $q_1$ and $q_2$ are given to Alice and Bob respectively, and quantum mechanics will guarantee that the teleportation will work even our two protagonists are thousands of kilometers away from each other.
+In the first part of the circuit, we see that $q_1$ and $q_2$ are entangled (in an initial stage of the process, not performed by Alice nor Bob) in the Bell state $\ket{\Phi^+}$ thanks to the Hadamard and the CNOT gates --- as we described in previous sections. In a real-world scenario, we will assume that $q_1$ and $q_2$ are given to Alice and Bob respectively (through some \tbf{quantum channel} such as optical fibers or free-space links in order to avoid \tit{decoherence}), and quantum mechanics will guarantee that the teleportation will work even our two protagonists are thousands of kilometers away from each other.
 
-After entangling $q_1$ and $q_2$, we have the part of circuit that concerns Alice: in fact, she must apply a CNOT to her entangled qubit $q_1$, controlled by $q_0$, and then apply a Hadamard transformation to $q_0$. At this point, the circuit must apply a measurement to both $q_0$ and $q_1$ --- and in particular, this operation will \tit{destroy} the original state as previously anticipated.
+After creating and entangling $q_1$ and $q_2$ (say for instance in a lab as preparation), we have the part of circuit that concerns Alice: in fact, she must apply a CNOT to her entangled qubit $q_1$, controlled by $q_0$, and then apply a Hadamard transformation to $q_0$. At this point, the circuit must apply a measurement to both $q_0$ and $q_1$ --- and in particular, this operation will \tit{destroy} the original state as previously anticipated.
 
-Finally, it's Bob's turn: to obtain the original quantum state of $q_0$, the only thing he needs to do is first apply a CNOT to his entangled qubit $q_2$, controlled by $q_1$'s outcome, followed by an application of a CZ, controlled by $q_0$'s outcome instead --- we observe that this part is indicated in the diagram through the $0 \times 2$ and $0 \times 1$ labels respectively. In fact, in the label $0 \times X$ the number $X$ represents the hexadecimal representation of the binary number obtained by joining the classical bits all together --- for instance, in this circuit we have that 2 represents 10, meaning that only $q_1$ will be checked in the condition, and 1 represents 01, which means that only $q_0$ will be the control bit.
+Finally, it's Bob's turn: to obtain the original quantum state of $q_0$, the only thing he needs to do is first apply a CNOT to his entangled qubit $q_2$, controlled by $q_1$'s outcome, followed by an application of a CZ, controlled by $q_0$'s outcome instead --- we observe that this part is indicated in the diagram through the \texttt{0x2} and \texttt{0x1} labels respectively. In fact, in the label \texttt{0xX} the number \texttt X represents the hexadecimal representation of the binary number obtained by joining the classical bits all together --- for instance, in this circuit we have that 2 represents 10, meaning that only $q_1$ will be checked in the condition, and 1 represents 01, which means that only $q_0$ will be the control bit.
+
+To show why the circuit actually works, we first need to discuss how computations with qubits and quantum gates is performed. In particular, we do not consider qubits \tit{individually}, but instead we consider the whole \tbf{system} of qubits, i.e. $q_0 \otimes q_1 \otimes q_2$ simultaneously, and thus we will perform calculations as such. In fact, even if the drawing represents Alice's measurements of $q_0$ and $q_1$ independently, what happens in reality is that Alice is going to measure $q_0 \otimes q_1$ such that $q_3$ will collapse into its opposite.
+
+Finally, we are ready to prove the correctness of the quantum teleportation circuit. First, we need to represent the initial quantum state, namely
+\begin{equation*}
+	\begin{split}
+		  & q_0 \otimes q_1 \otimes q_2                                                                                                                 \\
+		= & \ket \psi \otimes \ket{\Phi^+}                                                                                                              \\
+		= & (\alpha \ket{0}_{0} + \beta \ket{1}_{0}) \otimes \dfrac{1}{\sqrt 2}(\ket{00}_{12} + \ket{11}_{12})                                          \\
+		= & \dfrac{1}{\sqrt 2} [\alpha \ket{0}_{0} \otimes (\ket{00}_{12} + \ket{11}_{12}) + \beta \ket{1}_{0} \otimes (\ket{00}_{12} + \ket{11}_{12})]
+	\end{split}
+\end{equation*}
+where the notation $\ket{00}_{12}$ represents for example that we are considering $q_1$ and $q_2$'s parts of states, respectively. From now on, we will omit the $\otimes$ symbol --- as for the \curlyquotes{normal} product. The next step is to apply the CNOT on $q_0$ and $q_1$, therefore the quantum state of the system becomes the following: $$\dfrac{1}{\sqrt 2}\sbk{\alpha \ket{0}_{0} (\ket{00}_{12} + \ket{11}_{12}) + \beta \ket{1}_{0} (\ket{10}_{12} + \ket{01}_{12})}$$ Next, we have to apply the Hadamard gate on $q_0$, which turns the quantum state into the following
+\begin{equation*}
+	\begin{split}
+		  & \dfrac{1}{\sqrt 2} \sbk{
+			\alpha \dfrac{1}{\sqrt 2} ( \ket{0}_{0} + \ket{1}_{0} ) ( \ket{00}_{12} + \ket{11}_{12} )
+			+ \beta \dfrac{1}{\sqrt 2} ( \ket{0}_{0} - \ket{1}_{0} ) ( \ket{10}_{12} + \ket{01}_{12} )
+		}                            \\
+		= & \dfrac{1}{2} \sbk{
+			\alpha ( \ket{000}_{012} + \ket{011}_{012} + \ket{100}_{012} + \ket{111}_{012} )
+			+ \beta ( \ket{010}_{012} + \ket{001}_{012} - \ket{110}_{012} - \ket{101}_{012} )
+		}                            \\
+		= & \dfrac{1}{2} \sbk{
+			\ket{00}_{01} ( \alpha \ket{0}_{2} + \beta \ket{1}_{2} )
+			+ \ket{01}_{01} ( \beta \ket{0}_{2} + \alpha \ket{1}_{2} )  + \ket{10}_{01} ( \alpha \ket{0}_{2} - \beta \ket{1}_{2} )
+			+ \ket{11}_{01} ( \alpha \ket{1}_{2} - \beta \ket{0}_{2} )
+		}                            \\
+		= & \dfrac{1}{2} \sbk{
+			\ket{00}_{01} \ket{\psi}_{2}
+			+ \ket{01}_{01} X \ket{\psi}_{2}
+			+ \ket{10}_{01} Z \ket{\psi}_{2}
+			+ \ket{11}_{01} XZ \ket{\psi}_{2}
+		}
+	\end{split}
+\end{equation*}
+Finally, Alice will perform the measurement on $q_0$ and $q_1$, and what will happen is that the \tit{whole} quantum state of the quantum circuit will collapse as follows: $$\soe{ll}{\ket{00}_{01} \otimes \ket \psi_2 & @ \ \tfrac{1}{4} \\ \ket{01}_{01} \otimes X \ket \psi_2 & @ \ \tfrac{1}{4} \\ \ket{10}_{01} \otimes Z \ket \psi_2 & @ \ \tfrac{1}{4} \\ \ket{11}_{01} \otimes XZ \ket \psi_2 & @ \ \tfrac{1}{4}}$$ Note that to perform the measurement operation on just $q_0$ and $q_1$ we would need some mathematical tools that are outside the scope of this course, therefore we will only show the probabilities of the outcomes as presented above. In fact, fom this table we can easily explain the last part of the quantum teleportation circuit, i.e. Bob's part, as shown below.
+
+\begin{center}
+	\begin{tabular}{c|c|c}
+		\hline
+		Alice's outcome & Bob's part & Bob's result                 \\
+		\hline\hline
+		0 and 0         & $I$        & $\ket \psi$                  \\
+		\hline
+		0 and 1         & $X$        & $XX \ket \psi = \ket \psi$   \\
+		\hline
+		1 and 0         & $Z$        & $ZZ \ket \psi = \ket \psi$   \\
+		\hline
+		1 and 1         & $XZ$       & $XZXZ \ket \psi = \ket \psi$ \\
+		\hline
+	\end{tabular}
+\end{center}
+
+Lastly, note that even if the mathematical calculations don't highlight the fact that $q_0$ and $q_1$ are measured, these two bits are effectively \tit{destroyed} as we already described. In fact, $q_2$ will be the only usable qubit after the whole process --- for instance, nothing prevents us from applying more transformations on the state $\ket{00}_{01} \otimes \ket \psi_2$ \tit{mathematically}, but in reality $q_0$ and $q_1$ are not usable anymore.
 
 \printbibliography % UNCOMMENT FOR BIBLIOGRAPHY
 

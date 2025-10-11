@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2025.8.29)  5 OCT 2025 18:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2025.8.29)  11 OCT 2025 19:00
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1841,14 +1841,14 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 Package cleveref Info: loaded `english' language definitions on input line 265.
 [11]
-<../assets/epr.png, id=192, 174.1707pt x 125.7498pt>
+<../assets/epr.png, id=193, 174.1707pt x 125.7498pt>
 File: ../assets/epr.png Graphic file (type png)
 <use ../assets/epr.png>
-Package pdftex.def Info: ../assets/epr.png  used on input line 268.
+Package pdftex.def Info: ../assets/epr.png  used on input line 270.
 (pdftex.def)             Requested size: 139.33675pt x 100.59996pt.
 
 
-Package cleveref Info: loaded `english' language definitions on input line 281.
+Package cleveref Info: loaded `english' language definitions on input line 278.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1856,7 +1856,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 281.
+Package cleveref Info: loaded `english' language definitions on input line 278.
 [12 <../assets/epr.png>]
 <../assets/telep.png, id=201, 500.1084pt x 218.9781pt>
 File: ../assets/telep.png Graphic file (type png)
@@ -1876,7 +1876,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 Package cleveref Info: loaded `english' language definitions on input line 306.
 [13]
 
-Package cleveref Info: loaded `english' language definitions on input line 315.
+Package cleveref Info: loaded `english' language definitions on input line 318.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1884,11 +1884,43 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 315.
+Package cleveref Info: loaded `english' language definitions on input line 318.
 [14 <../assets/telep.png>]
+Overfull \hbox (56.3396pt too wide) detected at line 349
+[]
+ []
 
-Package cleveref Info: loaded `english' language definitions on input line 317.
-[15
+
+Overfull \hbox (30.0pt too wide) in paragraph at lines 349--349
+[] 
+ []
+
+
+
+Package cleveref Info: loaded `english' language definitions on input line 369.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+Package cleveref Info: loaded `english' language definitions on input line 369.
+[15]
+
+Package cleveref Info: loaded `english' language definitions on input line 370.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+Package cleveref Info: loaded `english' language definitions on input line 370.
+[16]
+
+Package cleveref Info: loaded `english' language definitions on input line 372.
+[17
 
 ] (./Quantum Computing.aux
 Package cleveref Info: loaded `english' language definitions on input line 12.
@@ -1902,24 +1934,24 @@ L3 programming layer <2025-01-18>
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `"Quantum Computing".out' has not changed.
-(rerunfilecheck)             Checksum: 796DAF41CEA5B537AC32E8A0D3BD6324;1823.
+(rerunfilecheck)             Checksum: 203D62360A996F22F9645AC69861CDA8;1828.
 Package logreq Info: Writing requests to '"Quantum Computing".run.xml'.
 \openout1 = `"Quantum Computing.run.xml"'.
 
  ) 
 Here is how much of TeX's memory you used:
- 76208 strings out of 475119
- 1860263 string characters out of 5765716
- 3060460 words of memory out of 5000000
- 98178 multiletter control sequences out of 15000+600000
+ 76212 strings out of 475119
+ 1860328 string characters out of 5765716
+ 3060564 words of memory out of 5000000
+ 98180 multiletter control sequences out of 15000+600000
  586168 words of font info for 96 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  119i,22n,123p,1908b,2247s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf-dist/fonts/type1/public/tex-gyre/qtmr.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc1728.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc2074.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfti1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb></usr/share/texmf-dist/fonts/type1/public/stmaryrd/stmary10.pfb>
-Output written on "Quantum Computing.pdf" (17 pages, 507859 bytes).
+Output written on "Quantum Computing.pdf" (19 pages, 515406 bytes).
 PDF statistics:
- 353 PDF objects out of 1000 (max. 8388607)
- 257 compressed objects within 3 object streams
- 49 named destinations out of 1000 (max. 500000)
+ 363 PDF objects out of 1000 (max. 8388607)
+ 265 compressed objects within 3 object streams
+ 51 named destinations out of 1000 (max. 500000)
  157 words of extra memory for PDF output out of 10000 (max. 10000000)
 
