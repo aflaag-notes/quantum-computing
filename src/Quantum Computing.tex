@@ -115,13 +115,7 @@ In reality, to be precise qubits actually collapse into any multiple $z \ket 0$ 
 
 \section{Qubit operations}
 
-What can we do with qubits other then \tit{measure them}? The operations that can be applied on qubits are restricted to \tbf{unitary transformations}.
-
-\begin{frameddefn}{Unitary transformation}
-	A transformation $U$ is said to be \tbf{unitary} if it preserves the norm of its input vector, i.e. $$\forall v \quad \norm{Uv} = \norm v$$
-\end{frameddefn}
-
-For instance, the identity matrix $I$ is an example of trivial unitary transformation, but also the NOT matrix, which is the following $$\mbox{NOT} := \rmat{0 & 1 \\ 1 & 0}$$ which has the effect of \tit{swapping} the input basis state $$\mbox{NOT} \ket 0 = \ket 1 \quad \quad \mbox{NOT} \ket 1 = \ket 0$$ This matrix behaves as the classical NOT gate with the usual bits in classical computing, in fact will refer to \tit{transformations} and \tit{gates} interchangeably.
+What can we do with qubits other then \tit{measure them}? The operations that can be applied on qubits are restricted to \tbf{unitary transformations}, which are linear maps that preserve the norms --- we will discuss the precise definition in the next chapter. For instance, the identity matrix $I$ is an example of trivial unitary transformation, but also the NOT matrix, which is the following $$\mbox{NOT} := \rmat{0 & 1 \\ 1 & 0}$$ which has the effect of \tit{swapping} the input basis state $$\mbox{NOT} \ket 0 = \ket 1 \quad \quad \mbox{NOT} \ket 1 = \ket 0$$ This matrix behaves as the classical NOT gate with the usual bits in classical computing, in fact will refer to \tit{transformations} and \tit{gates} interchangeably.
 
 More in general, the NOT operation belongs to a family of operation represented by the so called \tbf{Pauli matrices}.
 
@@ -180,10 +174,8 @@ where the probabilities at the end refer to the two individual qubits. To recap,
 Moreover, the following property can be proved easily.
 
 \begin{framedprop}{Distributive property of $\otimes$}
-	Given three qubits $\ket \psi, \ket \phi$ and $\ket \chi$, it holds that $$(\ket \psi + \ket \phi) \otimes \ket \chi = \ket \psi \otimes + \ket \phi \otimes \ket \chi$$
+	Given three qubits $\ket \psi, \ket \phi$ and $\ket \chi$, it holds that $$(\ket \psi + \ket \phi) \otimes \ket \chi = \ket \psi \otimes \ket \chi + \ket \phi \otimes \ket \chi$$
 \end{framedprop}
-
-TODO \todo{tensor product tra matrici? me va?}
 
 \subsection{Controlled operations}
 
@@ -366,6 +358,333 @@ Finally, Alice will perform the measurement on $q_0$ and $q_1$, and what will ha
 \end{center}
 
 Lastly, note that even if the mathematical calculations don't highlight the fact that $q_0$ and $q_1$ are measured, these two bits are effectively \tit{destroyed} as we already described. In fact, $q_2$ will be the only usable qubit after the whole process --- for instance, nothing prevents us from applying more transformations on the state $\ket{00}_{01} \otimes \ket \psi_2$ \tit{mathematically}, but in reality $q_0$ and $q_1$ are not usable anymore.
+
+\chapter{Mathematical foundations}
+
+Now that we laid down some preliminary concepts regarding quantum machanics and quantum computaions, we need to discuss some \tbf{mathematical foundations} in order to progress and achieve a deeper meaning of the tools that we are going to use. In fact, at the end of this chapter we will state precisely the postulates of quantum mechanics, but in order to understand them we need to introduce some crucial definitions.
+
+We will start our mathematical discussion with the definition of \tbf{scalar product} --- we will assume the definitions of vector space, basis and linear independence are already known by the reader.
+
+\begin{frameddefn}{Scalar product}
+	Given a scalar product vector space $V$, a \tbf{scalar product} $\funcmap{\braket{\cdot , \cdot }}{V \times V}{\C}{(v, w)}{\braket{v,w}}$ is a function that satisfies the following properties:
+
+	\begin{itemize}
+		\item $\forall u, v, w \in V, \alpha, \beta \in \C \quad \braket{u,\alpha v + \beta w} = \alpha \braket{u|v} + \beta \braket{u| w}$
+		\item $\forall u, v \in V \quad \overline{\braket{u,v}} = \braket{v, u}$ --- where $\overline z$ is the conjugate of $z \in \C$
+		\item $\forall u \in U \quad \braket{u, u} \ge 0$ and $\braket{u, u} = 0$ if and only if $u = 0$
+	\end{itemize}
+\end{frameddefn}
+
+Scalar products are also called \tit{inner product}, and are used to define many other tools on top of the vector space considered.
+
+\begin{framedprop}{}
+	For any scalar product vector space $V$, any scalar product satisfies the following property: $$\forall u, v, w \in V, \alpha, \beta \in \C \quad \braket{\alpha u + \beta v, w} = \overline \alpha \braket{u, w} + \overline \beta \braket{v, w}$$
+\end{framedprop}
+
+\begin{proof}
+	TODO \todo{TODO}
+\end{proof}
+
+In particular, the scalar product that we are going to use for our purposes is defined as follows: $$\forall u, v \in \C^n \quad \braket{u, v} = \sum_{i = 1}^n{\overline{u_i} v_i}$$ In fact, we can prove that this is indeed a scalar product as follows:
+
+\begin{itemize}
+	\item TODO \todo{TODO}
+	\item TODO \todo{TODO}
+	\item TODO \todo{TODO}
+\end{itemize}
+
+From now on, when we refer to a \curlyquotes{scalar product} we will refer to this particular definition.
+
+We are finally ready to explain the \curlyquotes{braket} that we used from the beginning of the previous chapter. This notation was invented by the Nobel Prize in Physics \href{https://it.wikipedia.org/wiki/Paul_Dirac}{Paul Dirac}, and it works as follows: first, observe that our scalar product can be rewritten as follows $$\braket{u, v} = \rmat{\overline{u_1} \cdots \overline{u_n}} \rmat{v_1 \\ \vdots \\ v_n}$$ To be precise, this product would yield a $1 \times 1$ matrix, which can be interpreted as a scalar. Through Dirac notation, we will write $$\braket{u, v} = \braket{u | v}$$ where $\bra u$ is called \tbf{bra}, and $\ket v$ is called \tbf{ket} (as in \curlyquotes{bra-ket}). In other words, we have that $\ket v$ is just a regular column vector $v \in V$ $$\ket v = \rmat{v_1 \\ \vdots \\ v_n}$$ defined over some scalar product vector space $V$, while $\bra u$ is a \tit{linear map} that acts as follows: $$\funcmap{\bra \cdot}{V}{\overline V}{\rmat{u_1 \cdots u_n}}{\rmat{\overline{u_1} \cdots \overline{u_n}}}$$
+
+\begin{framedthm}{Cauchy-Schwarz inequality}
+	Given a scalar product vector space $V$, it holds that $$\forall u, v \in V \quad \abs{\braket{u|v}} \le \sqrt{\braket{u|v} \braket{u|v}}$$ where the equality holds if and only if $u$ and $v$ are linearly independent.
+\end{framedthm}
+
+Moreover, our scalar product induces a \tbf{norm}, which is defined as follows.
+
+\begin{frameddefn}{Norm}
+	Given a scalar product vector space $V$, the \tbf{norm} of a vector $v \in V$ is defined as follows $$\norm v = \sqrt{\braket{v|v}}$$
+\end{frameddefn}
+
+As usual, two vectors $u, v \in V$ are said to be \tbf{orthogonal} if $\braket{u|v} = 0$. This allows us to define orthonormal bases.
+
+\begin{frameddefn}{Orthonormal basis}
+	Given a scalar product vector space $V$, a basis $\{e_1, \ldots, e_n\}$ is said to be \tbf{orthonormal} if $$\forall i, j \in [n] \quad \braket{e_i | e_j} = \delta_{ij}$$ where $\delta_{ij} = \soe{ll}{1 & i = j \\ 0 & i \neq j}$ is called \tbf{Kronecker delta}.
+\end{frameddefn}
+
+
+Let's see the Dirac notation in action. Consider an orthonormal basis $\{e_1, \ldots, e_n\}$ for some scalar product vector space $V$; by definition, we know that we can write any vector $u \in V$ as follows $$u = \sum_{i = 1}^n{\alpha_i e_i}$$ for some coefficients $\alpha_1, \ldots, \alpha_n \in \C$. Now, we observe that for all $i \in [n]$
+\begin{equation*}
+	\begin{alignedat}{2}
+		\braket{e_i|u} & = \braket{e_i|\sum_{j = 1}^n{\alpha_j e_j}}                      & \\
+		               & = \abk{e_i \middle|\alpha_1e_1 + \ldots + \alpha_n e_n}               & \\
+		               & = \alpha_1 \braket{e_i|e_1} + \ldots + \alpha_n \braket{e_i|e_n} & \\
+		               & = \sum_{j = 1}^n{\alpha_j\braket{e_i | e_j}}                     & \\
+		               & = \sum_{j = 1}^n{\alpha_j \delta_{ij}}                           & \\
+		               & = \alpha_i                                                       & \\
+	\end{alignedat}
+\end{equation*}
+Indeed, with the scalar product we can compute the projection of $u$ onto the $i$-th vector of the basis. Hence, we can rewrite the first equation as follows: $$\ket u = \sum_{i = 1}^n{\alpha_i \ket{e_i}} = \sum_{i = 1}^n{\braket{e_i|u} \ket{e_i}}$$ In particular, we observe that $$\ket u = \sum_{i = 1}^n{\ket{e_i} \braket{e_i|u}} \implies I = \sum_{i = 1}^n{\ket{e_i} \bra{e_i}}$$ which is a famous identity in quantum mechanics called \tbf{resolution of the identity}. As a final note, by the properties of scalar products we also have that $$\braket{v|u} = \abk{v \middle| \sum_{i = 1}^n{\braket{e_i|u} \ket{e_i}}} = \sum_{i = 1}^n {\braket{v|e_i} \braket{e_i|u}}$$
+
+\begin{framedprop}{}
+    Given a scalar product vector space $V$, it holds that $$\forall u, v, w \in V \quad \braket{u|v} \ket w = (\ket w \bra u) \ket v$$
+\end{framedprop}
+
+\begin{proof}
+    TODO \todo{TODO}
+\end{proof}
+
+\section{Hilbert spaces}
+
+Now that we covered Dirac notation, we can describe what are \tbf{Hilbert spaces} --- we will see why we care about this particular type of vector spaces later in the chapter. First, consider the following definitions.
+
+\begin{frameddefn}{Weak convergence}
+	Given a scalar product vector space $V$, and a vector sequence $\{v_m\}_{m \in \N}$ defined over $V$, we say that the sequence \tbf{converges weakly} to a vector $v \in V$ if $$\forall w \in V \quad \lim_{m \to + \infty}{\braket{v_m|w}} = \braket{v|w}$$
+\end{frameddefn}
+
+In other words, this type ocf convergence requires all projections of $v_m$ along any fixed direction $w$ to approach the projection of $v$. Differently, the next type of convergence is more strict.
+
+\begin{frameddefn}{Strong convergence}
+	Given a scalar product vector space $V$, and a vector sequence $\{v_m\}_{m \in \N}$ defined over $V$, we say that the sequence \tbf{converges strongly} to a vector $v \in V$ if $$\lim_{m \to + \infty}{\norm{v - v_m}} = 0$$
+\end{frameddefn}
+
+In fact, this type of convergence requires the actual vectors of the sequence to get close \tit{in norm} to $v$. We observe the following proposition.
+
+\begin{framedprop}{}
+	Given a scalar product vector space $V$, and a vector sequence $\{v_m\}_{m \in \N}$ defined over $V$, if the sequence converges strongly to some vector $v \in V$, it holds that
+
+	\begin{itemize}
+		\item the sequence also converges weakly
+		\item the scalar products defined over $V$ are continuous, i.e. $$\forall u, v \in V \quad \braket{u|v} = \lim_{m \to + \infty}{\braket{u|v_m}}$$
+	\end{itemize}
+\end{framedprop}
+
+\begin{frameddefn}{Cauchy sequence}
+	Given a scalar product vector space $V$, and a vector sequence $\{v_m\}_{m \in \N}$ defined over $V$, we say that the sequence is a \tbf{Cauchy sequence} if it holds that $$\forall \varepsilon > 0 \quad \exists n_\varepsilon \in \N \quad \forall n, m > n_\varepsilon \quad \norm{v_n - v_m} < \varepsilon$$
+\end{frameddefn}
+
+For example, let's consider the space $\R^2$ equipped with the Euclidean norm $$\norm v =  \sqrt{x^2 + y^2}$$ Then, if we consider the following vector sequence $$\cbk{\rmat{\tfrac{1}{m} \\ \vdots \\ \tfrac{1}{m}}}_{m \in \N}$$ we see that for any distinct $m, n$ it holds that $$\norm{v_m - v_n} = \sqrt{\rbk{\dfrac{1}{m} -\dfrac{1}{n}}^2 + \rbk{\dfrac{1}{m} -\dfrac{1}{n}}^2} = \sqrt 2 \abs{\dfrac{1}{m} -\dfrac{1}{n}}$$ Therefore, for any $\varepsilon > 0$ it suffices to take any $N > \dfrac{2 \sqrt 2}{\varepsilon}$ such that $$\forall m, n > N \quad \norm{v_m - v_n} < \varepsilon$$
+
+We are finally ready to define Hilbert spaces.
+
+\begin{frameddefn}{Hilbert space}
+	A \tbf{Hilbert space} is a \tit{complete} scalar product vector space, i.e. it is a vector space
+
+	\begin{itemize}
+		\item equipped with a scalar product
+		\item such that every Cauchy sequence converges strongly to an element in the space.
+	\end{itemize}
+\end{frameddefn}
+
+For example, the space $\R^n$ is a Hilbert space. Indeed, since every finite vector space of size $n$ is isomporphic to $\R^n$, we can immediately derive the following proposition.
+
+\begin{framedprop}{}
+	Finite-dimensional vector spaces are always complete.
+\end{framedprop}
+
+\subsection{Linear operators}
+
+Given a Hilbert space $\mathcal H$, we can define \tbf{operators} --- which are nothing but linear maps.
+
+\begin{frameddefn}{Adjoint operator}
+	Given a Hilbert space $\mathcal H$, and an operator $A$, the \tbf{adjoint} operator of $A$, denoted with $A^\dag$, is a linear map that satisfies the following property $$\forall u, v \in \mathcal H \quad \braket{u|A^\dag v} = \braket{Au|v}$$ We say that an operator $A$ is \tbf{self-adjoint}, or \tit{Hermitian}, if and only if $A = A^\dag$.
+\end{frameddefn}
+
+For instance, the following matrix $S = \rmat{1 & 0 \\ 0 & i}$ is a linear operator whose adjoint is $S^\dag = \rmat{1 & 0 \\ 0 & -i}$. In fact, we have that $$\braket{u|S^\dag v} = \rmat{\overline{u_1} & \overline{u_2}} \rmat{1 & 0 \\ 0 & -i} \rmat{v_1 \\ v_2} = \rmat{\overline{u_1} & \overline{u_2}} \rmat{v_1 \\ -iv_2} = \overline{u_1}v_1 - i\overline{u_2}v_2$$ and since $$Su = \rmat{1 & 0 \\ 0 & i}\rmat{u_1 \\ u_2} = \rmat{u_1 \\ iu_2} \implies \bra{Su} = \rmat{\overline{u_1} & \overline{i u_2}}$$ but because $\overline{iu_2} = \overline i \cdot \overline{u_2} = -i \overline{u_2}$ this implies that $$\braket{Su |v} = \rmat{\overline{u_1} & -i\overline{u_2}} \rmat{v_1 \\ v_2} = \overline{u_1}v_2 - i\overline{u_2}v_2$$
+
+\begin{framedprop}{}
+	For any adjoint operators $A, B$ defined over some Hilbert space $\mathcal H$, it holds that
+
+	\begin{enumerate}
+		\item $(AB)^\dag = B^\dag A^\dag$
+		\item for any scalar $z$ it holds that $(zA)^\dag = \overline z A^\dag$
+		\item $(A^\dag)^\dag = A$
+	\end{enumerate}
+\end{framedprop}
+
+How do we evaluate the adjoint of a given operator?
+
+\begin{framedprop}{}
+    Given an operator $A$ defined over a scalar product vector space, it holds that $$A_{ij}^\dag = \overline{A_{ji}}$$
+\end{framedprop}
+
+\begin{framedprop}{}
+	If an operator $A$ is self-adjoint, it holds that $$\braket{u|Av} = \braket{Au|v} = \overline{\braket{v|Au}}$$
+\end{framedprop}
+
+\begin{proof}
+	TODO \todo{TODO}
+\end{proof}
+
+At the beginning of the previous chapter we said that all quantum gates are \tit{unitary transformations}, but we did now provide a definition of unitary. Now we are ready to introduce it, and start to grasp why we are discussing Hilbert spaces.
+
+\begin{frameddefn}{Unitary operators}
+	Given a Hilbert space $\mathcal H$, and an operator $U$, we say that $U$ is \tbf{unitary} if it holds that $$UU^\dag = U^\dag U = I$$
+\end{frameddefn}
+
+In other words, $U$ is unitary if and only if its adjoint operator is also its inverse. An interesting characterization of unitary transformations is the following property.
+
+\begin{framedprop}{Unitary operators (alt. def.)}
+	An operator $U$ defined over a Hilbert space $\mathcal H$ is unitary if and only if
+
+	\begin{itemize}
+		\item $U$ is surjective
+		\item $\forall x, y \in \mathcal H \quad \braket{Ux|Uy} = \braket{x|y}$ or equivalently, if it holds that $$\forall x \in \mathcal H \quad \norm{Ux} = \norm x$$
+	\end{itemize}
+\end{framedprop}
+
+\begin{frameddefn}{Normal operators}
+	Given a Hilbert space $\mathcal H$, and an operator $A$, we say that $A$ is \tbf{normal} if it satisfies the following property $$A^\dag A = AA^\dag$$
+\end{frameddefn}
+
+Clearly, from their definition we immediately see that both self-adjoint and unitary operators are both normal.
+
+\section{Spectral theory}
+
+Since unitary operators are linear maps, we are interested in their eigenvectors and eigenvalues --- which are defined as usual. First, let us recall some preliminary definitions.
+
+\begin{frameddefn}{Non-degenerate eigenvalue}
+	Given a matrix $A$, and an eigenvalue $\lambda$ of $A$, we say that $\lambda$ is \tbf{non-degenerate} if the associated eigenspace has dimension 1 (or equivalently, if it has only 1 associated eigenvector).
+\end{frameddefn}
+
+\begin{frameddefn}{$d$-fold degenerate eigenvalue}
+	Given a matrix $A$, and an eigenvalue $\lambda$ of $A$, we say that $\lambda$ is $d$-fold degenerate if there are $d$ linearly independent eigenvectors $u_1, \ldots, u_d$ associated to $\lambda$.
+\end{frameddefn}
+
+In Dirac notation, if $\lambda$ is non-degenerate, we refer to the only eigenvector associated to $\lambda$ as $\ket \lambda$, indeed it holds that $$A \ket \lambda = \lambda \ket \lambda$$
+
+\begin{framedprop}{}
+	Given a matrix $A$ defined over a Hilbert space $\mathcal H$, and an eigenvalue $\lambda$ associated to $A$, it holds that $$\bra \lambda A^\dag = \overline \lambda \bra \lambda$$
+\end{framedprop}
+
+\begin{proof}
+	TODO \todo{TODO}
+\end{proof}
+
+The following theorem provides a characterization of the eigenvalues and eigenvectors of self-adjoint and unitary operators, which have suprisingly nice properties.
+
+\begin{framedthm}{Spectral theorem}
+	The following propositions hold:
+
+	\begin{itemize}
+		\item The eigenvalues of a self-adjoint operator are real values.
+		\item The eigenvalues of a unitary operator are complex values of modulus 1.
+		\item Eigenvectors of self-adjoint and unitary operators associated to different eigenvalues are orthogonal to each other.
+	\end{itemize}
+\end{framedthm}
+
+Moreover, for finite-dimensional Hilbert spaces the following holds.
+
+\begin{framedthm}{Spectral theorem for fin. Hilbert spaces}
+    Given a finite-dimensional Hilbert space $\mathcal H$, and a normal operator $A$ defined over $\mathcal H$, the set of all eigenvectors of $A$ is an orthonormal basis for $\mathcal H$.
+\end{framedthm}
+
+We can rewrite this thorem as follows: if we denote with $u_{ij}$ the $j$-th eigenvector associated to the $i$-th eigenvalue of $A$, it holds that $$\forall v \in \mathcal H \quad v = \sum_{i = 1}^m{\sum_{j = 1}^{d_i}{\alpha_{ij} u_{ij}}}$$ where $d_i$ is the geometric multiplicity of the $i$-th eigenvalue of $A$. Indeed, we observe that $\dim \mathcal H = \sum_{i = 1}^m{d_i}$. Lastly, through the Dirac notation we can rewrite the formula as follows $$\forall v \in \mathcal H \quad \ket v = \sum_{i = 1}^m{\sum_{j = 1}^{d_i}{\braket{\lambda_{ij}|v} \ket{\lambda_{ij}}}}$$
+
+\section{Projectors}
+
+Next, we are going to discuss are \tbf{projectors}, which are another very crucial pieces of quantum mechanics. We saw how scalar products are able to perform projection over desired direction, in fact we will use the Dirac notation to define precise operators for our purposes. But as always, first some preliminary definitions.
+
+\begin{frameddefn}{Orthogonal space}
+    Given a scalar product vector space $U$, and two linear subspaces $V, W \subset U$, we say that $V$ is orthogonal to $W$ if $$\forall v \in V, w \in W \quad \braket{v|w} = 0$$
+\end{frameddefn}
+
+Given a scalar product vector space $U$, and a linear subspace $V \subset U$, the \tbf{orthogonal complement} of $V$ is defined as follows: $$V^\bot := \{u \in U \mid \forall v \in v \quad \braket{u|v} = 0\}$$ In particular, we observe that if $U$ is finite-dimentional it holds that $V = U - V^\bot$ and that $(V^\bot)^\bot = V$.
+
+\begin{frameddefn}{Topologically closed subspace}
+    Given a Hilbert space $\mathcal H$, and a linear subspace $V \subset \mathcal H$, we say that $V$ is \tbf{topologically closed} if any sequence of vectors defined over $V$ converges in $V$.
+\end{frameddefn}
+
+Interestingly enough, given a topologically closed subspace $V \subset \mathcal H$ of some Hilbert space, we can write any vector $u \in V$ as the sum of two orthogonal vectors of $V$ and $V^\bot$, as follows. Let $\{f_1, \ldots, f_n\}$ be an orthonormal basis of $V$, and define the following vectors $$\forall u \in U \quad u_V := \sum_{i = 1}^n{\braket{f_i|v} f_i}$$ Then, if we call $$u_{V^\bot} := u - u_V$$, we see that
+% \begin{equation*}
+%     \begin{alignedat}{2}
+%         \braket{u_V|u_{V^\bot}} &= \braket{u_V|u - u_V} & \\ 
+%                                 &= \braket{u_V|u} - \braket{u_V|u_V} & \\ 
+%                                 &= \braket{\sum_{i = 1}^n{\braket{f_i|u} f_i}|u} - \braket{u_V|u_V} & \\ 
+%                                 &= \sum_{i = 1}^n{\braket{f_i|u} \braket{f_i|u}} - \braket{u_V|u_V} & \\ 
+%                                 &= \sum_{i = 1}^n{\abs{\braket{f_i|u}}^2} - \braket{u_V|u_V} & \\ 
+%                                 &= \sum_{i = 1}^n{\overline{\braket{f_i|u}} \braket{f_i|u}} & \quad (\mbox{since $\abs{z}^2 = z \cdot \overline z$}) \\ 
+%                                 & = \sum_{i = 1}^n{\sum_{j = 1}^n{\overline{\braket{f_i|u}} \braket{f_j|u} \delta_{i j}}} & \quad (\mbox{since $\delta_{ij} = \braket{f_i|f_j}$})
+%     \end{alignedat}
+% \end{equation*}
+TODO \todo{decommenta e finisci la formula} which indeed proves that $u_V$ and $u_{V^\bot}$ are orthogonal to each other.
+
+With this observation, we can finally define the projector operators.
+
+\begin{frameddefn}{Projector}
+    Given a Hilbert space $\mathcal H$, and a closed subspace $V \subset \mathcal H$, the \tbf{projector} operator that projects any given vector $v \in \mathcal H$ onto $V$ is defined as follows: $$\funcmap{P_V}{\mathcal H}{V}{u}{u_V = \sum_{i = 1}^n{\braket{f_i|u} f_i}}$$ where $\{f_1, \ldots, f_n\}$ is an orthonormal basis of $V$.
+\end{frameddefn}
+
+In other words, the projector we have that $$P_V := \sum_{i = 1}^n{\ket{f_i} \bra{f_i}}$$ Clearly, by definition of $u_{V^\bot}$ it holds that $$\funcmap{P_{V^\bot}}{\mathcal H}{V^\bot}{u}{u_{V^\bot} := u - u_V}$$ Moreover, since $P_V$ performs a projection, we have that $$\forall u \in \mathcal H \quad u \in V \iff P_Vu = u$$ and that $$\forall u \in \mathcal H \quad u \in V^\bot \iff P_V u = 0$$ Additionally, for any projector $P_V$ it holds that $P_V^2 = P_V$, by idempotency, and $P_V^\dag = P_V$.
+
+\begin{framedprop}{}
+    Any projector operator only has 0 and 1 as possible eigenvalues.
+\end{framedprop}
+
+\begin{proof}
+    Consider a projector operator $P_V$; by definition $v$ is an eigenvalue of $P_V$ associated to the eigenvalue $\lambda$ if it holds that $$P_Vv = \lambda v$$ Hence, we observe that $$P_V^2 v = P_V (P_V v) = P_V(\lambda v) = \lambda P_Vv = \lambda(\lambda v) = \lambda^2 v$$ and by idempotency of $P_V$ it holds that $$\lambda^2 v = P_V^2 = P_Vv = \lambda v$$ which implies that $$\lambda^2v - \lambda v = 0 \iff (\lambda^2 - \lambda)v = 0$$ Finally, since $v$ is an eigenvector it holds that $v \neq 0$, therefore it must be that the last equation is true only if $$\lambda^2 - \lambda = 0 \iff \lambda = 0 \lor \lambda = 1$$
+\end{proof}
+
+Given a Hilbert space $\mathcal H$, and two topologically closed subspaces $V, W \subset \mathcal H$, we say that $P_V$ and $P_W$ are \tbf{orthogonal} if it holds that $V \bot W$. Now, fix a vector $u \in \mathcal H$; by definition $P_Vu$ is a vector that lies inside $V$, therefore it holds that $$P_W(P_Vu) = 0$$ since $V \bot W$, and by the same reasoning applied on $W$ first we conclude that $$P_WP_V = P_VP_W = \mathbf 0$$ where $\mathbf 0$ is the \tbf{zero operator} --- indeed, it is a zero matrix.
+
+As a final note, if $A$ is an linear operator, and $\lambda$ is an eigenvalue of $A$, we denote with $P_\lambda$ the projector that projects vectors onto the eigenspace associated to $\lambda$.
+
+\begin{framedprop}{}
+    If $P$ and $Q$ are two orthogonal projectors, then $P + Q$ is still a projector.
+\end{framedprop}
+
+\begin{proof}
+    TODO \todo{TODO}
+\end{proof}
+
+\section{Tensor product}
+
+Finally, the last ingredient that we need to discuss is the \tbf{tensor product}
+
+TODO \todo{TODO}
+
+\section{Rules of quantum mechanics}
+
+Now that we defined Hilbert spaces and their operators in great detail, we can finally present we needed this mathematical foundations in order to progress: quantum mechanics is developed over Hilbert spaces with \tit{countable} bases, and quantum computing works with finite-dimensional Hilbert spaces. In particular, there are four fundamental \tbf{postulates of quantum mechanics} which describe the \todo{what?}:
+
+\begin{enumerate}
+	\item \tbf{State postulate}: the state of a quantum system is completely described by a vector $\ket \psi$ in a Hilbert space $\mathcal H$ --- $\ket \psi$ is usually normalized, as we saw at the beginning of the previous chapter, and physical systems of different types live in different Hilbert spaces.
+	\item \tbf{Measurement postulate}: every measurable (i.e. \tit{observable}) quantity corresponds to a self-adjoint operator on $\mathcal H$. In particular, given an observable $A$, and a state $v \in \mathcal H$, it holds that:
+            \begin{itemize}
+                \item the only possible results of measuring $A$ are one of its eigenvalues
+                \item the probability of measuring eigenvalue $\lambda$ in state $v$ is given by $$\Pr[A = \lambda \mid v] = \braket{v|P_\lambda v}$$ where $P_\lambda$ is the linear map that projects $v$ onto the $\lambda$-eigenspace
+            \end{itemize}
+        \item \tbf{Time evolution postulate}: a closed system evolves through time according to the Schrödinger equation $$i \hbar \dfrac{\diff}{\diff t} v(t) = Hv(t)$$ where $H$ is the system \tit{Hamiltonian}, a self-adjoint operator that describes the total energy of the system.
+        \item \tbf{Composite systems postulate}: the Hilbert space of a composite system is the tensor product of the Hilbert spaces of its subsystems. In other words, if system $A$ is defined over $\mathcal H_A$, and system $B$ is defined over $\mathcal H_B$, the total system lives in $$\mathcal H_{AB} = \mathcal H_A \otimes \mathcal H_B$$
+\end{enumerate}
+
+If we take a closer look at the second postulate, we can actually explain why we choose that particular scalar product to be the probability. Since by convention any quantum state is normalize, i.e. $\norm v = 1$, it holds that
+\begin{equation*}
+    \begin{split}
+        1 & = \norm{v}^2 \\ 
+          & = \braket{v|v} \\ 
+          & = \abk{\sum_{i = 1}^m{P_{\lambda_iv}}\middle|\sum_{j = 1}^m{P_{\lambda_jv}}} \\ 
+          & = \sum_{i = 1}^m{\sum_{j = 1}^m{\braket{P_{\lambda_i}v|P_{\lambda_j}v}}} \\ 
+      \end{split}
+\end{equation*}
+Now, since each $P_{\lambda_i}$ is a projector, we know that when $i \neq j$ it holds that $P_{\lambda_i}P_{\lambda_j} = \mathbf 0$, therefore by self-adjointness of projectors we have that
+
+\begin{itemize}
+    \item if $i \neq j$ then $$\braket{P_{\lambda_i}v|P_{\lambda_j}v} =\braket{v|P_{\lambda_i}P_{\lambda_j}v} = \braket{v| \mathbf 0 v} = 0$$
+    \item if $i = j$ then $$\braket{P_{\lambda_i}v|P_{\lambda_j}v} = \braket{P_{\lambda_i}v|P_{\lambda_i}v} = \norm{P_{\lambda_i}v}^2$$
+\end{itemize}
+
+Therefore, by adding only the non-zero terms we get that $$\sum_{i = 1}^m{\norm{P_{\lambda_i}v}^2} = 1$$ Hence, we define $$\Pr[A = \lambda_i \mid v] := \norm{P_{\lambda_i}v}^2$$ such that $$\Pr[A \mid v] = \sum_{i = 1}^m{\Pr[A = \lambda_i \mid v]} = \sum_{i = 1}^m{\norm{P_{\lambda_i}v}^2} = \norm{v}^2 = 1$$ which also means that our probabilities will add up to 1 automatically. Finally, we can rewrite this proability as follows (we will drop the index of the eigenvalue):
+\begin{equation*}
+    \begin{alignedat}{2}
+        \Pr[A = \lambda \mid v] & = \braket{P_\lambda v | P_\lambda v} & \quad (\mbox{by def. of adjoint}) \\ 
+                             & = \braket{v | P_\lambda^\dag P_\lambda v} & \quad (\mbox{by self-adjointness}) \\ 
+                             & = \braket{v | P_\lambda^2 v} & \quad (\mbox{by idempotency}) \\ 
+                             & = \braket{v | P_\lambda P_\lambda v} & \\ 
+                             & = \braket{v | P_\lambda v} & \\ 
+    \end{alignedat}
+\end{equation*}
 
 \printbibliography % UNCOMMENT FOR BIBLIOGRAPHY
 
