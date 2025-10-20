@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2025.8.29)  20 OCT 2025 21:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2025.8.29)  21 OCT 2025 00:52
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1609,7 +1609,7 @@ Package hyperref Info: Link coloring ON on input line 76.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-<../../packages/Nyx/logo.png, id=79, 803.0pt x 301.125pt>
+<../../packages/Nyx/logo.png, id=95, 803.0pt x 301.125pt>
 File: ../../packages/Nyx/logo.png Graphic file (type png)
 <use ../../packages/Nyx/logo.png>
 Package pdftex.def Info: ../../packages/Nyx/logo.png  used on input line 77.
@@ -1723,7 +1723,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 Package cleveref Info: loaded `english' language definitions on input line 132.
 [4]
-<../assets/bloch.png, id=174, 803.0pt x 851.18pt>
+<../assets/bloch.png, id=198, 803.0pt x 851.18pt>
 File: ../assets/bloch.png Graphic file (type png)
 <use ../assets/bloch.png>
 Package pdftex.def Info: ../assets/bloch.png  used on input line 143.
@@ -1762,7 +1762,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 Package cleveref Info: loaded `english' language definitions on input line 198.
 [7]
-<../assets/not.png, id=193, 117.0774pt x 79.497pt>
+<../assets/not.png, id=217, 117.0774pt x 79.497pt>
 File: ../assets/not.png Graphic file (type png)
 <use ../assets/not.png>
 Package pdftex.def Info: ../assets/not.png  used on input line 212.
@@ -1779,17 +1779,17 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 Package cleveref Info: loaded `english' language definitions on input line 213.
 [8]
-<../assets/h.png, id=198, 117.0774pt x 79.497pt>
+<../assets/h.png, id=222, 117.0774pt x 79.497pt>
 File: ../assets/h.png Graphic file (type png)
 <use ../assets/h.png>
 Package pdftex.def Info: ../assets/h.png  used on input line 218.
 (pdftex.def)             Requested size: 93.66203pt x 63.59767pt.
-<../assets/cnot.png, id=199, 127.1952pt x 125.7498pt>
+<../assets/cnot.png, id=223, 127.1952pt x 125.7498pt>
 File: ../assets/cnot.png Graphic file (type png)
 <use ../assets/cnot.png>
 Package pdftex.def Info: ../assets/cnot.png  used on input line 222.
 (pdftex.def)             Requested size: 101.75629pt x 100.59996pt.
-<../assets/meas.png, id=200, 197.2971pt x 125.7498pt>
+<../assets/meas.png, id=224, 197.2971pt x 125.7498pt>
 File: ../assets/meas.png Graphic file (type png)
 <use ../assets/meas.png>
 Package pdftex.def Info: ../assets/meas.png  used on input line 226.
@@ -1806,12 +1806,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 Package cleveref Info: loaded `english' language definitions on input line 227.
 [9 <../assets/not.png> <../assets/h.png> <../assets/cnot.png>]
-<../assets/meas2.png, id=211, 244.2726pt x 172.0026pt>
+<../assets/meas2.png, id=235, 244.2726pt x 172.0026pt>
 File: ../assets/meas2.png Graphic file (type png)
 <use ../assets/meas2.png>
 Package pdftex.def Info: ../assets/meas2.png  used on input line 236.
 (pdftex.def)             Requested size: 195.41833pt x 137.60225pt.
-<../assets/ghz.png, id=212, 220.4235pt x 172.0026pt>
+<../assets/ghz.png, id=236, 220.4235pt x 172.0026pt>
 File: ../assets/ghz.png Graphic file (type png)
 <use ../assets/ghz.png>
 Package pdftex.def Info: ../assets/ghz.png  used on input line 240.
@@ -1839,7 +1839,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 Package cleveref Info: loaded `english' language definitions on input line 257.
 [11]
-<../assets/epr.png, id=232, 174.1707pt x 125.7498pt>
+<../assets/epr.png, id=256, 174.1707pt x 125.7498pt>
 File: ../assets/epr.png Graphic file (type png)
 <use ../assets/epr.png>
 Package pdftex.def Info: ../assets/epr.png  used on input line 262.
@@ -1856,7 +1856,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 Package cleveref Info: loaded `english' language definitions on input line 270.
 [12 <../assets/epr.png>]
-<../assets/telep.png, id=240, 500.1084pt x 218.9781pt>
+<../assets/telep.png, id=264, 500.1084pt x 218.9781pt>
 File: ../assets/telep.png Graphic file (type png)
 <use ../assets/telep.png>
 Package pdftex.def Info: ../assets/telep.png  used on input line 297.
@@ -1978,7 +1978,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 Package cleveref Info: loaded `english' language definitions on input line 511.
 [22]
 
-Package cleveref Info: loaded `english' language definitions on input line 544.
+Package cleveref Info: loaded `english' language definitions on input line 547.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1986,7 +1986,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 544.
+Package cleveref Info: loaded `english' language definitions on input line 547.
 [23]
 
 Package cleveref Info: loaded `english' language definitions on input line 583.
@@ -2010,12 +2010,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 Package cleveref Info: loaded `english' language definitions on input line 600.
 [25]
-Overfull \hbox (14.2271pt too wide) in paragraph at lines 612--612
+Overfull \hbox (14.2271pt too wide) in paragraph at lines 618--618
 [][][]\T1/cmr/m/n/6 decommenta 
  []
 
 
-Overfull \hbox (14.2271pt too wide) in paragraph at lines 612--612
+Overfull \hbox (14.2271pt too wide) in paragraph at lines 618--618
 [][][]\T1/cmr/m/n/6 decommenta 
  []
 
@@ -2032,7 +2032,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 Package cleveref Info: loaded `english' language definitions on input line 627.
 [26]
 
-Package cleveref Info: loaded `english' language definitions on input line 654.
+Package cleveref Info: loaded `english' language definitions on input line 652.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2040,10 +2040,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 654.
+Package cleveref Info: loaded `english' language definitions on input line 652.
 [27]
 
-Package cleveref Info: loaded `english' language definitions on input line 681.
+Package cleveref Info: loaded `english' language definitions on input line 682.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2051,10 +2051,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 681.
+Package cleveref Info: loaded `english' language definitions on input line 682.
 [28]
 
-Package cleveref Info: loaded `english' language definitions on input line 697.
+Package cleveref Info: loaded `english' language definitions on input line 701.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2062,11 +2062,68 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 697.
+Package cleveref Info: loaded `english' language definitions on input line 701.
 [29]
 
-Package cleveref Info: loaded `english' language definitions on input line 699.
-[30
+Package cleveref Info: loaded `english' language definitions on input line 703.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+Package cleveref Info: loaded `english' language definitions on input line 703.
+[30]
+Chapter 3.
+
+
+Package cleveref Info: loaded `english' language definitions on input line 715.
+[31
+
+]
+
+Package cleveref Info: loaded `english' language definitions on input line 738.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+Package cleveref Info: loaded `english' language definitions on input line 738.
+[32]
+<../assets/deutsch.png, id=418, 313.6518pt x 172.0026pt>
+File: ../assets/deutsch.png Graphic file (type png)
+<use ../assets/deutsch.png>
+Package pdftex.def Info: ../assets/deutsch.png  used on input line 762.
+(pdftex.def)             Requested size: 282.284pt x 154.80089pt.
+
+
+Package cleveref Info: loaded `english' language definitions on input line 763.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+Package cleveref Info: loaded `english' language definitions on input line 763.
+[33]
+
+Package cleveref Info: loaded `english' language definitions on input line 764.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+Package cleveref Info: loaded `english' language definitions on input line 764.
+[34 <../assets/deutsch.png>]
+
+Package cleveref Info: loaded `english' language definitions on input line 766.
+[35
 
 ] (./Quantum Computing.aux
 Package cleveref Info: loaded `english' language definitions on input line 12.
@@ -2080,24 +2137,24 @@ L3 programming layer <2025-01-18>
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `"Quantum Computing".out' has not changed.
-(rerunfilecheck)             Checksum: BA4A9729572A0648C12515E7B72B5B2F;2828.
+(rerunfilecheck)             Checksum: 5FF58F2738311B1635846F5088B4ACCC;3471.
 Package logreq Info: Writing requests to '"Quantum Computing".run.xml'.
 \openout1 = `"Quantum Computing.run.xml"'.
 
  ) 
 Here is how much of TeX's memory you used:
- 76430 strings out of 475119
- 1864335 string characters out of 5765716
- 3075012 words of memory out of 5000000
- 98332 multiletter control sequences out of 15000+600000
+ 76497 strings out of 475119
+ 1865878 string characters out of 5765716
+ 3078597 words of memory out of 5000000
+ 98382 multiletter control sequences out of 15000+600000
  586168 words of font info for 96 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  119i,22n,123p,1908b,2247s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf-dist/fonts/type1/public/tex-gyre/qtmr.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc1728.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc2074.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfti1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb></usr/share/texmf-dist/fonts/type1/public/stmaryrd/stmary10.pfb>
-Output written on "Quantum Computing.pdf" (32 pages, 617625 bytes).
+Output written on "Quantum Computing.pdf" (37 pages, 650787 bytes).
 PDF statistics:
- 536 PDF objects out of 1000 (max. 8388607)
- 417 compressed objects within 5 object streams
- 117 named destinations out of 1000 (max. 500000)
- 213 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 603 PDF objects out of 1000 (max. 8388607)
+ 477 compressed objects within 5 object streams
+ 134 named destinations out of 1000 (max. 500000)
+ 250 words of extra memory for PDF output out of 10000 (max. 10000000)
 

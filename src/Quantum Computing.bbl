@@ -17,6 +17,68 @@
 \endgroup
 
 \datalist[entry]{anyt/global//global/global/global}
+  \entry{bennett}{article}{}{}
+    \name{author}{1}{}{%
+      {{hash=BCH}{%
+         family={Bennett},
+         familyi={B\bibinitperiod},
+         given={C.\bibnamedelima H.},
+         giveni={C\bibinitperiod\bibinitdelim H\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IBM}%
+    }
+    \strng{namehash}{BCH1}
+    \strng{fullhash}{BCH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Ben73}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \verb{doi}
+    \verb 10.1147/rd.176.0525
+    \endverb
+    \field{issn}{0018-8646}
+    \field{number}{6}
+    \field{pages}{525–532}
+    \field{title}{Logical Reversibility of Computation}
+    \verb{url}
+    \verb http://dx.doi.org/10.1147/rd.176.0525
+    \endverb
+    \field{volume}{17}
+    \field{journaltitle}{IBM Journal of Research and Development}
+    \field{month}{11}
+    \field{year}{1973}
+  \endentry
+
+  \entry{deutsch}{article}{}{}
+    \name{author}{1}{}{%
+      {{hash=DD}{%
+         family={Deutsch},
+         familyi={D\bibinitperiod},
+         given={David},
+         giveni={D\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {The Royal Society London}%
+    }
+    \strng{namehash}{DD1}
+    \strng{fullhash}{DD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Deu85}
+    \field{sortinit}{D}
+    \field{sortinithash}{D}
+    \field{number}{1818}
+    \field{pages}{97\bibrangedash 117}
+    \field{title}{Quantum theory, the Church--Turing principle and the universal quantum computer}
+    \field{volume}{400}
+    \field{journaltitle}{Proceedings of the Royal Society of London. A. Mathematical and Physical Sciences}
+    \field{year}{1985}
+  \endentry
+
   \entry{epr}{article}{}{}
     \name{author}{3}{}{%
       {{hash=EA}{%
@@ -62,6 +124,40 @@
     \field{journaltitle}{Physical Review}
     \field{month}{05}
     \field{year}{1935}
+  \endentry
+
+  \entry{lecerf}{book}{}{}
+    \name{author}{2}{}{%
+      {{hash=LY}{%
+         family={Lecerf},
+         familyi={L\bibinitperiod},
+         given={Y.},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=dlaEBCE}{%
+         prefix={de\bibnamedelima l'{\'e}nergie\bibnamedelima atomique},
+         prefixi={d\bibinitperiod\bibinitdelim l\bibinitperiod\bibinitdelim a\bibinitperiod},
+         family={Euratom\bibnamedelima (Bruxelles)},
+         familyi={E\bibinitperiod\bibinitdelim B\bibinitperiod},
+         given={Communaut{\'e}\bibnamedelima Europ{\'e}enne},
+         giveni={C\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Euratom}%
+    }
+    \strng{namehash}{LYEBCEdla1}
+    \strng{fullhash}{LYEBCEdla1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{LEB64}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{title}{Logique math{\'e}matique: 1. Machines de Turing r{\'e}versibles. R{\'e}cursive insolubilit{\'e} en n epsilon ny de l'{\'e}quation u}
+    \verb{url}
+    \verb https://books.google.it/books?id=e1xjGwAACAAJ
+    \endverb
+    \field{year}{1964}
   \endentry
 
   \entry{nocloning}{article}{}{}

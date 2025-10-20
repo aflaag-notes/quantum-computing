@@ -535,6 +535,12 @@ In other words, $U$ is unitary if and only if its adjoint operator is also its i
 	\end{itemize}
 \end{framedprop}
 
+\begin{proof}
+    TODO \todo{TODO}
+\end{proof}
+
+In particular, we observe that the second property of this proposition is very interesting: the \tit{preservation of scalar product}, i.e. the property for which $$\forall x, y \in \mathcal H \quad \braket{Ux|Uy} = \braket{x|y}$$ means that the operator $U$ does not change the geometric relationships between vectors --- i.e. their lengths and angles remain the same.
+
 \begin{frameddefn}{Normal operators}
 	Given a Hilbert space $\mathcal H$, and an operator $A$, we say that $A$ is \tbf{normal} if it satisfies the following property $$A^\dag A = AA^\dag$$
 \end{frameddefn}
@@ -585,7 +591,7 @@ We can rewrite this thorem as follows: if we denote with $u_{ij}$ the $j$-th eig
 
 \section{Projectors}
 
-Next, we are going to discuss are \tbf{projectors}, which are another very crucial pieces of quantum mechanics. We saw how scalar products are able to perform projection over desired direction, in fact we will use the Dirac notation to define precise operators for our purposes. But as always, first some preliminary definitions.
+Next, we are going to discuss \tbf{projectors}, which are another very crucial pieces of quantum computation. We saw how scalar products are able to perform projection over desired direction, in fact we will use the Dirac notation to define precise operators for our purposes. But as always, first some preliminary definitions.
 
 \begin{frameddefn}{Orthogonal space}
     Given a scalar product vector space $U$, and two linear subspaces $V, W \subset U$, we say that $V$ is orthogonal to $W$ if $$\forall v \in V, w \in W \quad \braket{v|w} = 0$$
@@ -692,7 +698,68 @@ Therefore, by adding only the non-zero terms we get that $$\sum_{i = 1}^m{\norm{
     \end{alignedat}
 \end{equation*}
 
-Another postulate that we need to discuss is the third one, regarding the Schrödinger equation. In particular, the solution of the latter is $$v(t_1) = U(t_2, t_1)v(t_1)$$ where $U(t_2, t_1)$ is called \tbf{time-evaluation operator}, and it is defined as follows: $$U(t_2, t_1) = e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}$$ (assuming $H$ does not depend on time). We recall that $H$ is a matrix, so we are raising $e$ to the power of a matrix, an operation that is defined by the power series of the exponential as follows: $$e^A = \sum_{n = 0}^\infty{\dfrac{A^n}{n!}}$$ What is interesting about this operator is that $U$ is \tbf{unitary}, and in order to show it is suffices to prove that $U^\dag = U^{-1}$. But how do we compute the adjoint of $U$? We observe that by the properties of the adjoint operation it holds that $$\rbk{e^A}^\dag = \rbk{\sum_{n = 0}^\infty{\dfrac{A^n}{n!}}}^\dag = \sum_{n = 0}^\infty{\dfrac{(A^n)^\dag}{n!}} = \sum_{n = 0}^\infty{\dfrac{(A^\dag)^n}{n!}} = e^{A^\dag}$$ which means that the adjoint of an exponential is the exponential of the adjoint. This suffices to prove that $$U^\dag = \rbk{e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}}^\dag = e^{\rbk{-\tfrac{i}{\hbar}H(t_2 - t_1)}^\dag} = e^{\tfrac{i}{\hbar}H(t_2 - t_1)} = \rbk{e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}}^{-1} = U^{-1}$$
+Another postulate that we need to discuss is the third one, regarding the Schrödinger equation. In particular, the solution of the latter is $$v(t_1) = U(t_2, t_1)v(t_1)$$ where $U(t_2, t_1)$ is called \tbf{time-evaluation operator}, and it is defined as follows: $$U(t_2, t_1) = e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}$$ (assuming $H$ does not depend on time). We recall that $H$ is a matrix, so we are raising $e$ to the power of a matrix, an operation that is defined by the power series of the exponential as follows: $$e^A = \sum_{n = 0}^\infty{\dfrac{A^n}{n!}}$$ What is interesting about this operator is that $U$ is \tbf{unitary}, and in order to show it is suffices to prove that $U^\dag = U^{-1}$. But how do we compute the adjoint of $U$? We observe that by the properties of the adjoint operation it holds that $$\rbk{e^A}^\dag = \rbk{\sum_{n = 0}^\infty{\dfrac{A^n}{n!}}}^\dag = \sum_{n = 0}^\infty{\dfrac{(A^n)^\dag}{n!}} = \sum_{n = 0}^\infty{\dfrac{(A^\dag)^n}{n!}} = e^{A^\dag}$$ which means that the adjoint of an exponential is the exponential of the adjoint. This suffices to prove that $$U^\dag = \rbk{e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}}^\dag = e^{\rbk{-\tfrac{i}{\hbar}H(t_2 - t_1)}^\dag} = e^{\tfrac{i}{\hbar}H(t_2 - t_1)} = \rbk{e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}}^{-1} = U^{-1}$$ This is a crucial characteristic for quantum mechanics: since $U$ is unitary, we know that it preserves the scalar product, therefore it also preserve \tbf{probabilities and norms}. This is why we say that evolution in quantum systems --- or \tit{quantum evolution}, for short --- is unitary.
+
+\chapter{TODO}
+
+TODO \todo{non so di che parlerà il capitolo}
+
+\section{Peculiarities of quantum computation}
+
+\subsection{Reversible computation}
+
+When we introduced quantum operators we underlined the fact that each quantum gate has to be a \tit{unitary} operator, and we now have the mathematical foundation to know that if a matrix is unitary, it is clearly also invertible --- indeed, its adjoint is its inverse. This directly implies a very important property of quantum computation: except for the measurement operation, every quantum computation operation is \tbf{reversible}.
+
+Truth be precise, classical computation \tit{admits} reversible computation. In fact, we observe that we do have examples of reversible classical computaion that does not lose efficiency --- in terms of time. In 1963 \textcite{lecerf} proposed a reversible Turing machine, and in 1973 a landmark result by \textcite{bennett} proved that any standard Turing machine can be actually simulated by a reversible one --- his construction involves augmenting the Turing machine with an auxiliary \tit{history tape}, which can potentially lead to a large space overhead.
+
+Consider the following bitwise operator $T$, that given three bits it works as follows: $$\funcmap{T}{\{0, 1\}^3}{\{0, 1\}^3}{(a, b, c)}{(a, b, c \oplus (a \land b))}$$ The corresponding classical gate of this bitwise operator is called \tbf{Toffoli gate}, and it has very special characteristics. First, observe how it computes: while $a$ and $b$ remains unchanged, $c$ is basically flipped if and only if both $a$ and $b$ are set to 1. In other words, both $a$ and $b$ act as \curlyquotes{control bits}over the \curlyquotes{target bit} $c$, indeed the Toffoli gate is sometimes called \tbf{Controlled Controlled NOT (CCNOT)}. As we did for the CNOT, this operator is clearly invertible since we are passing the bits $a$ and $b$ to the output too --- also, the truth table of the Toffoli gate easily shows that it is indeed invertible. Moreover, we observe that by associativity of the XOR it holds that $$(c \oplus (a \land b)) \oplus (a \land b) = c \oplus (a \land b) \oplus (a \land b) = c$$ which directly implies that $$T^2 = I \implies T = T^{-1}$$ However, above all the most important property of the Toffoli gate is that it is \tbf{universal}. In fact, even though gates like NAND and NOR are universal too, they are \tit{irreversible}. This implies that with the $T$ operator we can build any reversible Boolean function, and since any ordinary Boolean function can be embedded into a reversible one --- by adding extra bits to make it invertible --- any classical computation can be simulated using Toffoli gates only.
+
+\subsection{Quantum parallelism}
+
+Even though quantum computation provides reversibility \curlyquotes{for free}, we saw that classical computation can still achieve invertibility of computation. However, the next characteristic that we are going to describe has no classical analogue.
+
+First, let's start with a problem seemingly unrelated to our discussion. Given a Boolean function $\func{f}{\{0, 1\}^n}{\{0, 1\}}$, we would like to embed $f$ inside a quantum computation. However, when $n \ge 3$ we are guaranteed that $f(x)$ is not reversible --- it cannot be injective. This is a problem, since in quantum coputing all gates must be reversible --- given that quantum evolution is unitary. Thus, how do we turn $f$ into a reversible computation?
+
+We define a map $U_f$ defined as follows: $$\funcmap{U_f}{\{0, 1\}^{n + 1}}{\{0, 1\}^{n + 1}}{(x, y)}{(x, y \oplus f(x))}$$ First, we observe that $$(y \oplus f(x)) \oplus f(x) = y \oplus (f(x) \oplus f(x)) = y$$ which trivially proves that $U_f$ is reversible. Moreover, we can actually prove that when applied to qubits the corresponding quantum operator $$\funcmap{U_f}{\mathcal H}{\mathcal H}{\ket x \ket y}{\ket x \ket{y \oplus f(x)}}$$ is indeed unitary --- we observe that we are omitting the tensor product symbol in the function definition, as usual in the literature.
+
+\begin{framedprop}{}
+    Given a Boolean function $\func{f}{\{0, 1\}^n}{\{0, 1\}}$, the operator $U_f$ is unitary.
+\end{framedprop}
+
+\begin{proof}
+    TODO \todo{TODO}
+\end{proof}
+
+This proves that the construction of $U_f$ is precisely the gate that allows us to embed $f$ into any quantum computation. Moreover, we observe that
+
+\begin{itemize}
+    \item $\ket y = \ket 0 \implies U_f \ket x \ket 0 = \ket x \ket{f(x)}$
+    \item $\ket y = \ket 1 \implies U_f \ket x \ket 1 = \ket x \ket{\lnot f(x)}$
+\end{itemize}
+
+However, until now we only considered already collapsed qubits, but what if we consider a quantum input that is in a superposition? For instance, let $$\ket x = \dfrac{1}{\sqrt 2}(\ket 0 + \ket 1)$$ and assume that $\ket y = \ket 0$ for simplicity; this implies that
+\begin{equation*}
+    \begin{alignedat}{2}
+        U_f \ket x \ket y & = U_f \dfrac{1}{\sqrt 2}(\ket 0 + \ket 1) \otimes \ket 0 & \\ 
+                          & = U_f \dfrac{1}{\sqrt 2}(\ket{00} + \ket{10}) & \\ 
+                          & = \dfrac{1}{\sqrt 2}(U_f \ket {00} + U_f \ket {10}) & \quad (\mbox{by linearity of $U_f$}) \\ 
+                          & = \dfrac{1}{\sqrt 2}(\ket 0 \ket{f(0)} + \ket{1} \ket{f(1)}) & \\ 
+    \end{alignedat}
+\end{equation*}
+But notice what just happened: both $f(0)$ and $f(1)$ have been computed \tbf{simultaneously}, in one gate application. This has no classical equivalent, we would have to evaluate $f(0)$ and $f(1)$ \tit{separately}. This phenomenon is called \tbf{quantum parallelism}, and it can be achieved only because:
+
+\begin{itemize}
+    \item qubits are in superpositions
+    \item quantum gates are linear
+\end{itemize}
+
+However, we observe that the result of our calculations is \tit{still a superposition}. In fact, if we measure the output of $U_f \ket x \ket y$ we would still get either $\ket 0 \ket{f(0)}$ or $\ket 1 \ket {f(1)}$, both with 50\% probability. This is a problem: the fact that we can compute $f(0)$ and $f(1)$ at the same time seems promising, but can we retrieve their actual values?
+
+Unfortunately, this is not possible. Indeed, quantum parallelism cannot help us with \tit{local} properties --- i.e. when we need all individual outputs --- it can only help when we need \tbf{global} properties. This limit derives from the fact that measurements prevent \curlyquotes{seeing} both outcomes, in fact if we were able to compute $f(0)$ and $f(1)$ simultaneously from this superposition we would be violating the laws of quantum mechanics themselves.
+
+Then, how do we extract useful \tit{global} information from the superposition output? In 1985 \textcite{deutsch} defined a quantum algorithm which is able to compute $f(0) \oplus f(1)$, which clearly tells us if $f(0)$ equals $f(1)$ or not.
+
+\centeredimage[The quantum circuit for Deutsch's algorithm. The box colored in \tit{magenta} labeled with \texttt{U\_f} represents a \curlyquotes{black-box} for whatever computation $U_f$ represents (which directly depends on the chioce of $f$).]{0.9}{../assets/deutsch.png}
 
 \printbibliography % UNCOMMENT FOR BIBLIOGRAPHY
 

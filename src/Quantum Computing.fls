@@ -706,6 +706,11 @@ INPUT ../assets/telep.png
 INPUT ../assets/telep.png
 INPUT /usr/share/texmf-dist/fonts/tfm/jknappen/ec/ectt1200.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/jknappen/ec/ecrm0600.tfm
+INPUT ../assets/deutsch.png
+INPUT ../assets/deutsch.png
+INPUT ../assets/deutsch.png
+INPUT ../assets/deutsch.png
+INPUT ../assets/deutsch.png
 INPUT Quantum Computing.aux
 INPUT ./Quantum Computing.out
 INPUT ./Quantum Computing.out
