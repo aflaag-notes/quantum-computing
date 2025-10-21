@@ -292,7 +292,29 @@ The no-cloning theorem represents an inherent limitation of quantum computation,
 
 \subsection{Quantum teleportation} \label{quantum teleportation}
 
-So far we saw that quantum states cannot be cloned, but can we at least \tit{send} them? Suppose that Alice wants to send Bob $\ket \psi$, described by some $\alpha$ and $\beta$. Clearly, the only thing that Bob has to receive are indeed the probability amplitudes of $\ket \psi$, so even if Alice cannot clone her quantum state, nothing prevents her to build a quantum circuit which \tit{destroys} her $\ket \psi$ but does allow Bob to receive $\alpha$ and $\beta$. This process is called \tbf{quantum teleportation}, and can be achieved through the following quantum circuit:
+So far we saw that quantum states cannot be cloned, but can we at least \tit{send} them? Suppose that Alice wants to send Bob $\ket \psi$, described by some $\alpha$ and $\beta$. Clearly, the only thing that Bob has to receive are indeed the probability amplitudes of $\ket \psi$, so even if Alice cannot clone her quantum state, nothing prevents her to build a quantum circuit which \tit{destroys} her $\ket \psi$ but does allow Bob to receive $\alpha$ and $\beta$. This process is called \tbf{quantum teleportation}, and can be achieved through the following algorithm.
+
+\begin{framedalgo}{Quantum teleportation algorithm}
+    Given three qubits $q_0$, $q_1$ and $q_2$, the algorithm moves the state of $q_0$ into $q_2$ \\
+    \hrule
+
+    \quad
+    \begin{algorithmic}[1]
+        \Function{QuantumTeleportation}{$q_0$, $q_1$, $q_2$}
+            \State $q_1 = H(q_1)$
+            \State $q_2 = CX(q_1, q_2)$ \Comment{entangle $q_1$ and $q_2$}
+            \State $q_1 = CX(q_0, q_1)$
+            \State $q_0, q_1 = \mbox{measure}(q_0, q_1)$
+            \If{$q_1 == \ket 1$}
+                \State $q_2 = X(q_2)$
+            \EndIf
+            \If{$q_0 == \ket 1$}
+                \State $q_2 = Z(q_2)$
+            \EndIf
+            \State \tbf{return} $q_2$
+        \EndFunction
+    \end{algorithmic}
+\end{framedalgo}
 
 \centeredimage[The Quantum Teleportation circuit.]{0.8}{../assets/telep.png}
 
@@ -700,13 +722,13 @@ Therefore, by adding only the non-zero terms we get that $$\sum_{i = 1}^m{\norm{
 
 Another postulate that we need to discuss is the third one, regarding the Schrödinger equation. In particular, the solution of the latter is $$v(t_1) = U(t_2, t_1)v(t_1)$$ where $U(t_2, t_1)$ is called \tbf{time-evaluation operator}, and it is defined as follows: $$U(t_2, t_1) = e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}$$ (assuming $H$ does not depend on time). We recall that $H$ is a matrix, so we are raising $e$ to the power of a matrix, an operation that is defined by the power series of the exponential as follows: $$e^A = \sum_{n = 0}^\infty{\dfrac{A^n}{n!}}$$ What is interesting about this operator is that $U$ is \tbf{unitary}, and in order to show it is suffices to prove that $U^\dag = U^{-1}$. But how do we compute the adjoint of $U$? We observe that by the properties of the adjoint operation it holds that $$\rbk{e^A}^\dag = \rbk{\sum_{n = 0}^\infty{\dfrac{A^n}{n!}}}^\dag = \sum_{n = 0}^\infty{\dfrac{(A^n)^\dag}{n!}} = \sum_{n = 0}^\infty{\dfrac{(A^\dag)^n}{n!}} = e^{A^\dag}$$ which means that the adjoint of an exponential is the exponential of the adjoint. This suffices to prove that $$U^\dag = \rbk{e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}}^\dag = e^{\rbk{-\tfrac{i}{\hbar}H(t_2 - t_1)}^\dag} = e^{\tfrac{i}{\hbar}H(t_2 - t_1)} = \rbk{e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}}^{-1} = U^{-1}$$ This is a crucial characteristic for quantum mechanics: since $U$ is unitary, we know that it preserves the scalar product, therefore it also preserve \tbf{probabilities and norms}. This is why we say that evolution in quantum systems --- or \tit{quantum evolution}, for short --- is unitary.
 
-\chapter{TODO}
+\chapter{Quantum algorithms}
 
 TODO \todo{non so di che parlerà il capitolo}
 
-\section{Peculiarities of quantum computation}
+% \section{Peculiarities of quantum computation}
 
-\subsection{Reversible computation}
+% \subsection{Reversible computation}
 
 When we introduced quantum operators we underlined the fact that each quantum gate has to be a \tit{unitary} operator, and we now have the mathematical foundation to know that if a matrix is unitary, it is clearly also invertible --- indeed, its adjoint is its inverse. This directly implies a very important property of quantum computation: except for the measurement operation, every quantum computation operation is \tbf{reversible}.
 
@@ -714,7 +736,7 @@ Truth be precise, classical computation \tit{admits} reversible computation. In 
 
 Consider the following bitwise operator $T$, that given three bits it works as follows: $$\funcmap{T}{\{0, 1\}^3}{\{0, 1\}^3}{(a, b, c)}{(a, b, c \oplus (a \land b))}$$ The corresponding classical gate of this bitwise operator is called \tbf{Toffoli gate}, and it has very special characteristics. First, observe how it computes: while $a$ and $b$ remains unchanged, $c$ is basically flipped if and only if both $a$ and $b$ are set to 1. In other words, both $a$ and $b$ act as \curlyquotes{control bits}over the \curlyquotes{target bit} $c$, indeed the Toffoli gate is sometimes called \tbf{Controlled Controlled NOT (CCNOT)}. As we did for the CNOT, this operator is clearly invertible since we are passing the bits $a$ and $b$ to the output too --- also, the truth table of the Toffoli gate easily shows that it is indeed invertible. Moreover, we observe that by associativity of the XOR it holds that $$(c \oplus (a \land b)) \oplus (a \land b) = c \oplus (a \land b) \oplus (a \land b) = c$$ which directly implies that $$T^2 = I \implies T = T^{-1}$$ However, above all the most important property of the Toffoli gate is that it is \tbf{universal}. In fact, even though gates like NAND and NOR are universal too, they are \tit{irreversible}. This implies that with the $T$ operator we can build any reversible Boolean function, and since any ordinary Boolean function can be embedded into a reversible one --- by adding extra bits to make it invertible --- any classical computation can be simulated using Toffoli gates only.
 
-\subsection{Quantum parallelism}
+\section{Deutsch's algorithm}
 
 Even though quantum computation provides reversibility \curlyquotes{for free}, we saw that classical computation can still achieve invertibility of computation. However, the next characteristic that we are going to describe has no classical analogue.
 
@@ -759,7 +781,111 @@ Unfortunately, this is not possible. Indeed, quantum parallelism cannot help us 
 
 Then, how do we extract useful \tit{global} information from the superposition output? In 1985 \textcite{deutsch} defined a quantum algorithm which is able to compute $f(0) \oplus f(1)$, which clearly tells us if $f(0)$ equals $f(1)$ or not.
 
+\begin{framedalgo}{Deutsch algorithm}
+    Given a Boolean function $f$ and 2 qubits, the algorithm returns $\ket 0$ if $f$ if $f(0) = f(1)$, $\ket 1$ otherwise. \\
+    \hrule
+
+    \quad
+    \begin{algorithmic}[1]
+        \Function{Deutsch}{$f$, $q_0$, $q_1$}
+            \State $q_1 = X(q_1)$
+            \State $q_0, q_1 = (H \otimes H)(q_0, q_1)$
+            \State $q_0, q_1 = U_f(q_0, q_1)$
+            \State $q_0 = H(q_0)$
+            \State \tbf{return} $\mbox{measure}(q_0)$
+        \EndFunction
+    \end{algorithmic}
+\end{framedalgo}
+
 \centeredimage[The quantum circuit for Deutsch's algorithm. The box colored in \tit{magenta} labeled with \texttt{U\_f} represents a \curlyquotes{black-box} for whatever computation $U_f$ represents (which directly depends on the chioce of $f$).]{0.9}{../assets/deutsch.png}
+
+Proving that this quantum circuit is correct will be a little more involved than the quantum teleportation one. First, we need a lemma that will simplify our calculations.
+
+\begin{framedlem}{}
+    For any Boolean function $f$ defined on $n$ bits, and $a \in \{0, 1\}$, it holds that $$U_f \ket a \otimes \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1) = (-1)^{f(a)} \ket a \otimes \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1)$$
+\end{framedlem}
+
+\begin{proof}
+    First, by algebraic manipulation we see that
+    \begin{equation*}
+        \begin{split}
+            U_f \ket a \otimes \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1) & = U_f \dfrac{1}{\sqrt 2}(\ket{a0} - \ket{a1}) \\ 
+                                                                   & = \dfrac{1}{\sqrt 2}(U_f \ket{a0} - \ket{a1}) \\ 
+                                                                   & = \dfrac{1}{\sqrt 2}(\ket{a \ f(a)} - \ket{a \ \lnot f(a)}) \\ 
+        \end{split}
+    \end{equation*}
+    and now, we observe that
+
+    \begin{itemize}
+        \item if $f(a) = 0$, then $$\dfrac{1}{\sqrt 2}(\ket{a0} - \ket{a1}) = (-1)^0 \ket{a} \otimes \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1)$$
+        \item if $f(a) = 1$, then $$\dfrac{1}{\sqrt 2}(\ket{a1} - \ket{a0}) = (-1)^1 \ket{a} \otimes \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1)$$
+    \end{itemize}
+\end{proof}
+
+We are now ready to prove the correctness of Deutsch's algorithm. To make things less cluttered, we will use the following standard notation: $$\ket + := \dfrac{1}{\sqrt 2}(\ket 0 + \ket 1) \quad \quad \ket - := \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1)$$ In particular, we observe that $$H \ket 0 = \ket + \quad \quad H \ket 1 = \ket - $$ Moreover, we will omit the subscript of the corresponding qubit when the context is clear enough
+\begin{equation*}
+    \begin{alignedat}{2}
+      & q_0 \otimes q_1 &  \\ 
+        = & \ket 0 \otimes \ket 0 & \\ 
+        \xrightarrow{X(q_1)} & \ket 0 \otimes \ket 1 & \\ 
+        \xrightarrow{(H \otimes H)(q_0, q_1)} & \ket + \otimes \ket - &  \\ 
+        = & \dfrac{1}{\sqrt 2}(\ket{00} - \ket{01} + \ket{10} - \ket{11}) & \\ 
+        = & \dfrac{1}{\sqrt 2} \ket 0_0 \ket -_1  + \dfrac{1}{\sqrt 2} \ket 1_0 \ket -_1 & \\ 
+        \xrightarrow{U_f(q_0, q_1)} & \dfrac{1}{\sqrt 2} (-1)^{f(0)} \ket 0_0 \ket -_1 + \dfrac{1}{\sqrt 2} (-1)^{f(1)} \ket 1_0 \ket -_1 & \quad (\mbox{by the lemma}) \\ 
+        = & \dfrac{1}{\sqrt 2}\rbk{(-1)^{f(0)} \ket 0_0 + (-1)^{f(1)} \ket 1_0} \otimes \ket -_1 & \\ 
+        \xrightarrow{H(q_0)} & \dfrac{1}{\sqrt 2}\rbk{(-1)^{f(0)} \ket +_0 + (-1)^{f(1)} \ket -_0} \otimes \sqrt 2 \ket -_1 & \\ 
+        = & \dfrac{1}{2} \rbk{(-1)^{f(0)}(\ket 0 + \ket 1) + (-1)^{f(1)}(\ket 0 - \ket 1)} \otimes \sqrt 2 \ket -_1 & \\ 
+        = & \dfrac{1}{2}\rbk{\rbk{(-1)^{f(0)} + (-1)^{f(1)}} \ket 0 + \rbk{(-1)^{f(0)} - (-1)^{f(1)}} \ket 1} \otimes \sqrt 2 \ket -_1 & \\ 
+    \end{alignedat}
+\end{equation*}
+Now, since the final operation of the circuit involves measuring $q_0 = \alpha \ket 0 + \beta \ket 1$, the only two things that we care about are its probability amplitudes, namely $$\alpha = \dfrac{1}{2}\rbk{(-1)^{f(0)} + (-1)^{f(1)}}$$ $$\beta = \dfrac{1}{2}\rbk{(-1)^{f(0)} + (-1)^{f(1)}}$$ and we see that
+
+\begin{itemize}
+    \item if $f(0) = f(1)$, then $$(-1)^{f(0)} = (-1)^{f(1)} \implies \soe{l}{\alpha = \dfrac{1}{2}\rbk{2(-1)^{f(0)}} = (-1)^{f(0)} \\ \beta = 0}$$ which implies that $$q_0 = (-1)^{f(0)} \ket 0 + 0 \cdot \ket 1 = (-1)^{f(0)} \ket 0$$ and we can ignore the $(-1)^{f(0)}$ factor since its a global phase
+    \item if $f(0) \neq f(1)$, then $$(-1)^{f(0)} = - (-1)^{f(1)} \implies \soe{l}{\alpha = 0 \\ \beta = \dfrac{1}{2}\rbk{2(-1)^{f(0)}} = (-1)^{f(0)}}$$ which implies that $$q_0 = 0 \cdot \ket 0 + (-1)^{f(0)} \ket 1 = (-1)^{f(0)} \ket 1$$ by the same reasoning as the other case
+\end{itemize}
+
+In the end, this proves that if $f(0) = f(1)$, $q_0$ will collapse to $\ket 0$, while if $f(0) \neq f(1)$ $q_1$ will colapse to $\ket 1$, proving that Deutsch's algorithm works correctly.
+
+\section{Deutsch-Josza algorithm}
+
+Even though Deutsch's algorithm is quite interesting and offers advantages that classical computation cannot achieve, still it seems like it wouldn't be very usefult in practice. In fact, usually we are interested in the \tit{values} of $f(0)$ and $f(1)$, and as we already mentioned quantum mechanics will not allow us to compute both the values at the same time --- meaning that even if we use Deutsch's algorithm to now whether $f(0)$ is equal to $f(1)$ or not, we would still need to compute at least one between $f(0)$ and $f(1)$ in order to know both values.
+
+This is because, in reality, the algorithm that we are using is only solving a particular case of a more complex problem. In fact, a couple of years later \textcite{dj} realized that if we use $q_1 = \ket 1$ and $q_0 = \ket{0^n}$ (i.e. we use $n$ qubits set to $\ket 0$) this algorithm is actually able to tell \tbf{constant} and \tbf{balanced} functions apart.
+
+\begin{frameddefn}{Constant function}
+    A Boolean function $\func{f}{\{0, 1\}^n}{\{0,1\}}$ is said to be \tbf{constant} if $$\exists b \in \{0, 1\} \quad \forall x \in \{0, 1\}^n \quad f(x) = b$$
+\end{frameddefn}
+
+The definition of constant Boolean function has nothing special, and balanced functions are exactly what the name suggests, i.e. half of the inputs output 0 and the other half output 1, which can be succintly expressed as follows.
+
+\begin{frameddefn}{Balanced function}
+    A Boolean function $\func{f}{\{0, 1\}^n}{\{0,1\}}$ is said to be \tbf{balanced} if it holds that $$\sum_{x \in \{0, 1\}^n}{f(x)} = 2^{n - 1}$$
+\end{frameddefn}
+
+We observe that a Boolean function can be neither constant nor balanced, so this decision problem is actually a \tbf{promise problem}: given a Boolean function $f$ that is either constant or balanced --- note that it cannot be both --- decide if the function is constant or balanced. Indeed, we see that Deutsch's algorithm solved the same exact problem for $n = 2$: in fact, if $f(0) = f(1)$ it means that $f$ is constant, otherwise the latter is balanced.
+
+Moreover, this problem actually shows the power of quantum parallelism more evidently: with a classical computation, to solve this decision problem we would need at most $$2^{n - 1} + 1 = O(2^n)$$ queries to $f$, instead our quantum computation still only requires \und{one} evaluation of $f$ to solve the problem.
+
+\begin{framedalgo}{Deutsch-Josza algorithm}
+    Given a Boolean function $f$ and $n + 1$ qubits, the algorithm returns $\ket{0^n}$ if $f$ is constant, $\ket 1$ otherwise. \\
+    \hrule
+
+    \quad
+    \begin{algorithmic}[1]
+        \Function{DeutschJosza}{$f$, $q_0$, $q_1$}
+            \State $q_1 = X(q_1)$
+            \State $q_0, q_1 = (H^{\otimes n} \otimes H)(q_0, q_1)$
+            \State $q_0, q_1 = U_f(q_0, q_1)$
+            \State $q_0 = H^{\otimes n}(q_0)$
+            \State \tbf{return} $\mbox{measure}(q_0)$
+        \EndFunction
+    \end{algorithmic}
+\end{framedalgo}
+
+Note that in this algorithm $q_0$ are actually $n$ qubits. Before proving the correctness of this general version of the algorithm, let us first take a look at the quantum circuit that defines it.
+
+TODO \todo{find a way to draw it}
 
 \printbibliography % UNCOMMENT FOR BIBLIOGRAPHY
 

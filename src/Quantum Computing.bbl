@@ -79,6 +79,39 @@
     \field{year}{1985}
   \endentry
 
+  \entry{dj}{article}{}{}
+    \name{author}{1}{}{%
+      {{hash=DJ}{%
+         family={Deutsch},
+         familyi={D\bibinitperiod},
+         given={Josza},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {The Royal Society}%
+    }
+    \strng{namehash}{DJ1}
+    \strng{fullhash}{DJ1}
+    \field{labelnamesource}{author}
+    \field{labelalpha}{Deu92}
+    \field{sortinit}{D}
+    \field{sortinithash}{D}
+    \verb{doi}
+    \verb 10.1098/rspa.1992.0167
+    \endverb
+    \field{issn}{2053-9177}
+    \field{number}{1907}
+    \field{pages}{553–558}
+    \verb{url}
+    \verb http://dx.doi.org/10.1098/rspa.1992.0167
+    \endverb
+    \field{volume}{439}
+    \field{journaltitle}{Proceedings of the Royal Society of London. Series A: Mathematical and Physical Sciences}
+    \field{month}{12}
+    \field{year}{1992}
+  \endentry
+
   \entry{epr}{article}{}{}
     \name{author}{3}{}{%
       {{hash=EA}{%
