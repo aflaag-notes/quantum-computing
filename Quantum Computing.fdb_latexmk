@@ -1,0 +1,21 @@
+# Fdb version 4
+["latex"] 1761111466.28662 "src/Quantum Computing.tex" "Quantum Computing.dvi" "Quantum Computing" 1761111498.37791 2
+  "../../packages/Nyx/nyx-packages.sty" 0 -1 0 ""
+  "/nix/store/511g0dahy4ijvqi9xwy4rk1ys32r9k7n-texlive-2025-env/share/texmf-var/web2c/pdftex/latex.fmt" 1 3600272 036f470eb7934fefc492cc9ee37f2be9 ""
+  "/nix/store/511g0dahy4ijvqi9xwy4rk1ys32r9k7n-texlive-2025-env/share/texmf-var/web2c/texmf.cnf" 1 43847 8755cc5778c19aaf523cecbdfaf8d1f3 ""
+  "/nix/store/wxvdldb95ih1j5dz2rzs0hkcfx13sn1g-texlive-2025-env-texmfdist/fonts/map/fontname/texfonts.map" 1 3524 cb3e574dea2d1052e39280babc910dc8 ""
+  "/nix/store/wxvdldb95ih1j5dz2rzs0hkcfx13sn1g-texlive-2025-env-texmfdist/fonts/tfm/public/cm/cmr12.tfm" 1 1288 655e228510b4c2a1abe905c368440826 ""
+  "/nix/store/wxvdldb95ih1j5dz2rzs0hkcfx13sn1g-texlive-2025-env-texmfdist/tex/latex/base/report.cls" 1 23203 f495085ac76be4e20c5e1e88646a241e ""
+  "/nix/store/wxvdldb95ih1j5dz2rzs0hkcfx13sn1g-texlive-2025-env-texmfdist/tex/latex/base/size12.clo" 1 8449 8dc66c6c313c8eb2d774af83bca435dd ""
+  "/nix/store/wxvdldb95ih1j5dz2rzs0hkcfx13sn1g-texlive-2025-env-texmfdist/tex/latex/graphics-cfg/color.cfg" 1 1213 620bba36b25224fa9b7e1ccb4ecb76fd ""
+  "/nix/store/wxvdldb95ih1j5dz2rzs0hkcfx13sn1g-texlive-2025-env-texmfdist/tex/latex/graphics-def/dvips.def" 1 6282 3d1fff8973f8803fd81ea577dda4f3ef ""
+  "/nix/store/wxvdldb95ih1j5dz2rzs0hkcfx13sn1g-texlive-2025-env-texmfdist/tex/latex/graphics/dvipsnam.def" 1 5009 f48e1006c67ca6c50094e2f41e884d72 ""
+  "/nix/store/wxvdldb95ih1j5dz2rzs0hkcfx13sn1g-texlive-2025-env-texmfdist/tex/latex/graphics/mathcolor.ltx" 1 2885 9c645d672ae17285bba324998918efd8 ""
+  "/nix/store/wxvdldb95ih1j5dz2rzs0hkcfx13sn1g-texlive-2025-env-texmfdist/tex/latex/xcolor/xcolor.sty" 1 55384 b454dec21c2d9f45ec0b793f0995b992 ""
+  "Quantum Computing.aux" 1761111458.27945 32 3985256e7290058c681f74d7a3565a19 "latex"
+  "src/Quantum Computing.tex" 1761111426.57607 77488 8097b17d9d3e8e94d45c34698b5d5dc7 ""
+  (generated)
+  "Quantum Computing.aux"
+  "Quantum Computing.dvi"
+  "Quantum Computing.log"
+  (rewritten before read)
