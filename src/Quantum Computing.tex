@@ -936,8 +936,8 @@ Finally, we are ready to prove the correctness of the algorithm.
 Now note that this state describes the superposition of the system, but the next step of the algorithm will only measure $q_0$, therefore we can ignore $\ket -_1$ and just focus on the amplitudes of $q_0$. Then, by calling $$\forall b \in \B^n \quad \alpha_b := \dfrac{1}{2^n} \sum_{a \in \B^n}{(-1)^{f(a) + a \cdot b}}$$ we can rewrite $q_0$ as follows $$q_0 = \sum_{b \in \B^n}{\alpha_b \ket b}$$ Finally, since we want to determine the probability that $q_0$ collapses into the state $\ket{0^n}$ specifically, we can easily evaluate the associated amplitude of the latter, i.e. $$\alpha_{0^n} = \dfrac{1}{2^n}\sum_{a \in \B^n}{(-1)^{f(a)+ a \cdot 0^n}} = \dfrac{1}{2^n} \sum_{a \in \B^n}{(-1)^{f(a)}}$$ From this, we can easily conclude that:
 
 \begin{itemize}
-    \item if $f$ is constant, then $$\alpha_{0^n} = \dfrac{1}{2^n} \sum_{a \in \B^n}{(-1)^{f(a)}} = \dfrac{1}{2^n} \cdot 2^n \cdot (-1)^{b} = (-1)^b$$ where $b \in \B$, meaning that it is guaranteed that $q_0$ will collapse to $0^n$ (the symbol $\pxm$ indicates that it is either $+$ or $-$, but not both)
-    \item if $f$ is balanced, then $$\alpha_{0^n} = \sum_{a \in \B}{(-1)^{f(a)}} = \dfrac{1}{2^n} \cdot 0 = 0$$ meaning that it is guaranteed that $q_0$ will \tit{not} collapse to $0^n$
+    \item if $f$ is constant, then $$\alpha_{0^n} = \dfrac{1}{2^n} \sum_{a \in \B^n}{(-1)^{f(a)}} = \dfrac{1}{2^n} \cdot 2^n \cdot (-1)^{b} = (-1)^b$$ where $b \in \B$, meaning that it is guaranteed that $q_0$ will collapse to $0^n$
+    \item if $f$ is balanced, then $$\alpha_{0^n} = \dfrac{1}{2^n} \sum_{a \in \B}{(-1)^{f(a)}} = \dfrac{1}{2^n} \cdot 0 = 0$$ meaning that it is guaranteed that $q_0$ will \tit{not} collapse to $0^n$
 \end{itemize}
 
 \section{Grover's algorithm}
