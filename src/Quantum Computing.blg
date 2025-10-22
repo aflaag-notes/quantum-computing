@@ -1,0 +1,65 @@
+This is BibTeX, Version 0.99d (TeX Live 2026/dev/Arch Linux)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: Quantum Computing.aux
+The style file: biblatex.bst
+Reallocated glb_str_ptr (elt_size=8) to 20 items from 10.
+Reallocated global_strs (elt_size=200001) to 20 items from 10.
+Reallocated glb_str_end (elt_size=8) to 20 items from 10.
+Reallocated singl_function (elt_size=8) to 100 items from 50.
+Reallocated singl_function (elt_size=8) to 100 items from 50.
+Reallocated singl_function (elt_size=8) to 100 items from 50.
+Reallocated wiz_functions (elt_size=8) to 6000 items from 3000.
+Reallocated singl_function (elt_size=8) to 100 items from 50.
+Reallocated singl_function (elt_size=8) to 100 items from 50.
+Reallocated singl_function (elt_size=8) to 100 items from 50.
+Reallocated singl_function (elt_size=8) to 100 items from 50.
+Reallocated singl_function (elt_size=8) to 100 items from 50.
+Reallocated singl_function (elt_size=8) to 100 items from 50.
+Reallocated singl_function (elt_size=8) to 100 items from 50.
+Reallocated singl_function (elt_size=8) to 100 items from 50.
+Database file #1: Quantum_Computing-blx.bib
+Database file #2: ./references.bib
+Biblatex version: 3.20
+Reallocated wiz_functions (elt_size=8) to 9000 items from 6000.
+Reallocated singl_function (elt_size=8) to 100 items from 50.
+You've used 7 entries,
+            6402 wiz_defined-function locations,
+            1263 strings with 10372 characters,
+and the built_in function-call counts, 50671 in all, are:
+= -- 3932
+> -- 867
+< -- 324
++ -- 1151
+- -- 299
+* -- 3705
+:= -- 5273
+add.period$ -- 0
+call.type$ -- 7
+change.case$ -- 202
+chr.to.int$ -- 68
+cite$ -- 12
+duplicate$ -- 4645
+empty$ -- 4621
+format.name$ -- 394
+if$ -- 10710
+int.to.chr$ -- 0
+int.to.str$ -- 18
+missing$ -- 0
+newline$ -- 238
+num.names$ -- 403
+pop$ -- 2112
+preamble$ -- 1
+purify$ -- 226
+quote$ -- 0
+skip$ -- 1513
+stack$ -- 0
+substring$ -- 7532
+swap$ -- 1125
+text.length$ -- 212
+text.prefix$ -- 9
+top$ -- 1
+type$ -- 226
+warning$ -- 0
+while$ -- 613
+width$ -- 0
+write$ -- 232

@@ -801,8 +801,8 @@ Then, how do we extract useful \tit{global} information from the superposition o
 
 Proving that this quantum circuit is correct will be a little more involved than the quantum teleportation one. First, we need a lemma that will simplify our calculations.
 
-\begin{framedlem}{}
-    For any Boolean function $f$ defined on $n$ bits, and $a \in \{0, 1\}$, it holds that $$U_f \ket a \otimes \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1) = (-1)^{f(a)} \ket a \otimes \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1)$$
+\begin{framedlem}[label={U lemma}]{}
+    For any Boolean function $f$ defined on $n$ bits, and $a \in \{0, 1\}^n$, it holds that $$U_f \ket a \otimes \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1) = (-1)^{f(a)} \ket a \otimes \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1)$$
 \end{framedlem}
 
 \begin{proof}
@@ -841,8 +841,8 @@ We are now ready to prove the correctness of Deutsch's algorithm. To make things
 Now, since the final operation of the circuit involves measuring $q_0 = \alpha \ket 0 + \beta \ket 1$, the only two things that we care about are its probability amplitudes, namely $$\alpha = \dfrac{1}{2}\rbk{(-1)^{f(0)} + (-1)^{f(1)}}$$ $$\beta = \dfrac{1}{2}\rbk{(-1)^{f(0)} + (-1)^{f(1)}}$$ and we see that
 
 \begin{itemize}
-    \item if $f(0) = f(1)$, then $$(-1)^{f(0)} = (-1)^{f(1)} \implies \soe{l}{\alpha = \dfrac{1}{2}\rbk{2(-1)^{f(0)}} = (-1)^{f(0)} \\ \beta = 0}$$ which implies that $$q_0 = (-1)^{f(0)} \ket 0 + 0 \cdot \ket 1 = (-1)^{f(0)} \ket 0$$ and we can ignore the $(-1)^{f(0)}$ factor since its a global phase
-    \item if $f(0) \neq f(1)$, then $$(-1)^{f(0)} = - (-1)^{f(1)} \implies \soe{l}{\alpha = 0 \\ \beta = \dfrac{1}{2}\rbk{2(-1)^{f(0)}} = (-1)^{f(0)}}$$ which implies that $$q_0 = 0 \cdot \ket 0 + (-1)^{f(0)} \ket 1 = (-1)^{f(0)} \ket 1$$ by the same reasoning as the other case
+    \item if $f(0) = f(1)$, then $$(-1)^{f(0)} = (-1)^{f(1)} \implies \soe{l}{\alpha = \tfrac{1}{2}\rbk{2(-1)^{f(0)}} = (-1)^{f(0)} \\ \beta = 0}$$ which implies that $$q_0 = (-1)^{f(0)} \ket 0 + 0 \cdot \ket 1 = (-1)^{f(0)} \ket 0$$ and we can ignore the $(-1)^{f(0)}$ factor since its a global phase
+    \item if $f(0) \neq f(1)$, then $$(-1)^{f(0)} = - (-1)^{f(1)} \implies \soe{l}{\alpha = 0 \\ \beta = \tfrac{1}{2}\rbk{2(-1)^{f(0)}} = (-1)^{f(0)}}$$ which implies that $$q_0 = 0 \cdot \ket 0 + (-1)^{f(0)} \ket 1 = (-1)^{f(0)} \ket 1$$ by the same reasoning as the other case
 \end{itemize}
 
 In the end, this proves that if $f(0) = f(1)$, $q_0$ will collapse to $\ket 0$, while if $f(0) \neq f(1)$ $q_1$ will colapse to $\ket 1$, proving that Deutsch's algorithm works correctly.
@@ -885,9 +885,66 @@ Moreover, this problem actually shows the power of quantum parallelism more evid
 
 Note that in this algorithm $q_0$ are actually $n$ qubits. Before proving the correctness of this general version of the algorithm, let us first take a look at the quantum circuit that defines it.
 
-TODO \todo{find a way to draw it}
+TODO \todo{drawing}
 
-TODO \todo{da scrivere e dim}
+For our discussion we will call $\B = \{0, 1\}$.
+
+\claim[Claim 1]{
+    $\forall a \in \B \quad H \ket a = \tfrac{1}{\sqrt 2} \sum_{b \in \B}{(-1)^{a \cdot b} \ket b}$.
+}{
+    We observe that $$H \ket 0 = \ket + = \dfrac{1}{\sqrt 2}(\ket 0 + \ket 1) = \dfrac{1}{\sqrt 2} \sum_{b \in \B}{(-1)^{0 \cdot b} \ket b}$$ and analogously $$H \ket 1 = \ket - = \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1) = \dfrac{1}{\sqrt 2} \sum_{b \in \B}{(-1)^{1 \cdot b} \ket b}$$
+}
+
+In the following claim, we will denote with the $\cdot$ symbol the \curlyquotes{canonical} scalar product, i.e. $$\forall x, y \in \B^n \quad x \cdot y := \sum_{i = 1}^n{x_i y_i}$$
+
+\claim[Claim 2]{
+    $\forall x \in \B^n \quad H^{\otimes n}\ket x = \tfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{(-1)^{x \cdot a} \ket a}$
+}{
+    By the previous claim, we have that
+    \begin{equation*}
+        \begin{alignedat}{2}
+            H^{\otimes n} \ket x & = \bigotimes_{i = 1}^n{H \ket{x_i}} & \\ 
+                                 & = \bigotimes_{i = 1}^n{\rbk{\dfrac{1}{\sqrt 2} \sum_{b \in \B}{(-1)^{x_ib} \ket b}} \ket{x_i} }  & \quad (\mbox{by Claim 1}) & \\ 
+                                 & = \dfrac{1}{\sqrt 2^n} \bigotimes_{i = 1}^n{\rbk{\ket 0 + (-1)^{x_i} \ket 1}} & \\ 
+                                 & = \dfrac{1}{\sqrt 2^n} \sum_{a \in \B^n}{(-1)^{x \cdot a} \ket a } & \\ 
+        \end{alignedat}
+    \end{equation*}
+}
+
+Finally, we are ready to prove the correctness of the algorithm.
+
+\begin{equation*}
+    \begin{alignedat}{2}
+        & q_0 \otimes q_1 & \\ 
+        = & \ket{0^n} \otimes \ket 0 & \\ 
+        \xrightarrow{X(q_1)} & \ket{0^n} \otimes \ket 1 & \\ 
+        \xrightarrow{H^{\otimes n}(q_0, q_1)} & H^{\otimes n} \ket{0^n} \otimes H \ket 1 & \\ 
+        = & \dfrac{1}{\sqrt 2^n} \sum_{a \in \B^n}{(-1)^{0^n \cdot a} \ket a} \otimes \ket - & \quad (\mbox{by Claim 2}) \\ 
+        = & \dfrac{1}{\sqrt 2} \sum_{a \in \B^n}{\ket a} \otimes \ket -  & \\ 
+        = & \dfrac{1}{\sqrt 2^n } \sum_{a \in \B^n}{(\ket a \otimes \ket - )} & \\ 
+        \xrightarrow{U_f(q_0, q_1)} & \dfrac{1}{\sqrt 2} \sum_{a \in \B^n}{\rbk{(-1)^{f(a)} \ket a \otimes \ket - }} & \quad (\mbox{by \cref{U lemma}}) \\ 
+        = & \dfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{(-1)^{f(a)} \ket a} \otimes \ket - & \\ 
+        \xrightarrow{H^{\otimes n}(q_0)} & H^{\otimes n} \rbk{\dfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{(-1)^{f(a)} \ket a }} \otimes \ket - & \\ 
+        = & \dfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{\rbk{(-1)^{f(a)} H^{\otimes n} \ket a }} \otimes \ket - & \\ 
+        = & \dfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{(-1)^{f(a)} \rbk{\dfrac{1}{\sqrt 2^n} \sum_{b \in \B^n} {(-1)^{a \cdot b} \ket b}}} \otimes \ket - & \quad (\mbox{by Claim 2}) \\ 
+        = & \dfrac{1}{2^n} \sum_{a \in \B^n}{\sum_{b \in \B^n}{(-1)^{f(a) + a \cdot b}} \ket b } \otimes \ket - & \\ 
+        = & \dfrac{1}{2^n} \sum_{a \in \B^n}{\sum_{b \in \B^n}{(-1)^{f(a) + a \cdot b}} \ket b } \otimes \ket - & \\ 
+        = & \sum_{b \in \B^n}{\rbk{\dfrac{1}{2^n}\sum_{a \in \B^n}{(-1)^{f(a) + a \cdot b}}} \ket b_0} \otimes \ket -_1 & \\
+    \end{alignedat}
+\end{equation*}
+
+Now note that this state describes the superposition of the system, but the next step of the algorithm will only measure $q_0$, therefore we can ignore $\ket -_1$ and just focus on the amplitudes of $q_0$. Then, by calling $$\forall b \in \B^n \quad \alpha_b := \dfrac{1}{2^n} \sum_{a \in \B^n}{(-1)^{f(a) + a \cdot b}}$$ we can rewrite $q_0$ as follows $$q_0 = \sum_{b \in \B^n}{\alpha_b \ket b}$$ Finally, since we want to determine the probability that $q_0$ collapses into the state $\ket{0^n}$ specifically, we can easily evaluate the associated amplitude of the latter, i.e. $$\alpha_{0^n} = \dfrac{1}{2^n}\sum_{a \in \B^n}{(-1)^{f(a)+ a \cdot 0^n}} = \dfrac{1}{2^n} \sum_{a \in \B^n}{(-1)^{f(a)}}$$ From this, we can easily conclude that:
+
+\begin{itemize}
+    \item if $f$ is constant, then $$\alpha_{0^n} = \dfrac{1}{2^n} \sum_{a \in \B^n}{(-1)^{f(a)}} = \dfrac{1}{2^n} \cdot 2^n \cdot (-1)^{b} = (-1)^b$$ where $b \in \B$, meaning that it is guaranteed that $q_0$ will collapse to $0^n$ (the symbol $\pxm$ indicates that it is either $+$ or $-$, but not both)
+    \item if $f$ is balanced, then $$\alpha_{0^n} = \sum_{a \in \B}{(-1)^{f(a)}} = \dfrac{1}{2^n} \cdot 0 = 0$$ meaning that it is guaranteed that $q_0$ will \tit{not} collapse to $0^n$
+\end{itemize}
+
+\section{Grover's algorithm}
+
+Even though Deutsch-Josza algorithm is able to solve the decision problem we described through \tit{one} single evaluation of $f$, it is fairly apparent that the problem their algorithm solves is quite artificial. However the next algorithm that we are going to discuss solve a problem that is definitely more useful.
+
+TODO \todo{da finire}
 
 \printbibliography % UNCOMMENT FOR BIBLIOGRAPHY
 
