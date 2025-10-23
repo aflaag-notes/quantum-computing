@@ -159,6 +159,41 @@
     \field{year}{1935}
   \endentry
 
+  \entry{grover}{article}{}{}
+    \name{author}{1}{}{%
+      {{hash=GLK}{%
+         family={Grover},
+         familyi={G\bibinitperiod},
+         given={Lov\bibnamedelima K.},
+         giveni={L\bibinitperiod\bibinitdelim K\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {American Physical Society (APS)}%
+    }
+    \strng{namehash}{GLK1}
+    \strng{fullhash}{GLK1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Gro97}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \verb{doi}
+    \verb 10.1103/physrevlett.79.325
+    \endverb
+    \field{issn}{1079-7114}
+    \field{number}{2}
+    \field{pages}{325–328}
+    \field{title}{Quantum Mechanics Helps in Searching for a Needle in a Haystack}
+    \verb{url}
+    \verb http://dx.doi.org/10.1103/physrevlett.79.325
+    \endverb
+    \field{volume}{79}
+    \field{journaltitle}{Physical Review Letters}
+    \field{month}{07}
+    \field{year}{1997}
+  \endentry
+
   \entry{lecerf}{book}{}{}
     \name{author}{2}{}{%
       {{hash=LY}{%

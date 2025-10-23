@@ -515,7 +515,7 @@ Given a Hilbert space $\mathcal H$, we can define \tbf{operators} --- which are 
 
 For instance, the following matrix $S = \rmat{1 & 0 \\ 0 & i}$ is a linear operator whose adjoint is $S^\dag = \rmat{1 & 0 \\ 0 & -i}$. In fact, we have that $$\braket{u|S^\dag v} = \rmat{\overline{u_1} & \overline{u_2}} \rmat{1 & 0 \\ 0 & -i} \rmat{v_1 \\ v_2} = \rmat{\overline{u_1} & \overline{u_2}} \rmat{v_1 \\ -iv_2} = \overline{u_1}v_1 - i\overline{u_2}v_2$$ and since $$Su = \rmat{1 & 0 \\ 0 & i}\rmat{u_1 \\ u_2} = \rmat{u_1 \\ iu_2} \implies \bra{Su} = \rmat{\overline{u_1} & \overline{i u_2}}$$ but because $\overline{iu_2} = \overline i \cdot \overline{u_2} = -i \overline{u_2}$ this implies that $$\braket{Su |v} = \rmat{\overline{u_1} & -i\overline{u_2}} \rmat{v_1 \\ v_2} = \overline{u_1}v_2 - i\overline{u_2}v_2$$
 
-\begin{framedprop}{}
+\begin{framedprop}[label={adj prop}]{}
 	For any adjoint operators $A, B$ defined over some Hilbert space $\mathcal H$, it holds that
 
 	\begin{enumerate}
@@ -562,6 +562,14 @@ In other words, $U$ is unitary if and only if its adjoint operator is also its i
 \end{proof}
 
 In particular, we observe that the second property of this proposition is very interesting: the \tit{preservation of scalar product}, i.e. the property for which $$\forall x, y \in \mathcal H \quad \braket{Ux|Uy} = \braket{x|y}$$ means that the operator $U$ does not change the geometric relationships between vectors --- i.e. their lengths and angles remain the same.
+
+\begin{framedprop}[label={unitary prod}]{}
+    If $A$ and $B$ are two unitary operators, then $AB$ is a unitary operator.
+\end{framedprop}
+
+\begin{proof}
+    Since $A$ and $B$ are unitary it holds that $$A ^\dag A = A A^ \dag = B ^ \dag B = B B^ \dag = I$$ Now, by \cref{adj prop} we have that $$(AB)^ \dag = B^\dag A^\dag$$ from which we conclude that $$(AB)^\dag(AB) = B^\dag A^\dag AB = B^\dag I B = B^\dag B = I$$
+\end{proof}
 
 \begin{frameddefn}{Normal operators}
 	Given a Hilbert space $\mathcal H$, and an operator $A$, we say that $A$ is \tbf{normal} if it satisfies the following property $$A^\dag A = AA^\dag$$
@@ -645,7 +653,7 @@ With this observation, we can finally define the projector operators.
     Given a Hilbert space $\mathcal H$, and a closed subspace $V \subset \mathcal H$, the \tbf{projector} operator that projects any given vector $v \in \mathcal H$ onto $V$ is defined as follows: $$\funcmap{P_V}{\mathcal H}{V}{u}{u_V = \sum_{i = 1}^n{\braket{f_i|u} f_i}}$$ where $\{f_1, \ldots, f_n\}$ is an orthonormal basis of $V$.
 \end{frameddefn}
 
-In other words, the projector we have that $$P_V := \sum_{i = 1}^n{\ket{f_i} \bra{f_i}}$$ Clearly, by definition of $u_{V^\bot}$ it holds that $$\funcmap{P_{V^\bot}}{\mathcal H}{V^\bot}{u}{u_{V^\bot} := u - u_V}$$ Moreover, since $P_V$ performs a projection, we have that $$\forall u \in \mathcal H \quad u \in V \iff P_Vu = u$$ and that $$\forall u \in \mathcal H \quad u \in V^\bot \iff P_V u = 0$$ Additionally, for any projector $P_V$ it holds that $P_V^2 = P_V$, by idempotency, and $P_V^\dag = P_V$.
+In other words, the projector we have that $$P_V := \sum_{i = 1}^n{\ket{f_i} \bra{f_i}}$$ Clearly, by definition of $u_{V^\bot}$ it holds that $$\funcmap{P_{V^\bot}}{\mathcal H}{V^\bot}{u}{u_{V^\bot} := u - u_V}$$ Moreover, since $P_V$ performs a projection, we have that $$\forall u \in \mathcal H \quad u \in V \iff P_Vu = u$$ and that $$\forall u \in \mathcal H \quad u \in V^\bot \iff P_V u = 0$$ Additionally, for any projector $P_V$ it holds that $P_V^2 = P_V$, by idempotency, and $P_V^\dag = P_V$. TODO \todo{SCRIVERE DELLA NOTAZIONE DI DIRAC}
 
 \begin{framedprop}{}
     Any projector operator only has 0 and 1 as possible eigenvalues.
@@ -659,7 +667,7 @@ Given a Hilbert space $\mathcal H$, and two topologically closed subspaces $V, W
 
 As a final note, if $A$ is an linear operator, and $\lambda$ is an eigenvalue of $A$, we denote with $P_\lambda$ the projector that projects vectors onto the eigenspace associated to $\lambda$.
 
-\begin{framedprop}{}
+\begin{framedprop}[lambda={projector sum}]{}
     If $P$ and $Q$ are two orthogonal projectors, then $P + Q$ is still a projector.
 \end{framedprop}
 
@@ -944,7 +952,34 @@ Now note that this state describes the superposition of the system, but the next
 
 Even though Deutsch-Josza algorithm is able to solve the decision problem we described through \tit{one} single evaluation of $f$, it is fairly apparent that the problem their algorithm solves is quite artificial. However the next algorithm that we are going to discuss solve a problem that is definitely more useful.
 
-TODO \todo{da finire}
+In 1997, \textcite{grover} published a landmark paper called \curlyquotes{Quantum Mechanics Helps in Searching for a Needle in a Haystack}, and the name already suggests the problem his work tried to solve: the search problem. The setting is the following: we are given an array of $N$ elements --- we can assume that $N$ is always a power of 2 for some $n$, i.e. $N= 2^n$ --- that contains $M$ \curlyquotes{solution} elements. However, we do not know their positions, and the problem asks to find the index of any solution element.
+
+More formally, given a Boolean function $$\func{f}{\{0, \ldots, N - 1\}}{\B}{x}{\soe{ll}{1 & A[x] \in S \\ 0 & \mbox{otherwise}}}$$ where $A$ is our array, and $S$ is the set of solution elements, the problem asks to return an $x$ such that $f(x) = 1$, i.e. such that $A[x]$ is a solution.
+
+With a classical computation, it is easy to see that we need $O \rbk{\dfrac{N}{M}}$ accesses to $A$ to solve our problem, however we will see that the algorithm Grover developed is able to return a \curlyquotes{solution index} in $O\rbk{\sqrt{\dfrac{M}{N}}}$ with \tit{high probability}, i.e. Grover's algorithm provide a \tbf{quadratic} speedup compared to any classical algorithm --- however, the algorithm is probabilistic.
+
+Before explaining the details of the algorithm, we need to defines some new operators that will be used in Grover's algorithm:
+
+\begin{itemize}
+    \item given a qubit $\ket \psi$, we will write its superposition of states as follows $$\ket \psi = \sum_{b \in \B^n}{\alpha_b \ket b}$$ where $\sum_{b \in \B^n}{\abs{\alpha_b}} = 1$
+    \item from the above definition, we define the \tbf{average amplitude} of a qubit $\ket \psi$ as follows: $$\abk{\alpha}_\psi := \dfrac{1}{N}\sum_{b \in \B^n}{\alpha_b}$$
+    \item we define an operator $O_f$ (where $f$ is the indicator function of the array defined before) that computes as follows: $$\forall b \in \B^n \quad O_f \ket b = (-1)^{f(x)} \ket b$$
+    \item we define a new operator $W$ which computes the \tbf{inverse about the mean}: $$\forall b \in \B^n \quad W \ket b := (2 \abk{\alpha}_\psi - \alpha_b)\ket b$$ 
+    \item finally, we will define an operator $G$ that will simply compose the last two operators we described $$G = W \cdot O_f$$
+\end{itemize}
+
+\claim[Claim 1]{
+    Given a qubit $\ket \psi$, it holds that $W = P_\psi - P_{\psi^\bot}$ where $P_\psi$ is a projector on $\psi$'s space and $P_{\psi^\bot} \bot P_\psi$. Moreover, $W$ is unitary.
+}{
+    % By definition of the Dirac notation, we have that $P_\psi = \ket \psi \bra \psi$, 
+    TODO \todo{capire la cosa psi normalizzato}
+}
+
+\claim[Claim 2]{
+    The operator $G$ is unitary.
+}{
+    By \cref{unitary prod} we know that proving that $W$ and $O_f$ are unitary is sufficient, but since $W$ is unitary by Claim 1, we only need to show that $O_f$ is un itary as well. \todo{da finire}
+}
 
 \printbibliography % UNCOMMENT FOR BIBLIOGRAPHY
 
