@@ -532,6 +532,8 @@ How do we evaluate the adjoint of a given operator?
     Given an operator $A$ defined over a scalar product vector space, it holds that $$A_{ij}^\dag = \overline{A_{ji}}$$
 \end{framedprop}
 
+This property is incredibly useful, because it implies that the adjoint operator of $A$ is its transposed conjugate matrix. Most notably, due to the way we defined our scalar product, it holds that for any column vector $\ket x$ we have that $$\bra x = \ket x^\dag$$ which gives an intuition of the reason why we defined our scalar product as such.
+
 \begin{framedprop}{}
 	If an operator $A$ is self-adjoint, it holds that $$\braket{u|Av} = \braket{Au|v} = \overline{\braket{v|Au}}$$
 \end{framedprop}
@@ -667,7 +669,7 @@ Given a Hilbert space $\mathcal H$, and two topologically closed subspaces $V, W
 
 As a final note, if $A$ is an linear operator, and $\lambda$ is an eigenvalue of $A$, we denote with $P_\lambda$ the projector that projects vectors onto the eigenspace associated to $\lambda$.
 
-\begin{framedprop}[lambda={projector sum}]{}
+\begin{framedprop}[label={projector sum}]{}
     If $P$ and $Q$ are two orthogonal projectors, then $P + Q$ is still a projector.
 \end{framedprop}
 
@@ -891,7 +893,7 @@ Moreover, this problem actually shows the power of quantum parallelism more evid
     \end{algorithmic}
 \end{framedalgo}
 
-Note that in this algorithm $q_0$ are actually $n$ qubits. Before proving the correctness of this general version of the algorithm, let us first take a look at the quantum circuit that defines it.
+Note that in this algorithm $q_0$ are actually $n$ qubits, thus $q_0$ is initially set to $\ket{0^n}$. Before proving the correctness of this general version of the algorithm, let us first take a look at the quantum circuit that defines it.
 
 TODO \todo{drawing}
 
@@ -950,26 +952,52 @@ Now note that this state describes the superposition of the system, but the next
 
 \section{Grover's algorithm}
 
-Even though Deutsch-Josza algorithm is able to solve the decision problem we described through \tit{one} single evaluation of $f$, it is fairly apparent that the problem their algorithm solves is quite artificial. However the next algorithm that we are going to discuss solve a problem that is definitely more useful.
+Even though Deutsch-Josza algorithm is able to solve the decision problem we described through \tit{one} single evaluation of $f$, it is fairly apparent that the problem their algorithm solves is quite artificial. However the next algorithm that we are going to discuss solves a problem that is definitely more useful.
 
 In 1997, \textcite{grover} published a landmark paper called \curlyquotes{Quantum Mechanics Helps in Searching for a Needle in a Haystack}, and the name already suggests the problem his work tried to solve: the search problem. The setting is the following: we are given an array of $N$ elements --- we can assume that $N$ is always a power of 2 for some $n$, i.e. $N= 2^n$ --- that contains $M$ \curlyquotes{solution} elements. However, we do not know their positions, and the problem asks to find the index of any solution element.
 
-More formally, given a Boolean function $$\func{f}{\{0, \ldots, N - 1\}}{\B}{x}{\soe{ll}{1 & A[x] \in S \\ 0 & \mbox{otherwise}}}$$ where $A$ is our array, and $S$ is the set of solution elements, the problem asks to return an $x$ such that $f(x) = 1$, i.e. such that $A[x]$ is a solution.
+More formally, given a Boolean function $$\funcmap{f}{\{0, \ldots, N - 1\}}{\B}{x}{\soe{ll}{1 & A[x] \in S \\ 0 & \mbox{otherwise}}}$$ where $A$ is our array, and $S$ is the set of solution elements, the problem asks to return an $x$ such that $f(x) = 1$, i.e. such that $A[x]$ is a solution.
 
-With a classical computation, it is easy to see that we need $O \rbk{\dfrac{N}{M}}$ accesses to $A$ to solve our problem, however we will see that the algorithm Grover developed is able to return a \curlyquotes{solution index} in $O\rbk{\sqrt{\dfrac{M}{N}}}$ with \tit{high probability}, i.e. Grover's algorithm provide a \tbf{quadratic} speedup compared to any classical algorithm --- however, the algorithm is probabilistic.
+With a classical computation, it is easy to see that we need $O \rbk{\dfrac{N}{M}}$ accesses to $A$ to solve our problem, however we will see that the algorithm Grover developed is able to return a \curlyquotes{solution index} in $O\rbk{\sqrt{\dfrac{M}{N}}}$ with \tit{high probability}, i.e. Grover's algorithm provides a \tbf{quadratic} speedup compared to any classical algorithm --- however, it is probabilistic.
 
-Before explaining the details of the algorithm, we need to defines some new operators that will be used in Grover's algorithm:
+Before explaining the details of the algorithm, we need to define some new operators that will be used in Grover's algorithm:
 
 \begin{itemize}
     \item given a qubit $\ket \psi$, we will write its superposition of states as follows $$\ket \psi = \sum_{b \in \B^n}{\alpha_b \ket b}$$ where $\sum_{b \in \B^n}{\abs{\alpha_b}} = 1$
-    \item from the above definition, we define the \tbf{average amplitude} of a qubit $\ket \psi$ as follows: $$\abk{\alpha}_\psi := \dfrac{1}{N}\sum_{b \in \B^n}{\alpha_b}$$
-    \item we define an operator $O_f$ (where $f$ is the indicator function of the array defined before) that computes as follows: $$\forall b \in \B^n \quad O_f \ket b = (-1)^{f(x)} \ket b$$
+    \item from the above definition, we define the \tbf{average amplitude} of a qubit $\ket \psi$ as follows: $$\abk{\alpha}_\psi := \dfrac{1}{N}\sum_{b \in \B^n}{\alpha_b}$$ where $N = 2^n = \abs{\B^n}$
+    \item we define an operator $O_f$ (where $f$ is the indicator function of the array defined before) that computes as follows: $$\forall x \in \B^n \quad O_f \ket x := (-1)^{f(x)} \ket x$$
     \item we define a new operator $W$ which computes the \tbf{inverse about the mean}: $$\forall b \in \B^n \quad W \ket b := (2 \abk{\alpha}_\psi - \alpha_b)\ket b$$ 
     \item finally, we will define an operator $G$ that will simply compose the last two operators we described $$G = W \cdot O_f$$
 \end{itemize}
 
+\begin{framedalgo}{Grover's algorithm}
+    Given a Boolean function $f$ that describes the solution elements of an array having $M$ solution elements, and $n$ qubits, the algorithm returns a solution index with high probability TODO SPIEGA CHE VUOL DIRE. \\
+    \hrule
+
+    \quad
+    \begin{algorithmic}[1]
+        \Function{Grover}{$f$, $q_0$}
+            \State $q_0 = H^{\otimes n}(q_0)$
+            \For{$i \in \cbk{1, O\rbk{\tfrac{N}{M}}}$} \Comment{where $N = 2^n$}
+                \State $q_0 = G(q_0)$
+            \EndFor
+            \State \tbf{return} $\mbox{measure}(q_0)$
+        \EndFunction
+    \end{algorithmic}
+\end{framedalgo}
+
+First of all, we see that this algorithm takes only $n$ qubits as input, exactly as we did in the Deutsch-Josza algorithm. However, the actual implementation of the algorithm is slightly different, as shown in the following quantum circuit:
+
+TODO \todo{spiega nell alg + drawing}
+
+Indeed, we can see that the real quantum circuit takes $n + 1$ inputs, and the additional register is called \curlyquotes{ancilla} becuase its only purpose is to actually implement the $O_f$ operator, which is designed exactly as if it was the $U_f$ black-box we discussed in previous algorithms. This can be done thanks to \cref{U lemma}, which guarantees that if we give $\ket -$ as the second input to $U_f$, what we get as output is basically $$O_f \ket x \otimes \ket -  = (-1)^{f(x)} \otimes \ket - $$ which implies that the ancilla register will sill be $\ket -$, therefore we can just ignore the second register completely throughout the whole computation, and we are sure that $O_f$ computes correctly.
+
+To explain the algorithm we need to understand what is the purpose of the $G$ operator, which in turn depends on both $O_f$ and $W$. First, we will provide a general understanding of the algorithm, then we will be more formal and explain all the details. To start, we observe that what $O_f$ actually does is returning $- \ket x$ only if $x$ is a solution index. TODO \todo{da finire col disegnino}
+
+Now that we provided that a general understanding of the quantum procedure, we want to formalize the algorithm. First, let us prove that the operator $G$ is actually unitary.
+
 \claim[Claim 1]{
-    Given a qubit $\ket \psi$, it holds that $W = P_\psi - P_{\psi^\bot}$ where $P_\psi$ is a projector on $\psi$'s space and $P_{\psi^\bot} \bot P_\psi$. Moreover, $W$ is unitary.
+    Given a qubit $\ket \psi$, it holds that $W = P_\psi - P_{\psi^\bot}$ where $P_\psi$ is a projector on $\psi$'s space and $P_\psi \bot P_{\psi^\bot}$. Moreover, $W$ is unitary.
 }{
     % By definition of the Dirac notation, we have that $P_\psi = \ket \psi \bra \psi$, 
     TODO \todo{capire la cosa psi normalizzato}
@@ -980,6 +1008,22 @@ Before explaining the details of the algorithm, we need to defines some new oper
 }{
     By \cref{unitary prod} we know that proving that $W$ and $O_f$ are unitary is sufficient, but since $W$ is unitary by Claim 1, we only need to show that $O_f$ is un itary as well. \todo{da finire}
 }
+
+Now that we know this operator is unitary, we can delve into the details of the algorithm. To see what happens at each iteration of the algorithm, we will describe the complete state of the system in a rather unusual way. Let $\ket a$ and $\ket b$ be the following superpositions: $$\ket a := \dfrac{1}{\sqrt{N - M}} \sum_{x \in \overline S}{\ket x} \quad \quad \ket b := \dfrac{1}{\sqrt M}\sum_{x \in S}{\ket x}$$ In other words, $\ket a$ is a superposition of non-solution indices, and $\ket b$ is a superposition of solution ones. To explain the $\tfrac{1}{\sqrt M}$ factor in front of $\ket b$, we simply observe that in quantum mechanics all state vectors must be normalized, and since the squared norm of $\ket {\tilde b}$ ($\ket b$ without the multiplicative factor in front) is equal to
+\begin{equation*}
+    \begin{alignedat}{2}
+        \braket{\tilde b| \tilde b} & = \rbk{\sum_{x \in S}{\ket x}}^\dag \rbk{\sum_{x \in S}{\ket x}} & \\ 
+                                    & = \rbk{\sum_{x \in S}{\bra x}} \rbk{\sum_{y \in S}{\ket y}} & \\ 
+                                    & = \sum_{x \in S}{\sum_{y \in S}{\braket{x|y}}} & \\ 
+                                    & = \sum_{x \in S}{\sum_{y \in S}{\delta_{x,y}}} & \quad (\mbox{basis states are orthonormal}) \\ 
+                                    & = \sum_{x \in S}{1} & \\ 
+                                    & = \abs{S} \\ 
+                                    & = M
+    \end{alignedat}
+\end{equation*}
+Therefore the norm of $\ket{\tilde b}$ is $\sqrt M$, hence to normalize it add $\tfrac{1}{\sqrt M}$ in front --- the reasoning for $\ket a$ is analogous.
+
+Now, since the total superposition of the system is given by $$\ket \psi = \dfrac{1}{\sqrt N} \sum_{x \in \B}{\ket x}$$ through $\ket a$ and $\ket b$ we get that $$\ket \psi = \sqrt{\dfrac{N - M}{N}} \ket a + \sqrt{\dfrac{M}{N}} \ket b$$ Most notably, this directly implies that we can represent $\ket \psi$ on a 2D plane in terms of $\ket a$ and $\ket b$.
 
 \printbibliography % UNCOMMENT FOR BIBLIOGRAPHY
 

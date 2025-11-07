@@ -16,7 +16,7 @@
 \contentsline {section}{\numberline {2.1}Hilbert spaces}{20}{section.2.1}%
 \contentsline {subsection}{\numberline {2.1.1}Linear operators}{22}{subsection.2.1.1}%
 \contentsline {section}{\numberline {2.2}Spectral theory}{24}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Projectors}{25}{section.2.3}%
+\contentsline {section}{\numberline {2.3}Projectors}{26}{section.2.3}%
 \contentsline {section}{\numberline {2.4}Tensor product}{28}{section.2.4}%
 \contentsline {section}{\numberline {2.5}Rules of quantum mechanics}{28}{section.2.5}%
 \contentsline {chapter}{\numberline {3}Quantum algorithms}{31}{chapter.3}%
