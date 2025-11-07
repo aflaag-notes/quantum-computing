@@ -44,11 +44,11 @@
   <internal package="biblatex" priority="9" active="0">
     <generic>latex</generic>
     <provides type="dynamic">
-      <file>"Quantum Computing".aux</file>
-      <file>Quantum_Computing-blx.bib</file>
+      <file>QuantumComputing.aux</file>
+      <file>QuantumComputing-blx.bib</file>
     </provides>
     <requires type="dynamic">
-      <file>"Quantum Computing".bbl</file>
+      <file>QuantumComputing.bbl</file>
     </requires>
     <requires type="static">
       <file>blx-dm.def</file>
@@ -67,20 +67,20 @@
     <cmdline>
       <binary>bibtex</binary>
       <option>-min-crossrefs 2</option>
-      <infile>"Quantum Computing"</infile>
+      <infile>QuantumComputing</infile>
     </cmdline>
     <input>
-      <file>"Quantum Computing".aux</file>
+      <file>QuantumComputing.aux</file>
     </input>
     <output>
-      <file>"Quantum Computing".bbl</file>
+      <file>QuantumComputing.bbl</file>
     </output>
     <provides type="dynamic">
-      <file>"Quantum Computing".bbl</file>
+      <file>QuantumComputing.bbl</file>
     </provides>
     <requires type="dynamic">
-      <file>"Quantum Computing".aux</file>
-      <file>Quantum_Computing-blx.bib</file>
+      <file>QuantumComputing.aux</file>
+      <file>QuantumComputing-blx.bib</file>
     </requires>
     <requires type="editable">
       <file>./references.bib</file>

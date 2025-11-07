@@ -1,8 +1,8 @@
 PWD /home/aless/Desktop/notes/quantum-computing/src
 INPUT /usr/share/texmf-dist/web2c/texmf.cnf
 INPUT /var/lib/texmf/web2c/pdftex/pdflatex.fmt
-INPUT Quantum Computing.tex
-OUTPUT Quantum Computing.log
+INPUT QuantumComputing.tex
+OUTPUT QuantumComputing.log
 INPUT /usr/share/texmf-dist/tex/latex/base/report.cls
 INPUT /usr/share/texmf-dist/tex/latex/base/report.cls
 INPUT /usr/share/texmf-dist/tex/latex/base/size12.clo
@@ -91,6 +91,9 @@ INPUT /usr/share/texmf-dist/tex/generic/etexcmds/etexcmds.sty
 INPUT /usr/share/texmf-dist/tex/generic/etexcmds/etexcmds.sty
 INPUT /usr/share/texmf-dist/tex/generic/iftex/ifluatex.sty
 INPUT /usr/share/texmf-dist/tex/generic/iftex/ifluatex.sty
+INPUT ./QuantumComputing.w18
+INPUT ./QuantumComputing.w18
+INPUT QuantumComputing.w18
 INPUT /usr/share/texmf-dist/tex/latex/transparent/transparent.sty
 INPUT /usr/share/texmf-dist/tex/latex/transparent/transparent.sty
 INPUT /usr/share/texmf-dist/tex/latex/transparent/transparent-nometadata.sty
@@ -566,10 +569,10 @@ INPUT ../../packages/Nyx/nyx-title.sty
 INPUT ../../packages/Nyx/nyx-title.sty
 INPUT ../../packages/Nyx/nyx-intro.sty
 INPUT ../../packages/Nyx/nyx-intro.sty
-INPUT ./Quantum Computing.aux
-INPUT ./Quantum Computing.aux
-INPUT Quantum Computing.aux
-OUTPUT Quantum Computing.aux
+INPUT ./QuantumComputing.aux
+INPUT ./QuantumComputing.aux
+INPUT QuantumComputing.aux
+OUTPUT QuantumComputing.aux
 INPUT /usr/share/texmf-dist/tex/latex/tipa/t3cmr.fd
 INPUT /usr/share/texmf-dist/tex/latex/tipa/t3cmr.fd
 INPUT /usr/share/texmf-dist/tex/latex/tipa/t3cmr.fd
@@ -582,20 +585,20 @@ INPUT /usr/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 INPUT /usr/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 INPUT /usr/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 INPUT /usr/share/texmf-dist/tex/latex/biblatex/lbx/english.lbx
-OUTPUT Quantum_Computing-blx.bib
-INPUT Quantum Computing.bbl
-INPUT ./Quantum Computing.bbl
-INPUT ./Quantum Computing.bbl
-INPUT ./Quantum Computing.bbl
-INPUT Quantum Computing.bbl
-INPUT ./Quantum Computing.out
-INPUT ./Quantum Computing.out
-INPUT Quantum Computing.out
-INPUT Quantum Computing.out
-OUTPUT Quantum Computing.pdf
-INPUT ./Quantum Computing.out
-INPUT ./Quantum Computing.out
-OUTPUT Quantum Computing.out
+OUTPUT QuantumComputing-blx.bib
+INPUT QuantumComputing.bbl
+INPUT ./QuantumComputing.bbl
+INPUT ./QuantumComputing.bbl
+INPUT ./QuantumComputing.bbl
+INPUT QuantumComputing.bbl
+INPUT ./QuantumComputing.out
+INPUT ./QuantumComputing.out
+INPUT QuantumComputing.out
+INPUT QuantumComputing.out
+OUTPUT QuantumComputing.pdf
+INPUT ./QuantumComputing.out
+INPUT ./QuantumComputing.out
+OUTPUT QuantumComputing.out
 INPUT /usr/share/texmf-dist/fonts/tfm/jknappen/ec/ecbx2488.tfm
 INPUT ../../packages/Nyx/logo.png
 INPUT ../../packages/Nyx/logo.png
@@ -666,10 +669,10 @@ INPUT /usr/share/texmf-dist/fonts/tfm/jknappen/ec/ecrm1440.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/jknappen/ec/ecti1440.tfm
 INPUT /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map
 INPUT /usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc
-INPUT ./Quantum Computing.toc
-INPUT ./Quantum Computing.toc
-INPUT Quantum Computing.toc
-OUTPUT Quantum Computing.toc
+INPUT ./QuantumComputing.toc
+INPUT ./QuantumComputing.toc
+INPUT QuantumComputing.toc
+OUTPUT QuantumComputing.toc
 INPUT /usr/share/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm
 INPUT /usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
 INPUT /usr/share/texmf-dist/tex/latex/tex-gyre/t1qtm.fd
@@ -740,10 +743,6 @@ INPUT ../assets/grover1.svg
 INPUT ./svg-inkscape/grover1_svg-tex.pdf
 INPUT ./svg-inkscape/grover1_svg-tex.pdf_tex
 INPUT ./svg-inkscape/grover1_svg-tex.pdf_tex
-INPUT ./svg-inkscape/grover1_svg-tex.pdf_tex
-INPUT ./svg-inkscape/grover1_svg-tex.pdf
-INPUT ./grover1_svg-tex.pdf
-INPUT ./grover1_svg-tex.pdf
 INPUT ./svg-inkscape/grover1_svg-tex.pdf
 INPUT ./svg-inkscape/grover1_svg-tex.pdf
 INPUT ./svg-inkscape/grover1_svg-tex.pdf_tex
@@ -794,11 +793,11 @@ INPUT ./svg-inkscape/grover4_svg-tex.pdf
 INPUT ./svg-inkscape/grover4_svg-tex.pdf_tex
 INPUT ./svg-inkscape/grover4_svg-tex.pdf
 INPUT ./svg-inkscape/grover4_svg-tex.pdf
-INPUT Quantum Computing.aux
-INPUT ./Quantum Computing.out
-INPUT ./Quantum Computing.out
-INPUT Quantum Computing.run.xml
-OUTPUT Quantum Computing.run.xml
+INPUT QuantumComputing.aux
+INPUT ./QuantumComputing.out
+INPUT ./QuantumComputing.out
+INPUT QuantumComputing.run.xml
+OUTPUT QuantumComputing.run.xml
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb
