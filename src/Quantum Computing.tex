@@ -2,6 +2,8 @@
 
 \usepackage[dvipsnames]{xcolor}
 
+% \nonstopmode
+
 %%%%%%%%%%%%%%%%
 % Set Variables %
 %%%%%%%%%%%%%%%%
@@ -655,7 +657,7 @@ With this observation, we can finally define the projector operators.
     Given a Hilbert space $\mathcal H$, and a closed subspace $V \subset \mathcal H$, the \tbf{projector} operator that projects any given vector $v \in \mathcal H$ onto $V$ is defined as follows: $$\funcmap{P_V}{\mathcal H}{V}{u}{u_V = \sum_{i = 1}^n{\braket{f_i|u} f_i}}$$ where $\{f_1, \ldots, f_n\}$ is an orthonormal basis of $V$.
 \end{frameddefn}
 
-In other words, the projector we have that $$P_V := \sum_{i = 1}^n{\ket{f_i} \bra{f_i}}$$ Clearly, by definition of $u_{V^\bot}$ it holds that $$\funcmap{P_{V^\bot}}{\mathcal H}{V^\bot}{u}{u_{V^\bot} := u - u_V}$$ Moreover, since $P_V$ performs a projection, we have that $$\forall u \in \mathcal H \quad u \in V \iff P_Vu = u$$ and that $$\forall u \in \mathcal H \quad u \in V^\bot \iff P_V u = 0$$ Additionally, for any projector $P_V$ it holds that $P_V^2 = P_V$, by idempotency, and $P_V^\dag = P_V$. TODO \todo{SCRIVERE DELLA NOTAZIONE DI DIRAC}
+In other words, the projector we have that $$P_V := \sum_{i = 1}^n{\ket{f_i} \bra{f_i}}$$ Clearly, by definition of $u_{V^\bot}$ it holds that $$\funcmap{P_{V^\bot}}{\mathcal H}{V^\bot}{u}{u_{V^\bot} := u - u_V}$$ Moreover, since $P_V$ performs a projection, we have that $$\forall u \in \mathcal H \quad u \in V \iff P_Vu = u$$ and that $$\forall u \in \mathcal H \quad u \in V^\bot \iff P_V u = 0$$ Additionally, for any projector $P_V$ it holds that $P_V^2 = P_V$, by idempotency, and $P_V^\dag = P_V$.
 
 \begin{framedprop}{}
     Any projector operator only has 0 and 1 as possible eigenvalues.
@@ -960,13 +962,12 @@ More formally, given a Boolean function $$\funcmap{f}{\{0, \ldots, N - 1\}}{\B}{
 
 With a classical computation, it is easy to see that we need $O \rbk{\dfrac{N}{M}}$ accesses to $A$ to solve our problem, however we will see that the algorithm Grover developed is able to return a \curlyquotes{solution index} in $O\rbk{\sqrt{\dfrac{M}{N}}}$ with \tit{high probability}, i.e. Grover's algorithm provides a \tbf{quadratic} speedup compared to any classical algorithm --- however, it is probabilistic.
 
-Before explaining the details of the algorithm, we need to define some new operators that will be used in Grover's algorithm:
+Before explaining the details of the algorithm, we need to define some new operators that will be used in Grover's algorithm, and introduce some general notation:
 
 \begin{itemize}
-    \item given a qubit $\ket \psi$, we will write its superposition of states as follows $$\ket \psi = \sum_{b \in \B^n}{\alpha_b \ket b}$$ where $\sum_{b \in \B^n}{\abs{\alpha_b}} = 1$
-    \item from the above definition, we define the \tbf{average amplitude} of a qubit $\ket \psi$ as follows: $$\abk{\alpha}_\psi := \dfrac{1}{N}\sum_{b \in \B^n}{\alpha_b}$$ where $N = 2^n = \abs{\B^n}$
+    \item given an arbitrary qubit $\ket \psi$, we will write its superposition of states as follows $$\ket \psi = \sum_{b \in \B^n}{\alpha_b \ket b}$$ where $\sum_{b \in \B^n}{\abs{\alpha_b}} = 1$
     \item we define an operator $O_f$ (where $f$ is the indicator function of the array defined before) that computes as follows: $$\forall x \in \B^n \quad O_f \ket x := (-1)^{f(x)} \ket x$$
-    \item we define a new operator $W$ which computes the \tbf{inverse about the mean}: $$\forall b \in \B^n \quad W \ket b := (2 \abk{\alpha}_\psi - \alpha_b)\ket b$$ 
+    \item given an arbitrary qubit $\ket \psi$, we define a new operator $W$ as follows: $$W := 2 \ket s \bra s - I$$ where $\ket s$ is called \tbf{uniform superposition} (since each amplitude is equally likely) $$\ket s = \dfrac{1}{\sqrt N} \sum_{x \in \B^n}{\ket x}$$
     \item finally, we will define an operator $G$ that will simply compose the last two operators we described $$G = W \cdot O_f$$
 \end{itemize}
 
@@ -978,7 +979,7 @@ Before explaining the details of the algorithm, we need to define some new opera
     \begin{algorithmic}[1]
         \Function{Grover}{$f$, $q_0$}
             \State $q_0 = H^{\otimes n}(q_0)$
-            \For{$i \in \cbk{1, O\rbk{\tfrac{N}{M}}}$} \Comment{where $N = 2^n$}
+            \For{$i \in \sbk{1, O\rbk{\tfrac{N}{M}}}$} \Comment{where $N = 2^n$}
                 \State $q_0 = G(q_0)$
             \EndFor
             \State \tbf{return} $\mbox{measure}(q_0)$
@@ -986,30 +987,21 @@ Before explaining the details of the algorithm, we need to define some new opera
     \end{algorithmic}
 \end{framedalgo}
 
-First of all, we see that this algorithm takes only $n$ qubits as input, exactly as we did in the Deutsch-Josza algorithm. However, the actual implementation of the algorithm is slightly different, as shown in the following quantum circuit:
+First of all, we see that this algorithm takes only $n$ qubits as input, however the actual implementation of the algorithm is slightly different, as shown in the following quantum circuit:
 
-TODO \todo{spiega nell alg + drawing}
+TODO \todo{drawing}
 
-Indeed, we can see that the real quantum circuit takes $n + 1$ inputs, and the additional register is called \curlyquotes{ancilla} becuase its only purpose is to actually implement the $O_f$ operator, which is designed exactly as if it was the $U_f$ black-box we discussed in previous algorithms. This can be done thanks to \cref{U lemma}, which guarantees that if we give $\ket -$ as the second input to $U_f$, what we get as output is basically $$O_f \ket x \otimes \ket -  = (-1)^{f(x)} \otimes \ket - $$ which implies that the ancilla register will sill be $\ket -$, therefore we can just ignore the second register completely throughout the whole computation, and we are sure that $O_f$ computes correctly.
+Indeed, we can see that the real quantum circuit takes $n + 1$ inputs, and the additional register is called \curlyquotes{ancilla} becuase its only purpose is to actually implement the $O_f$ operator, which is designed exactly as if it was the $U_f$ black-box we discussed in previous algorithms. This can be done thanks to \cref{U lemma}, which guarantees that if we give $\ket -$ as the second input to $U_f$ we get $$O_f \ket x \otimes \ket -  = (-1)^{f(x)} \otimes \ket - $$ which implies that the ancilla register will sill be $\ket -$, therefore we can just ignore the second register completely throughout the whole computation, and we are sure that $O_f$ computes correctly.
 
-To explain the algorithm we need to understand what is the purpose of the $G$ operator, which in turn depends on both $O_f$ and $W$. First, we will provide a general understanding of the algorithm, then we will be more formal and explain all the details. To start, we observe that what $O_f$ actually does is returning $- \ket x$ only if $x$ is a solution index. TODO \todo{da finire col disegnino}
+Furthermore, before proceeding, let us prove that $G$ is actually a unitary operator, i.e. that this is a valid quantum computation.
 
-Now that we provided that a general understanding of the quantum procedure, we want to formalize the algorithm. First, let us prove that the operator $G$ is actually unitary.
-
-\claim[Claim 1]{
-    Given a qubit $\ket \psi$, it holds that $W = P_\psi - P_{\psi^\bot}$ where $P_\psi$ is a projector on $\psi$'s space and $P_\psi \bot P_{\psi^\bot}$. Moreover, $W$ is unitary.
-}{
-    % By definition of the Dirac notation, we have that $P_\psi = \ket \psi \bra \psi$, 
-    TODO \todo{capire la cosa psi normalizzato}
-}
-
-\claim[Claim 2]{
+\claim[Claim]{
     The operator $G$ is unitary.
 }{
-    By \cref{unitary prod} we know that proving that $W$ and $O_f$ are unitary is sufficient, but since $W$ is unitary by Claim 1, we only need to show that $O_f$ is un itary as well. \todo{da finire}
+    By \cref{unitary prod} we know that proving that $W$ and $O_f$ are unitary is sufficient to prove the claim. \todo{todo da finire}
 }
 
-Now that we know this operator is unitary, we can delve into the details of the algorithm. To see what happens at each iteration of the algorithm, we will describe the complete state of the system in a rather unusual way. Let $\ket a$ and $\ket b$ be the following superpositions: $$\ket a := \dfrac{1}{\sqrt{N - M}} \sum_{x \in \overline S}{\ket x} \quad \quad \ket b := \dfrac{1}{\sqrt M}\sum_{x \in S}{\ket x}$$ In other words, $\ket a$ is a superposition of non-solution indices, and $\ket b$ is a superposition of solution ones. To explain the $\tfrac{1}{\sqrt M}$ factor in front of $\ket b$, we simply observe that in quantum mechanics all state vectors must be normalized, and since the squared norm of $\ket {\tilde b}$ ($\ket b$ without the multiplicative factor in front) is equal to
+Now that we know this operator is unitary, we can delve into the details of the algorithm. To see what happens at each iteration, we will describe the complete state of the system in a rather unusual way. Let $\ket a$ and $\ket b$ be the following superpositions: $$\ket a := \dfrac{1}{\sqrt{N - M}} \sum_{x \in \overline S}{\ket x} \quad \quad \ket b := \dfrac{1}{\sqrt M}\sum_{x \in S}{\ket x}$$ In other words, $\ket a$ is the uniform superposition of non-solution indices, and $\ket b$ is the superposition of solution ones. To explain the $\tfrac{1}{\sqrt M}$ factor in front of $\ket b$, we recall that in quantum mechanics all state vectors must be normalized, and since the squared norm of $\ket {\tilde b}$ (which will denote $\ket b$ without the multiplicative factor in front) is equal to
 \begin{equation*}
     \begin{alignedat}{2}
         \braket{\tilde b| \tilde b} & = \rbk{\sum_{x \in S}{\ket x}}^\dag \rbk{\sum_{x \in S}{\ket x}} & \\ 
@@ -1021,9 +1013,103 @@ Now that we know this operator is unitary, we can delve into the details of the 
                                     & = M
     \end{alignedat}
 \end{equation*}
-Therefore the norm of $\ket{\tilde b}$ is $\sqrt M$, hence to normalize it add $\tfrac{1}{\sqrt M}$ in front --- the reasoning for $\ket a$ is analogous.
+the norm of $\ket{\tilde b}$ is $\sqrt M$, hence to normalize it it suffices to add $\tfrac{1}{\sqrt M}$ in front of $\ket{\tilde b}$--- the reasoning for $\ket a$ is analogous. Moreover, it's easy to see that $\ket a$ and $\ket b$ are orthogonal, so they form an orthonormal basis for a 2D space.
 
-Now, since the total superposition of the system is given by $$\ket \psi = \dfrac{1}{\sqrt N} \sum_{x \in \B}{\ket x}$$ through $\ket a$ and $\ket b$ we get that $$\ket \psi = \sqrt{\dfrac{N - M}{N}} \ket a + \sqrt{\dfrac{M}{N}} \ket b$$ Most notably, this directly implies that we can represent $\ket \psi$ on a 2D plane in terms of $\ket a$ and $\ket b$.
+Now, because of how we defined $\ket a$ and $\ket b$, we can rewrite the uniform superposition $$\ket s = \dfrac{1}{\sqrt N} \sum_{x \in \B}{\ket x}$$ as shown below $$\ket s = \sqrt{\dfrac{N - M}{N}} \ket a + \sqrt{\dfrac{M}{N}} \ket b$$ This is quite interesting, because it means that we can describe $\ket s$ in terms of $\ket a$ and $\ket b$. Let us do exactly this, and plot the resulting graph on a 2D space that has $\ket a$ and $\ket b$ as axis.
+
+\centeredsvg{0.5}{../assets/grover1}
+
+We observe that:
+
+\begin{itemize}
+    \item both $\ket s$, $\ket a $ and $\ket b$ are normalized, and all the vectors that we are going to consider are quantum states, so they will be normalized too, therefore we can restrict our focus on a 2D circumference of radius 1 --- this plane is usually called \tbf{Grover plane}
+    \item since we expect that $M \ll N$, we have that $\sqrt{\tfrac{M}{N}} \ll \sqrt{\tfrac{N - M}{N}}$, which basically means that the vector $\ket s$ is almost parallel to $\ket a$ (the bigger is the numer of solution indices, the bigger the angle between $\ket s$ and $\ket a$)
+\end{itemize}
+
+Consider any state $\ket \psi = \sum_{x \in \B^n}{\alpha_x \ket x}$; we observe that
+\begin{equation*}
+    \begin{split}
+        O_f \ket \psi & = O_f \sum_{x \in \B^n}{\alpha_x \ket x}  \\ 
+                      & = \sum_{x \in \B^n}{\alpha_x O_f \ket x} \\ 
+                      & = \sum_{x \in \B^n}{\alpha_x (-1)^{f(x)} \ket x} 
+    \end{split}
+\end{equation*}
+which basically means that each time we apply the $O_f$ operator we are flipping the sign of the amplitudes of the compoents of $\ket \psi$ that represent solution indices. In other words, the $O_f$ operator flips its input w.r.t. $\ket a$.
+
+Moreover, we observe that any state $\ket \psi$ can be decomposed into $$\ket \psi = \alpha \ket s + \ket{\psi_\bot}$$ where $\alpha \ket s$ is the projection of $\ket \psi$ along $\ket s$'s space --- thus $\alpha = \braket{s|\psi}$ --- and $\ket {\psi_\bot}$ is the projection of $\ket \psi$ along the space that is orthogonal to $\ket s$'s. Therefore, we have that
+\begin{equation*}
+    \begin{split}
+        W \ket \psi & = W(\alpha \ket s + \ket{\psi_\bot}) \\ 
+                    & = 2 \ket s \bra s (\alpha \ket s + \ket{\psi_\bot}) - (\alpha \ket s + \ket{\psi_\bot}) \\ 
+                    & = 2 \alpha \ket s \braket{s|s} + 2 \ket s \braket{s|\psi_\bot} - (\alpha \ket s + \ket{\psi_\bot}) \\ 
+                    & = 2 \alpha \ket s \cdot 1 + 0 - (\alpha \ket s + \ket{\psi_\bot}) \\ 
+                    & = \alpha \ket s - \ket{\psi_\bot}
+    \end{split}
+\end{equation*}
+which means that what $W$ actually performs is leaving the component along $\ket s$'s space unchanged, and it flips the sign of the component of the orthogonal space. In other words, what $W$ computes is the reflection of $\ket \psi$ w.r.t. $\ket s$.
+
+We can finally describe Grover's algorithm in detail. First, we see that
+\begin{equation*}
+    \begin{split}
+        & q_0 \\ 
+        = & \ket{0^n} \\ 
+        \xrightarrow{H^{\otimes(q_0)}} & \dfrac{1}{\sqrt{2^n}}\sum_{x \in \B^n}{(-1)^{0^n \cdot x} \ket x} \\ 
+        = & \dfrac{1}{\sqrt N} \sum_{x \in \B^n}{\ket x} \\ 
+        = & \ket s
+    \end{split}
+\end{equation*}
+
+Indeed, the only purpose of the first Hadamard operator is to \curlyquotes{move} the initial state slightly away from $\ket a$ --- and also making each component initially equally likelly. Now, let's see what happens at each application of the $G = W \cdot O_f$ operator:
+
+\begin{itemize}
+    \item as previously shown, the operator $O_f$ reflects its input w.r.t. the $\ket a$ axis --- below we show what happens when we first apply $O_f \ q_0 = O_f \ket s$: \centeredsvg{0.5}{../assets/grover2}
+    \item additionally, as previously explained the operator $W$ reflects its input w.r.t. the axis described by the $\ket s$ vector, thus when we compute $W \cdot O_f \ q_0$ we will end up with the following vector: \centeredsvg{0.5}{../assets/grover3}
+    \item this suggests that each time we apply the operator $G$ we are making $q_0$ closer and closer to $\ket b$, as depicted below: \centeredsvg{0.5}{../assets/grover4}
+\end{itemize}
+
+This is the core idea of Grover's algorithm: if we rewrite $q_0$ in terms of $\ket a$ and $\ket b$ $$q_0 = \beta_0 \ket a + \beta_1 \ket b$$ we get that through Grover's algorithm we transformed $q_0$ such that it is now very close to $\ket b$, meaning that $\beta_0 \ll \beta_1$. This direcly implies that when we will measure $q_0$ at the end of Grover's procedure the likelihood that it will collapse into some $\ket x$ that is a component of $\ket b$ --- i.e. a solution index --- is very high. In other words, what happens with Grover's algorithm is that we gradually increase the amplitudes of the solution indices, in order to maximize the probability that our qubit will collapse in one them when it will be measured at the end of the procedure.
+
+Now that we know how Grover's algorithm works, the only thing left to discuss is the $O \rbk{\sqrt{\dfrac{N}{M}}}$. Why is it guaranteed that after this amount of applications of the $G$ operator we are done with the algorithm? Well, we actually have the opposite problem: in reality, we have to \tit{stop early enough}. Consider again how Grover's algorithm operates in the Grover plane; clearly, if we apply $G$ too many times, what happens is that $q_0$ will end up past $\ket b$ itself: \todo{drawing}
+
+Let the angle between $\ket a$ and $\ket s$ be $\theta$; since $O_f$ flips $q_0$ w.r.t. $\ket a$, and $W$ flips $O_f \ q_0$ w.r.t. $\ket s$, $G$ will cumulatively rotate $q_0$ by $2 \theta$: \todo{drawing} Indeed, with each application of $G$ we are rotating $q_0$ by $2 \theta$, which means that at the $k$-th application it holds that $$G^k \ q_0 = \cos (2k + 1) \theta \ket a + \sin (2k + 1) \theta \ket b$$ for any $k \in \N$, where the additional 1 comes from the fact that $q_0 = \ket s$ through the Hadamard transformation at the start of the process. Thus, to evaluate the optimal number of iterations we need to find the optimal $k$, i.e. the one that maximizes the probability of measuring a solution index, which is equal to the squared amplitude of $\ket b$, namely $$\Pr[\mbox{measure}(q_0) = \ket b] = \sin^2(2k + 1) \theta$$ Hence, we have that $\sin^2(2k + 1)\theta = 1$ when $(2k +1) \theta = \tfrac{\pi}{2}$, and solving for $k$ we get that $$k = \dfrac{\pi}{4 \theta} - \dfrac{1}{2}$$ Lastly, since $\theta$ is the angle between $\ket a$ and $\ket s$, we can rewrite $\ket s$ as $$\ket s = \cos \theta \ket a + \sin \theta \ket b$$ which directly implies that $$\sin \theta = \sqrt {\dfrac{M}{N}} \iff \theta = \arcsin \sqrt{\dfrac{M}{N}}$$ and therefore
+\begin{equation*}
+    \begin{split}
+        k \dfrac{\pi}{4 \theta} - \dfrac{1}{2} & = \dfrac{\pi}{4 \arcsin \sqrt{\dfrac{M}{N}}} - \dfrac{1}{2}  \\  
+                                               & \le  \dfrac{\pi}{4 \arcsin \sqrt{\dfrac{M}{N}}} \\ 
+                                               & \le \dfrac{\pi}{4 \sqrt{\dfrac{M}{N}}} \\ 
+                                               & = \dfrac{\pi}{4} \sqrt{\dfrac{N}{M}} \\ 
+                                               & = O \rbk{\sqrt{\dfrac{N}{M}}}
+   \end{split}
+\end{equation*}
+which finally explains the quadratic speedup of Grover's algorithm w.r.t. the classical version of the problem.
+
+As a final note, we observe that Grover's algorithm assumes that $\theta \le \tfrac{\pi}{4}$, otherwise we overshoot $\ket b$ with a single iteration of the $G$ operator --- since $\theta > \tfrac{\pi}{4}$ would mean that $\ket s$ is placed on the \curlyquotes{upper half} of the Grover plane. However, to ensure this constraint on $\theta$ we only need that $M \le \tfrac{N}{2}$, i.e. at most half of the elements in our array are solution elements. Indeed, we see that $$M \le \dfrac{N}{2} \implies \sin \theta = \sqrt{\dfrac{M}{N}} \le \sqrt{\dfrac{1}{2}} \implies \theta \le \arcsin \sqrt{\dfrac{1}{2}} = \dfrac{\pi}{4}$$ What can we do if the number of solutions is more than half the size of the array? We simply invert the problem and find the non-solutions!
+
+\subsection{Another perspective}
+
+Interestingly enough, we can look at what happens to the amplitudes of $q_0$ from another perspective. Usually, the $W$ operator is called \tbf{diffusion operator}, and what it does is computing the so called \tit{inversion about the mean} of its input. Consider any state $\ket \psi = \sum_{x \in \B^n}{\alpha_x \ket x}$, and observe that
+\begin{equation*}
+    \begin{alignedat}{2}
+        \braket{s|\psi} & = \rbk{\dfrac{1}{\sqrt N} \sum_{y \in \B^n}{\ket y}}^\dag \rbk{\sum_{x \in \B^n}{\alpha_x \ket x}} & \quad (\mbox{since $\bra s = \ket s ^\dag$})\\ 
+                        & = \rbk{\dfrac{1}{\sqrt N} \sum_{y \in \B^n}{\bra y}} \rbk{\sum_{x \in \B^n}{\alpha_x \ket x}} & \\ 
+                        & = \dfrac{1}{\sqrt N} \sum_{y \in \B^n}{\sum_{x \in \B^n}{\alpha_x \braket{y|x}}} & \\ 
+                        & = \dfrac{1}{\sqrt N} \sum_{y \in \B^n}{\sum_{x \in \B^n}{\alpha_x \delta_x,y}} & \quad (\mbox{basis states are orthonormal}) \\ 
+                        & = \dfrac{1}{\sqrt N} \sum_{x \in \B^n}{\alpha_x \sum_{y \in \B^n}{\delta_x,y}} & \\ 
+                        & = \dfrac{1}{\sqrt N} \sum_{x \in \B^n}{\alpha_x} & \\ 
+                        & = \sqrt N \overline{\alpha_\psi}
+    \end{alignedat}
+\end{equation*}
+where $\overline{\alpha_\psi}$ is the average amplitude of $\ket \psi$. This implies that
+\begin{equation*}
+    \begin{alignedat}{2}
+        W \ket \psi & = (2 \ket s \bra s - I) \ket \psi & \\ 
+                    & = 2 \ket s \braket{s|\psi} - \sum_{x \in \B^n}{\ket x} & \\  
+                    & = 2 \ket s \rbk{\sqrt N \overline{\alpha_\psi}} - \sum_{x \in \alpha_x \ket x} & \quad (\mbox{for the previous observation}) \\ 
+                    & = 2 \rbk{\dfrac{1}{\sqrt N} \sum_{y \in \B^n}{\ket y}} \sqrt N \overline{\alpha_\psi} - \sum_{x \in \B^n}{\alpha_x \ket x} & \\
+                    & = \sum_{x \in \B^n}{\rbk{2 \overline{\alpha_\psi} - \alpha_x} \ket x} & \\ 
+    \end{alignedat}
+\end{equation*}
+In other words, when we apply $W$ to a superposition of states, what happens is that each amplitude of the basis states is trasformed as follows: $$\func{W}{\alpha_x}{2 \overline{\alpha_\psi} - \alpha_x}$$ To understand why this is important, let's look at what happens in Grover's algorithm after the first Hadamard application. TODO \todo{da finire}
 
 \printbibliography % UNCOMMENT FOR BIBLIOGRAPHY
 

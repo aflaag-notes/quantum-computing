@@ -1,6 +1,6 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2025.8.29)  7 NOV 2025 12:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2025.8.29)  7 NOV 2025 23:08
 entering extended mode
- restricted \write18 enabled.
+ \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
 **"Quantum Computing.tex"
@@ -120,25 +120,33 @@ File: lstmisc.sty 2024/09/23 1.10c (Carsten Heinz)
 File: listings.cfg 2024/09/23 1.10c listings configuration
 ))
 Package: listings 2024/09/23 1.10c (Carsten Heinz)
- (/usr/share/texmf-dist/tex/latex/geometry/geometry.sty
-Package: geometry 2020/01/02 v5.9 Page Geometry
- (/usr/share/texmf-dist/tex/generic/iftex/ifvtex.sty
-Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+ (/usr/share/texmf-dist/tex/latex/svg/svg.sty
+Package: svg 2020/11/26 v2.02k (include SVG pictures)
  (/usr/share/texmf-dist/tex/generic/iftex/iftex.sty
 Package: iftex 2024/12/12 v1.0g TeX engine tests
-))
-\Gm@cnth=\count297
-\Gm@cntv=\count298
-\c@Gm@tempcnt=\count299
-\Gm@bindingoffset=\dimen151
-\Gm@wd@mp=\dimen152
-\Gm@odd@mp=\dimen153
-\Gm@even@mp=\dimen154
-\Gm@layoutwidth=\dimen155
-\Gm@layoutheight=\dimen156
-\Gm@layouthoffset=\dimen157
-\Gm@layoutvoffset=\dimen158
-\Gm@dimlist=\toks22
+) (/usr/share/texmf-dist/tex/latex/koma-script/scrbase.sty
+Package: scrbase 2024/10/24 v3.43 KOMA-Script package (KOMA-Script-independent basics and keyval usage)
+ (/usr/share/texmf-dist/tex/latex/koma-script/scrlfile.sty
+Package: scrlfile 2024/10/24 v3.43 KOMA-Script package (file load hooks)
+ (/usr/share/texmf-dist/tex/latex/koma-script/scrlfile-hook.sty
+Package: scrlfile-hook 2024/10/24 v3.43 KOMA-Script package (using LaTeX hooks)
+ (/usr/share/texmf-dist/tex/latex/koma-script/scrlogo.sty
+Package: scrlogo 2024/10/24 v3.43 KOMA-Script package (logo)
+)))
+Applying: [2021/05/01] Usage of raw or classic option list on input line 254.
+Already applied: [0000/00/00] Usage of raw or classic option list on input line 370.
+) (/usr/share/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
+ (/usr/share/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+) (/usr/share/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+) (/usr/share/texmf-dist/tex/latex/trimspaces/trimspaces.sty
+Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 ) (/usr/share/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
  (/usr/share/texmf-dist/tex/latex/graphics/graphics.sty
@@ -150,8 +158,156 @@ File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 106.
 )
-\Gin@req@height=\dimen159
-\Gin@req@width=\dimen160
+\Gin@req@height=\dimen151
+\Gin@req@width=\dimen152
+) (/usr/share/texmf-dist/tex/latex/tools/shellesc.sty
+Package: shellesc 2023/07/08 v1.0d unified shell escape interface for LaTeX
+Package shellesc Info: Unrestricted shell escape enabled on input line 75.
+) (/usr/share/texmf-dist/tex/latex/ifplatform/ifplatform.sty
+Package: ifplatform 2017/10/13 v0.4a Testing for the operating system
+ (/usr/share/texmf-dist/tex/generic/catchfile/catchfile.sty
+Package: catchfile 2019/12/09 v1.8 Catch the contents of a file (HO)
+ (/usr/share/texmf-dist/tex/generic/etexcmds/etexcmds.sty
+Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
+)) (/usr/share/texmf-dist/tex/generic/iftex/ifluatex.sty
+Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
+)
+runsystem(uname -s > ""Quantum Computing".w18")...executed.
+
+
+
+/usr/share/texmf-dist/tex/latex/ifplatform/ifplatform.sty:92: Package catchfile Error: File `"Quantum Computing".w18' not found.
+
+See the catchfile package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.92     \CatchFileDef\@tempa{\ip@file}{}
+                                         
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+runsystem(rm -- ""Quantum Computing".w18")...executed.
+
+/usr/share/texmf-dist/tex/latex/ifplatform/ifplatform.sty:94: Argument of \zap@space has an extra }.
+<inserted text> 
+                \par 
+l.94 ...empa{\expandafter\zap@space\@tempa\@empty}
+                                                  
+I've run across a `}' that doesn't seem to match anything.
+For example, `\def\a#1{...}' and `\a}' would produce
+this error. If you simply proceed now, the `\par' that
+I've just inserted will cause me to report a runaway
+argument that might be the root of the problem. But if
+your `}' was spurious, just type `2' and it will go away.
+
+Runaway argument?
+\@empty 
+/usr/share/texmf-dist/tex/latex/ifplatform/ifplatform.sty:94: Paragraph ended before \zap@space was complete.
+<to be read again> 
+                   \par 
+l.94 ...empa{\expandafter\zap@space\@tempa\@empty}
+                                                  
+I suspect you've forgotten a `}', causing me to apply this
+control sequence to too much text. How can we recover?
+My plan is to forget the whole thing and hope for the best.
+
+Runaway argument?
+/usr/share/texmf-dist/tex/latex/ifplatform/ifplatform.sty:104: Paragraph ended before \ip@only@six was complete.
+<to be read again> 
+                   \par 
+l.104 ...ef\@tempc{\expandafter\ip@only@six\@tempa
+                                                  ------\@nil}
+I suspect you've forgotten a `}', causing me to apply this
+control sequence to too much text. How can we recover?
+My plan is to forget the whole thing and hope for the best.
+
+/usr/share/texmf-dist/tex/latex/ifplatform/ifplatform.sty:104: Undefined control sequence.
+l.104 ...expandafter\ip@only@six\@tempa------\@nil
+                                                  }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+)
+\c@svg@param@lastpage=\count297
+\svg@box=\box56
+\c@svg@param@currpage=\count298
+) (/usr/share/texmf-dist/tex/latex/transparent/transparent.sty
+Package: transparent 2022-10-27 v1.5 Transparency with color stacks
+ (/usr/share/texmf-dist/tex/latex/transparent/transparent-nometadata.sty
+Package: transparent-nometadata 2022-10-27 v1.5 Transparency via pdfTeX's color stack (HO)
+ (/usr/share/texmf-dist/tex/latex/auxhook/auxhook.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+))) (/usr/share/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty (/usr/share/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty (/usr/share/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex
+\pgfutil@everybye=\toks22
+\pgfutil@tempdima=\dimen153
+\pgfutil@tempdimb=\dimen154
+) (/usr/share/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
+\pgfutil@abb=\box57
+) (/usr/share/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex (/usr/share/texmf-dist/tex/generic/pgf/pgf.revision.tex)
+Package: pgfrcs 2023-01-15 v3.1.10 (3.1.10)
+)) (/usr/share/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
+Package: pgfsys 2023-01-15 v3.1.10 (3.1.10)
+ (/usr/share/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+\pgfkeys@pathtoks=\toks23
+\pgfkeys@temptoks=\toks24
+ (/usr/share/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfiltered.code.tex
+\pgfkeys@tmptoks=\toks25
+))
+\pgf@x=\dimen155
+\pgf@y=\dimen156
+\pgf@xa=\dimen157
+\pgf@ya=\dimen158
+\pgf@xb=\dimen159
+\pgf@yb=\dimen160
+\pgf@xc=\dimen161
+\pgf@yc=\dimen162
+\pgf@xd=\dimen163
+\pgf@yd=\dimen164
+\w@pgf@writea=\write3
+\r@pgf@reada=\read2
+\c@pgf@counta=\count299
+\c@pgf@countb=\count300
+\c@pgf@countc=\count301
+\c@pgf@countd=\count302
+\t@pgf@toka=\toks26
+\t@pgf@tokb=\toks27
+\t@pgf@tokc=\toks28
+\pgf@sys@id@count=\count303
+ (/usr/share/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
+File: pgf.cfg 2023-01-15 v3.1.10 (3.1.10)
+)
+Driver file for pgf: pgfsys-pdftex.def
+ (/usr/share/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.def
+File: pgfsys-pdftex.def 2023-01-15 v3.1.10 (3.1.10)
+ (/usr/share/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-pdf.def
+File: pgfsys-common-pdf.def 2023-01-15 v3.1.10 (3.1.10)
+))) (/usr/share/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.tex
+File: pgfsyssoftpath.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfsyssoftpath@smallbuffer@items=\count304
+\pgfsyssoftpath@bigbuffer@items=\count305
+) (/usr/share/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex
+File: pgfsysprotocol.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)) (/usr/share/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+ (/usr/share/texmf-dist/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+)
+\Gm@cnth=\count306
+\Gm@cntv=\count307
+\c@Gm@tempcnt=\count308
+\Gm@bindingoffset=\dimen165
+\Gm@wd@mp=\dimen166
+\Gm@odd@mp=\dimen167
+\Gm@even@mp=\dimen168
+\Gm@layoutwidth=\dimen169
+\Gm@layoutheight=\dimen170
+\Gm@layouthoffset=\dimen171
+\Gm@layoutvoffset=\dimen172
+\Gm@dimlist=\toks29
 ) (/usr/share/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
 Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
 \f@nch@headwidth=\skip53
@@ -168,12 +324,12 @@ Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
 \f@nch@widthL=\skip64
 \f@nch@widthC=\skip65
 \f@nch@widthR=\skip66
-\@temptokenb=\toks23
+\@temptokenb=\toks30
 ) (/usr/share/texmf-dist/tex/latex/footmisc/footmisc.sty
 Package: footmisc 2024/12/24 v6.0g a miscellany of footnote facilities
-\FN@temptoken=\toks24
-\footnotemargin=\dimen161
-\@outputbox@depth=\dimen162
+\FN@temptoken=\toks31
+\footnotemargin=\dimen173
+\@outputbox@depth=\dimen174
 Package footmisc Info: Declaring symbol style bringhurst on input line 699.
 Package footmisc Info: Declaring symbol style chicago on input line 707.
 Package footmisc Info: Declaring symbol style wiley on input line 716.
@@ -184,51 +340,38 @@ Package footmisc Info: Declaring symbol style lamport*-robust on input line 768.
 Package: mdframed 2013/07/01 1.9b: mdframed
  (/usr/share/texmf-dist/tex/latex/kvoptions/kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
- (/usr/share/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
-Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
-) (/usr/share/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
+ (/usr/share/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
 Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
 )) (/usr/share/texmf-dist/tex/latex/l3packages/xparse/xparse.sty (/usr/share/texmf-dist/tex/latex/l3kernel/expl3.sty
 Package: expl3 2025-01-18 L3 programming layer (loader) 
  (/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count300
-\l__pdf_internal_box=\box56
+\l__color_backend_stack_int=\count309
+\l__pdf_internal_box=\box58
 ))
 Package: xparse 2024-08-16 L3 Experimental document command parser
 ) (/usr/share/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2025/02/11 v2.5l e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count301
+\etb@tempcnta=\count310
 ) (/usr/share/texmf-dist/tex/latex/zref/zref-abspage.sty
 Package: zref-abspage 2023-09-14 v2.35 Module abspage for zref (HO)
  (/usr/share/texmf-dist/tex/latex/zref/zref-base.sty
 Package: zref-base 2023-09-14 v2.35 Module base for zref (HO)
- (/usr/share/texmf-dist/tex/generic/infwarerr/infwarerr.sty
-Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
-) (/usr/share/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+ (/usr/share/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
-) (/usr/share/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
-Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
-Package pdftexcmds Info: \pdf@primitive is available.
-Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
-) (/usr/share/texmf-dist/tex/generic/etexcmds/etexcmds.sty
-Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
-) (/usr/share/texmf-dist/tex/latex/auxhook/auxhook.sty
-Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
 )
 Package zref Info: New property list: main on input line 767.
 Package zref Info: New property: default on input line 768.
 Package zref Info: New property: page on input line 769.
 )
-\c@abspage=\count302
+\c@abspage=\count311
 Package zref Info: New property: abspage on input line 67.
 )
 (/usr/share/texmf-dist/tex/latex/needspace/needspace.sty
 Package: needspace 2010/09/12 v1.3d reserve vertical space
 )
 \mdf@templength=\skip67
-\c@mdf@globalstyle@cnt=\count303
+\c@mdf@globalstyle@cnt=\count312
 \mdf@skipabove@length=\skip68
 \mdf@skipbelow@length=\skip69
 \mdf@leftmargin@length=\skip70
@@ -268,70 +411,19 @@ Package: needspace 2010/09/12 v1.3d reserve vertical space
 \mdf@subsubtitlebelowskip@length=\skip104
 \mdf@subsubtitleinneraboveskip@length=\skip105
 \mdf@subsubtitleinnerbelowskip@length=\skip106
- (/usr/share/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty (/usr/share/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty (/usr/share/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty (/usr/share/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex
-\pgfutil@everybye=\toks25
-\pgfutil@tempdima=\dimen163
-\pgfutil@tempdimb=\dimen164
-) (/usr/share/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
-\pgfutil@abb=\box57
-) (/usr/share/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex (/usr/share/texmf-dist/tex/generic/pgf/pgf.revision.tex)
-Package: pgfrcs 2023-01-15 v3.1.10 (3.1.10)
-))
+ (/usr/share/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty (/usr/share/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
 Package: pgf 2023-01-15 v3.1.10 (3.1.10)
- (/usr/share/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty (/usr/share/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty (/usr/share/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
-Package: pgfsys 2023-01-15 v3.1.10 (3.1.10)
- (/usr/share/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
-\pgfkeys@pathtoks=\toks26
-\pgfkeys@temptoks=\toks27
- (/usr/share/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfiltered.code.tex
-\pgfkeys@tmptoks=\toks28
-))
-\pgf@x=\dimen165
-\pgf@y=\dimen166
-\pgf@xa=\dimen167
-\pgf@ya=\dimen168
-\pgf@xb=\dimen169
-\pgf@yb=\dimen170
-\pgf@xc=\dimen171
-\pgf@yc=\dimen172
-\pgf@xd=\dimen173
-\pgf@yd=\dimen174
-\w@pgf@writea=\write3
-\r@pgf@reada=\read2
-\c@pgf@counta=\count304
-\c@pgf@countb=\count305
-\c@pgf@countc=\count306
-\c@pgf@countd=\count307
-\t@pgf@toka=\toks29
-\t@pgf@tokb=\toks30
-\t@pgf@tokc=\toks31
-\pgf@sys@id@count=\count308
- (/usr/share/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
-File: pgf.cfg 2023-01-15 v3.1.10 (3.1.10)
-)
-Driver file for pgf: pgfsys-pdftex.def
- (/usr/share/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.def
-File: pgfsys-pdftex.def 2023-01-15 v3.1.10 (3.1.10)
- (/usr/share/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-pdf.def
-File: pgfsys-common-pdf.def 2023-01-15 v3.1.10 (3.1.10)
-))) (/usr/share/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.tex
-File: pgfsyssoftpath.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfsyssoftpath@smallbuffer@items=\count309
-\pgfsyssoftpath@bigbuffer@items=\count310
-) (/usr/share/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex
-File: pgfsysprotocol.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)) (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
+ (/usr/share/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
 Package: pgfcore 2023-01-15 v3.1.10 (3.1.10)
  (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
 \pgfmath@dimen=\dimen175
-\pgfmath@count=\count311
-\pgfmath@box=\box58
+\pgfmath@count=\count313
+\pgfmath@box=\box59
 \pgfmath@toks=\toks32
 \pgfmath@stack@operand=\toks33
 \pgfmath@stack@operation=\toks34
-) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonometric.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code.tex)
-(/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerarithmetics.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count312
+) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonometric.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerarithmetics.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
+\c@pgfmathroundto@lastzeros=\count314
 )) (/usr/share/texmf-dist/tex/generic/pgf/math/pgfint.code.tex) (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.tex
 File: pgfcorepoints.code.tex 2023-01-15 v3.1.10 (3.1.10)
 \pgf@picminx=\dimen176
@@ -358,10 +450,10 @@ File: pgfcorepathusage.code.tex 2023-01-15 v3.1.10 (3.1.10)
 \pgf@shorten@start@additional=\dimen193
 ) (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.tex
 File: pgfcorescopes.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfpic=\box59
-\pgf@hbox=\box60
-\pgf@layerbox@main=\box61
-\pgf@picture@serial@count=\count313
+\pgfpic=\box60
+\pgf@hbox=\box61
+\pgf@layerbox@main=\box62
+\pgf@picture@serial@count=\count315
 ) (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.code.tex
 File: pgfcoregraphicstate.code.tex 2023-01-15 v3.1.10 (3.1.10)
 \pgflinewidth=\dimen194
@@ -372,7 +464,8 @@ File: pgfcoretransformations.code.tex 2023-01-15 v3.1.10 (3.1.10)
 \pgf@pt@temp=\dimen197
 ) (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
 File: pgfcorequick.code.tex 2023-01-15 v3.1.10 (3.1.10)
-) (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.code.tex
+)
+(/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.code.tex
 File: pgfcoreobjects.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ) (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathprocessing.code.tex
 File: pgfcorepathprocessing.code.tex 2023-01-15 v3.1.10 (3.1.10)
@@ -382,13 +475,13 @@ File: pgfcorearrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ) (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
 File: pgfcoreshade.code.tex 2023-01-15 v3.1.10 (3.1.10)
 \pgf@max=\dimen199
-\pgf@sys@shading@range@num=\count314
-\pgf@shadingcount=\count315
+\pgf@sys@shading@range@num=\count316
+\pgf@shadingcount=\count317
 ) (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
 File: pgfcoreimage.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ) (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.tex
 File: pgfcoreexternal.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfexternal@startupbox=\box62
+\pgfexternal@startupbox=\box63
 ) (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.tex
 File: pgfcorelayers.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ) (/usr/share/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransparency.code.tex
@@ -399,7 +492,7 @@ File: pgfcorepatterns.code.tex 2023-01-15 v3.1.10 (3.1.10)
 File: pgfcorerdf.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ))) (/usr/share/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.code.tex
 File: pgfmoduleshapes.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfnodeparttextbox=\box63
+\pgfnodeparttextbox=\box64
 ) (/usr/share/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.tex
 File: pgfmoduleplot.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ) (/usr/share/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65.sty
@@ -408,8 +501,7 @@ Package: pgfcomp-version-0-65 2023-01-15 v3.1.10 (3.1.10)
 \pgf@nodesepend=\dimen257
 ) (/usr/share/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18.sty
 Package: pgfcomp-version-1-18 2023-01-15 v3.1.10 (3.1.10)
-))
-(/usr/share/texmf-dist/tex/latex/pgf/utilities/pgffor.sty (/usr/share/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty (/usr/share/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex)) (/usr/share/texmf-dist/tex/latex/pgf/math/pgfmath.sty (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)) (/usr/share/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
+)) (/usr/share/texmf-dist/tex/latex/pgf/utilities/pgffor.sty (/usr/share/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty (/usr/share/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex)) (/usr/share/texmf-dist/tex/latex/pgf/math/pgfmath.sty (/usr/share/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)) (/usr/share/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
 Package: pgffor 2023-01-15 v3.1.10 (3.1.10)
 \pgffor@iter=\dimen258
 \pgffor@skip=\dimen259
@@ -419,7 +511,7 @@ Package: pgffor 2023-01-15 v3.1.10 (3.1.10)
 Package: tikz 2023-01-15 v3.1.10 (3.1.10)
  (/usr/share/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers.code.tex
 File: pgflibraryplothandlers.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@plot@mark@count=\count316
+\pgf@plot@mark@count=\count318
 \pgfplotmarksize=\dimen260
 )
 \tikz@lastx=\dimen261
@@ -430,31 +522,31 @@ File: pgflibraryplothandlers.code.tex 2023-01-15 v3.1.10 (3.1.10)
 \tikz@lastmovetoy=\dimen266
 \tikzleveldistance=\dimen267
 \tikzsiblingdistance=\dimen268
-\tikz@figbox=\box64
-\tikz@figbox@bg=\box65
-\tikz@tempbox=\box66
-\tikz@tempbox@bg=\box67
-\tikztreelevel=\count317
-\tikznumberofchildren=\count318
-\tikznumberofcurrentchild=\count319
-\tikz@fig@count=\count320
+\tikz@figbox=\box65
+\tikz@figbox@bg=\box66
+\tikz@tempbox=\box67
+\tikz@tempbox@bg=\box68
+\tikztreelevel=\count319
+\tikznumberofchildren=\count320
+\tikznumberofcurrentchild=\count321
+\tikz@fig@count=\count322
  (/usr/share/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
 File: pgfmodulematrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfmatrixcurrentrow=\count321
-\pgfmatrixcurrentcolumn=\count322
-\pgf@matrix@numberofcolumns=\count323
+\pgfmatrixcurrentrow=\count323
+\pgfmatrixcurrentcolumn=\count324
+\pgf@matrix@numberofcolumns=\count325
 )
-\tikz@expandcount=\count324
+\tikz@expandcount=\count326
  (/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytopaths.code.tex
 File: tikzlibrarytopaths.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ))) (/usr/share/texmf-dist/tex/latex/mdframed/md-frame-1.mdf
 File: md-frame-1.mdf 2013/07/01\ 1.9b: md-frame-1
 )
-\mdf@frametitlebox=\box68
-\mdf@footnotebox=\box69
-\mdf@splitbox@one=\box70
-\mdf@splitbox@two=\box71
-\mdf@splitbox@save=\box72
+\mdf@frametitlebox=\box69
+\mdf@footnotebox=\box70
+\mdf@splitbox@one=\box71
+\mdf@splitbox@two=\box72
+\mdf@splitbox@save=\box73
 \mdfsplitboxwidth=\skip107
 \mdfsplitboxtotalwidth=\skip108
 \mdfsplitboxheight=\skip109
@@ -482,16 +574,16 @@ File: md-frame-1.mdf 2013/07/01\ 1.9b: md-frame-1
 \mdf@horizontalspaceofbox=\skip131
 \mdfsubtitleheight=\skip132
 \mdfsubsubtitleheight=\skip133
-\c@mdfcountframes=\count325
+\c@mdfcountframes=\count327
 
 ****** mdframed patching \endmdf@trivlist
 
 ****** -- success******
 
-\mdf@envdepth=\count326
-\c@mdf@env@i=\count327
-\c@mdf@env@ii=\count328
-\c@mdf@zref@counter=\count329
+\mdf@envdepth=\count328
+\c@mdf@env@i=\count329
+\c@mdf@env@ii=\count330
+\c@mdf@zref@counter=\count331
 Package zref Info: New property: mdf@pagevalue on input line 895.
 ) (/usr/share/texmf-dist/tex/latex/parskip/parskip.sty
 Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
@@ -500,19 +592,20 @@ Package: enumitem 2025/02/06 v3.11 Customized lists
 \labelindent=\skip134
 \enit@outerparindent=\dimen269
 \enit@toks=\toks37
-\enit@inbox=\box73
-\enit@count@id=\count330
-\enitdp@description=\count331
+\enit@inbox=\box74
+\enit@count@id=\count332
+\enitdp@description=\count333
 ) (/usr/share/texmf-dist/tex/latex/csquotes/csquotes.sty
 Package: csquotes 2024-04-04 v5.2o context-sensitive quotations (JAW)
-\csq@reset=\count332
-\csq@gtype=\count333
-\csq@glevel=\count334
-\csq@qlevel=\count335
-\csq@maxlvl=\count336
-\csq@tshold=\count337
+\csq@reset=\count334
+\csq@gtype=\count335
+\csq@glevel=\count336
+\csq@qlevel=\count337
+\csq@maxlvl=\count338
+\csq@tshold=\count339
 \csq@ltx@everypar=\toks38
- (/usr/share/texmf-dist/tex/latex/csquotes/csquotes.def
+
+(/usr/share/texmf-dist/tex/latex/csquotes/csquotes.def
 File: csquotes.def 2024-04-04 v5.2o csquotes generic definitions (JAW)
 )
 Package csquotes Info: Trying to load configuration file 'csquotes.cfg'...
@@ -521,11 +614,11 @@ Package csquotes Info: ... configuration file loaded successfully.
 File: csquotes.cfg 
 )) (/usr/share/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count338
+\c@float@type=\count340
 \float@exts=\toks39
-\float@box=\box74
+\float@box=\box75
 \@float@everytoks=\toks40
-\@floatcapt=\box75
+\@floatcapt=\box76
 ) (/usr/share/texmf-dist/tex/latex/bbm-macros/bbm.sty
 Package: bbm 1999/03/15 V 1.2 provides fonts for set symbols - TH
 LaTeX Font Info:    Overwriting math alphabet `\mathbbm' in version `bold'
@@ -541,28 +634,25 @@ Package: verbatim 2024-01-22 v1.5x LaTeX2e package for verbatim enhancements
 \verbatim@in@stream=\read3
 ) (/usr/share/texmf-dist/tex/latex/environ/environ.sty
 Package: environ 2014/05/04 v0.3 A new way to define environments
- (/usr/share/texmf-dist/tex/latex/trimspaces/trimspaces.sty
-Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
-)
 \@envbody=\toks43
 )
-\tcb@titlebox=\box76
-\tcb@upperbox=\box77
-\tcb@lowerbox=\box78
-\tcb@phantombox=\box79
-\c@tcbbreakpart=\count339
-\c@tcblayer=\count340
-\c@tcolorbox@number=\count341
-\l__tcobox_tmpa_box=\box80
+\tcb@titlebox=\box77
+\tcb@upperbox=\box78
+\tcb@lowerbox=\box79
+\tcb@phantombox=\box80
+\c@tcbbreakpart=\count341
+\c@tcblayer=\count342
+\c@tcolorbox@number=\count343
+\l__tcobox_tmpa_box=\box81
 \l__tcobox_tmpa_dim=\dimen270
-\tcb@temp=\box81
 \tcb@temp=\box82
 \tcb@temp=\box83
 \tcb@temp=\box84
+\tcb@temp=\box85
 ) (/usr/share/texmf-dist/tex/latex/varwidth/varwidth.sty
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
-\@vwid@box=\box85
-\sift@deathcycles=\count342
+\@vwid@box=\box86
+\sift@deathcycles=\count344
 \@vwid@loff=\dimen271
 \@vwid@roff=\dimen272
 ) (/usr/share/texmf-dist/tex/latex/base/latexsym.sty
@@ -582,7 +672,7 @@ Now handling font encoding T3 ...
 Package: biblatex 2024/03/21 v3.20 programmable bibliographies (PK/MW)
  (/usr/share/texmf-dist/tex/latex/logreq/logreq.sty
 Package: logreq 2010/08/04 v1.0 xml request logger
-\lrq@indent=\count343
+\lrq@indent=\count345
  (/usr/share/texmf-dist/tex/latex/logreq/logreq.def
 File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
 )) (/usr/share/texmf-dist/tex/latex/base/ifthen.sty
@@ -591,49 +681,49 @@ Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
-\c@tabx@nest=\count344
-\c@listtotal=\count345
-\c@listcount=\count346
-\c@liststart=\count347
-\c@liststop=\count348
-\c@citecount=\count349
-\c@citetotal=\count350
-\c@multicitecount=\count351
-\c@multicitetotal=\count352
-\c@instcount=\count353
-\c@maxnames=\count354
-\c@minnames=\count355
-\c@maxitems=\count356
-\c@minitems=\count357
-\c@citecounter=\count358
-\c@maxcitecounter=\count359
-\c@savedcitecounter=\count360
-\c@uniquelist=\count361
-\c@uniquename=\count362
-\c@refsection=\count363
-\c@refsegment=\count364
-\c@maxextratitle=\count365
-\c@maxextratitleyear=\count366
-\c@maxextraname=\count367
-\c@maxextradate=\count368
-\c@maxextraalpha=\count369
-\c@abbrvpenalty=\count370
-\c@highnamepenalty=\count371
-\c@lownamepenalty=\count372
-\c@maxparens=\count373
-\c@parenlevel=\count374
-\blx@tempcnta=\count375
-\blx@tempcntb=\count376
-\blx@tempcntc=\count377
-\c@blx@maxsection=\count378
-\blx@maxsegment@0=\count379
-\blx@notetype=\count380
-\blx@parenlevel@text=\count381
-\blx@parenlevel@foot=\count382
-\blx@sectionciteorder@0=\count383
-\blx@sectionciteorderinternal@0=\count384
-\blx@entrysetcounter=\count385
-\blx@biblioinstance=\count386
+\c@tabx@nest=\count346
+\c@listtotal=\count347
+\c@listcount=\count348
+\c@liststart=\count349
+\c@liststop=\count350
+\c@citecount=\count351
+\c@citetotal=\count352
+\c@multicitecount=\count353
+\c@multicitetotal=\count354
+\c@instcount=\count355
+\c@maxnames=\count356
+\c@minnames=\count357
+\c@maxitems=\count358
+\c@minitems=\count359
+\c@citecounter=\count360
+\c@maxcitecounter=\count361
+\c@savedcitecounter=\count362
+\c@uniquelist=\count363
+\c@uniquename=\count364
+\c@refsection=\count365
+\c@refsegment=\count366
+\c@maxextratitle=\count367
+\c@maxextratitleyear=\count368
+\c@maxextraname=\count369
+\c@maxextradate=\count370
+\c@maxextraalpha=\count371
+\c@abbrvpenalty=\count372
+\c@highnamepenalty=\count373
+\c@lownamepenalty=\count374
+\c@maxparens=\count375
+\c@parenlevel=\count376
+\blx@tempcnta=\count377
+\blx@tempcntb=\count378
+\blx@tempcntc=\count379
+\c@blx@maxsection=\count380
+\blx@maxsegment@0=\count381
+\blx@notetype=\count382
+\blx@parenlevel@text=\count383
+\blx@parenlevel@foot=\count384
+\blx@sectionciteorder@0=\count385
+\blx@sectionciteorderinternal@0=\count386
+\blx@entrysetcounter=\count387
+\blx@biblioinstance=\count388
 \labelnumberwidth=\skip135
 \labelalphawidth=\skip136
 \biblabelsep=\skip137
@@ -645,9 +735,9 @@ Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 \blx@bcfin=\read4
 \blx@bcfout=\write4
 \blx@langwohyphens=\language6
-\c@mincomprange=\count387
-\c@maxcomprange=\count388
-\c@mincompwidth=\count389
+\c@mincomprange=\count389
+\c@maxcomprange=\count390
+\c@mincompwidth=\count391
 Package biblatex Info: Trying to load biblatex default data model...
 Package biblatex Info: ... file 'blx-dm.def' found.
  (/usr/share/texmf-dist/tex/latex/biblatex/blx-dm.def
@@ -657,74 +747,74 @@ Package biblatex Info: Trying to load biblatex style data model...
 Package biblatex Info: ... file 'alphabetic.dbx' not found.
 Package biblatex Info: Trying to load biblatex custom data model...
 Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
-\c@afterword=\count390
-\c@savedafterword=\count391
-\c@annotator=\count392
-\c@savedannotator=\count393
-\c@author=\count394
-\c@savedauthor=\count395
-\c@bookauthor=\count396
-\c@savedbookauthor=\count397
-\c@commentator=\count398
-\c@savedcommentator=\count399
-\c@editor=\count400
-\c@savededitor=\count401
-\c@editora=\count402
-\c@savededitora=\count403
-\c@editorb=\count404
-\c@savededitorb=\count405
-\c@editorc=\count406
-\c@savededitorc=\count407
-\c@foreword=\count408
-\c@savedforeword=\count409
-\c@holder=\count410
-\c@savedholder=\count411
-\c@introduction=\count412
-\c@savedintroduction=\count413
-\c@namea=\count414
-\c@savednamea=\count415
-\c@nameb=\count416
-\c@savednameb=\count417
-\c@namec=\count418
-\c@savednamec=\count419
-\c@translator=\count420
-\c@savedtranslator=\count421
-\c@shortauthor=\count422
-\c@savedshortauthor=\count423
-\c@shorteditor=\count424
-\c@savedshorteditor=\count425
-\c@labelname=\count426
-\c@savedlabelname=\count427
-\c@institution=\count428
-\c@savedinstitution=\count429
-\c@lista=\count430
-\c@savedlista=\count431
-\c@listb=\count432
-\c@savedlistb=\count433
-\c@listc=\count434
-\c@savedlistc=\count435
-\c@listd=\count436
-\c@savedlistd=\count437
-\c@liste=\count438
-\c@savedliste=\count439
-\c@listf=\count440
-\c@savedlistf=\count441
-\c@location=\count442
-\c@savedlocation=\count443
-\c@organization=\count444
-\c@savedorganization=\count445
-\c@origlocation=\count446
-\c@savedoriglocation=\count447
-\c@origpublisher=\count448
-\c@savedorigpublisher=\count449
-\c@publisher=\count450
-\c@savedpublisher=\count451
-\c@language=\count452
-\c@savedlanguage=\count453
-\c@origlanguage=\count454
-\c@savedoriglanguage=\count455
-\c@pageref=\count456
-\c@savedpageref=\count457
+\c@afterword=\count392
+\c@savedafterword=\count393
+\c@annotator=\count394
+\c@savedannotator=\count395
+\c@author=\count396
+\c@savedauthor=\count397
+\c@bookauthor=\count398
+\c@savedbookauthor=\count399
+\c@commentator=\count400
+\c@savedcommentator=\count401
+\c@editor=\count402
+\c@savededitor=\count403
+\c@editora=\count404
+\c@savededitora=\count405
+\c@editorb=\count406
+\c@savededitorb=\count407
+\c@editorc=\count408
+\c@savededitorc=\count409
+\c@foreword=\count410
+\c@savedforeword=\count411
+\c@holder=\count412
+\c@savedholder=\count413
+\c@introduction=\count414
+\c@savedintroduction=\count415
+\c@namea=\count416
+\c@savednamea=\count417
+\c@nameb=\count418
+\c@savednameb=\count419
+\c@namec=\count420
+\c@savednamec=\count421
+\c@translator=\count422
+\c@savedtranslator=\count423
+\c@shortauthor=\count424
+\c@savedshortauthor=\count425
+\c@shorteditor=\count426
+\c@savedshorteditor=\count427
+\c@labelname=\count428
+\c@savedlabelname=\count429
+\c@institution=\count430
+\c@savedinstitution=\count431
+\c@lista=\count432
+\c@savedlista=\count433
+\c@listb=\count434
+\c@savedlistb=\count435
+\c@listc=\count436
+\c@savedlistc=\count437
+\c@listd=\count438
+\c@savedlistd=\count439
+\c@liste=\count440
+\c@savedliste=\count441
+\c@listf=\count442
+\c@savedlistf=\count443
+\c@location=\count444
+\c@savedlocation=\count445
+\c@organization=\count446
+\c@savedorganization=\count447
+\c@origlocation=\count448
+\c@savedoriglocation=\count449
+\c@origpublisher=\count450
+\c@savedorigpublisher=\count451
+\c@publisher=\count452
+\c@savedpublisher=\count453
+\c@language=\count454
+\c@savedlanguage=\count455
+\c@origlanguage=\count456
+\c@savedoriglanguage=\count457
+\c@pageref=\count458
+\c@savedpageref=\count459
 \shorthandwidth=\skip143
 \shortjournalwidth=\skip144
 \shortserieswidth=\skip145
@@ -746,8 +836,7 @@ File: blx-compat.def 2024/03/21 v3.20 biblatex compatibility (PK/MW)
 )
 Package biblatex Info: Trying to load BibTeX backend compatibility...
 Package biblatex Info: ... file 'blx-bibtex.def' found.
-
-(/usr/share/texmf-dist/tex/latex/biblatex/blx-bibtex.def
+ (/usr/share/texmf-dist/tex/latex/biblatex/blx-bibtex.def
 File: blx-bibtex.def 2024/03/21 v3.20 biblatex compatibility (PK/MW)
 
 
@@ -759,19 +848,19 @@ Package biblatex Info: Trying to load generic definitions...
 Package biblatex Info: ... file 'biblatex.def' found.
  (/usr/share/texmf-dist/tex/latex/biblatex/biblatex.def
 File: biblatex.def 2024/03/21 v3.20 biblatex compatibility (PK/MW)
-\c@textcitecount=\count458
-\c@textcitetotal=\count459
-\c@textcitemaxnames=\count460
-\c@biburlbigbreakpenalty=\count461
-\c@biburlbreakpenalty=\count462
-\c@biburlnumpenalty=\count463
-\c@biburlucpenalty=\count464
-\c@biburllcpenalty=\count465
+\c@textcitecount=\count460
+\c@textcitetotal=\count461
+\c@textcitemaxnames=\count462
+\c@biburlbigbreakpenalty=\count463
+\c@biburlbreakpenalty=\count464
+\c@biburlnumpenalty=\count465
+\c@biburlucpenalty=\count466
+\c@biburllcpenalty=\count467
 \biburlbigskip=\muskip18
 \biburlnumskip=\muskip19
 \biburlucskip=\muskip20
 \biburllcskip=\muskip21
-\c@smartand=\count466
+\c@smartand=\count468
 )
 Package biblatex Info: Trying to load bibliography style 'alphabetic'...
 Package biblatex Info: ... file 'alphabetic.bbx' found.
@@ -781,8 +870,8 @@ Package biblatex Info: Trying to load bibliography style 'standard'...
 Package biblatex Info: ... file 'standard.bbx' found.
  (/usr/share/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
 File: standard.bbx 2024/03/21 v3.20 biblatex bibliography style (PK/MW)
-\c@bbx:relatedcount=\count467
-\c@bbx:relatedtotal=\count468
+\c@bbx:relatedcount=\count469
+\c@bbx:relatedtotal=\count470
 ))
 Package biblatex Info: Trying to load citation style 'alphabetic'...
 Package biblatex Info: ... file 'alphabetic.cbx' found.
@@ -829,19 +918,19 @@ Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 ) (/usr/share/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
-\inf@bad=\count469
+\inf@bad=\count471
 LaTeX Info: Redefining \frac on input line 233.
-\uproot@=\count470
-\leftroot@=\count471
+\uproot@=\count472
+\leftroot@=\count473
 LaTeX Info: Redefining \overline on input line 398.
 LaTeX Info: Redefining \colon on input line 409.
-\classnum@=\count472
-\DOTSCASE@=\count473
+\classnum@=\count474
+\DOTSCASE@=\count475
 LaTeX Info: Redefining \ldots on input line 495.
 LaTeX Info: Redefining \dots on input line 498.
 LaTeX Info: Redefining \cdots on input line 619.
-\Mathstrutbox@=\box86
-\strutbox@=\box87
+\Mathstrutbox@=\box87
+\strutbox@=\box88
 LaTeX Info: Redefining \big on input line 721.
 LaTeX Info: Redefining \Big on input line 722.
 LaTeX Info: Redefining \bigg on input line 723.
@@ -849,20 +938,20 @@ LaTeX Info: Redefining \Bigg on input line 724.
 \big@size=\dimen275
 LaTeX Font Info:    Redeclaring font encoding OML on input line 742.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 743.
-\macc@depth=\count474
+\macc@depth=\count476
 LaTeX Info: Redefining \bmod on input line 904.
 LaTeX Info: Redefining \pmod on input line 909.
 LaTeX Info: Redefining \smash on input line 939.
 LaTeX Info: Redefining \relbar on input line 969.
 LaTeX Info: Redefining \Relbar on input line 970.
-\c@MaxMatrixCols=\count475
+\c@MaxMatrixCols=\count477
 \dotsspace@=\muskip22
-\c@parentequation=\count476
-\dspbrk@lvl=\count477
+\c@parentequation=\count478
+\dspbrk@lvl=\count479
 \tag@help=\toks45
-\row@=\count478
-\column@=\count479
-\maxfields@=\count480
+\row@=\count480
+\column@=\count481
+\maxfields@=\count482
 \andhelp@=\toks46
 \eqnshift@=\dimen276
 \alignsep@=\dimen277
@@ -916,31 +1005,31 @@ Package: nicematrix 2025/03/04 v7.1a Enhanced arrays with the help of PGF/TikZ
  (/usr/share/texmf-dist/tex/latex/tools/array.sty
 Package: array 2024/10/17 v2.6g Tabular extension package (FMi)
 \col@sep=\dimen282
-\ar@mcellbox=\box88
+\ar@mcellbox=\box89
 \extrarowheight=\dimen283
 \NC@list=\toks55
 \extratabsurround=\skip163
 \backup@length=\skip164
-\ar@cellbox=\box89
+\ar@cellbox=\box90
 )
-\g__nicematrix_env_int=\count481
-\g__nicematrix_NiceMatrixBlock_int=\count482
-\g__nicematrix_notes_caption_int=\count483
+\g__nicematrix_env_int=\count483
+\g__nicematrix_NiceMatrixBlock_int=\count484
+\g__nicematrix_notes_caption_int=\count485
 \l__nicematrix_columns_width_dim=\dimen284
 \l__nicematrix_col_width_dim=\dimen285
-\g__nicematrix_row_total_int=\count484
-\g__nicematrix_col_total_int=\count485
-\g__nicematrix_last_row_node_int=\count486
-\l__nicematrix_key_nb_rows_int=\count487
+\g__nicematrix_row_total_int=\count486
+\g__nicematrix_col_total_int=\count487
+\g__nicematrix_last_row_node_int=\count488
+\l__nicematrix_key_nb_rows_int=\count489
 \g__nicematrix_blocks_wd_dim=\dimen286
 \g__nicematrix_blocks_ht_dim=\dimen287
 \g__nicematrix_blocks_dp_dim=\dimen288
 \l__nicematrix_width_dim=\dimen289
 \l__nicematrix_tabular_width_dim=\dimen290
 \l__nicematrix_rule_width_dim=\dimen291
-\l__nicematrix_old_iRow_int=\count488
-\l__nicematrix_old_jCol_int=\count489
-\g__nicematrix_total_X_weight_int=\count490
+\l__nicematrix_old_iRow_int=\count490
+\l__nicematrix_old_jCol_int=\count491
+\g__nicematrix_total_X_weight_int=\count492
 \l__nicematrix_X_columns_dim=\dimen292
 \l__nicematrix_x_initial_dim=\dimen293
 \l__nicematrix_y_initial_dim=\dimen294
@@ -958,30 +1047,30 @@ Package: array 2024/10/17 v2.6g Tabular extension package (FMi)
 \g__nicematrix_dp_last_row_dim=\dimen306
 \g__nicematrix_width_last_col_dim=\dimen307
 \g__nicematrix_width_first_col_dim=\dimen308
-\l__nicematrix_row_min_int=\count491
-\l__nicematrix_row_max_int=\count492
-\l__nicematrix_col_min_int=\count493
-\l__nicematrix_col_max_int=\count494
-\l__nicematrix_start_int=\count495
-\l__nicematrix_end_int=\count496
-\l__nicematrix_local_start_int=\count497
-\l__nicematrix_local_end_int=\count498
-\g__nicematrix_static_num_of_col_int=\count499
+\l__nicematrix_row_min_int=\count493
+\l__nicematrix_row_max_int=\count494
+\l__nicematrix_col_min_int=\count495
+\l__nicematrix_col_max_int=\count496
+\l__nicematrix_start_int=\count497
+\l__nicematrix_end_int=\count498
+\l__nicematrix_local_start_int=\count499
+\l__nicematrix_local_end_int=\count500
+\g__nicematrix_static_num_of_col_int=\count501
 \l__nicematrix_rounded_corners_dim=\dimen309
 \l__nicematrix_tab_rounded_corners_dim=\dimen310
 \l__nicematrix_offset_dim=\dimen311
 \l__nicematrix_line_width_dim=\dimen312
-\g__nicematrix_block_box_int=\count500
+\g__nicematrix_block_box_int=\count502
 \l__nicematrix_submatrix_extra_height_dim=\dimen313
 \l__nicematrix_submatrix_left_xshift_dim=\dimen314
 \l__nicematrix_submatrix_right_xshift_dim=\dimen315
-\l__nicematrix_first_row_int=\count501
-\l__nicematrix_first_col_int=\count502
-\l__nicematrix_last_row_int=\count503
-\l__nicematrix_last_col_int=\count504
-\c@tabularnote=\count505
-\g__nicematrix_tabularnote_int=\count506
-\c@nicematrix_draft=\count507
+\l__nicematrix_first_row_int=\count503
+\l__nicematrix_first_col_int=\count504
+\l__nicematrix_last_row_int=\count505
+\l__nicematrix_last_col_int=\count506
+\c@tabularnote=\count507
+\g__nicematrix_tabularnote_int=\count508
+\c@nicematrix_draft=\count509
 \l__nicematrix_cell_space_top_limit_dim=\dimen316
 \l__nicematrix_cell_space_bottom_limit_dim=\dimen317
 \l__nicematrix_xdots_inter_dim=\dimen318
@@ -994,8 +1083,8 @@ Package: array 2024/10/17 v2.6g Tabular extension package (FMi)
 \l__nicematrix_extra_left_margin_dim=\dimen325
 \l__nicematrix_extra_right_margin_dim=\dimen326
 \c__nicematrix_max_l_dim=\dimen327
-\l__nicematrix_position_int=\count508
-\l__nicematrix_multiplicity_int=\count509
+\l__nicematrix_position_int=\count510
+\l__nicematrix_multiplicity_int=\count511
 \l__nicematrix_brace_yshift_dim=\dimen328
 ) (/usr/share/texmf-dist/tex/latex/stmaryrd/stmaryrd.sty
 Package: stmaryrd 1994/03/03 St Mary's Road symbol package
@@ -1006,20 +1095,20 @@ LaTeX Font Info:    Overwriting symbol font `stmry' in version `bold'
 Package: mathtools 2024/10/04 v1.31 mathematical typesetting tools
  (/usr/share/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2023/07/08 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count510
-\calc@Bcount=\count511
+\calc@Acount=\count512
+\calc@Bcount=\count513
 \calc@Adimen=\dimen329
 \calc@Bdimen=\dimen330
 \calc@Askip=\skip165
 \calc@Bskip=\skip166
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count512
+\calc@Ccount=\count514
 \calc@Cskip=\skip167
 ) (/usr/share/texmf-dist/tex/latex/mathtools/mhsetup.sty
 Package: mhsetup 2021/03/18 v1.4 programming setup (MH)
 )
-\g_MT_multlinerow_int=\count513
+\g_MT_multlinerow_int=\count515
 \l_MT_multwidth_dim=\dimen331
 \origjot=\skip168
 \l_MT_shortvdotswithinadjustabove_dim=\dimen332
@@ -1028,7 +1117,7 @@ Package: mhsetup 2021/03/18 v1.4 programming setup (MH)
 \l_MT_below_intertext_sep=\dimen335
 \l_MT_above_shortintertext_sep=\dimen336
 \l_MT_below_shortintertext_sep=\dimen337
-\xmathstrut@box=\box90
+\xmathstrut@box=\box91
 \xmathstrut@dim=\dimen338
 ) (/usr/share/texmf-dist/tex/latex/extarrows/extarrows.sty
 Package: extarrows 2020/03/12 v1.2.0 Some extensible arrows
@@ -1042,20 +1131,20 @@ Package: pgfplots 2021/05/15 v1.18.1 Data Visualization (1.18.1)
 \t@pgfplots@tokb=\toks57
 \t@pgfplots@tokc=\toks58
 \pgfplots@tmpa=\dimen339
-\c@pgfplots@coordindex=\count514
-\c@pgfplots@scanlineindex=\count515
+\c@pgfplots@coordindex=\count516
+\c@pgfplots@scanlineindex=\count517
  (/usr/share/texmf-dist/tex/generic/pgfplots/sys/pgfplotssysgeneric.code.tex)) (/usr/share/texmf-dist/tex/generic/pgfplots/libs/pgfplotslibrary.code.tex) (/usr/share/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldpgfsupp_loader.code.tex (/usr/share/texmf-dist/tex/generic/pgf/libraries/pgflibraryfpu.code.tex)
 Package pgfplots: loading complementary utilities for your pgf version...
 \t@pgf@toka=\toks59
 \t@pgf@tokb=\toks60
 \t@pgf@tokc=\toks61
 (/usr/share/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldpgfsupp_pgfutil-common-lists.tex)) (/usr/share/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.code.tex (/usr/share/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsliststructure.code.tex) (/usr/share/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsliststructureext.code.tex) (/usr/share/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsarray.code.tex
-\c@pgfplotsarray@tmp=\count516
+\c@pgfplotsarray@tmp=\count518
 ) (/usr/share/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsmatrix.code.tex) (/usr/share/texmf-dist/tex/generic/pgfplots/numtable/pgfplotstableshared.code.tex
-\c@pgfplotstable@counta=\count517
+\c@pgfplotstable@counta=\count519
 \t@pgfplotstable@a=\toks62
 ) (/usr/share/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsdeque.code.tex) (/usr/share/texmf-dist/tex/generic/pgfplots/util/pgfplotsbinary.code.tex (/usr/share/texmf-dist/tex/generic/pgfplots/util/pgfplotsbinary.data.code.tex)) (/usr/share/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.verb.code.tex) (/usr/share/texmf-dist/tex/generic/pgfplots/libs/pgflibrarypgfplots.surfshading.code.tex
-\c@pgfplotslibrarysurf@no=\count518
+\c@pgfplotslibrarysurf@no=\count520
  (/usr/share/texmf-dist/tex/generic/pgfplots/sys/pgflibrarypgfplots.surfshading.pgfsys-pdftex.def))) (/usr/share/texmf-dist/tex/generic/pgfplots/util/pgfplotscolormap.code.tex (/usr/share/texmf-dist/tex/generic/pgfplots/util/pgfplotscolor.code.tex)) (/usr/share/texmf-dist/tex/generic/pgfplots/pgfplotsstackedplots.code.tex) (/usr/share/texmf-dist/tex/generic/pgfplots/pgfplotsplothandlers.code.tex (/usr/share/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplothandler.code.tex (/usr/share/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplotimage.code.tex))) (/usr/share/texmf-dist/tex/generic/pgfplots/pgfplots.scaling.code.tex) (/usr/share/texmf-dist/tex/generic/pgfplots/pgfplotscoordprocessing.code.tex) (/usr/share/texmf-dist/tex/generic/pgfplots/pgfplots.errorbars.code.tex) (/usr/share/texmf-dist/tex/generic/pgfplots/pgfplots.markers.code.tex) (/usr/share/texmf-dist/tex/generic/pgfplots/pgfplotsticks.code.tex) (/usr/share/texmf-dist/tex/generic/pgfplots/pgfplots.paths.code.tex)
 (/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecorations.code.tex (/usr/share/texmf-dist/tex/generic/pgf/modules/pgfmoduledecorations.code.tex
 \pgfdecoratedcompleteddistance=\dimen340
@@ -1063,13 +1152,13 @@ Package pgfplots: loading complementary utilities for your pgf version...
 \pgfdecoratedinputsegmentcompleteddistance=\dimen342
 \pgfdecoratedinputsegmentremainingdistance=\dimen343
 \pgf@decorate@distancetomove=\dimen344
-\pgf@decorate@repeatstate=\count519
+\pgf@decorate@repeatstate=\count521
 \pgfdecorationsegmentamplitude=\dimen345
 \pgfdecorationsegmentlength=\dimen346
 )
-\tikz@lib@dec@box=\box91
+\tikz@lib@dec@box=\box92
 ) (/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecorations.pathmorphing.code.tex (/usr/share/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrarydecorations.pathmorphing.code.tex)) (/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecorations.pathreplacing.code.tex (/usr/share/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrarydecorations.pathreplacing.code.tex)) (/usr/share/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfplots.contourlua.code.tex)
-\pgfplots@numplots=\count520
+\pgfplots@numplots=\count522
 \pgfplots@xmin@reg=\dimen347
 \pgfplots@xmax@reg=\dimen348
 \pgfplots@ymin@reg=\dimen349
@@ -1083,28 +1172,28 @@ File: pgflibraryplotmarks.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ))) (/usr/share/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2024/11/12 v2.9 Span multiple rows of a table
 \multirow@colwidth=\skip169
-\multirow@cntb=\count521
+\multirow@cntb=\count523
 \multirow@dima=\skip170
 \bigstrutjot=\dimen353
 ) (/usr/share/texmf-dist/tex/latex/braket/braket.sty) (/usr/share/texmf-dist/tex/latex/algorithms/algorithm.sty
 Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating environment
 \@float@every@algorithm=\toks63
-\c@algorithm=\count522
+\c@algorithm=\count524
 ) (/usr/share/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
 Package: algpseudocode 
  (/usr/share/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
 Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
 
 Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
-\c@ALG@line=\count523
-\c@ALG@rem=\count524
-\c@ALG@nested=\count525
+\c@ALG@line=\count525
+\c@ALG@rem=\count526
+\c@ALG@nested=\count527
 \ALG@tlm=\skip171
 \ALG@thistlm=\skip172
-\c@ALG@Lnr=\count526
-\c@ALG@blocknr=\count527
-\c@ALG@storecount=\count528
-\c@ALG@tmpcounter=\count529
+\c@ALG@Lnr=\count528
+\c@ALG@blocknr=\count529
+\c@ALG@storecount=\count530
+\c@ALG@tmpcounter=\count531
 \ALG@tmplength=\skip173
 )
 Document Style - pseudocode environments for use with the `algorithmicx' style
@@ -1112,18 +1201,18 @@ Document Style - pseudocode environments for use with the `algorithmicx' style
 Package: fp 1995/04/02
  `Fixed Point Package', Version 0.8, April 2, 1995 (C) Michael Mehlich (/usr/share/texmf-dist/tex/latex/fp/defpattern.sty
 Package: defpattern 1994/10/12
-\actioncount=\count530
+\actioncount=\count532
 ) (/usr/share/texmf-dist/tex/latex/fp/fp-basic.sty
 Package: fp-basic 1996/05/13
-\FP@xs=\count531
-\FP@xia=\count532
-\FP@xib=\count533
-\FP@xfa=\count534
-\FP@xfb=\count535
-\FP@rega=\count536
-\FP@regb=\count537
-\FP@regs=\count538
-\FP@times=\count539
+\FP@xs=\count533
+\FP@xia=\count534
+\FP@xib=\count535
+\FP@xfa=\count536
+\FP@xfb=\count537
+\FP@rega=\count538
+\FP@regb=\count539
+\FP@regs=\count540
+\FP@times=\count541
 ) (/usr/share/texmf-dist/tex/latex/fp/fp-addons.sty
 Package: fp-addons 1995/03/15
 ) (/usr/share/texmf-dist/tex/latex/fp/fp-snap.sty
@@ -1136,7 +1225,7 @@ Package: fp-trigo 1995/04/14
 Package: fp-pas 1994/08/29
 ) (/usr/share/texmf-dist/tex/latex/fp/fp-random.sty
 Package: fp-random 1995/02/23
-\FPseed=\count540
+\FPseed=\count542
 ) (/usr/share/texmf-dist/tex/latex/fp/fp-eqn.sty
 Package: fp-eqn 1995/04/03
 ) (/usr/share/texmf-dist/tex/latex/fp/fp-upn.sty
@@ -1146,8 +1235,8 @@ Package: fp-eval 1995/04/03
 )) (/usr/share/texmf-dist/tex/latex/karnaugh-map/karnaugh-map.sty
 Package: karnaugh-map 2022/01/15 v2.0 Draw Karnaugh Maps
  (/usr/share/texmf-dist/tex/generic/xstring/xstring.sty (/usr/share/texmf-dist/tex/generic/xstring/xstring.tex
-\xs_counta=\count541
-\xs_countb=\count542
+\xs_counta=\count543
+\xs_countb=\count544
 )
 Package: xstring 2023/08/22 v1.86 String manipulations (CT)
 ) (/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarycalc.code.tex
@@ -1155,8 +1244,8 @@ File: tikzlibrarycalc.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ) (/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarymatrix.code.tex
 File: tikzlibrarymatrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
-\@karnaughmap@var@colorindex@=\count543
-\@karnaughmap@var@colorindexnext@=\count544
+\@karnaughmap@var@colorindex@=\count545
+\@karnaughmap@var@colorindexnext@=\count546
 ) (/usr/share/texmf-dist/tex/latex/circuitikz/circuitikz.sty
 Package: circuitikz 2025/01/10{} The CircuiTikz circuit drawing package version 1.7.1
  (/usr/share/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.meta.code.tex
@@ -1182,9 +1271,9 @@ File: pgflibrarycurvilinear.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
 \pgf@arrows@the@rigidity=\dimen364
 )) (/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryfpu.code.tex) (/usr/share/texmf-dist/tex/generic/circuitikz/pgfcirc.defines.tex
-\pgf@circ@count@a=\count545
-\pgf@circ@count@b=\count546
-\pgf@circ@count@c=\count547
+\pgf@circ@count@a=\count547
+\pgf@circ@count@b=\count548
+\pgf@circ@count@c=\count549
 \pgf@circ@res@up=\dimen365
 \pgf@circ@res@down=\dimen366
 \pgf@circ@res@zero=\dimen367
@@ -1197,21 +1286,21 @@ File: pgflibrarycurvilinear.code.tex 2023-01-15 v3.1.10 (3.1.10)
 \pgf@circ@scaled@Rlen=\dimen374
 \pgfstartlinewidth=\dimen375
 ) (/usr/share/texmf-dist/tex/generic/circuitikz/pgfcircutils.tex
-\ctikz@scratchbox=\box92
+\ctikz@scratchbox=\box93
 ) (/usr/share/texmf-dist/tex/generic/circuitikz/pgfcircpath.tex) (/usr/share/texmf-dist/tex/generic/circuitikz/pgfcircshapes.tex) (/usr/share/texmf-dist/tex/generic/circuitikz/pgfcircmonopoles.tex) (/usr/share/texmf-dist/tex/generic/circuitikz/pgfcircbipoles.tex)
 (/usr/share/texmf-dist/tex/generic/circuitikz/pgfcirctripoles.tex
-\pgf@circ@res@count=\count548
+\pgf@circ@res@count=\count550
 ) (/usr/share/texmf-dist/tex/generic/circuitikz/pgfcircquadpoles.tex) (/usr/share/texmf-dist/tex/generic/circuitikz/pgfcircmultipoles.tex) (/usr/share/texmf-dist/tex/generic/circuitikz/pgfcirclabel.tex) (/usr/share/texmf-dist/tex/generic/circuitikz/pgfcircvoltage.tex
 \pgfcirc@labelshift=\dimen376
 ) (/usr/share/texmf-dist/tex/generic/circuitikz/pgfcirccurrent.tex) (/usr/share/texmf-dist/tex/generic/circuitikz/pgfcircflow.tex)) (/usr/share/texmf-dist/tex/generic/ulem/ulem.sty
-\UL@box=\box93
-\UL@hyphenbox=\box94
+\UL@box=\box94
+\UL@hyphenbox=\box95
 \UL@skip=\skip174
 \UL@hook=\toks64
 \UL@height=\dimen377
-\UL@pe=\count549
+\UL@pe=\count551
 \UL@pixel=\dimen378
-\ULC@box=\box95
+\ULC@box=\box96
 Package: ulem 2019/11/18
 \ULdepth=\dimen379
 ) (/usr/share/texmf-dist/tex/latex/todonotes/todonotes.sty
@@ -1223,12 +1312,12 @@ Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
 \XKV@toks=\toks65
 \XKV@tempa@toks=\toks66
 )
-\XKV@depth=\count550
+\XKV@depth=\count552
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 )) (/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypositioning.code.tex
 File: tikzlibrarypositioning.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
-\c@@todonotes@numberoftodonotes=\count551
+\c@@todonotes@numberoftodonotes=\count553
 ) (/usr/share/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2024-11-05 v7.01l Hypertext links for LaTeX
  (/usr/share/texmf-dist/tex/generic/pdfescape/pdfescape.sty
@@ -1242,13 +1331,13 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ) (/usr/share/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count552
+\c@section@level=\count554
 ) (/usr/share/texmf-dist/tex/generic/stringenc/stringenc.sty
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
 )
 \@linkdim=\dimen380
-\Hy@linkcounter=\count553
-\Hy@pagecounter=\count554
+\Hy@linkcounter=\count555
+\Hy@pagecounter=\count556
  (/usr/share/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2024-11-05 v7.01l Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
@@ -1256,7 +1345,7 @@ Now handling font encoding PD1 ...
 ) (/usr/share/texmf-dist/tex/generic/intcalc/intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
-\Hy@SavedSpaceFactor=\count555
+\Hy@SavedSpaceFactor=\count557
  (/usr/share/texmf-dist/tex/latex/hyperref/puenc.def
 File: puenc.def 2024-11-05 v7.01l Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
@@ -1271,7 +1360,7 @@ Package hyperref Info: Plain pages OFF on input line 4172.
 Package hyperref Info: Backreferencing OFF on input line 4177.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4424.
-\c@Hy@tempcnt=\count556
+\c@Hy@tempcnt=\count558
 LaTeX Info: Redefining \url on input line 4763.
 \XeTeXLinkMargin=\dimen381
  (/usr/share/texmf-dist/tex/generic/bitset/bitset.sty
@@ -1279,7 +1368,7 @@ Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
  (/usr/share/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
 ))
-\Fld@menulength=\count557
+\Fld@menulength=\count559
 \Field@Width=\dimen382
 \Fld@charsize=\dimen383
 Package hyperref Info: Hyper figures OFF on input line 6042.
@@ -1293,9 +1382,9 @@ Package hyperref Info: PDF/A mode OFF on input line 6072.
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
 )
-\Hy@abspage=\count558
-\c@Item=\count559
-\c@Hfootnote=\count560
+\Hy@abspage=\count560
+\c@Item=\count561
+\c@Hfootnote=\count562
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
  (/usr/share/texmf-dist/tex/latex/hyperref/hpdftex.def
@@ -1304,9 +1393,9 @@ File: hpdftex.def 2024-11-05 v7.01l Hyperref driver for pdfTeX
 Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend package
 with kernel methods
 )
-\HyAnn@Count=\count561
-\Fld@listcount=\count562
-\c@bookmark@seq@number=\count563
+\HyAnn@Count=\count563
+\Fld@listcount=\count564
+\c@bookmark@seq@number=\count565
  (/usr/share/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
 Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
  (/usr/share/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
@@ -1317,8 +1406,8 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 28
 \Hy@SectionHShift=\skip175
 ) (/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/graphs/tikzlibrarygraphs.code.tex
 File: tikzlibrarygraphs.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\tikz@lib@auto@number=\count564
-\tikz@qnode@count=\count565
+\tikz@lib@auto@number=\count566
+\tikz@qnode@count=\count567
 )
 (/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytrees.code.tex
 File: tikzlibrarytrees.code.tex 2023-01-15 v3.1.10 (3.1.10)
@@ -1330,7 +1419,7 @@ Package: tikzfill.image 2023/08/08 v1.0.1 Image filling library for TikZ
 Package: tikzfill-common 2023/08/08 v1.0.1 Auxiliary code for tikzfill
 ) (/usr/share/texmf-dist/tex/latex/tikzfill/tikzlibraryfill.image.code.tex
 File: tikzlibraryfill.image.code.tex 2023/08/08 v1.0.1 Image filling library
-\l__tikzfill_img_box=\box96
+\l__tikzfill_img_box=\box97
 )) (/usr/share/texmf-dist/tex/latex/tcolorbox/tcbskinsjigsaw.code.tex
 Library (tcolorbox): 'tcbskinsjigsaw.code.tex' version '6.4.1'
 )) (/usr/share/texmf-dist/tex/latex/tcolorbox/tcbxparse.code.tex
@@ -1340,18 +1429,18 @@ Library (tcolorbox): 'tcbbreakable.code.tex' version '6.4.1'
 (/usr/share/texmf-dist/tex/latex/pdfcol/pdfcol.sty
 Package: pdfcol 2022-09-21 v1.7 Handle new color stacks for pdfTeX (HO)
 )
-Package pdfcol Info: New color stack `tcb@breakable' = 1 on input line 23.
-\tcb@testbox=\box97
-\tcb@totalupperbox=\box98
-\tcb@totallowerbox=\box99
+Package pdfcol Info: New color stack `tcb@breakable' = 2 on input line 23.
+\tcb@testbox=\box98
+\tcb@totalupperbox=\box99
+\tcb@totallowerbox=\box100
 ) (/usr/share/texmf-dist/tex/generic/babel/babel.sty
 Package: babel 2025/02/14 v25.4 The multilingual framework for pdfLaTeX, LuaLaTeX and XeLaTeX
-\babel@savecnt=\count566
+\babel@savecnt=\count568
 \U@D=\dimen384
 \l@unhyphenated=\language7
  (/usr/share/texmf-dist/tex/generic/babel/txtbabel.def)
 \bbl@readstream=\read5
-\bbl@dirlevel=\count567
+\bbl@dirlevel=\count569
  (/usr/share/texmf-dist/tex/generic/babel-english/english.ldf
 Language: english 2017/06/06 v3.3r English support from the babel system
 Package babel Info: Hyphen rules for 'canadian' set to \l@english
@@ -1396,26 +1485,26 @@ File: tikzlibraryautomata.code.tex 2023-01-15 v3.1.10 (3.1.10)
 File: tikzlibraryshapes.multipart.code.tex 2023-01-15 v3.1.10 (3.1.10)
  (/usr/share/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.multipart.code.tex
 File: pgflibraryshapes.multipart.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfnodepartlowerbox=\box100
-\pgfnodeparttwobox=\box101
-\pgfnodepartthreebox=\box102
-\pgfnodepartfourbox=\box103
-\pgfnodeparttwentybox=\box104
-\pgfnodepartnineteenbox=\box105
-\pgfnodeparteighteenbox=\box106
-\pgfnodepartseventeenbox=\box107
-\pgfnodepartsixteenbox=\box108
-\pgfnodepartfifteenbox=\box109
-\pgfnodepartfourteenbox=\box110
-\pgfnodepartthirteenbox=\box111
-\pgfnodeparttwelvebox=\box112
-\pgfnodepartelevenbox=\box113
-\pgfnodeparttenbox=\box114
-\pgfnodepartninebox=\box115
-\pgfnodeparteightbox=\box116
-\pgfnodepartsevenbox=\box117
-\pgfnodepartsixbox=\box118
-\pgfnodepartfivebox=\box119
+\pgfnodepartlowerbox=\box101
+\pgfnodeparttwobox=\box102
+\pgfnodepartthreebox=\box103
+\pgfnodepartfourbox=\box104
+\pgfnodeparttwentybox=\box105
+\pgfnodepartnineteenbox=\box106
+\pgfnodeparteighteenbox=\box107
+\pgfnodepartseventeenbox=\box108
+\pgfnodepartsixteenbox=\box109
+\pgfnodepartfifteenbox=\box110
+\pgfnodepartfourteenbox=\box111
+\pgfnodepartthirteenbox=\box112
+\pgfnodeparttwelvebox=\box113
+\pgfnodepartelevenbox=\box114
+\pgfnodeparttenbox=\box115
+\pgfnodepartninebox=\box116
+\pgfnodeparteightbox=\box117
+\pgfnodepartsevenbox=\box118
+\pgfnodepartsixbox=\box119
+\pgfnodepartfivebox=\box120
 ))) (/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryarrows.code.tex
 File: tikzlibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
  (/usr/share/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.code.tex
@@ -1427,19 +1516,19 @@ LaTeX Warning: You have requested package `../../packages/Nyx/nyx-frames',
                but the package provides `nyx-frames'.
 
 Package: nyx-frames Nyx Frames
-\c@tcb@cnt@frameddefn=\count568
-\c@tcb@cnt@framedprinc=\count569
-\c@tcb@cnt@framedthm=\count570
-\c@tcb@cnt@framedprop=\count571
-\c@tcb@cnt@framedlem=\count572
-\c@tcb@cnt@framedcor=\count573
-\c@tcb@cnt@framedobs=\count574
-\c@tcb@cnt@framedprob=\count575
-\c@tcb@cnt@framedmeth=\count576
-\c@tcb@cnt@framedalgo=\count577
-\c@tcb@cnt@framedconj=\count578
-\c@example=\count579
-\c@nonexample=\count580
+\c@tcb@cnt@frameddefn=\count570
+\c@tcb@cnt@framedprinc=\count571
+\c@tcb@cnt@framedthm=\count572
+\c@tcb@cnt@framedprop=\count573
+\c@tcb@cnt@framedlem=\count574
+\c@tcb@cnt@framedcor=\count575
+\c@tcb@cnt@framedobs=\count576
+\c@tcb@cnt@framedprob=\count577
+\c@tcb@cnt@framedmeth=\count578
+\c@tcb@cnt@framedalgo=\count579
+\c@tcb@cnt@framedconj=\count580
+\c@example=\count581
+\c@nonexample=\count582
 ) (../../packages/Nyx/nyx-macros.sty
 
 LaTeX Warning: You have requested package `../../packages/Nyx/nyx-macros',
@@ -1460,42 +1549,42 @@ Package csquotes Info: Redefining alias 'default' -> 'english'.
  (./Quantum Computing.aux)
 \openout1 = `"Quantum Computing.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for T3/cmr/m/n on input line 76.
-LaTeX Font Info:    Trying to load font information for T3+cmr on input line 76.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for T3/cmr/m/n on input line 78.
+LaTeX Font Info:    Trying to load font information for T3+cmr on input line 78.
  (/usr/share/texmf-dist/tex/latex/tipa/t3cmr.fd
 File: t3cmr.fd 2001/12/31 TIPA font definitions
 )
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
  (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count581
+\scratchcounter=\count583
 \scratchdimen=\dimen386
-\scratchbox=\box120
-\nofMPsegments=\count582
-\nofMParguments=\count583
+\scratchbox=\box121
+\nofMPsegments=\count584
+\nofMParguments=\count585
 \everyMPshowfont=\toks67
-\MPscratchCnt=\count584
+\MPscratchCnt=\count586
 \MPscratchDim=\dimen387
-\MPnumerator=\count585
-\makeMPintoPDFobject=\count586
+\MPnumerator=\count587
+\makeMPintoPDFobject=\count588
 \everyMPtoPDFconversion=\toks68
 ) (/usr/share/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -1503,7 +1592,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-\c@lstlisting=\count587
+\c@lstlisting=\count589
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1555,24 +1644,24 @@ Package biblatex Info: Data encoding 'utf8' specified.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file '"Quantum Computing".bbl' found.
  (./Quantum Computing.bbl)
-Package biblatex Info: Reference section=0 on input line 76.
-Package biblatex Info: Reference segment=0 on input line 76.
+Package biblatex Info: Reference section=0 on input line 78.
+Package biblatex Info: Reference segment=0 on input line 78.
 \c__nicematrix_shift_Ldots_last_row_dim=\dimen388
 \c__nicematrix_shift_exterior_Vdots_dim=\dimen389
 \c__nicematrix_innersep_middle_dim=\dimen390
-\c@tabularnotesi=\count588
-\enitdp@tabularnotes=\count589
-\c@tabularnotes*i=\count590
-\enitdp@tabularnotes*=\count591
+\c@tabularnotesi=\count590
+\enitdp@tabularnotes=\count591
+\c@tabularnotes*i=\count592
+\enitdp@tabularnotes*=\count593
 
 
 Package pgfplots Warning: running in backwards compatibility mode (unsuitable tick labels; missing features). Consider writing \pgfplotsset{compat=1.18} into your preamble.
- on input line 76.
+ on input line 78.
 
 
-Package todonotes Warning: The length marginparwidth is less than 2cm and will most likely cause issues with the appearance of inserted todonotes. The issue can be solved by adding a line like \setlength {\marginparwidth }{2cm} prior to loading the todonotes package. on input line 76.
+Package todonotes Warning: The length marginparwidth is less than 2cm and will most likely cause issues with the appearance of inserted todonotes. The issue can be solved by adding a line like \setlength {\marginparwidth }{2cm} prior to loading the todonotes package. on input line 78.
 
-Package hyperref Info: Link coloring ON on input line 76.
+Package hyperref Info: Link coloring ON on input line 78.
 (./Quantum Computing.out) (./Quantum Computing.out)
 \@outlinefile=\write5
 \openout5 = `"Quantum Computing.out"'.
@@ -1609,53 +1698,53 @@ Package hyperref Info: Link coloring ON on input line 76.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-<../../packages/Nyx/logo.png, id=95, 803.0pt x 301.125pt>
+<../../packages/Nyx/logo.png, id=99, 803.0pt x 301.125pt>
 File: ../../packages/Nyx/logo.png Graphic file (type png)
 <use ../../packages/Nyx/logo.png>
-Package pdftex.def Info: ../../packages/Nyx/logo.png  used on input line 77.
+Package pdftex.def Info: ../../packages/Nyx/logo.png  used on input line 79.
 (pdftex.def)             Requested size: 281.10323pt x 105.41316pt.
 
-Overfull \hbox (30.0pt too wide) in paragraph at lines 77--77
+Overfull \hbox (30.0pt too wide) in paragraph at lines 79--79
 [][] 
  []
 
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 77.
+(mdframed)              on input line 79.
 Package mdframed Info: mdframed inside a box 
- mdframed uses option nobreak mdframed on input line 77.
-LaTeX Font Info:    Trying to load font information for U+lasy on input line 77.
+ mdframed uses option nobreak mdframed on input line 79.
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 79.
 (/usr/share/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 77.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 79.
  (/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 77.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 79.
  (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <8> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 77.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 79.
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <6> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 77.
-LaTeX Font Info:    Trying to load font information for U+esint on input line 77.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 79.
+LaTeX Font Info:    Trying to load font information for U+esint on input line 79.
  (/usr/share/texmf-dist/tex/latex/esint/uesint.fd
 File: uesint.fd 
 )
-LaTeX Font Info:    Trying to load font information for U+stmry on input line 77.
+LaTeX Font Info:    Trying to load font information for U+stmry on input line 79.
  (/usr/share/texmf-dist/tex/latex/stmaryrd/Ustmry.fd)
-LaTeX Font Info:    Trying to load font information for U+rsfs on input line 77.
+LaTeX Font Info:    Trying to load font information for U+rsfs on input line 79.
  (/usr/share/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
-Overfull \hbox (30.0pt too wide) in paragraph at lines 77--77
+Overfull \hbox (30.0pt too wide) in paragraph at lines 79--79
 []$[]$ 
  []
 
 
-Overfull \hbox (30.0pt too wide) in paragraph at lines 77--77
+Overfull \hbox (30.0pt too wide) in paragraph at lines 79--79
 [][] 
  []
 
@@ -1677,32 +1766,32 @@ Package cleveref Info: loaded `english' language definitions on input line 1.
 
 ]
 
-Package cleveref Info: loaded `english' language definitions on input line 96.
+Package cleveref Info: loaded `english' language definitions on input line 98.
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.96 \chapter
+l.98 \chapter
              {Introduction on Quantum Computation} [1
 
 {/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
 Chapter 1.
-LaTeX Font Info:    Trying to load font information for T1+qtm on input line 96.
+LaTeX Font Info:    Trying to load font information for T1+qtm on input line 98.
 (/usr/share/texmf-dist/tex/latex/tex-gyre/t1qtm.fd
 File: t1qtm.fd 2009/09/25 v1.2 font definition file for T1/qtm
 )
 
 LaTeX Font Warning: Font shape `T1/qtm/n/n' undefined
-(Font)              using `T1/qtm/m/n' instead on input line 96.
+(Font)              using `T1/qtm/m/n' instead on input line 98.
 
 
 
-Package cleveref Info: loaded `english' language definitions on input line 108.
+Package cleveref Info: loaded `english' language definitions on input line 110.
 [2
 
 {/usr/share/texmf-dist/fonts/enc/dvips/tex-gyre/q-ec.enc}]
 
-Package cleveref Info: loaded `english' language definitions on input line 118.
+Package cleveref Info: loaded `english' language definitions on input line 120.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1710,10 +1799,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 118.
+Package cleveref Info: loaded `english' language definitions on input line 120.
 [3]
 
-Package cleveref Info: loaded `english' language definitions on input line 132.
+Package cleveref Info: loaded `english' language definitions on input line 134.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1721,16 +1810,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 132.
+Package cleveref Info: loaded `english' language definitions on input line 134.
 [4]
-<../assets/bloch.png, id=198, 803.0pt x 851.18pt>
+<../assets/bloch.png, id=204, 803.0pt x 851.18pt>
 File: ../assets/bloch.png Graphic file (type png)
 <use ../assets/bloch.png>
-Package pdftex.def Info: ../assets/bloch.png  used on input line 143.
+Package pdftex.def Info: ../assets/bloch.png  used on input line 145.
 (pdftex.def)             Requested size: 160.59715pt x 170.23297pt.
 
 
-Package cleveref Info: loaded `english' language definitions on input line 147.
+Package cleveref Info: loaded `english' language definitions on input line 149.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1738,10 +1827,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 147.
+Package cleveref Info: loaded `english' language definitions on input line 149.
 [5 <../assets/bloch.png>]
 
-Package cleveref Info: loaded `english' language definitions on input line 161.
+Package cleveref Info: loaded `english' language definitions on input line 163.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1749,10 +1838,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 161.
+Package cleveref Info: loaded `english' language definitions on input line 163.
 [6]
 
-Package cleveref Info: loaded `english' language definitions on input line 198.
+Package cleveref Info: loaded `english' language definitions on input line 200.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1760,16 +1849,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 198.
+Package cleveref Info: loaded `english' language definitions on input line 200.
 [7]
-<../assets/not.png, id=217, 117.0774pt x 79.497pt>
+<../assets/not.png, id=223, 117.0774pt x 79.497pt>
 File: ../assets/not.png Graphic file (type png)
 <use ../assets/not.png>
-Package pdftex.def Info: ../assets/not.png  used on input line 212.
+Package pdftex.def Info: ../assets/not.png  used on input line 214.
 (pdftex.def)             Requested size: 93.66203pt x 63.59767pt.
 
 
-Package cleveref Info: loaded `english' language definitions on input line 213.
+Package cleveref Info: loaded `english' language definitions on input line 215.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1777,26 +1866,26 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 213.
+Package cleveref Info: loaded `english' language definitions on input line 215.
 [8]
-<../assets/h.png, id=222, 117.0774pt x 79.497pt>
+<../assets/h.png, id=228, 117.0774pt x 79.497pt>
 File: ../assets/h.png Graphic file (type png)
 <use ../assets/h.png>
-Package pdftex.def Info: ../assets/h.png  used on input line 218.
+Package pdftex.def Info: ../assets/h.png  used on input line 220.
 (pdftex.def)             Requested size: 93.66203pt x 63.59767pt.
-<../assets/cnot.png, id=223, 127.1952pt x 125.7498pt>
+<../assets/cnot.png, id=229, 127.1952pt x 125.7498pt>
 File: ../assets/cnot.png Graphic file (type png)
 <use ../assets/cnot.png>
-Package pdftex.def Info: ../assets/cnot.png  used on input line 222.
+Package pdftex.def Info: ../assets/cnot.png  used on input line 224.
 (pdftex.def)             Requested size: 101.75629pt x 100.59996pt.
-<../assets/meas.png, id=224, 197.2971pt x 125.7498pt>
+<../assets/meas.png, id=230, 197.2971pt x 125.7498pt>
 File: ../assets/meas.png Graphic file (type png)
 <use ../assets/meas.png>
-Package pdftex.def Info: ../assets/meas.png  used on input line 226.
+Package pdftex.def Info: ../assets/meas.png  used on input line 228.
 (pdftex.def)             Requested size: 157.83789pt x 100.59996pt.
 
 
-Package cleveref Info: loaded `english' language definitions on input line 227.
+Package cleveref Info: loaded `english' language definitions on input line 229.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1804,21 +1893,21 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 227.
+Package cleveref Info: loaded `english' language definitions on input line 229.
 [9 <../assets/not.png> <../assets/h.png> <../assets/cnot.png>]
-<../assets/meas2.png, id=235, 244.2726pt x 172.0026pt>
+<../assets/meas2.png, id=241, 244.2726pt x 172.0026pt>
 File: ../assets/meas2.png Graphic file (type png)
 <use ../assets/meas2.png>
-Package pdftex.def Info: ../assets/meas2.png  used on input line 236.
+Package pdftex.def Info: ../assets/meas2.png  used on input line 238.
 (pdftex.def)             Requested size: 195.41833pt x 137.60225pt.
-<../assets/ghz.png, id=236, 220.4235pt x 172.0026pt>
+<../assets/ghz.png, id=242, 220.4235pt x 172.0026pt>
 File: ../assets/ghz.png Graphic file (type png)
 <use ../assets/ghz.png>
-Package pdftex.def Info: ../assets/ghz.png  used on input line 240.
+Package pdftex.def Info: ../assets/ghz.png  used on input line 242.
 (pdftex.def)             Requested size: 176.33902pt x 137.60225pt.
 
 
-Package cleveref Info: loaded `english' language definitions on input line 242.
+Package cleveref Info: loaded `english' language definitions on input line 244.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1826,10 +1915,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 242.
+Package cleveref Info: loaded `english' language definitions on input line 244.
 [10 <../assets/meas.png> <../assets/meas2.png> <../assets/ghz.png>]
 
-Package cleveref Info: loaded `english' language definitions on input line 257.
+Package cleveref Info: loaded `english' language definitions on input line 259.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1837,16 +1926,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 257.
+Package cleveref Info: loaded `english' language definitions on input line 259.
 [11]
-<../assets/epr.png, id=256, 174.1707pt x 125.7498pt>
+<../assets/epr.png, id=262, 174.1707pt x 125.7498pt>
 File: ../assets/epr.png Graphic file (type png)
 <use ../assets/epr.png>
-Package pdftex.def Info: ../assets/epr.png  used on input line 262.
+Package pdftex.def Info: ../assets/epr.png  used on input line 264.
 (pdftex.def)             Requested size: 139.33675pt x 100.59996pt.
 
 
-Package cleveref Info: loaded `english' language definitions on input line 270.
+Package cleveref Info: loaded `english' language definitions on input line 272.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1854,15 +1943,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 270.
+Package cleveref Info: loaded `english' language definitions on input line 272.
 [12 <../assets/epr.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 298--299
+Underfull \hbox (badness 10000) in paragraph at lines 300--301
 
  []
 
 
 
-Package cleveref Info: loaded `english' language definitions on input line 318.
+Package cleveref Info: loaded `english' language definitions on input line 320.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1870,16 +1959,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 318.
+Package cleveref Info: loaded `english' language definitions on input line 320.
 [13]
-<../assets/telep.png, id=272, 500.1084pt x 218.9781pt>
+<../assets/telep.png, id=278, 500.1084pt x 218.9781pt>
 File: ../assets/telep.png Graphic file (type png)
 <use ../assets/telep.png>
-Package pdftex.def Info: ../assets/telep.png  used on input line 319.
+Package pdftex.def Info: ../assets/telep.png  used on input line 321.
 (pdftex.def)             Requested size: 400.08727pt x 175.18271pt.
 
 
-Package cleveref Info: loaded `english' language definitions on input line 326.
+Package cleveref Info: loaded `english' language definitions on input line 328.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1887,20 +1976,20 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 326.
+Package cleveref Info: loaded `english' language definitions on input line 328.
 [14 <../assets/telep.png>]
-Overfull \hbox (56.3396pt too wide) detected at line 363
+Overfull \hbox (56.3396pt too wide) detected at line 365
 []
  []
 
 
-Overfull \hbox (30.0pt too wide) in paragraph at lines 363--363
+Overfull \hbox (30.0pt too wide) in paragraph at lines 365--365
 [] 
  []
 
 
 
-Package cleveref Info: loaded `english' language definitions on input line 364.
+Package cleveref Info: loaded `english' language definitions on input line 366.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1908,10 +1997,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 364.
+Package cleveref Info: loaded `english' language definitions on input line 366.
 [15]
 
-Package cleveref Info: loaded `english' language definitions on input line 384.
+Package cleveref Info: loaded `english' language definitions on input line 386.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1919,13 +2008,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 384.
+Package cleveref Info: loaded `english' language definitions on input line 386.
 [16]
 Chapter 2.
-Package hyperref Info: bookmark level for unknown todo defaults to 0 on input line 407.
+Package hyperref Info: bookmark level for unknown todo defaults to 0 on input line 409.
 
 
-Package cleveref Info: loaded `english' language definitions on input line 410.
+Package cleveref Info: loaded `english' language definitions on input line 412.
 [17
 
 ]
@@ -1937,7 +2026,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 431.
+Package cleveref Info: loaded `english' language definitions on input line 433.
 [18]
 
 
@@ -1947,10 +2036,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 450.
+Package cleveref Info: loaded `english' language definitions on input line 452.
 [19]
 
-Package cleveref Info: loaded `english' language definitions on input line 484.
+Package cleveref Info: loaded `english' language definitions on input line 486.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1958,10 +2047,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 484.
+Package cleveref Info: loaded `english' language definitions on input line 486.
 [20]
 
-Package cleveref Info: loaded `english' language definitions on input line 507.
+Package cleveref Info: loaded `english' language definitions on input line 509.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1969,10 +2058,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 507.
+Package cleveref Info: loaded `english' language definitions on input line 509.
 [21]
 
-Package cleveref Info: loaded `english' language definitions on input line 533.
+Package cleveref Info: loaded `english' language definitions on input line 535.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1980,10 +2069,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 533.
+Package cleveref Info: loaded `english' language definitions on input line 535.
 [22]
 
-Package cleveref Info: loaded `english' language definitions on input line 566.
+Package cleveref Info: loaded `english' language definitions on input line 568.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1991,10 +2080,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 566.
+Package cleveref Info: loaded `english' language definitions on input line 568.
 [23]
 
-Package cleveref Info: loaded `english' language definitions on input line 593.
+Package cleveref Info: loaded `english' language definitions on input line 595.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2002,10 +2091,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 593.
+Package cleveref Info: loaded `english' language definitions on input line 595.
 [24]
 
-Package cleveref Info: loaded `english' language definitions on input line 622.
+Package cleveref Info: loaded `english' language definitions on input line 624.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2013,20 +2102,20 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 622.
+Package cleveref Info: loaded `english' language definitions on input line 624.
 [25]
-Overfull \hbox (14.2271pt too wide) in paragraph at lines 650--650
+Overfull \hbox (14.2271pt too wide) in paragraph at lines 652--652
 [][][]\T1/cmr/m/n/6 decommenta 
  []
 
 
-Overfull \hbox (14.2271pt too wide) in paragraph at lines 650--650
+Overfull \hbox (14.2271pt too wide) in paragraph at lines 652--652
 [][][]\T1/cmr/m/n/6 decommenta 
  []
 
 
 
-Package cleveref Info: loaded `english' language definitions on input line 657.
+Package cleveref Info: loaded `english' language definitions on input line 659.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2034,30 +2123,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 657.
+Package cleveref Info: loaded `english' language definitions on input line 659.
 [26]
-Overfull \hbox (11.98875pt too wide) in paragraph at lines 658--658
-[][][]\T1/cmr/m/n/6 SCRIVERE 
- []
 
-
-Overfull \hbox (7.27321pt too wide) in paragraph at lines 658--658
-\T1/cmr/m/n/6 TAZIONE 
- []
-
-
-Overfull \hbox (11.98875pt too wide) in paragraph at lines 658--658
-[][][]\T1/cmr/m/n/6 SCRIVERE 
- []
-
-
-Overfull \hbox (7.27321pt too wide) in paragraph at lines 658--658
-\T1/cmr/m/n/6 TAZIONE 
- []
-
-
-
-Package cleveref Info: loaded `english' language definitions on input line 668.
+Package cleveref Info: loaded `english' language definitions on input line 670.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2065,10 +2134,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 668.
+Package cleveref Info: loaded `english' language definitions on input line 670.
 [27]
 
-Package cleveref Info: loaded `english' language definitions on input line 697.
+Package cleveref Info: loaded `english' language definitions on input line 699.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2076,10 +2145,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 697.
+Package cleveref Info: loaded `english' language definitions on input line 699.
 [28]
 
-Package cleveref Info: loaded `english' language definitions on input line 731.
+Package cleveref Info: loaded `english' language definitions on input line 733.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2087,10 +2156,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 731.
+Package cleveref Info: loaded `english' language definitions on input line 733.
 [29]
 
-Package cleveref Info: loaded `english' language definitions on input line 735.
+Package cleveref Info: loaded `english' language definitions on input line 737.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2098,17 +2167,17 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 735.
+Package cleveref Info: loaded `english' language definitions on input line 737.
 [30]
 Chapter 3.
 
 
-Package cleveref Info: loaded `english' language definitions on input line 748.
+Package cleveref Info: loaded `english' language definitions on input line 750.
 [31
 
 ]
 
-Package cleveref Info: loaded `english' language definitions on input line 772.
+Package cleveref Info: loaded `english' language definitions on input line 774.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2116,9 +2185,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 772.
+Package cleveref Info: loaded `english' language definitions on input line 774.
 [32]
-Underfull \hbox (badness 10000) in paragraph at lines 795--796
+Underfull \hbox (badness 10000) in paragraph at lines 797--798
 
  []
 
@@ -2126,40 +2195,40 @@ Underfull \hbox (badness 10000) in paragraph at lines 795--796
 pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.800         \Function
+l.802         \Function
                        {Deutsch}{$f$, $q_0$, $q_1$}
 pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.801             \State
+l.803             \State
                          $q_1 = X(q_1)$
 pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.802             \State
+l.804             \State
                          $q_0, q_1 = (H \otimes H)(q_0, q_1)$
 pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.4}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.803             \State
+l.805             \State
                          $q_0, q_1 = U_f(q_0, q_1)$
 pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.5}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.804             \State
+l.806             \State
                          $q_0 = H(q_0)$
 pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.6}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.805             \State
+l.807             \State
                          \tbf{return} $\mbox{measure}(q_0)$
 pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.7}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.806         \EndFunction
+l.808         \EndFunction
                           
 
-Package cleveref Info: loaded `english' language definitions on input line 809.
+Package cleveref Info: loaded `english' language definitions on input line 811.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2167,16 +2236,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 809.
+Package cleveref Info: loaded `english' language definitions on input line 811.
 [33]
-<../assets/deutsch.png, id=443, 313.6518pt x 172.0026pt>
+<../assets/deutsch.png, id=448, 313.6518pt x 172.0026pt>
 File: ../assets/deutsch.png Graphic file (type png)
 <use ../assets/deutsch.png>
-Package pdftex.def Info: ../assets/deutsch.png  used on input line 810.
+Package pdftex.def Info: ../assets/deutsch.png  used on input line 812.
 (pdftex.def)             Requested size: 282.284pt x 154.80089pt.
 
 
-Package cleveref Info: loaded `english' language definitions on input line 826.
+Package cleveref Info: loaded `english' language definitions on input line 828.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2184,15 +2253,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 826.
+Package cleveref Info: loaded `english' language definitions on input line 828.
 [34 <../assets/deutsch.png>]
-Overfull \hbox (32.00644pt too wide) detected at line 850
+Overfull \hbox (32.00644pt too wide) detected at line 852
 [][]
  []
 
 
 
-Package cleveref Info: loaded `english' language definitions on input line 850.
+Package cleveref Info: loaded `english' language definitions on input line 852.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2200,10 +2269,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 850.
+Package cleveref Info: loaded `english' language definitions on input line 852.
 [35]
 
-Package cleveref Info: loaded `english' language definitions on input line 860.
+Package cleveref Info: loaded `english' language definitions on input line 862.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2211,10 +2280,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 860.
+Package cleveref Info: loaded `english' language definitions on input line 862.
 [36]
 
-Package cleveref Info: loaded `english' language definitions on input line 879.
+Package cleveref Info: loaded `english' language definitions on input line 881.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2222,9 +2291,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 879.
+Package cleveref Info: loaded `english' language definitions on input line 881.
 [37]
-Underfull \hbox (badness 10000) in paragraph at lines 881--882
+Underfull \hbox (badness 10000) in paragraph at lines 883--884
 
  []
 
@@ -2232,50 +2301,50 @@ Underfull \hbox (badness 10000) in paragraph at lines 881--882
 pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.886         \Function
+l.888         \Function
                        {DeutschJosza}{$f$, $q_0$, $q_1$}
 pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.887             \State
+l.889             \State
                          $q_1 = X(q_1)$
 pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.888             \State
+l.890             \State
                          $q_0, q_1 = (H^{\otimes n} \otimes H)(q_0, q_1)$
 pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.4}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.889             \State
+l.891             \State
                          $q_0, q_1 = U_f(q_0, q_1)$
 pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.5}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.890             \State
+l.892             \State
                          $q_0 = H^{\otimes n}(q_0)$
 pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.6}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.891             \State
+l.893             \State
                          \tbf{return} $\mbox{measure}(q_0)$
 pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.7}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.892         \EndFunction
+l.894         \EndFunction
                           
-Underfull \hbox (badness 10000) in paragraph at lines 906--906
+Underfull \hbox (badness 10000) in paragraph at lines 908--908
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 922--922
+Underfull \hbox (badness 10000) in paragraph at lines 924--924
 
  []
 
 
 
-Package cleveref Info: loaded `english' language definitions on input line 922.
+Package cleveref Info: loaded `english' language definitions on input line 924.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2283,10 +2352,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 922.
+Package cleveref Info: loaded `english' language definitions on input line 924.
 [38]
 
-Package cleveref Info: loaded `english' language definitions on input line 944.
+Package cleveref Info: loaded `english' language definitions on input line 946.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2294,10 +2363,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 944.
+Package cleveref Info: loaded `english' language definitions on input line 946.
 [39]
 
-Package cleveref Info: loaded `english' language definitions on input line 946.
+Package cleveref Info: loaded `english' language definitions on input line 948.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2305,10 +2374,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 946.
+Package cleveref Info: loaded `english' language definitions on input line 948.
 [40]
 
-Package cleveref Info: loaded `english' language definitions on input line 966.
+Package cleveref Info: loaded `english' language definitions on input line 968.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2316,9 +2385,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 966.
+Package cleveref Info: loaded `english' language definitions on input line 968.
 [41]
-Underfull \hbox (badness 10000) in paragraph at lines 974--975
+Underfull \hbox (badness 10000) in paragraph at lines 975--976
 
  []
 
@@ -2326,40 +2395,40 @@ Underfull \hbox (badness 10000) in paragraph at lines 974--975
 pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.979         \Function
+l.980         \Function
                        {Grover}{$f$, $q_0$}
 pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.980             \State
+l.981             \State
                          $q_0 = H^{\otimes n}(q_0)$
 pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.981             \For
-                      {$i \in \cbk{1, O\rbk{\tfrac{N}{M}}}$} \Comment{where ...
+l.982             \For
+                      {$i \in \sbk{1, O\rbk{\tfrac{N}{M}}}$} \Comment{where ...
 pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.4}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.982                 \State
+l.983                 \State
                              $q_0 = G(q_0)$
 pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.5}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.983             \EndFor
+l.984             \EndFor
                          
 pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.6}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.984             \State
+l.985             \State
                          \tbf{return} $\mbox{measure}(q_0)$
 pdfTeX warning (ext4): destination with the same identifier (name{ALG@line.7}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.985         \EndFunction
+l.986         \EndFunction
                           
 
-Package cleveref Info: loaded `english' language definitions on input line 993.
+Package cleveref Info: loaded `english' language definitions on input line 995.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2367,20 +2436,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 993.
+Package cleveref Info: loaded `english' language definitions on input line 995.
 [42]
-Underfull \hbox (badness 10000) in paragraph at lines 1004--1004
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1010--1010
+Underfull \hbox (badness 10000) in paragraph at lines 1002--1002
 
  []
 
 
 
-Package cleveref Info: loaded `english' language definitions on input line 1023.
+Package cleveref Info: loaded `english' language definitions on input line 1018.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2388,10 +2452,27 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 1023.
+Package cleveref Info: loaded `english' language definitions on input line 1018.
 [43]
+Package svg Info: Calling Inkscape on input line 1020.
+runsystem(inkscape "../assets/grover1.svg" -D --export-latex --export-filename="grover1_svg-tex.pdf")...executed.
 
-Package cleveref Info: loaded `english' language definitions on input line 1028.
+runsystem(mkdir -p "./svg-inkscape/")...executed.
+
+runsystem(mv "grover1_svg-tex.pdf" "./svg-inkscape/grover1_svg-tex.pdf")...executed.
+
+runsystem(mv "grover1_svg-tex.pdf_tex" "./svg-inkscape/grover1_svg-tex.pdf_tex")...executed.
+
+Package svg Info: Last page of `./svg-inkscape/grover1_svg-tex.pdf' is 1 on input line 1020.
+ (./svg-inkscape/grover1_svg-tex.pdf_tex
+<./svg-inkscape/grover1_svg-tex.pdf, id=510, page=1, 376.40625pt x 376.40625pt>
+File: ./svg-inkscape/grover1_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/grover1_svg-tex.pdf, page 1>
+Package pdftex.def Info: ./svg-inkscape/grover1_svg-tex.pdf , page1 used on input line 56.
+(pdftex.def)             Requested size: 227.62206pt x 227.62596pt.
+)
+
+Package cleveref Info: loaded `english' language definitions on input line 1038.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2399,14 +2480,96 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 1028.
-[44]
+Package cleveref Info: loaded `english' language definitions on input line 1038.
+[44 <./svg-inkscape/grover1_svg-tex.pdf>]
+Package svg Info: Last page of `./svg-inkscape/grover2_svg-tex.pdf' is 1 on input line 1065.
+ (./svg-inkscape/grover2_svg-tex.pdf_tex
+<./svg-inkscape/grover2_svg-tex.pdf, id=518, page=1, 376.40625pt x 376.40625pt>
+File: ./svg-inkscape/grover2_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/grover2_svg-tex.pdf, page 1>
+Package pdftex.def Info: ./svg-inkscape/grover2_svg-tex.pdf , page1 used on input line 56.
+(pdftex.def)             Requested size: 227.62206pt x 227.62596pt.
+)
 
-Package cleveref Info: loaded `english' language definitions on input line 1030.
-[45
+Package cleveref Info: loaded `english' language definitions on input line 1066.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+Package cleveref Info: loaded `english' language definitions on input line 1066.
+[45]
+Package svg Info: Last page of `./svg-inkscape/grover3_svg-tex.pdf' is 1 on input line 1066.
+ (./svg-inkscape/grover3_svg-tex.pdf_tex
+<./svg-inkscape/grover3_svg-tex.pdf, id=524, page=1, 376.40625pt x 376.40625pt>
+File: ./svg-inkscape/grover3_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/grover3_svg-tex.pdf, page 1>
+Package pdftex.def Info: ./svg-inkscape/grover3_svg-tex.pdf , page1 used on input line 56.
+(pdftex.def)             Requested size: 227.62206pt x 227.62596pt.
+)
+Package svg Info: Last page of `./svg-inkscape/grover4_svg-tex.pdf' is 1 on input line 1067.
+ (./svg-inkscape/grover4_svg-tex.pdf_tex
+<./svg-inkscape/grover4_svg-tex.pdf, id=526, page=1, 376.40625pt x 376.40625pt>
+File: ./svg-inkscape/grover4_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/grover4_svg-tex.pdf, page 1>
+Package pdftex.def Info: ./svg-inkscape/grover4_svg-tex.pdf , page1 used on input line 56.
+(pdftex.def)             Requested size: 227.62206pt x 227.62596pt.
+)
+
+Package cleveref Info: loaded `english' language definitions on input line 1068.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+Package cleveref Info: loaded `english' language definitions on input line 1068.
+[46 <./svg-inkscape/grover2_svg-tex.pdf> <./svg-inkscape/grover3_svg-tex.pdf
+
+pdfTeX warning: pdflatex (file ./svg-inkscape/grover3_svg-tex.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+>]
+
+Package cleveref Info: loaded `english' language definitions on input line 1074.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+Package cleveref Info: loaded `english' language definitions on input line 1074.
+[47 <./svg-inkscape/grover4_svg-tex.pdf>]
+
+Package cleveref Info: loaded `english' language definitions on input line 1101.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+Package cleveref Info: loaded `english' language definitions on input line 1101.
+[48]
+
+Package cleveref Info: loaded `english' language definitions on input line 1114.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+Package cleveref Info: loaded `english' language definitions on input line 1114.
+[49]
+
+Package cleveref Info: loaded `english' language definitions on input line 1116.
+[50
 
 ] (./Quantum Computing.aux
-Package cleveref Info: loaded `english' language definitions on input line 12.
+Package cleveref Info: loaded `english' language definitions on input line 13.
 )
  ***********
 LaTeX2e <2024-11-01> patch level 2
@@ -2416,25 +2579,28 @@ L3 programming layer <2025-01-18>
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package rerunfilecheck Info: File `"Quantum Computing".out' has not changed.
-(rerunfilecheck)             Checksum: 530CB511D9F70B6496C34F264AFBD252;3439.
+(rerunfilecheck)             Checksum: 3F7AC8240817A7E0234A25E08CD5AF15;3599.
 Package logreq Info: Writing requests to '"Quantum Computing".run.xml'.
 \openout1 = `"Quantum Computing.run.xml"'.
 
  ) 
 Here is how much of TeX's memory you used:
- 76657 strings out of 475119
- 1868884 string characters out of 5765716
- 3079903 words of memory out of 5000000
- 98502 multiletter control sequences out of 15000+600000
+ 77702 strings out of 475119
+ 1893046 string characters out of 5765716
+ 3125455 words of memory out of 5000000
+ 99491 multiletter control sequences out of 15000+600000
  586931 words of font info for 97 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 119i,22n,123p,1908b,2247s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 115i,25n,123p,1908b,2247s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf-dist/fonts/type1/public/tex-gyre/qtmr.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc1728.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc2074.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfti1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb></usr/share/texmf-dist/fonts/type1/public/stmaryrd/stmary10.pfb>
-Output written on "Quantum Computing.pdf" (47 pages, 714659 bytes).
+Output written on "Quantum Computing.pdf" (52 pages, 781519 bytes).
 PDF statistics:
- 698 PDF objects out of 1000 (max. 8388607)
- 559 compressed objects within 6 object streams
- 173 named destinations out of 1000 (max. 500000)
- 250 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 741 PDF objects out of 1000 (max. 8388607)
+ 589 compressed objects within 6 object streams
+ 179 named destinations out of 1000 (max. 500000)
+ 298 words of extra memory for PDF output out of 10000 (max. 10000000)
 
