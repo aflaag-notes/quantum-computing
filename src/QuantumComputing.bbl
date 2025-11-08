@@ -303,5 +303,51 @@
     \field{month}{10}
     \field{year}{1982}
   \endentry
+
+  \entry{yoder}{article}{}{}
+    \name{author}{3}{}{%
+      {{hash=YTJ}{%
+         family={Yoder},
+         familyi={Y\bibinitperiod},
+         given={Theodore\bibnamedelima J.},
+         giveni={T\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+      {{hash=LGH}{%
+         family={Low},
+         familyi={L\bibinitperiod},
+         given={Guang\bibnamedelima Hao},
+         giveni={G\bibinitperiod\bibinitdelim H\bibinitperiod},
+      }}%
+      {{hash=CIL}{%
+         family={Chuang},
+         familyi={C\bibinitperiod},
+         given={Isaac\bibnamedelima L.},
+         giveni={I\bibinitperiod\bibinitdelim L\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {American Physical Society (APS)}%
+    }
+    \strng{namehash}{YTJLGHCIL1}
+    \strng{fullhash}{YTJLGHCIL1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{YLC14}
+    \field{sortinit}{Y}
+    \field{sortinithash}{Y}
+    \verb{doi}
+    \verb 10.1103/physrevlett.113.210501
+    \endverb
+    \field{issn}{1079-7114}
+    \field{number}{21}
+    \field{title}{Fixed-Point Quantum Search with an Optimal Number of Queries}
+    \verb{url}
+    \verb http://dx.doi.org/10.1103/PhysRevLett.113.210501
+    \endverb
+    \field{volume}{113}
+    \field{journaltitle}{Physical Review Letters}
+    \field{month}{11}
+    \field{year}{2014}
+  \endentry
 \enddatalist
 \endinput
