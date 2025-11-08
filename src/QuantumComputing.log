@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2025.8.29)  8 NOV 2025 16:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2025.8.29)  8 NOV 2025 18:28
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -2518,8 +2518,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 Package cleveref Info: loaded `english' language definitions on input line 1129.
 [50]
-Overfull \hbox (56.56883pt too wide) detected at line 1170
- [] []
+Underfull \hbox (badness 10000) in paragraph at lines 1158--1158
+
  []
 
 
@@ -2534,18 +2534,23 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 Package cleveref Info: loaded `english' language definitions on input line 1170.
 [51]
-Overfull \hbox (30.35986pt too wide) detected at line 1192
+Overfull \hbox (42.78526pt too wide) detected at line 1182
  [] []
  []
 
 
-Overfull \hbox (20.11073pt too wide) detected at line 1208
+Overfull \hbox (26.46127pt too wide) detected at line 1204
+ [] []
+ []
+
+
+Overfull \hbox (20.11073pt too wide) detected at line 1220
 [][]
  []
 
 
 
-Package cleveref Info: loaded `english' language definitions on input line 1208.
+Package cleveref Info: loaded `english' language definitions on input line 1220.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2553,10 +2558,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 1208.
+Package cleveref Info: loaded `english' language definitions on input line 1220.
 [52]
 
-Package cleveref Info: loaded `english' language definitions on input line 1221.
+Package cleveref Info: loaded `english' language definitions on input line 1233.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2564,10 +2569,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 1221.
+Package cleveref Info: loaded `english' language definitions on input line 1233.
 [53]
 
-Package cleveref Info: loaded `english' language definitions on input line 1221.
+Package cleveref Info: loaded `english' language definitions on input line 1233.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2575,10 +2580,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 1221.
+Package cleveref Info: loaded `english' language definitions on input line 1233.
 [54]
 
-Package cleveref Info: loaded `english' language definitions on input line 1223.
+Package cleveref Info: loaded `english' language definitions on input line 1235.
 [55
 
 ] (./QuantumComputing.aux
@@ -2601,13 +2606,13 @@ Package logreq Info: Writing requests to 'QuantumComputing.run.xml'.
 Here is how much of TeX's memory you used:
  77739 strings out of 475119
  1893748 string characters out of 5765716
- 3140879 words of memory out of 5000000
+ 3141879 words of memory out of 5000000
  99513 multiletter control sequences out of 15000+600000
  586931 words of font info for 97 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  115i,25n,123p,1905b,2247s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf-dist/fonts/type1/public/tex-gyre/qtmr.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc1728.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc2074.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfti1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb></usr/share/texmf-dist/fonts/type1/public/stmaryrd/stmary10.pfb>
-Output written on QuantumComputing.pdf (57 pages, 801606 bytes).
+Output written on QuantumComputing.pdf (57 pages, 801643 bytes).
 PDF statistics:
  784 PDF objects out of 1000 (max. 8388607)
  626 compressed objects within 7 object streams

@@ -930,9 +930,9 @@ Finally, we are ready to prove the correctness of the algorithm.
         \xrightarrow{X(q_1)} & \ket{0^n} \otimes \ket 1 & \\ 
         \xrightarrow{H^{\otimes n}(q_0, q_1)} & H^{\otimes n} \ket{0^n} \otimes H \ket 1 & \\ 
         = & \dfrac{1}{\sqrt 2^n} \sum_{a \in \B^n}{(-1)^{0^n \cdot a} \ket a} \otimes \ket - & \quad (\mbox{by Claim 2}) \\ 
-        = & \dfrac{1}{\sqrt 2} \sum_{a \in \B^n}{\ket a} \otimes \ket -  & \\ 
+        = & \dfrac{1}{\sqrt 2^n} \sum_{a \in \B^n}{\ket a} \otimes \ket -  & \\ 
         = & \dfrac{1}{\sqrt 2^n } \sum_{a \in \B^n}{(\ket a \otimes \ket - )} & \\ 
-        \xrightarrow{U_f(q_0, q_1)} & \dfrac{1}{\sqrt 2} \sum_{a \in \B^n}{\rbk{(-1)^{f(a)} \ket a \otimes \ket - }} & \quad (\mbox{by \cref{U lemma}}) \\ 
+        \xrightarrow{U_f(q_0, q_1)} & \dfrac{1}{\sqrt 2^n} \sum_{a \in \B^n}{\rbk{(-1)^{f(a)} \ket a \otimes \ket - }} & \quad (\mbox{by \cref{U lemma}}) \\ 
         = & \dfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{(-1)^{f(a)} \ket a} \otimes \ket - & \\ 
         \xrightarrow{H^{\otimes n}(q_0)} & H^{\otimes n} \rbk{\dfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{(-1)^{f(a)} \ket a }} \otimes \ket - & \\ 
         = & \dfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{\rbk{(-1)^{f(a)} H^{\otimes n} \ket a }} \otimes \ket - & \\ 
@@ -1141,6 +1141,22 @@ Moreover, define the following operator $$G := U R_s U^\dag R_t U$$ Let's see wh
 \end{framedlem}
 
 \begin{proof}
+    First, we prove the following equality.
+
+    \claim{
+        It holds that $\bra s U^\dag \ket t U_{ts} = \abs{U_{ts}}^2$.
+    }{
+        \begin{equation*}
+            \begin{alignedat}{2}
+                \bra s U^\dag \ket t U_{ts} & = \braket{s|U^\dag t} U_{ts} & \\ 
+                         & = \braket{Us|t} U_{ts} & \quad (\mbox{by def. of adjoint}) \\ 
+                         & = \overline{\braket{t|Us}} U_{ts} & \quad (\mbox{by prop. of scalar products}) \\ 
+                         & = \overline{U_{ts}} U_{ts} & \\ 
+                         & = \abs{U_{ts}}^2 & \quad (z \cdot \overline z = \abs{z}^2)\\ 
+            \end{alignedat}
+        \end{equation*}
+    }
+
     Let $P_s = \ket s \bra s$ and $P_t = \ket t \bra t$; thus, we have that
     \begin{equation*}
         \begin{alignedat}{2}
@@ -1152,18 +1168,14 @@ Moreover, define the following operator $$G := U R_s U^\dag R_t U$$ Let's see wh
               & = U - (1 - e^{i \theta}) P_tU - (1 - e^{i \theta})UP_s + (1 - e^{i\theta})^2 UP_s U^\dag P_t U & \\ 
         \end{alignedat}
     \end{equation*}
-    Hence, we can evaluate $G \ket s$ as follows:
+    Therefore, we find that $G \ket s$ can be evaluated as follows:
     \begin{equation*}
-        \hspace{-1.3cm}
+        \hspace{-1cm}
         \begin{alignedat}{2}
             G \ket s & = \rbk{U - (1 - e^{i \theta}) P_tU - (1 - e^{i \theta})UP_s + (1 - e^{i\theta}) UP_s U^\dag P_t U} \ket s & \\ 
                      & = U \ket s - (1 - e^{i \theta}) P_tU \ket s- (1 - e^{i \theta})UP_s \ket s + (1 - e^{i\theta})^2 UP_s U^\dag P_t U \ket s & \\  
                      & = U \ket s - (1 - e^{i \theta}) \ket t U_{ts} - (1 - e^{i\theta}) U \ket s + (1 - e^{i\theta})^2 U \ket s \bra s U^\dag \ket t U_{ts} & \\ 
-                     & = U \ket s - (1 - e^{i \theta}) \ket t U_{ts} - (1 - e^{i \theta}) U \ket s + (1 - e^{i \theta})^2 U \ket s \braket{s|U^\dag t} U_{ts} & \\ 
-                     & = U \ket s - (1 - e^{i \theta}) \ket t U_{ts} - (1 - e^{i \theta}) U \ket s + (1 - e^{i \theta})^2 U \ket s \braket{Us|t} U_{ts} & \quad (\mbox{by def. of adjoint}) \\ 
-                     & = U \ket s - (1 - e^{i \theta}) \ket t U_{ts} - (1 - e^{i \theta}) U \ket s + (1 - e^{i \theta})^2 U \ket s \overline{\braket{t|Us}} U_{ts} & \quad (\mbox{by prop. of scalar products}) \\ 
-                     & = U \ket s - (1 - e^{i \theta}) \ket t U_{ts} - (1 - e^{i \theta}) U \ket s + (1 - e^{i \theta})^2 U \ket s \overline{U_{ts}} U_{ts} & \\ 
-                     & = U \ket s - (1 - e^{i \theta}) \ket t U_{ts} - (1 - e^{i \theta}) U \ket s + (1 - e^{i \theta})^2 U \ket s \abs{U_{ts}}^2 & \quad (z \cdot \overline z = \abs{z}^2)\\ 
+                     & = U \ket s - (1 - e^{i \theta}) \ket t U_{ts} - (1 - e^{i\theta}) U \ket s + (1 - e^{i\theta})^2 U \ket s \abs{U_{ts}}^2 & \quad (\mbox{by the claim}) \\ 
                      & = \ldots & \quad (\mbox{algebraic manipulation}) \\ 
                      & = U \ket s \sbk{e^{i\theta} + \abs{U_{ts}}^2  \rbk{e^{i \theta }-1}^2} + \ket t U_{ts}\rbk{e^{i \theta} - 1} & \\ 
         \end{alignedat}
@@ -1182,7 +1194,7 @@ Most importantly, this equality can be used in the following proposition, which 
         \hspace{-1cm}
         \begin{alignedat}{2}
             \Pr[\mbox{measure}\rbk{G \ket s} = \ket t] & = \abs{\braket{t|Gs}}^2 & \\ 
-                                                       & = \abs{\bra t \sbk{U \ket s \rbk{e^{i\theta} + \abs{U_{jts}}^2  \rbk{e^{i \theta} - 1}^2} + \ket t U_{ts}\rbk{e^{i \theta} - 1}}}^2 & \\ 
+                                                       & = \abs{\bra t \sbk{U \ket s \rbk{e^{i\theta} + \abs{U_{ts}}^2  \rbk{e^{i \theta} - 1}^2} + \ket t U_{ts}\rbk{e^{i \theta} - 1}}}^2 & \\ 
                                                        & = \abs{\braket{t|Us} \rbk{e^{i\theta} + \abs{U_{ts}}^2  \rbk{e^{i \theta } - 1}^2 }+ \braket{t|t} U_{ts}\rbk{e^{i \theta} - 1}}^2 & \\ 
                                                        & = \abs{U_{ts} \rbk{e^{i\theta} + \abs{U_{ts}}^2  \rbk{e^{i \theta } - 1}^2 }+ U_{ts}\rbk{e^{i \theta} - 1}}^2 & \\ 
                                                        & = \abs{U_{ts} \sbk{2e^{i\theta} - 1 + \abs{U_{ts}}^2 \rbk{e^{i \theta} - 1}^2}}^2 & \\ 
@@ -1217,6 +1229,10 @@ TODO \todo{drawing of the vector that grows monotonically}
 Unfortunately, there already exists a classical probabilistic algorithm that the failure probability drops as $\varepsilon^{q + 1}$  after $q$ queries to $f$. Thus, the quantum advantage with this method is lost.
 
 So, what do we do now? In 2014 \textcite{yoder} proposed a fixed-point quantum serach algorithm that monotonically converges to the target state while still retaining the quadratic advantage of the original Grover's algorithm over classical algorithms. The algorithm involves phase-shift operators that are parametrized with angles different from $\theta = \tfrac{\pi}{3}$, and again involes building a sequence of operators using said phase shifts. However, the details of this result are way beyond the scope of our discussion, so we won't describe the details of their findings.
+
+\section{Quantum Fourier Transform}
+
+Before explainin the next algorithm that we are going to describe, we first need to present a very useful tool that is widely employed in various areas of computer science and matheamtics, such as integer multiplication, signal processing (e.g. speech recognition, audio compression) and much more.
 
 \printbibliography % UNCOMMENT FOR BIBLIOGRAPHY
 
