@@ -159,6 +159,40 @@
     \field{year}{1935}
   \endentry
 
+  \entry{grover2}{article}{}{}
+    \name{author}{1}{}{%
+      {{hash=GLK}{%
+         family={Grover},
+         familyi={G\bibinitperiod},
+         given={Lov\bibnamedelima K.},
+         giveni={L\bibinitperiod\bibinitdelim K\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {American Physical Society (APS)}%
+    }
+    \strng{namehash}{GLK1}
+    \strng{fullhash}{GLK1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Gro05}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \verb{doi}
+    \verb 10.1103/physrevlett.95.150501
+    \endverb
+    \field{issn}{1079-7114}
+    \field{number}{15}
+    \field{title}{Fixed-Point Quantum Search}
+    \verb{url}
+    \verb http://dx.doi.org/10.1103/PhysRevLett.95.150501
+    \endverb
+    \field{volume}{95}
+    \field{journaltitle}{Physical Review Letters}
+    \field{month}{10}
+    \field{year}{2005}
+  \endentry
+
   \entry{grover}{article}{}{}
     \name{author}{1}{}{%
       {{hash=GLK}{%

@@ -361,7 +361,7 @@ where the notation $\ket{00}_{12}$ represents for example that we are considerin
 		}
 	\end{split}
 \end{equation*}
-Finally, Alice will perform the measurement on $q_0$ and $q_1$, and what will happen is that the \tit{whole} quantum state of the quantum circuit will collapse as follows: $$\soe{ll}{\ket{00}_{01} \otimes \ket \psi_2 & @ \ \tfrac{1}{4} \\ \ket{01}_{01} \otimes X \ket \psi_2 & @ \ \tfrac{1}{4} \\ \ket{10}_{01} \otimes Z \ket \psi_2 & @ \ \tfrac{1}{4} \\ \ket{11}_{01} \otimes XZ \ket \psi_2 & @ \ \tfrac{1}{4}}$$ Note that to perform the measurement operation on just $q_0$ and $q_1$ we would need some mathematical tools that are outside the scope of this course, therefore we will only show the probabilities of the outcomes as presented above. In fact, fom this table we can easily explain the last part of the quantum teleportation circuit, i.e. Bob's part, as shown below.
+Finally, Alice will perform the measurement on $q_0$ and $q_1$, and what will happen is that the \tit{whole} quantum state of the quantum circuit will collapse as follows: $$\soe{ll}{\ket{00}_{01} \otimes \ket \psi_2 & @ \ \tfrac{1}{4} \\ \ket{01}_{01} \otimes X \ket \psi_2 & @ \ \tfrac{1}{4} \\ \ket{10}_{01} \otimes Z \ket \psi_2 & @ \ \tfrac{1}{4} \\ \ket{11}_{01} \otimes XZ \ket \psi_2 & @ \ \tfrac{1}{4}}$$ Note that to perform the measurement operation on just $q_0$ and $q_1$ we would need some mathematical tools that we will encounter in the next chapters, therefore we will only show the probabilities of the outcomes as presented above. In fact, fom this table we can easily explain the last part of the quantum teleportation circuit, i.e. Bob's part, as shown below.
 
 \begin{center}
 	\begin{tabular}{c|c|c}
@@ -965,7 +965,7 @@ Before explaining the details of the algorithm, we need to define some new opera
 \begin{itemize}
     \item given an arbitrary qubit $\ket \psi$, we will write its superposition of states as follows $$\ket \psi = \sum_{b \in \B^n}{\alpha_b \ket b}$$ where $\sum_{b \in \B^n}{\abs{\alpha_b}} = 1$
     \item we define an operator $O_f$ (where $f$ is the indicator function of the array defined before) that computes as follows: $$\forall x \in \B^n \quad O_f \ket x := (-1)^{f(x)} \ket x$$
-    \item given an arbitrary qubit $\ket \psi$, we define a new operator $W$ as follows: $$W := 2 \ket s \bra s - I$$ where $\ket s$ is called \tbf{uniform superposition} (since each amplitude is equally likely) $$\ket s = \dfrac{1}{\sqrt N} \sum_{x \in \B^n}{\ket x}$$
+    \item given an arbitrary qubit $\ket \psi$, we define a new operator $W$ as follows: $$W := 2 \ket s \bra s - I$$ where $\ket s$ is the \tbf{uniform superposition}, a superposition of states in which each amplitude is equally likely $$\ket s = \dfrac{1}{\sqrt N} \sum_{x \in \B^n}{\ket x}$$
     \item finally, we will define an operator $G$ that will simply compose the last two operators we described $$G = W \cdot O_f$$
 \end{itemize}
 
@@ -977,7 +977,7 @@ Before explaining the details of the algorithm, we need to define some new opera
     \begin{algorithmic}[1]
         \Function{Grover}{$f$, $q_0$}
             \State $q_0 = H^{\otimes n}(q_0)$
-            \For{$i \in \sbk{1, O\rbk{\tfrac{N}{M}}}$} \Comment{where $N = 2^n$}
+            \For{$i \in \sbk{1, O\rbk{\sqrt{\tfrac{N}{M}}}}$} \Comment{where $N = 2^n$}
                 \State $q_0 = G(q_0)$
             \EndFor
             \State \tbf{return} $\mbox{measure}(q_0)$
@@ -1072,7 +1072,8 @@ Now that we know how Grover's algorithm works, the only thing left to discuss is
 Let the angle between $\ket a$ and $\ket s$ be $\theta$; since $O_f$ flips $q_0$ w.r.t. $\ket a$, and $W$ flips $O_f \ q_0$ w.r.t. $\ket s$, $G$ will cumulatively rotate $q_0$ by $2 \theta$: \todo{drawing} Indeed, with each application of $G$ we are rotating $q_0$ by $2 \theta$, which means that at the $k$-th application it holds that $$G^k \ q_0 = \cos (2k + 1) \theta \ket a + \sin (2k + 1) \theta \ket b$$ for any $k \in \N$, where the additional 1 comes from the fact that $q_0 = \ket s$ through the Hadamard transformation at the start of the process. Thus, to evaluate the optimal number of iterations we need to find the optimal $k$, i.e. the one that maximizes the probability of measuring a solution index, which is equal to the squared amplitude of $\ket b$, namely $$\Pr[\mbox{measure}(q_0) = \ket b] = \sin^2(2k + 1) \theta$$ Hence, we have that $\sin^2(2k + 1)\theta = 1$ when $(2k +1) \theta = \tfrac{\pi}{2}$, and solving for $k$ we get that $$k = \dfrac{\pi}{4 \theta} - \dfrac{1}{2}$$ Lastly, since $\theta$ is the angle between $\ket a$ and $\ket s$, we can rewrite $\ket s$ as $$\ket s = \cos \theta \ket a + \sin \theta \ket b$$ which directly implies that $$\sin \theta = \sqrt {\dfrac{M}{N}} \iff \theta = \arcsin \sqrt{\dfrac{M}{N}}$$ and therefore
 \begin{equation*}
     \begin{split}
-        k \dfrac{\pi}{4 \theta} - \dfrac{1}{2} & = \dfrac{\pi}{4 \arcsin \sqrt{\dfrac{M}{N}}} - \dfrac{1}{2}  \\  
+        k & = \dfrac{\pi}{4 \theta} - \dfrac{1}{2}  \\
+          & = \dfrac{\pi}{4 \arcsin \sqrt{\dfrac{M}{N}}} - \dfrac{1}{2}  \\  
                                                & \le  \dfrac{\pi}{4 \arcsin \sqrt{\dfrac{M}{N}}} \\ 
                                                & \le \dfrac{\pi}{4 \sqrt{\dfrac{M}{N}}} \\ 
                                                & = \dfrac{\pi}{4} \sqrt{\dfrac{N}{M}} \\ 
@@ -1108,6 +1109,59 @@ where $\overline{\alpha_\psi}$ is the average amplitude of $\ket \psi$. This imp
     \end{alignedat}
 \end{equation*}
 In other words, when we apply $W$ to a superposition of states, what happens is that each amplitude of the basis states is trasformed as follows: $$\func{W}{\alpha_x}{2 \overline{\alpha_\psi} - \alpha_x}$$ To understand why this is important, let's look at what happens in Grover's algorithm after the first Hadamard application. TODO \todo{da finire}
+
+\subsection{Fixed-Point Quantum Search}
+
+As we saw in the previous sections, with Grover's algorithm we need to be careful on how many times we apply the $G$ operator, however we observe that the right value for $k$ --- i.e. the numeber of iterations --- strictly depends on both $N$ and $M$. Assuming that $N$, the length of the array, is known, it is not guaranteed that we know $M$ too (the number of solutions in the array). Therefore, if we want to apply Grover's algorithm we also need to be able to to a rough estimate on $M$, otherwise we might end up stopping either too early or too late. This makes Grover's algorithm fragile in some real-world scenarios.
+
+Grover was actually aware of this problem, and in 2005 he designed a new algorithm which is able to solve this issue \cite{grover2}. The idea of the algorithm is to \tit{monotonically} increase the probability of finding a solution, without oscillating back down $\ket a$. This algorithm is called \tbf{Fixed-Point Quantum Search}, becuase the solutions actually become a \curlyquotes{stable fixed point} of the transformation --- i.e. once you reach a good solution, further iterations leave it basically unchanged. Indeed, with Grover's search each iteration is a constant-angle rotation, while in fixed-point search we will see that the phase angles in each rotation changes such that the rotation angle decreases over time.
+
+First, we need to define two new operators: $$R_s := I - (1 - e^{i \theta}) \ket s \bra s \quad \quad R_t := I - (1 - e^{i \theta}) \ket t \bra t$$ where $\ket s$ is the starting state and $\ket t$ is the target state (in Grover's algorithm this was $\ket b$) --- this is the original notation that Grover used in his paper, and actually explains why we used $\ket s$ in the previous version of the algorithm, it's just the \curlyquotes{start}. These two operators are called \tbf{phase shift operators}; as usual, before proceeding we need to show that both operators are actually unitary.
+
+\claim{
+    $R_t$ and $R_s$ are unitary operators.
+}{
+    TODO \todo{todo}
+}
+
+What are these two operators in the first place? When we presented the $W$ operator, we also noticed how it actually performes a reflection of its input w.r.t. the space of $\ket s$. Well, through a very similar argument it can be shown that $$W^\bot := I - 2 \ket s \bra s$$ performs a reflection of its input w.r.t. the space \tit{orthogonal} to $\ket s$ --- indeed, we end up with $$W^\bot \ket \psi = \ket{\psi_\bot} - \alpha \ket s$$ If we now look at the $R_s$ operator, we can see that when we actually compute the reflection it performs we end up with $$R_s \ket \psi = \ket{\psi_\bot} + e^{i \theta} \alpha \ket s$$ This suggests that what $R_s$ actually computes is a \curlyquotes{soft reflection} w.r.t. the space perpendicular to $\ket s$. Through an analogous argument, we can see that $$R_t \ket \psi= \ket{\psi_\bot} + e^{i \theta} \alpha \ket t $$ meaning that $R_t$ computes a \curlyquotes{soft reflection} w.r.t. the space perpendicular to $\ket t$ --- however, we observe that the latter is literally the space of $\ket a$, indeed $O$ in Grover's algorithm could have been defined as $$O = I - 2 \ket b \bra b$$ and indeed it is sometimes defined such.
+
+Now, we are going to define an addition operator called $U$ as such: let $U$ be any unitary operator such that, for some small $\varepsilon > 0$, it holds that $$\abs{\braket{t|Us}}^2 = 1 - \varepsilon$$ We observe that
+
+\begin{itemize}
+    \item by the laws of quantum mechanics we have that $$\Pr[\mbox{measure}\rbk{U \ket s} = \ket t] = \abs{\braket{t|Us}}^2$$ therefore we require $U$ to be an operator such that it \curlyquotes{drives $\ket s$ close to $\ket t$ with high probability} --- i.e. $1 - \varepsilon$
+    \item we know that $U$ exists since it's just a rotation in a 2D space
+    \item also, a geometric interpretation of the scalar product is that we are measuring the cosine of the angle between $\ket t$ and $\ket{Us}$, and we want this value to be very high (such that the angle woule be very small) --- we obeserve that we are in Hilbert spaces so the notion of \curlyquotes{angle} is not the same of the one we are used to with Euclidean spaces, but this is just to have an idea of what is happening with $U$
+\end{itemize}
+
+Moreover, define the following operator $$G := U R_s U^\dag R_t U$$ Let's see what happens when we evaluate $G \ket s$. By denoting $U_{ts} = \braket{t|Us}$, it can be shown that $$G \ket s = U \ket s \sbk{e^{i\theta} + \abs{U_{jts}}^2  \rbk{e^{i \theta }-1}^2} + \ket t U_{ts}\rbk{e^{i \theta} - 1}$$ (we will skip the details of the calculations). Assuming this is correct, to compute how close this state is to $\ket t$ we need to evaluate the following:
+\begin{equation*}
+    \begin{alignedat}{2}
+        \Pr[\mbox{measure}\rbk{G \ket s} = \ket t] & = \abs{\braket{t|Gs}}^2 & \\ 
+                                                   & = \abs{\bra t \sbk{U \ket s \rbk{e^{i\theta} + \abs{U_{jts}}^2  \rbk{e^{i \theta} - 1}^2} + \ket t U_{ts}\rbk{e^{i \theta} - 1}}}^2 & \\ 
+                                                   & = \abs{\braket{t|Us} \rbk{e^{i\theta} + \abs{U_{ts}}^2  \rbk{e^{i \theta } - 1}^2 }+ \braket{t|t} U_{ts}\rbk{e^{i \theta} - 1}}^2 & \\ 
+                                                   & = \abs{U_{ts} \rbk{e^{i\theta} + \abs{U_{ts}}^2  \rbk{e^{i \theta } - 1}^2 }+ U_{ts}\rbk{e^{i \theta} - 1}}^2 & \\ 
+                                                   & = \abs{U_{ts} \sbk{2e^{i\theta} - 1 + \abs{U_{ts}}^2 \rbk{e^{i \theta} - 1}^2}}^2 & \\ 
+                                                   & = \abs{U_{ts}}^2 \cdot \abs{2e^{i\theta} - 1 + \abs{U_{ts}}^2 \rbk{e^{i \theta} - 1}^2}^2 & \\ 
+                                                   & = (1 - \varepsilon) \cdot \abs{2e^{i\theta} - 1 + (1 - \varepsilon)\rbk{e^{i \theta} - 1}^2}^2 & \quad \rbk{\abs{U_{ts}}^2 = 1 - \varepsilon}\\ 
+    \end{alignedat}
+\end{equation*}
+
+Now, let's see what happens if we set $\theta = \tfrac{\pi}{3}$: we obtain that
+\begin{equation*}
+    \begin{alignedat}{2}
+        \Pr[\mbox{measure}\rbk{G \ket s} = \ket t] & = (1 - \varepsilon) \cdot \abs{2e^{i \tfrac{\pi}{3}} - 1 + (1 - \varepsilon)\rbk{e^{i\tfrac{\pi}{3}} - 1}^2}^2 & \\ 
+                                                   & = (1 - \varepsilon) \cdot \abs{2e^{i \tfrac{\pi}{3}} - 1 - (1 - \varepsilon){i \tfrac{\pi}{3}}}^2 & \quad \rbk{\rbk{e^{i\tfrac{\pi}{3}} - 1}^2 = - e^{i \tfrac{\pi}{3}}} & \\ 
+                                                   & = (1 - \varepsilon) \cdot \abs{(1 + \varepsilon) e^{i \tfrac{\pi}{3}} - 1}^2 & \\ 
+                                                   & = (1 - \varepsilon) \cdot \abs{(1 + \varepsilon)\rbk{\dfrac{1}{2} + i \dfrac{\sqrt 4}{2}} - 1}^2 & \quad (\mbox{by Euler's formula}) & \\ 
+                                                   & = (1 - \varepsilon) \cdot \abs{\dfrac{1}{2} +i  \dfrac{\sqrt 3}{2} + \dfrac{\varepsilon}{2} + i \dfrac{\sqrt 3}{2} \varepsilon - 1}^2 & \\ 
+                                                   & = (1 - \varepsilon) \cdot \abs{\dfrac{\varepsilon}{2} - \dfrac{1}{2} + i \dfrac{\sqrt 3}{2}(1 + \varepsilon)}^2 &  \\ 
+                                                   & = (1 - \varepsilon) \cdot \sbk{\rbk{\dfrac{\varepsilon}{2} - \dfrac{1}{2}}^2 + \rbk{\dfrac{\sqrt 3}{2}(1 + \varepsilon)}^2 } & \quad \rbk{\abs{z}^2 = \Re^2(z) + \Im^2(z)} \\ 
+                                                   & = (1 - \varepsilon) \cdot (1 + \varepsilon + \varepsilon^2)&  \\ 
+                                                   & = 1 + \varepsilon + \varepsilon^2 - \varepsilon - \varepsilon^2 - \varepsilon^3 & \\ 
+                                                   & = 1 - \varepsilon^3 & \\ 
+    \end{alignedat}
+\end{equation*}
 
 \printbibliography % UNCOMMENT FOR BIBLIOGRAPHY
 
