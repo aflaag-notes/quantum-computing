@@ -26,3 +26,5 @@
 \contentsline {subsection}{\numberline {3.3.1}Another perspective}{49}{subsection.3.3.1}%
 \contentsline {subsection}{\numberline {3.3.2}Fixed-Point Quantum Search}{49}{subsection.3.3.2}%
 \contentsline {section}{\numberline {3.4}Quantum Fourier Transform}{54}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}A recap on the DFT}{54}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Roots of unity}{57}{subsection.3.4.2}%
