@@ -1230,11 +1230,13 @@ Unfortunately, there already exists a classical probabilistic algorithm that the
 
 So, what do we do now? In 2014 \textcite{yoder} proposed a fixed-point quantum serach algorithm that monotonically converges to the target state while still retaining the quadratic advantage of the original Grover's algorithm over classical algorithms. The algorithm involves phase-shift operators that are parametrized with angles different from $\theta = \tfrac{\pi}{3}$, and again involes building a sequence of operators using said phase shifts. However, the details of this result are way beyond the scope of our discussion, so we won't describe the details of their findings.
 
-\section{Quantum Fourier Transform}
+\chapter{Shor's algorithm}
+
+TODO \todo{small intro}
 
 Before explaining the next algorithm that we are going to describe, we first need to present a very useful tool that is widely employed in various areas of computer science and mathematics, such as integer multiplication, signal processing (e.g. speech recognition, audio compression) and much more.
 
-\subsection{A recap on the DFT}
+\section{A recap on the Discrete Fourier Transform}
 
 The \tbf{Discrete Fourier Transform (DFT)} is a very powerful tool used in many applications and probably most widely known for its use in signal processing. Indeed, the Fourier transform is used to transform a signal defined on the \tit{time domain} into its equivalent in the \tit{frequency domain}. We will briefly explore the most important concepts that define the DFT to have a better understanding in order to the progress with its quantum counterpart.
 
@@ -1259,7 +1261,7 @@ Now, the last thing that we need to do is move into the complex space $\C^N$. Th
 \end{equation*}
 we usually consider the same base but scaled by a factor of $\tfrac{1}{\sqrt N}$, i.e. $$\forall n \in [0, N - 1] \quad \mathbf x(n) = \dfrac{1}{\sqrt N}\sum_{m = 0}^{N - 1}{\delta_m e^{2\pi i m n/N}}$$ We define $\delta_m$ to be the $m$-th component of the \tbf{discrete Fourier transform} of $\mathbf x$, and the operation that reconstructs $\mathbf x(n)$ is called \tbf{inverse discrete Fourier transform}. In other words, the DFT of a vector computes the projection of said vector into the space $\C^N$ through the orthonormal basis $$\cbk{\tfrac{1}{\sqrt N}e^{2 \pi i m n/N}}_{m = 0}^{N - 1}$$ Indeed, we can compute the DFT by simply applying the matrix that performs the \tbf{change of basis}, but we will see the details of this idea in the next section.
 
-\subsection{Roots of unity}
+\section{The Quantum Fourier Transform}
 
 Now that we have a general understanding of what the DFT is, let's see how the matrix operation is actually defined.
 
@@ -1304,15 +1306,46 @@ Then, can't we just use the DFT matrix in quantum computations whenever we need 
     Given a Hilbert space $\mathcal H$ of size $N$, the \tbf{Quantum Fourier Transform (QFT)} matrix in $\mathcal H$ is defined as follows: $$\forall j, k \in [0, N - 1] \quad \mbox{QFT}_{jk} = \dfrac{1}{\sqrt N}\omega^{jk}$$ where $\omega$ is the principal $N$-th root of unity.
 \end{frameddefn}
 
-We observe that the QFT matrix has positive exponents, which is just a convention employed in quantum computing. Therefore, we get the following matrix: $$\mbox{QFT} := \rmat{1 & 1 & 1 & \cdots & 1 \\ 1 & \omega & \omega^2 & \cdots & \omega^{N - 1} \\ 1 & \omega^2 & \omega^4 & \cdots & \omega^{2(N - 1)} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ 1 & \omega^{N - 1} & \omega^{2(N - 1)} & \cdots & \omega^{(N - 1)^2}}$$ In particular, for any $\ket x$ basis state, the quantum Fourier transform can also be expressed as follows: $$\mbox{QFT} \ket x = \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}e^{+2 \pi i x k / N} \ket k$$ which directly implies that we can rewrite the QFT matrix as follows: $$\mbox{QFT} = \sum_{j = 0}^{N - 1}{\rbk{\rfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{e^{2 \pi i j k /N} \ket k}} \bra j }$$
+We observe that the QFT matrix has positive exponents, which is just a convention employed in quantum computing. Therefore, we get the following matrix: $$\mbox{QFT} := \rmat{1 & 1 & 1 & \cdots & 1 \\ 1 & \omega & \omega^2 & \cdots & \omega^{N - 1} \\ 1 & \omega^2 & \omega^4 & \cdots & \omega^{2(N - 1)} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ 1 & \omega^{N - 1} & \omega^{2(N - 1)} & \cdots & \omega^{(N - 1)^2}}$$ In particular, for any $\ket x$ basis state, the quantum Fourier transform can also be expressed as follows: $$\mbox{QFT} \ket x = \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}e^{+2 \pi i x k / N} \ket k$$ which directly implies that we can rewrite the QFT matrix as follows: $$\mbox{QFT} = \sum_{j = 0}^{N - 1}{\rbk{\dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{e^{2 \pi i j k /N} \ket k}} \bra j }$$
 
 \begin{framedprop}{}
     The QFT is a unitary operator, and in particular $$\mbox{QFT}^\dag  = \sum_{j = 0}^{N - 1}{\ket j \rbk{\dfrac{1}{\sqrt N} \sum_{k = 0}^{N  -1}{e^{-2 \pi i j k /N} \bra k}}}$$
 \end{framedprop}
 
 \begin{proof}
-    We will leave the proof of correctness of $\mbox{QFT}^\dag$ as an exercise, and we will focus on proving that the QFT operator is indeed unitary. \todo{da finire}
+    We will leave the proof of correctness of $\mbox{QFT}^\dag$ as an exercise, and we will focus on proving that the QFT operator is indeed unitary. To prove it, is satisfies to show that $$\mbox{QFT} ^\dag \ \mbox{QFT}  = \mbox{QFT} \ \mbox{QFT}^\dag  = I$$ We are going to prove the leftmost product first.
+    \begin{equation*}
+        % \hspace{-1.5cm}
+        \begin{alignedat}{2}
+            \mbox{QFT}^\dag \ \mbox{QFT} & = \sum_{j = 0}^{N - 1}{\ket j \rbk{\dfrac{1}{\sqrt N}\sum_{r = 0 }^{N - 1}{e^{-2 \pi i jr / N} \bra r}}} \sum_{k = 0}^{N - 1}{\rbk{\dfrac{1}{\sqrt N} \sum_{s = 0}^{N - 1}{e^{2 \pi isk/N} \ket s}} \bra k} & \\ 
+                                       & = \dfrac{1}{N} \sum_{j, k = 0}^{N - 1}{\ket j \rbk{\sum_{r = 0}^{N - 1}{e^{-2 \pi i jr/N} \bra r}} \rbk{\sum_{s = 0}^{N - 1}{e^{2 \pi i sk/N} \ket s}}\bra k} & \\ 
+                                       & = \dfrac{1}{N} \sum_{j, k = 0}^{N - 1}{\ket j \rbk{\sum_{r, s = 0}^{ N - 1}{e^{2 \pi i (-jr+ks)/ N} \braket{r|s}}}\bra k} & \\ 
+                                       & = \dfrac{1}{N} \sum_{j, k = 0}^{N - 1}{\ket j \rbk{\sum_{r = 0}^{ N - 1}{e^{2 \pi i r(k - j)/ N}}}\bra k} & \quad (\braket{r|s} = \delta_{rs}) \\ 
+                                       & = \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j = k}}^{N - 1}{\ket j \rbk{\sum_{r = 0}^{N - 1}{1}} \bra k} + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\sum_{r = 0}^{N - 1}{e^{2 \pi i r(k - j)/ N}}}\bra k} & \\ 
+                                       & = \dfrac{1}{N} \sum_{j = 0}^{N - 1}{\ket j \bra j} + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\sum_{r = 0}^{N - 1}{e^{2 \pi i r(k - j)/ N}}}\bra k} & \\ 
+                                       & = I + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\sum_{r = 0}^{N - 1}{e^{2 \pi i r(k - j)/ N}}}\bra k} & \quad (\mbox{resolution of $I$}) \\ 
+                                       & = I + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\sum_{r = 0}^{N - 1}{\rbk{e^{2 \pi i (k - j)/ N}}^r}}\bra k} & \quad (\mbox{resolution of $I$}) \\ 
+        \end{alignedat}
+    \end{equation*}
+    Now, we observe that the inner sum is a geometric series of ratio $e^{2 \pi i (k - j)/ N}$, and we can use its known result to simplify the calculations. However, we observe that this is true only if the ratio of the series is not equal to 1, but due to the way we split the sums we already took care of all the possible terms that could be equal to 1 so we do not need to make additional assumptions. Thus, we have that
+    \begin{equation*}
+        \begin{alignedat}{2}
+            \mbox{QFT}^\dag \ \mbox{QFT} & = I + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\sum_{r = 0}^{N - 1}{\rbk{e^{2 \pi i (k - j)/ N}}^r}}\bra k} & \\ 
+                                         & = I + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\dfrac{1 - \rbk{e^{2 \pi i(k - j)/ N}}^N}{1 - e^{2\pi i (k - j)/ N}}}\bra k} & \\ 
+                                       & = I + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\dfrac{1 - e^{2 \pi i(k - j)}}{1 - e^{2\pi i (k - j)/ N}}}\bra k} & \\ 
+        \end{alignedat}
+    \end{equation*}
+    Lastly, since $k - j$ is an integer for any $j, k \in [0, N - 1]$ --- and in particular whenever $j \neq k$ --- it holds that $$e^{2 \pi i (k - j )} = \cos(2 \pi i (k - j)) + i \sin(2 \pi i (k - j)) = 1$$ Therefore, the numerator is always equal to $1 - 1 = 0$, so the sum vanishes. However, we need to check that the denominator is well defined too: we observe that $$e^{2 \pi i (k - j) / N} = \cos(2 \pi i (k - j)) + i \sin(2 \pi i (k - j))$$ and this is never equal to 1 because $(k - j )/ N$ is always not an integer since $j \neq k$ due to how we split the sums. Finally, we thus conclude that
+    \begin{equation*}
+        \begin{split}
+            \mbox{QFT}^\dag \ \mbox{QFT} & = I + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\dfrac{1 - 1}{1 - e^{2\pi i (k - j)/ N}}}\bra k} \\ 
+                                       & = I \\ 
+        \end{split}
+    \end{equation*}
+    TODO \todo{prove the second product}
 \end{proof}
+
+\section{The Quantum circuit}
 
 \printbibliography % UNCOMMENT FOR BIBLIOGRAPHY
 
