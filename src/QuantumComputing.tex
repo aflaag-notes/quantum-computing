@@ -1306,7 +1306,7 @@ Then, can't we just use the DFT matrix in quantum computations whenever we need 
     Given a Hilbert space $\mathcal H$ of size $N$, the \tbf{Quantum Fourier Transform (QFT)} matrix in $\mathcal H$ is defined as follows: $$\forall j, k \in [0, N - 1] \quad \mbox{QFT}_{jk} = \dfrac{1}{\sqrt N}\omega^{jk}$$ where $\omega$ is the principal $N$-th root of unity.
 \end{frameddefn}
 
-We observe that the QFT matrix has positive exponents, which is just a convention employed in quantum computing. Therefore, we get the following matrix: $$\mbox{QFT} := \rmat{1 & 1 & 1 & \cdots & 1 \\ 1 & \omega & \omega^2 & \cdots & \omega^{N - 1} \\ 1 & \omega^2 & \omega^4 & \cdots & \omega^{2(N - 1)} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ 1 & \omega^{N - 1} & \omega^{2(N - 1)} & \cdots & \omega^{(N - 1)^2}}$$ In particular, for any $\ket x$ basis state, the quantum Fourier transform can also be expressed as follows: $$\mbox{QFT} \ket x = \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}e^{+2 \pi i x k / N} \ket k$$ which directly implies that we can rewrite the QFT matrix as follows: $$\mbox{QFT} = \sum_{j = 0}^{N - 1}{\rbk{\dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{e^{2 \pi i j k /N} \ket k}} \bra j }$$
+We observe that the QFT matrix has positive exponents, which is just a convention employed in quantum computing. Therefore, we get the following matrix: $$\mbox{QFT} := \rmat{1 & 1 & 1 & \cdots & 1 \\ 1 & \omega & \omega^2 & \cdots & \omega^{N - 1} \\ 1 & \omega^2 & \omega^4 & \cdots & \omega^{2(N - 1)} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ 1 & \omega^{N - 1} & \omega^{2(N - 1)} & \cdots & \omega^{(N - 1)^2}}$$ In particular, for any $\ket x$ basis state, the quantum Fourier transform can also be expressed as follows: $$\mbox{QFT} \ket x = \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}e^{+2 \pi i x k/ N} \ket k$$ which directly implies that we can rewrite the QFT matrix as follows: $$\mbox{QFT} = \sum_{j = 0}^{N - 1}{\rbk{\dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{e^{2 \pi i j k /N} \ket k}} \bra j }$$
 
 \begin{framedprop}{}
     The QFT is a unitary operator, and in particular $$\mbox{QFT}^\dag  = \sum_{j = 0}^{N - 1}{\ket j \rbk{\dfrac{1}{\sqrt N} \sum_{k = 0}^{N  -1}{e^{-2 \pi i j k /N} \bra k}}}$$
@@ -1346,6 +1346,48 @@ We observe that the QFT matrix has positive exponents, which is just a conventio
 \end{proof}
 
 \section{The Quantum circuit}
+
+The previous section showed how the QFT matrix operator is defined, why its unitary and its similarities with the DFT. It's finally time to address the most important question: how do we turn the QFT matrix into a quantum circuit? Assume that $N = 2^n$, and consider the definition we provided $$\mbox{QFT} \ket x = \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}e^{+2 \pi i x k/ N} \ket k$$ The problem arises because we are using fractional exponents, however $x \in \B^n$. To solve this issue, we need to take a closer look at the exponent. Since $x \in \B^n$, there exist some bits $x_1, \ldots, x_n \in \B$ such that $x$ can be written as $$x = x_1 \cdot 2^{n - 1} + \ldots + x_n \cdot 2^{0}$$ Since $k \in [0, N- 1]$, we can also define such $k_1, \ldots, k_n \in \B$, and we can see what happens when we evaluate $xk/N$:
+\begin{equation*}
+    \begin{split}
+        xk/N & = \dfrac{\rbk{x_1 \cdot 2^{n - 1} + \ldots + x_n \cdot 2^0} \cdot \rbk{k_1 2^{n - 1} + \ldots + k_n 2^0}}{2^n} \\ 
+             & = \rbk{x_1 \cdot 2^{n - 1} + \ldots + x_n \cdot 2^0} \cdot \rbk{k_1 \cdot \dfrac{2^{n - 1}}{2 ^ n} + \ldots + k_n \cdot \dfrac{2^0}{2^n}} \\ 
+             & = \rbk{x_1 \cdot 2^{n - 1} + \ldots + x_n \cdot 2^0} \cdot 0.k_1 \ldots k_n \\ 
+             & = x_1 \cdot 2^{n - 1} \cdot 0.k_1 \ldots k_n + \ldots + x_n \cdot 2^0 \cdot  0.k_1 \ldots k_n
+    \end{split}
+\end{equation*}
+This is true because we recall that $$0.k_1 \ldots k_n = k_1 \cdot 2^{-1} + \ldots + k_n \cdot 2^{-n}$$ and since we are computing $k / N$ and $N = 2^n$ what we get is just a \curlyquotes{displacement of the decimal point}, but in binary. Now, we observe that $$\forall \ell \in [n] \quad 2^{n - \ell} \cdot 0.k_1 \ldots k_n = k_1 \ldots k_{n - \ell} . k_{n - \ell + 1} \ldots k_n$$ since again, we are just moving the decimal point $n - \ell$ times to the right. Therefore, we get that
+\begin{equation*}
+    \begin{split}
+        xk/N & = x_1 \cdot k_1 \ldots k_{n - 1}. k_n + \ldots + x_n 0.k_1 \ldots k_n \\ 
+             & = x_n \cdot 0.k_1 \ldots k_n + \sum_{h = 1}^{n - 1}{x_h \cdot k_1 \ldots k_{n - h}.k_{n - h + 1} \ldots k_n}
+    \end{split}
+\end{equation*}
+we observe that we need to put $0.k_1 \ldots k_n$ just because we cannot include it in the same sum. Now, let's see what happens when we put this term at the exponent:
+\begin{equation*}
+    \hspace{-1.5cm}
+    \begin{split}
+        & \mbox{QFT} \ket x \\  
+        = & \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{e^{2 \pi i x k /N} \ket k } \\ 
+                          = & \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\exp(2 \pi i x k /N) \ket k } \\ 
+                          =&  \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\exp\rbk{2 \pi i \rbk{ x_n0.k_1 \ldots k_n + \sum_{h = 1}^{n-1}{x_h \cdot k_1 \ldots k_{n - h}.k_{n - h + 1} \ldots k_n}}}\ket k } \\ 
+                          =&  \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\rbk{\exp(2 \pi i x_n0.k_1 \ldots k_n  ) \cdot \exp\rbk{2 \pi i \sum_{h = 1}^{n-1}{x_h \cdot k_1 \ldots k_{n - h}.k_{n - h + 1} \ldots k_n}}}\ket k } \\ 
+                          =&  \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\rbk{\exp(2 \pi i x_n0.k_1 \ldots k_n  ) \cdot \exp\rbk{2 \pi i \sum_{h = 1}^{n - 1}{x_h \cdot \rbk{k_1 \ldots k_{n - h}} + 2 \pi i \sum_{h = 1}^{n - 1}{x_h \cdot 0.k_{n - h + 1}} \ldots k_n}}}\ket k } \\ 
+                          =&  \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\rbk{\exp(2 \pi i x_n0.k_1 \ldots k_n  ) \cdot \exp\rbk{2 \pi i \sum_{h = 1}^{n - 1}{x_h \cdot \rbk{k_1 \ldots k_{n - h}}}} \cdot \exp \rbk{ 2 \pi i \sum_{h = 1}^{n-1}{x_h \cdot 0.k_{n - h + 1}} \ldots k_n}}\ket k } \\ 
+                          =&  \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\rbk{\exp(2 \pi i x_n0.k_1 \ldots k_n  ) \cdot 1 \cdot \exp \rbk{ 2 \pi i \sum_{h = 1}^{n-1}{x_h \cdot 0.k_{n - h + 1}\ldots k_n} }}\ket k } \\ 
+    \end{split}
+\end{equation*}
+The last semplitifcation derives immediately from the fact that $e^{2 \pi i \theta} = 1$ when $\theta$ is an integer, as we mentioned in the previous section, so that is what we are left with --- since $k_1 \ldots k_{n - h}$ is definitely an integer. We can proceed as follows:
+\begin{equation*}
+    \begin{split}
+          & \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\rbk{\exp(2 \pi i x_n0.k_1 \ldots k_n  ) \cdot \exp \rbk{ 2 \pi i \sum_{h = 1}^{n-1}{x_h \cdot 0.k_{n - h + 1}\ldots k_n}} }\ket k } \\ 
+        = & \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\rbk{\exp(2 \pi i x_n0.k_1 \ldots k_n  ) \cdot \exp \rbk{ 2 \pi i \sum_{m = 2}^{n}{x_{n - m + 1} \cdot 0.k_m\ldots k_n} }}\ket k } \\ 
+        = & \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\rbk{\exp \rbk{2 \pi i \sum_{m = 1}^n{x_{n - m + 1} \cdot 0. k_m \ldots k_n}}}\ket k } \\ 
+        % = & \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\rbk{\exp \rbk{2 \pi i \sum_{h = 1}^n{x_m \cdot 0. k_m \ldots k_n}}}\ket k } \\ 
+        = & 
+    \end{split}
+\end{equation*}
+TODO \todo{da finire}
 
 \printbibliography % UNCOMMENT FOR BIBLIOGRAPHY
 
