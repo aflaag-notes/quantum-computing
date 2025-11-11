@@ -1304,7 +1304,15 @@ Then, can't we just use the DFT matrix in quantum computations whenever we need 
     Given a Hilbert space $\mathcal H$ of size $N$, the \tbf{Quantum Fourier Transform (QFT)} matrix in $\mathcal H$ is defined as follows: $$\forall j, k \in [0, N - 1] \quad \mbox{QFT}_{jk} = \dfrac{1}{\sqrt N}\omega^{jk}$$ where $\omega$ is the principal $N$-th root of unity.
 \end{frameddefn}
 
-We observe that the QFT matrix has positive exponents, which is just a convention employed in quantum computing. Therefore, we get the following matrix: $$\mbox{QFT} := \rmat{1 & 1 & 1 & \cdots & 1 \\ 1 & \omega & \omega^2 & \cdots & \omega^{N - 1} \\ 1 & \omega^2 & \omega^4 & \cdots & \omega^{2(N - 1)} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ 1 & \omega^{N - 1} & \omega^{2(N - 1)} & \cdots & \omega^{(N - 1)^2}}$$ In particular, we observe that if the input is a basis vector $\ket k$, the output will be the $k$-th column of the QFT matrix, which can be succinctly written as follows: $$\mbox{QFT} \ket k = \dfrac{1}{\sqrt N} \sum_{j = 0}^{N - 1}e^{+2 \pi i j k / N} \ket j $$
+We observe that the QFT matrix has positive exponents, which is just a convention employed in quantum computing. Therefore, we get the following matrix: $$\mbox{QFT} := \rmat{1 & 1 & 1 & \cdots & 1 \\ 1 & \omega & \omega^2 & \cdots & \omega^{N - 1} \\ 1 & \omega^2 & \omega^4 & \cdots & \omega^{2(N - 1)} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ 1 & \omega^{N - 1} & \omega^{2(N - 1)} & \cdots & \omega^{(N - 1)^2}}$$ In particular, for any $\ket x$ basis state, the quantum Fourier transform can also be expressed as follows: $$\mbox{QFT} \ket x = \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}e^{+2 \pi i x k / N} \ket k$$ which directly implies that we can rewrite the QFT matrix as follows: $$\mbox{QFT} = \sum_{j = 0}^{N - 1}{\rbk{\rfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{e^{2 \pi i j k /N} \ket k}} \bra j }$$
+
+\begin{framedprop}{}
+    The QFT is a unitary operator, and in particular $$\mbox{QFT}^\dag  = \sum_{j = 0}^{N - 1}{\ket j \rbk{\dfrac{1}{\sqrt N} \sum_{k = 0}^{N  -1}{e^{-2 \pi i j k /N} \bra k}}}$$
+\end{framedprop}
+
+\begin{proof}
+    We will leave the proof of correctness of $\mbox{QFT}^\dag$ as an exercise, and we will focus on proving that the QFT operator is indeed unitary. \todo{da finire}
+\end{proof}
 
 \printbibliography % UNCOMMENT FOR BIBLIOGRAPHY
 
