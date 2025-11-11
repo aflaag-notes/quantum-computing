@@ -603,7 +603,7 @@ In Dirac notation, if $\lambda$ is non-degenerate, we refer to the only eigenvec
 
 The following theorem provides a characterization of the eigenvalues and eigenvectors of self-adjoint and unitary operators, which have surprisingly nice properties.
 
-\begin{framedthm}{Spectral theorem}
+\begin{framedthm}[label={spectral thm}]{Spectral theorem}
 	The following propositions hold:
 
 	\begin{itemize}
@@ -1005,7 +1005,7 @@ Now that we know this operator is unitary, we can delve into the details of the 
         \braket{\tilde b| \tilde b} & = \rbk{\sum_{x \in S}{\ket x}}^\dag \rbk{\sum_{x \in S}{\ket x}} & \\ 
                                     & = \rbk{\sum_{x \in S}{\bra x}} \rbk{\sum_{y \in S}{\ket y}} & \\ 
                                     & = \sum_{x \in S}{\sum_{y \in S}{\braket{x|y}}} & \\ 
-                                    & = \sum_{x \in S}{\sum_{y \in S}{\delta_{x,y}}} & \quad (\mbox{basis states are orthonormal}) \\ 
+                                    & = \sum_{x \in S}{\sum_{y \in S}{\delta_{xy}}} & \quad (\mbox{basis states are orthonormal}) \\ 
                                     & = \sum_{x \in S}{1} & \\ 
                                     & = \abs{S} \\ 
                                     & = M
@@ -1092,8 +1092,8 @@ Interestingly enough, we can look at what happens to the amplitudes of $q_0$ fro
         \braket{s|\psi} & = \rbk{\dfrac{1}{\sqrt N} \sum_{y \in \B^n}{\ket y}}^\dag \rbk{\sum_{x \in \B^n}{\alpha_x \ket x}} & \quad (\mbox{since $\bra s = \ket s ^\dag$})\\ 
                         & = \rbk{\dfrac{1}{\sqrt N} \sum_{y \in \B^n}{\bra y}} \rbk{\sum_{x \in \B^n}{\alpha_x \ket x}} & \\ 
                         & = \dfrac{1}{\sqrt N} \sum_{y \in \B^n}{\sum_{x \in \B^n}{\alpha_x \braket{y|x}}} & \\ 
-                        & = \dfrac{1}{\sqrt N} \sum_{y \in \B^n}{\sum_{x \in \B^n}{\alpha_x \delta_x,y}} & \quad (\mbox{basis states are orthonormal}) \\ 
-                        & = \dfrac{1}{\sqrt N} \sum_{x \in \B^n}{\alpha_x \sum_{y \in \B^n}{\delta_x,y}} & \\ 
+                        & = \dfrac{1}{\sqrt N} \sum_{y \in \B^n}{\sum_{x \in \B^n}{\alpha_x \delta_{xy}}} & \quad (\mbox{basis states are orthonormal}) \\ 
+                        & = \dfrac{1}{\sqrt N} \sum_{x \in \B^n}{\alpha_x \sum_{y \in \B^n}{\delta_{xy}}} & \\ 
                         & = \dfrac{1}{\sqrt N} \sum_{x \in \B^n}{\alpha_x} & \\ 
                         & = \sqrt N \overline{\alpha_\psi}
     \end{alignedat}
@@ -1335,58 +1335,59 @@ We observe that the QFT matrix has positive exponents, which is just a conventio
                                        & = I + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\dfrac{1 - e^{2 \pi i(k - j)}}{1 - e^{2\pi i (k - j)/ N}}}\bra k} & \\ 
         \end{alignedat}
     \end{equation*}
-    Lastly, since $k - j$ is an integer for any $j, k \in [0, N - 1]$ --- and in particular whenever $j \neq k$ --- it holds that $$e^{2 \pi i (k - j )} = \cos(2 \pi i (k - j)) + i \sin(2 \pi i (k - j)) = 1$$ Therefore, the numerator is always equal to $1 - 1 = 0$, so the sum vanishes. However, we need to check that the denominator is well defined too: we observe that $$e^{2 \pi i (k - j) / N} = \cos(2 \pi i (k - j)) + i \sin(2 \pi i (k - j))$$ and this is never equal to 1 because $(k - j )/ N$ is always not an integer since $j \neq k$ due to how we split the sums. Finally, we thus conclude that
-    \begin{equation*}
-        \begin{split}
-            \mbox{QFT}^\dag \ \mbox{QFT} & = I + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\dfrac{1 - 1}{1 - e^{2\pi i (k - j)/ N}}}\bra k} \\ 
-                                       & = I \\ 
-        \end{split}
-    \end{equation*}
+    Lastly, since $k - j$ is an integer for any $j, k \in [0, N - 1]$ --- and in particular whenever $j \neq k$ --- it holds that $$e^{2 \pi i (k - j )} = \cos(2 \pi i (k - j)) + i \sin(2 \pi i (k - j)) = 1$$ Therefore, the numerator is always equal to $1 - 1 = 0$, so the sum vanishes. However, we need to check that the denominator is well defined too: we observe that $$e^{2 \pi i (k - j) / N} = \cos(2 \pi i (k - j)) + i \sin(2 \pi i (k - j))$$ and this is never equal to 1 because $(k - j )/ N$ is always not an integer since $j \neq k$ due to how we split the sums. Finally, we can conclude that $$\mbox{QFT}^\dag \ \mbox{QFT} = I + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\dfrac{1 - 1}{1 - e^{2\pi i (k - j)/ N}}}\bra k} = I$$
+
     TODO \todo{prove the second product}
 \end{proof}
 
-\section{The Quantum circuit}
+\subsection{The quantum circuit}
 
 The previous section showed how the QFT matrix operator is defined, why its unitary and its similarities with the DFT. It's finally time to address the most important question: how do we turn the QFT matrix into a quantum circuit? Assume that $N = 2^n$, and consider the definition we provided $$\mbox{QFT} \ket x = \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}e^{+2 \pi i x k/ N} \ket k$$ The problem arises because we are using fractional exponents, however $x \in \B^n$. To solve this issue, we need to take a closer look at the exponent. Since $x \in \B^n$, there exist some bits $x_1, \ldots, x_n \in \B$ such that $x$ can be written as $$x = x_1 \cdot 2^{n - 1} + \ldots + x_n \cdot 2^{0}$$ Since $k \in [0, N- 1]$, we can also define such $k_1, \ldots, k_n \in \B$, and we can see what happens when we evaluate $xk/N$:
 \begin{equation*}
     \begin{split}
-        xk/N & = \dfrac{\rbk{x_1 \cdot 2^{n - 1} + \ldots + x_n \cdot 2^0} \cdot \rbk{k_1 2^{n - 1} + \ldots + k_n 2^0}}{2^n} \\ 
-             & = \rbk{x_1 \cdot 2^{n - 1} + \ldots + x_n \cdot 2^0} \cdot \rbk{k_1 \cdot \dfrac{2^{n - 1}}{2 ^ n} + \ldots + k_n \cdot \dfrac{2^0}{2^n}} \\ 
-             & = \rbk{x_1 \cdot 2^{n - 1} + \ldots + x_n \cdot 2^0} \cdot 0.k_1 \ldots k_n \\ 
-             & = x_1 \cdot 2^{n - 1} \cdot 0.k_1 \ldots k_n + \ldots + x_n \cdot 2^0 \cdot  0.k_1 \ldots k_n
+        kx/N & = \dfrac{\rbk{k_1 \cdot 2^{n - 1} + \ldots + k_n \cdot 2^0} \cdot \rbk{x_1 2^{n - 1} + \ldots + x_n 2^0}}{2^n} \\ 
+             & = \rbk{k_1 \cdot 2^{n - 1} + \ldots + k_n \cdot 2^0} \cdot \rbk{x_1 \cdot \dfrac{2^{n - 1}}{2 ^ n} + \ldots + x_n \cdot \dfrac{2^0}{2^n}} \\ 
+             & = \rbk{k_1 \cdot 2^{n - 1} + \ldots + k_n \cdot 2^0} \cdot 0.x_1 \ldots x_n \\ 
+             & = k_1 \cdot 2^{n - 1} \cdot 0.x_1 \ldots x_n + \ldots + k_n \cdot 2^0 \cdot  0.x_1 \ldots x_n
     \end{split}
 \end{equation*}
-This is true because we recall that $$0.k_1 \ldots k_n = k_1 \cdot 2^{-1} + \ldots + k_n \cdot 2^{-n}$$ and since we are computing $k / N$ and $N = 2^n$ what we get is just a \curlyquotes{displacement of the decimal point}, but in binary. Now, we observe that $$\forall \ell \in [n] \quad 2^{n - \ell} \cdot 0.k_1 \ldots k_n = k_1 \ldots k_{n - \ell} . k_{n - \ell + 1} \ldots k_n$$ since again, we are just moving the decimal point $n - \ell$ times to the right. Therefore, we get that
+This is true because we recall that $$0.x_1 \ldots x_n = x_1 \cdot 2^{-1} + \ldots + x_n \cdot 2^{-n}$$ and since we are computing $x / N$ and $N = 2^n$ what we get is just a \curlyquotes{displacement of the decimal point}, but in binary. Now, we observe that $$\forall \ell \in [n] \quad 2^{n - \ell} \cdot 0.x_1 \ldots x_n = x_1 \ldots x_{n - \ell} . x_{n - \ell + 1} \ldots x_n$$ since again, we are just moving the decimal point $n - \ell$ times to the right. Therefore, we get that
 \begin{equation*}
     \begin{split}
-        xk/N & = x_1 \cdot k_1 \ldots k_{n - 1}. k_n + \ldots + x_n 0.k_1 \ldots k_n \\ 
-             & = x_n \cdot 0.k_1 \ldots k_n + \sum_{h = 1}^{n - 1}{x_h \cdot k_1 \ldots k_{n - h}.k_{n - h + 1} \ldots k_n}
+        kx/N & = k_1 \cdot x_1 \ldots x_{n - 1}. x_n + \ldots + k_n 0.x_1 \ldots x_n \\ 
+             & = k_n \cdot 0.x_1 \ldots x_n + \sum_{h = 1}^{n - 1}{k_h \cdot x_1 \ldots x_{n - h}.x_{n - h + 1} \ldots x_n}
     \end{split}
 \end{equation*}
-we observe that we need to put $0.k_1 \ldots k_n$ just because we cannot include it in the same sum. Now, let's see what happens when we put this term at the exponent:
-\begin{equation*}
-    \hspace{-1.5cm}
-    \begin{split}
-        & \mbox{QFT} \ket x \\  
-        = & \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{e^{2 \pi i x k /N} \ket k } \\ 
-                          = & \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\exp(2 \pi i x k /N) \ket k } \\ 
-                          =&  \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\exp\rbk{2 \pi i \rbk{ x_n0.k_1 \ldots k_n + \sum_{h = 1}^{n-1}{x_h \cdot k_1 \ldots k_{n - h}.k_{n - h + 1} \ldots k_n}}}\ket k } \\ 
-                          =&  \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\rbk{\exp(2 \pi i x_n0.k_1 \ldots k_n  ) \cdot \exp\rbk{2 \pi i \sum_{h = 1}^{n-1}{x_h \cdot k_1 \ldots k_{n - h}.k_{n - h + 1} \ldots k_n}}}\ket k } \\ 
-                          =&  \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\rbk{\exp(2 \pi i x_n0.k_1 \ldots k_n  ) \cdot \exp\rbk{2 \pi i \sum_{h = 1}^{n - 1}{x_h \cdot \rbk{k_1 \ldots k_{n - h}} + 2 \pi i \sum_{h = 1}^{n - 1}{x_h \cdot 0.k_{n - h + 1}} \ldots k_n}}}\ket k } \\ 
-                          =&  \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\rbk{\exp(2 \pi i x_n0.k_1 \ldots k_n  ) \cdot \exp\rbk{2 \pi i \sum_{h = 1}^{n - 1}{x_h \cdot \rbk{k_1 \ldots k_{n - h}}}} \cdot \exp \rbk{ 2 \pi i \sum_{h = 1}^{n-1}{x_h \cdot 0.k_{n - h + 1}} \ldots k_n}}\ket k } \\ 
-                          =&  \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\rbk{\exp(2 \pi i x_n0.k_1 \ldots k_n  ) \cdot 1 \cdot \exp \rbk{ 2 \pi i \sum_{h = 1}^{n-1}{x_h \cdot 0.k_{n - h + 1}\ldots k_n} }}\ket k } \\ 
-    \end{split}
-\end{equation*}
-The last semplitifcation derives immediately from the fact that $e^{2 \pi i \theta} = 1$ when $\theta$ is an integer, as we mentioned in the previous section, so that is what we are left with --- since $k_1 \ldots k_{n - h}$ is definitely an integer. We can proceed as follows:
+we observe that we need to put $0.x_1 \ldots x_n$ just because we cannot include it in the same sum. Now, let's see what happens when we put this term at the exponent:
 \begin{equation*}
     \begin{split}
-          & \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\rbk{\exp(2 \pi i x_n0.k_1 \ldots k_n  ) \cdot \exp \rbk{ 2 \pi i \sum_{h = 1}^{n-1}{x_h \cdot 0.k_{n - h + 1}\ldots k_n}} }\ket k } \\ 
-        = & \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\rbk{\exp(2 \pi i x_n0.k_1 \ldots k_n  ) \cdot \exp \rbk{ 2 \pi i \sum_{m = 2}^{n}{x_{n - m + 1} \cdot 0.k_m\ldots k_n} }}\ket k } \\ 
-        = & \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\rbk{\exp \rbk{2 \pi i \sum_{m = 1}^n{x_{n - m + 1} \cdot 0. k_m \ldots k_n}}}\ket k } \\ 
-        % = & \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\rbk{\exp \rbk{2 \pi i \sum_{h = 1}^n{x_m \cdot 0. k_m \ldots k_n}}}\ket k } \\ 
-        = & 
+         & e^{2 \pi i k x /N} \\ 
+        = & \exp(2 \pi i k x /N) \\ 
+                          =&  \exp\rbk{2 \pi i \rbk{ k_n0.x_1 \ldots x_n + \sum_{h = 1}^{n-1}{k_h \cdot x_1 \ldots x_{n - h}.x_{n - h + 1} \ldots x_n}}} \\ 
+                          =&  \exp(2 \pi i k_n0.x_1 \ldots x_n  ) \cdot \exp\rbk{2 \pi i \sum_{h = 1}^{n-1}{k_h \cdot x_1 \ldots x_{n - h}.x_{n - h + 1} \ldots x_n}} \\ 
+                          =&  \exp(2 \pi i k_n0.x_1 \ldots x_n  ) \cdot \exp\rbk{2 \pi i \sum_{h = 1}^{n - 1}{k_h \cdot \rbk{x_1 \ldots x_{n - h}} + 2 \pi i \sum_{h = 1}^{n - 1}{k_h \cdot 0.x_{n - h + 1}} \ldots x_n}} \\ 
+                          =& \exp(2 \pi i k_n0.x_1 \ldots x_n  ) \cdot \exp\rbk{2 \pi i \sum_{h = 1}^{n - 1}{k_h \cdot \rbk{x_1 \ldots x_{n - h}}}} \cdot \exp \rbk{ 2 \pi i \sum_{h = 1}^{n-1}{k_h \cdot 0.x_{n - h + 1}} \ldots x_n} \\ 
+                          =& \exp(2 \pi i k_n0.x_1 \ldots x_n  ) \cdot 1 \cdot \exp \rbk{ 2 \pi i \sum_{h = 1}^{n-1}{k_h \cdot 0.x_{n - h + 1}\ldots x_n} } \\ 
     \end{split}
 \end{equation*}
+The last semplitifcation derives immediately from the fact that $e^{2 \pi i \theta} = 1$ when $\theta$ is an integer, as we mentioned in the previous section, so that is what we are left with --- since $x_1 \ldots x_{n - h}$ is definitely an integer. We can proceed as follows:
+\begin{equation*}
+    \begin{split}
+          & \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\rbk{\exp(2 \pi i k_n0.x_1 \ldots x_n  ) \cdot \exp \rbk{ 2 \pi i \sum_{h = 1}^{n-1}{k_h \cdot 0.x_{n - h + 1}\ldots x_n}} }\ket k } \\ 
+        = & \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\rbk{\exp(2 \pi i k_n0.x_1 \ldots x_n  ) \cdot \exp \rbk{ 2 \pi i \sum_{m = 2}^{n}{k_{n - m + 1} \cdot 0.x_m\ldots x_n} }}\ket k } \\ 
+        = & \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\exp \rbk{2 \pi i \sum_{m = 1}^n{k_{n - m + 1} \cdot 0. x_m \ldots x_n}}\ket k } \\ 
+        = & \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\prod_{m = 1}^n{\exp \rbk{2 \pi i k_{n - m + 1} \cdot 0.x_m \ldots x_n}} \ket k} \\ 
+        = & \dfrac{1}{\sqrt N} \bigotimes_{m = 1}^n{\rbk{\ket 0 + e^{2\pi i 0.x_m \ldots x_n} \ket 1}} \\ 
+    \end{split}
+\end{equation*}
+Finally, the QFT written in this form can be actually implemented in a quantum circuit. \todo{da finire sonostufo}
+
+\subsection{Quantum Phase Estimation}
+
+Let's see a very useful application of the QFT. By \cref{spectral thm} we know that the eigenvalues of a unitary operator are complex values of modulus 1. This means that any eigenvalue of a unitary operator can be ewritten as $e^{2 \pi i \varphi}$ for some real value $\varphi \in [0, 1]$ --- $\varphi$ being the \tit{phase} of the complex value, i.e. the angle w.r.t. the unitary circumference.
+
+Given a unitary operator $U$, and an eigenvalue $\lambda = e^{2 \pi i \varphi}$, can we determine $\varphi$? Let $u$ be an eigenvector associated to the unknown eigenvalue $\lambda$, i.e. $$U \ket u  = \lambda \ket u = e^{2 \pi i \varphi} \ket u$$
+
 TODO \todo{da finire}
 
 \printbibliography % UNCOMMENT FOR BIBLIOGRAPHY
