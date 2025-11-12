@@ -15,19 +15,19 @@
 \contentsline {chapter}{\numberline {2}Mathematical foundations}{17}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Hilbert spaces}{20}{section.2.1}%
 \contentsline {subsection}{\numberline {2.1.1}Linear operators}{22}{subsection.2.1.1}%
-\contentsline {section}{\numberline {2.2}Spectral theory}{24}{section.2.2}%
+\contentsline {section}{\numberline {2.2}Spectral theory}{25}{section.2.2}%
 \contentsline {section}{\numberline {2.3}Projectors}{26}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Tensor product}{28}{section.2.4}%
-\contentsline {section}{\numberline {2.5}Rules of quantum mechanics}{28}{section.2.5}%
-\contentsline {chapter}{\numberline {3}Quantum algorithms}{31}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Deutsch's algorithm}{32}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Deutsch-Josza algorithm}{37}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Grover's algorithm}{41}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Another perspective}{49}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}Fixed-Point Quantum Search}{49}{subsection.3.3.2}%
-\contentsline {chapter}{\numberline {4}Shor's algorithm}{55}{chapter.4}%
-\contentsline {section}{\numberline {4.1}A recap on the Discrete Fourier Transform}{55}{section.4.1}%
-\contentsline {section}{\numberline {4.2}The Quantum Fourier Transform}{58}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}The quantum circuit}{63}{subsection.4.2.1}%
-\contentsline {section}{\numberline {4.3}Quantum Phase Estimation}{65}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Shor's algorithm}{67}{section.4.4}%
+\contentsline {section}{\numberline {2.4}Tensor product}{29}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Rules of quantum mechanics}{29}{section.2.5}%
+\contentsline {chapter}{\numberline {3}Quantum algorithms}{32}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Deutsch's algorithm}{33}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Deutsch-Josza algorithm}{38}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Grover's algorithm}{42}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Another perspective}{50}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Fixed-Point Quantum Search}{50}{subsection.3.3.2}%
+\contentsline {chapter}{\numberline {4}Shor's algorithm}{56}{chapter.4}%
+\contentsline {section}{\numberline {4.1}A recap on the Discrete Fourier Transform}{56}{section.4.1}%
+\contentsline {section}{\numberline {4.2}The Quantum Fourier Transform}{59}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}The quantum circuit}{64}{subsection.4.2.1}%
+\contentsline {section}{\numberline {4.3}Quantum Phase Estimation}{66}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Shor's algorithm}{68}{section.4.4}%

@@ -447,7 +447,7 @@ Let's see the Dirac notation in action. Consider an orthonormal basis $\{e_1, \l
 		               & = \alpha_i                                                       & \\
 	\end{alignedat}
 \end{equation*}
-Indeed, with the scalar product we can compute the projection of $u$ onto the $i$-th vector of the basis. Hence, we can rewrite the first equation as follows: $$\ket u = \sum_{i = 1}^n{\alpha_i \ket{e_i}} = \sum_{i = 1}^n{\braket{e_i|u} \ket{e_i}}$$ In particular, we observe that $$\ket u = \sum_{i = 1}^n{\ket{e_i} \braket{e_i|u}} \implies I = \sum_{i = 1}^n{\ket{e_i} \bra{e_i}}$$ which is a famous identity in quantum mechanics called \tbf{resolution of the identity}. As a final note, by the properties of scalar products we also have that $$\braket{v|u} = \abk{v \middle| \sum_{i = 1}^n{\braket{e_i|u} \ket{e_i}}} = \sum_{i = 1}^n {\braket{v|e_i} \braket{e_i|u}}$$
+Indeed, with the scalar product we can compute the projection of $u$ onto the $i$-th vector of the basis. Hence, we can rewrite the first equation as follows: $$\ket u = \sum_{i = 1}^n{\alpha_i \ket{e_i}} = \sum_{i = 1}^n{\braket{e_i|u} \ket{e_i}}$$ In particular, we observe that $$\ket u = \sum_{i = 1}^n{\ket{e_i} \braket{e_i|u}} \implies I = \sum_{i = 1}^n{\ket{e_i} \bra{e_i}}$$ which is a famous identity in quantum mechanics called \tbf{resolution of the identity}. In particular, this identity directly implies the following useful property. As a final note, by the properties of scalar products we also have that $$\braket{v|u} = \abk{v \middle| \sum_{i = 1}^n{\braket{e_i|u} \ket{e_i}}} = \sum_{i = 1}^n {\braket{v|e_i} \braket{e_i|u}}$$
 
 \begin{framedprop}{}
     Given a scalar product vector space $V$, it holds that $$\forall u, v, w \in V \quad \braket{u|v} \ket w = (\ket w \bra u) \ket v$$
@@ -578,6 +578,25 @@ In particular, we observe that the second property of this proposition is very i
 \end{frameddefn}
 
 Clearly, from their definition we immediately see that both self-adjoint and unitary operators are both normal.
+
+Lastly, say that we know that how an operator $U$ acts on some input $\ket x$, and we want to derive $U$. How can we do this?
+
+\begin{framedprop}[label={U constr}]{}
+    For any operator $U$ in a Hilbert space $\mathcal H$, if $\mathcal B$ is a base of $\mathcal H$ it holds that $$U = \sum_{b \in \mathcal B}{U \ket b \bra b}$$
+\end{framedprop}
+
+\begin{proof}
+    The formula derives directly from the resolution of the identity, and the linearity of operators of Hilbert spaces 
+    \begin{equation*}
+        \begin{split}
+            U & = U \cdot I \\ 
+              & = U \cdot \sum_{b \in \mathcal B}{\ket b \bra b} \\ 
+              & = \sum_{b \in \mathcal B}{U \ket b \bra b}
+        \end{split}
+    \end{equation*}
+\end{proof}
+
+Therefore, if we know how $U$ acts component-wise, we can reconstruct the operator acting on the whole space as such.
 
 \section{Spectral theory}
 
@@ -1306,10 +1325,10 @@ Then, can't we just use the DFT matrix in quantum computations whenever we need 
     Given a Hilbert space $\mathcal H$ of size $N$, the \tbf{Quantum Fourier Transform (QFT)} matrix in $\mathcal H$ is defined as follows: $$\forall j, k \in [0, N - 1] \quad \mbox{QFT}_{jk} = \dfrac{1}{\sqrt N}\omega^{jk}$$ where $\omega$ is the principal $N$-th root of unity.
 \end{frameddefn}
 
-We observe that the QFT matrix has positive exponents, which is just a convention employed in quantum computing. Therefore, we get the following matrix: $$\mbox{QFT} := \rmat{1 & 1 & 1 & \cdots & 1 \\ 1 & \omega & \omega^2 & \cdots & \omega^{N - 1} \\ 1 & \omega^2 & \omega^4 & \cdots & \omega^{2(N - 1)} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ 1 & \omega^{N - 1} & \omega^{2(N - 1)} & \cdots & \omega^{(N - 1)^2}}$$ In particular, for any $\ket x$ basis state, the quantum Fourier transform can also be expressed as follows: $$\mbox{QFT} \ket x = \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}e^{+2 \pi i x k/ N} \ket k$$ which directly implies that we can rewrite the QFT matrix as follows: $$\mbox{QFT} = \sum_{j = 0}^{N - 1}{\rbk{\dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{e^{2 \pi i j k /N} \ket k}} \bra j }$$
+We observe that the QFT matrix has positive exponents, which is just a convention employed in quantum computing. Therefore, we get the following matrix: $$\mbox{QFT} := \rmat{1 & 1 & 1 & \cdots & 1 \\ 1 & \omega & \omega^2 & \cdots & \omega^{N - 1} \\ 1 & \omega^2 & \omega^4 & \cdots & \omega^{2(N - 1)} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ 1 & \omega^{N - 1} & \omega^{2(N - 1)} & \cdots & \omega^{(N - 1)^2}}$$ In particular, for any $\ket x$ basis state, the quantum Fourier transform can also be expressed as follows: $$\mbox{QFT} \ket x = \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}e^{+2 \pi i x k/ N} \ket k$$ which directly implies that we can rewrite the QFT matrix as follows $$\mbox{QFT} = \sum_{j = 0}^{N - 1}{\rbk{\dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{e^{2 \pi i j k /N} \ket k}} \bra j }$$ thanks to \cref{U constr}.
 
 \begin{framedprop}{}
-    The QFT is a unitary operator, and in particular $$\mbox{QFT}^\dag  = \sum_{j = 0}^{N - 1}{\ket j \rbk{\dfrac{1}{\sqrt N} \sum_{k = 0}^{N  -1}{e^{-2 \pi i j k /N} \bra k}}}$$
+    The QFT operator is a unitary, and in particular $$\mbox{QFT}^\dag  = \sum_{j = 0}^{N - 1}{\ket j \rbk{\dfrac{1}{\sqrt N} \sum_{k = 0}^{N  -1}{e^{-2 \pi i j k /N} \bra k}}}$$
 \end{framedprop}
 
 \begin{proof}
@@ -1373,7 +1392,8 @@ we observe that we need to put $0.x_1 \ldots x_n$ just because we cannot include
 The last semplitifcation derives immediately from the fact that $e^{2 \pi i \theta} = 1$ when $\theta$ is an integer, as we mentioned in the previous section, so that is what we are left with --- since $x_1 \ldots x_{n - h}$ is definitely an integer. We can proceed as follows:
 \begin{equation*}
     \begin{split}
-          & \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\rbk{\exp(2 \pi i k_n0.x_1 \ldots x_n  ) \cdot \exp \rbk{ 2 \pi i \sum_{h = 1}^{n-1}{k_h \cdot 0.x_{n - h + 1}\ldots x_n}} }\ket k } \\ 
+          & \mbox{QFT} \ket x \\ 
+        = & \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\rbk{\exp(2 \pi i k_n0.x_1 \ldots x_n  ) \cdot \exp \rbk{ 2 \pi i \sum_{h = 1}^{n-1}{k_h \cdot 0.x_{n - h + 1}\ldots x_n}} }\ket k } \\ 
         = & \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\rbk{\exp(2 \pi i k_n0.x_1 \ldots x_n  ) \cdot \exp \rbk{ 2 \pi i \sum_{m = 2}^{n}{k_{n - m + 1} \cdot 0.x_m\ldots x_n} }}\ket k } \\ 
         = & \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\exp \rbk{2 \pi i \sum_{m = 1}^n{k_{n - m + 1} \cdot 0. x_m \ldots x_n}}\ket k } \\ 
         = & \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\prod_{m = 1}^n{\exp \rbk{2 \pi i k_{n - m + 1} \cdot 0.x_m \ldots x_n}} \ket k} \\ 
@@ -1450,7 +1470,42 @@ As a final note, what if $\varphi$ cannot be expressed in exactly $t$ bits? It c
 
 TODO \todo{introduction}
 
-Consider the following unitary operator $U_x$ that computes as follows: $$\forall y \in \{0, 1\}^k \quad U_x \ket y = \soe{ll}{\ket{xy \bmod N} & y \le N \\ \ket y & y > N}$$
+Consider the following unitary operator $U_x$ that computes as follows: $$\forall y \in \{0, 1\}^k \quad U_x \ket y = \soe{ll}{\ket{xy \bmod N} & y \le N \\ \ket y & y > N}$$ To derive the complete operator $U_x$ we just follow \cref{U constr}:
+\begin{equation*}
+    \begin{split}
+        U_x & = \sum_{y \in \{0, 1\}^k}{U_x \ket y \bra y} \\ 
+            & = \sum_{y \le N}{U_x \ket y \bra y} + \sum_{y > N}{U_x \ket y \bra y} \\ 
+            & = \sum_{y \le N}{U_x \ket y \bra y} + \sum_{y > N}{\ket y  \bra y} \\ 
+    \end{split}
+\end{equation*}
+We will not replace $U_x$ inside the first sum for now in order to prove that $U_x$ is unitary. But first, we need to present a result in number theory.
+
+\begin{framedthm}{}
+    If $x$ and $N$ are coprime, it holds that $$\forall y, z \in \Z \quad xy \equiv xz \bmod N \iff y \equiv z \bmod N$$
+\end{framedthm}
+
+\begin{framedprop}{}
+    The operator $U_x$ is unitary, and in particular $$U_x^\dag = \sum_{y \le N}{\ket y (U_x \ket y)^\dag} + \sum_{y > N}{\ket y \bra y}$$
+\end{framedprop}
+
+\begin{proof}
+    It is easy to prove the correctness of $U_x^\dag$, so we are going to prove that $U_x$ is unitary directly.
+    \begin{equation*}
+        \begin{split}
+            U_x^\dag U_x & = \rbk{\sum_{y \le N}{\ket y (U_x \ket y)^\dag} + \sum_{y > N}{\ket y \bra y}}\rbk{\sum_{z \le N}{U_x \ket z \bra z} + \sum_{z > N}{\ket z  \bra z}} \\ 
+                         & = \rbk{\sum_{y \le N}{\ket y \bra{U_x y}} + \sum_{y >N}{\ket y \bra y}} \rbk{\sum_{z \le N}{\ket{U_x z} \bra z} + \sum_{z > N}{\ket z \bra z}} \\ 
+                         & = \sum_{y, z \le N}{\ket y \braket{U_x y | U_x z} \bra z} + \sum_{\substack{y \le N \\ z > N}}{\ket y \braket{U_x y| z} \bra z} + \sum_{\substack{y > N \\ z \le N}}{\ket y \braket{y |U_xz} \bra z} + \sum_{y, z > N}{\ket y \braket{y|z} \bra z} \\ 
+        \end{split}
+    \end{equation*}
+    Now we observe that if $z > N$ and $y \le N$, by definition of $U_x$ we have that $U_x \ket y = \ket{xy \bmod N}$, hence it will be a basis state among $\ket 0, \ldots, \ket{N - 1}$. Therefore, if $z > N$ we are guaranteed that $\ket z$ and $\ket{U_x y}$ are orthogonal, i.e. $\braket{U_xy|z} = 0$ --- we recall that $N$ is \tit{not} the size of the space in this context, is just a composite number, indeed the size of the space we are considering is $2^k$. Therefore, we have that $$ \sum_{\substack{y \le N \\ z > N}}{\ket y \braket{U_x y| z} \bra z} = \sum_{\substack{y > N \\ z \le N}}{\ket y \braket{y |U_xz} \bra z} = 0$$ so we conclude that
+    \begin{equation*}
+        \begin{split}
+            U_x^\dag U_x & = \sum_{y, z \le N}{\ket y \braket{U_x y | U_x z} \bra z} + \sum_{\substack{y \le N \\ z > N}}{\ket y \braket{U_x y| z} \bra z} + \sum_{\substack{y > N \\ z \le N}}{\ket y \braket{y |U_xz} \bra z} + \sum_{y, z > N}{\ket y \braket{y|z} \bra z} \\ 
+                         & = \sum_{y, z \le N}{\ket y \braket{U_x y | U_x z} \bra z} + \sum_{y, z > N}{\ket y \braket{y|z} \bra z} \\ 
+        \end{split}
+    \end{equation*}
+    TODO \todo{da finire}
+\end{proof}
 
 \printbibliography % UNCOMMENT FOR BIBLIOGRAPHY
 
