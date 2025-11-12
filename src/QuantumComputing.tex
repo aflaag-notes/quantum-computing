@@ -1386,9 +1386,65 @@ Finally, the QFT written in this form can be actually implemented in a quantum c
 
 Let's see a very useful application of the QFT. By \cref{spectral thm} we know that the eigenvalues of a unitary operator are complex values of modulus 1. This means that any eigenvalue of a unitary operator can be ewritten as $e^{2 \pi i \varphi}$ for some real value $\varphi \in [0, 1]$ --- $\varphi$ being the \tit{phase} of the complex value, i.e. the angle w.r.t. the unitary circumference.
 
-Given a unitary operator $U$, and an eigenvalue $\lambda = e^{2 \pi i \varphi}$, can we determine $\varphi$? Let $u$ be an eigenvector associated to the unknown eigenvalue $\lambda$, i.e. $$U \ket u  = \lambda \ket u = e^{2 \pi i \varphi} \ket u$$
+Given a unitary operator $U$, and an eigenvalue $\lambda = e^{2 \pi i \varphi}$, can we determine $\varphi$? Let $u$ be an eigenvector associated to the unknown eigenvalue $\lambda$, i.e. $$U \ket u  = \lambda \ket u = e^{2 \pi i \varphi} \ket u$$ Now, let $U^{2^k}$ be the quantum gate that applies the $U$ operator $2^k$ times repeatedly, and define the following operator $$\mbox{C-} U^{2^k} = \ket 0 \bra 0 \otimes I + \ket 1 \bra 1 \otimes U^{2^k}$$ This operator is the \tbf{controlled} version of $U^{2^k}$, and it can easily be showed by plugging $\ket 0$ and $\ket 1$ as first argument --- alongside with some other quantum state $\ket \psi$
+\begin{equation*}
+    \begin{split}
+        \mbox{C-}U^{2^k} (\ket 0 \otimes \ket \psi) & = (\ket 0 \bra 0 \otimes I + \ket 1 \bra 1 \otimes U^{2^k}) (\ket 0 \otimes \ket \psi) \\ 
+                                                    & = (\ket 0 \bra 0 \otimes I)\ket 0 \otimes \ket \psi  + (\ket 1 \bra 1 \otimes U^{2^k} )\ket 0 \otimes \ket \psi \\ 
+                                                    & = \ket 0 \otimes \ket \psi \\ 
+    \end{split}
+\end{equation*}
+Hence, if the first input is $\ket 0$ the state $\ket \psi$ is unchanged, otherwise if the former is $\ket 1$ we get that we actually apply $U^{2^k}$ to $\ket \psi$:
+\begin{equation*}
+    \begin{split}
+        \mbox{C-}U^{2^k} (\ket 1 \otimes \ket \psi) & = (\ket 0 \bra 0 \otimes I + \ket 1 \bra 1 \otimes U^{2^k}) (\ket 1 \otimes \ket \psi) \\ 
+                                                    & = (\ket 0 \bra 0 \otimes I)\ket 1 \otimes \ket \psi + (\ket 1 \bra 1 \otimes U^{2^k}) \ket 0 \otimes \ket \psi \\ 
+                                                    & = \ket 1 \otimes U^{2^k} \ket \psi
+    \end{split}
+\end{equation*}
+Indeed, in general if we have an operator $V$, its controlled version can be easily built in this manner.
 
-TODO \todo{da finire}
+However, this controlled gate can also be \curlyquotes{abused}: what happens if the control bit is a superposition of states? In particular, what happens when the control is set to $$\ket + = \dfrac{1}{\sqrt 2}(\ket 0 + \ket 1)$$ meaning that $\ket 0$ and $\ket 1$ are equally probable?
+\begin{equation*}
+    \begin{split}
+        \mbox{C-}U^{2^k}(\ket + \otimes \ket \psi) & = \dfrac{1}{\sqrt 2} \mbox{C-}U^{2^k}(\ket 0 \otimes \ket \psi + \ket 1 \otimes \ket \psi) \\ 
+                                                   & = \dfrac{1}{\sqrt 2} (\mbox{C-}U^{2^k}(\ket 0 \otimes \ket \psi) + \mbox{C-}U^{2^k}(\ket 1 \otimes \ket \psi)) \\ 
+                                                   & = \dfrac{1}{\sqrt 2} ((\ket 0 \otimes \ket \psi) + (\ket 1 \otimes U^{2^k} \ket \psi))
+    \end{split}
+\end{equation*}
+As we would expect, what happens is that the two outcomes we previously described are now equally likely, but this gets interesting if we carefully choose the target qubit. Instead of any possible $\ket \psi$, let's pick $\ket u$, the eigenvector presented at the beginning of the discussion. First, we observe that $U \ket u = e^{2 \pi i \varphi} \ket u \implies U^{2^k} \ket u = \rbk{e^{2 \pi i \varphi}}^{2^k} \ket u = e^{2 \pi i 2^k \varphi} \ket u$ Indeed, intuitively we are just performing the rotation that $U$ performs on $\ket u$ exactly $2^k$ times. This means that
+\begin{equation*}
+    \begin{split}
+        \mbox{C-}U^{2^k}(\ket + \otimes \ket u) & = \dfrac{1}{\sqrt 2} ((\ket 0 \otimes \ket u) + (\ket 1 \otimes U^{2^k} \ket u)) \\ 
+                                                & = \dfrac{1}{\sqrt 2} ((\ket 0 \otimes \ket u) + (\ket 1 \otimes e^{2\pi i 2^k \varphi}\ket u)) \\ 
+                                                & = \dfrac{1}{\sqrt 2} (\ket 0 + e^{2 \pi i 2^k \varphi} \ket 1) \otimes \ket u
+    \end{split}
+\end{equation*}
+Notice what happened here: $\ket 0$ and $\ket 1$ are parts of the first input, and $\ket u$ is the second input. In other words, by putting $\ket u$ as target input of the controlled gate, the target is \tbf{unchanged}, and the effect is seen on the control. We observe that this could not have been done with any other state $\ket \psi$ because the trick works precisely because $U$ becomes a scalar $e^{2 \pi i \varphi}$ when applied to $\ket u$, so it can be grouped as shown. The following quantum circuit computes the \tbf{Quantum Phase Estimation (QPE)} algorithm, and it uses precisely this trick.
+
+\centeredimage[The Quantum Phase Estimation circuit]{0.6}{../assets/qpe.png}
+
+The circuit is composed of the following elements:
+
+\begin{itemize}
+    \item the first are $t > 0$ qubits $\ket{0^t}$ to which we apply $H^{\otimes t}$ at the beginning of the algorithm, which means now each state is set to $\ket +$
+    \item the $(t + 1)$-th register is a qubit set to $\ket u$ --- we are not going to cover the practical details about how to set a qubit to this precise quantum state
+    \item these superpositions are used as control to the lower part of the circuit, which conditionally computes $U^{2^k}$ for each $k \in [0, t - 1]$
+    \item at the end we compute $\mbox{QFT}^\dag$ to the first $t$ registers
+\end{itemize}
+
+The interesting part of this circuit is that the last register remains unchanged throughout the whole computation, set precisely to $\ket u$, for the reason we described earlier. In fact, what happens is that what we are actually changing are the first $t$ qubits which will be chaned according to the $k$-th controlled gate we are using. Therefore, at the end the global state of the circuit will be $$\dfrac{1}{\sqrt 2^n} \bigotimes_{m = 1}^{t}{\ket 0 + e^{2 \pi i 2^{m - 1}} \ket 1}$$ Notice how we indexed the tensor product.
+
+Furthermore, we obseve that $\varphi \in [0, 1)$, because as we already metioned there is no need to consider the integral part of the phases. Thus, suppose that $\varphi$ can be written through $t$ bits $x_1, \ldots, x_t \in \B$ such that $$\varphi = 0.x_1 \ldots x_t$$ This implies that
+\begin{equation*}
+    \begin{split}
+        2^{m - 1} \cdot \varphi & = 2^{m - 1} \cdot 0.x_1 \ldots x_t \\ 
+                                & = \cdot x_1 \ldots x_{m - 1}. x_m \ldots x_t
+    \end{split}
+\end{equation*}
+Thus, since this is the exponent of $e^{2 \pi i}$, we already know that $$\exp(2 \pi i x_1 \ldots x_{m - 1} . x_m \ldots x_t) = \exp(2 \pi i 0. x_m \ldots x_t)$$ therefore the ternsor product can be rewritten as $$\dfrac{1}{\sqrt 2^n} \bigotimes_{m = 1}^{t}{\ket 0 + e^{2 \pi i 0.x_m \ldots x_t} \ket 1}$$ Very elegantly, this is exactly $\mbox{QFT} \ket x$ we computed in the previous section! Finally, if we place the inverse QFT --- namely $\mbox{QFT}^\dag$ --- at the end of the circuit we retrieve $\ket x$ itself, which is also the entire state of the system at this point. This means that if we measure each register at the end of the circuit we retrieve the bits of $x \in \B^n$ --- i.e. the bits that describe $\varphi$ --- with probability 1. In the end, we recovered the phase $\varphi$ of the eigenvalue associated to $\ket u$ with probability 1.
+
+As a final note, what if $\varphi$ cannot be expressed in exactly $t$ bits? It can be shown that $\varphi$ can be estimated with $n$ bits of precision through a QPE circuit composed of $n + \ceil{\log(2 + \tfrac{1}{2 \varepsilon})}$ qubits with a success probability at least $1 - \varepsilon$, for some $\varepsilon > 0$.
 
 \printbibliography % UNCOMMENT FOR BIBLIOGRAPHY
 

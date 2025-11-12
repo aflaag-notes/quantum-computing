@@ -793,6 +793,11 @@ INPUT ./svg-inkscape/grover4_svg-tex.pdf
 INPUT ./svg-inkscape/grover4_svg-tex.pdf_tex
 INPUT ./svg-inkscape/grover4_svg-tex.pdf
 INPUT ./svg-inkscape/grover4_svg-tex.pdf
+INPUT ../assets/qpe.png
+INPUT ../assets/qpe.png
+INPUT ../assets/qpe.png
+INPUT ../assets/qpe.png
+INPUT ../assets/qpe.png
 INPUT QuantumComputing.aux
 INPUT ./QuantumComputing.out
 INPUT ./QuantumComputing.out
