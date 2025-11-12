@@ -228,6 +228,36 @@
     \field{year}{1997}
   \endentry
 
+  \entry{qpe}{misc}{}{}
+    \name{author}{1}{}{%
+      {{hash=KAY}{%
+         family={Kitaev},
+         familyi={K\bibinitperiod},
+         given={A.\bibnamedelima Yu.},
+         giveni={A\bibinitperiod\bibinitdelim Y\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {arXiv}%
+    }
+    \keyw{Quantum Physics (quant-ph), FOS: Physical sciences, FOS: Physical sciences}
+    \strng{namehash}{KAY1}
+    \strng{fullhash}{KAY1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Kit95}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \verb{doi}
+    \verb 10.48550/ARXIV.QUANT-PH/9511026
+    \endverb
+    \field{title}{Quantum measurements and the Abelian Stabilizer Problem}
+    \verb{url}
+    \verb https://arxiv.org/abs/quant-ph/9511026
+    \endverb
+    \field{year}{1995}
+  \endentry
+
   \entry{lecerf}{book}{}{}
     \name{author}{2}{}{%
       {{hash=LY}{%
