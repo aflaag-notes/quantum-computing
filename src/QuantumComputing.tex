@@ -1468,44 +1468,93 @@ As a final note, what if $\varphi$ cannot be expressed in exactly $t$ bits? It c
 
 \section{Shor's algorithm}
 
-TODO \todo{introduction}
+\begin{frameddefn}{Order}
+    Given $N \in \N$, and an element $x \in [0, N - 1]$, the \tbf{order} of $x$ modulo $N$ is the least integer $r$ such that $$x^r \equiv 1 \bmod N$$
+\end{frameddefn}
 
-Consider the following unitary operator $U_x$ that computes as follows: $$\forall y \in \{0, 1\}^k \quad U_x \ket y = \soe{ll}{\ket{xy \bmod N} & y \le N \\ \ket y & y > N}$$ To derive the complete operator $U_x$ we just follow \cref{U constr}:
+For instance, the order of 4 modulo 7 is 3, because $$4^3 = 64 = 9 \cdot 7 + 1 \implies 4^3 \equiv 1 \bmod 7$$
+
+TODO \todo{fare ordine + introduzione}
+
+Consider the following unitary operator $U_x$ that computes as follows: $$\forall y \in \{0, 1\}^k \quad U_x \ket y = \soe{ll}{\ket{xy \bmod N} & y < N \\ \ket y & y \ge N}$$ To derive the complete operator $U_x$ we just follow \cref{U constr}:
 \begin{equation*}
     \begin{split}
         U_x & = \sum_{y \in \{0, 1\}^k}{U_x \ket y \bra y} \\ 
-            & = \sum_{y \le N}{U_x \ket y \bra y} + \sum_{y > N}{U_x \ket y \bra y} \\ 
-            & = \sum_{y \le N}{U_x \ket y \bra y} + \sum_{y > N}{\ket y  \bra y} \\ 
+            & = \sum_{y < N}{U_x \ket y \bra y} + \sum_{y \ge N}{U_x \ket y \bra y} \\ 
+            & = \sum_{y < N}{U_x \ket y \bra y} + \sum_{y \ge N}{\ket y  \bra y} \\ 
     \end{split}
 \end{equation*}
 We will not replace $U_x$ inside the first sum for now in order to prove that $U_x$ is unitary. But first, we need to present a result in number theory.
 
-\begin{framedthm}{}
+\begin{framedthm}[label={number theory}]{}
     If $x$ and $N$ are coprime, it holds that $$\forall y, z \in \Z \quad xy \equiv xz \bmod N \iff y \equiv z \bmod N$$
 \end{framedthm}
 
 \begin{framedprop}{}
-    The operator $U_x$ is unitary, and in particular $$U_x^\dag = \sum_{y \le N}{\ket y (U_x \ket y)^\dag} + \sum_{y > N}{\ket y \bra y}$$
+    The operator $U_x$ is unitary, and in particular $$U_x^\dag = \sum_{y < N}{\ket y (U_x \ket y)^\dag} + \sum_{y \ge N}{\ket y \bra y}$$
 \end{framedprop}
 
 \begin{proof}
     It is easy to prove the correctness of $U_x^\dag$, so we are going to prove that $U_x$ is unitary directly.
     \begin{equation*}
         \begin{split}
-            U_x^\dag U_x & = \rbk{\sum_{y \le N}{\ket y (U_x \ket y)^\dag} + \sum_{y > N}{\ket y \bra y}}\rbk{\sum_{z \le N}{U_x \ket z \bra z} + \sum_{z > N}{\ket z  \bra z}} \\ 
-                         & = \rbk{\sum_{y \le N}{\ket y \bra{U_x y}} + \sum_{y >N}{\ket y \bra y}} \rbk{\sum_{z \le N}{\ket{U_x z} \bra z} + \sum_{z > N}{\ket z \bra z}} \\ 
-                         & = \sum_{y, z \le N}{\ket y \braket{U_x y | U_x z} \bra z} + \sum_{\substack{y \le N \\ z > N}}{\ket y \braket{U_x y| z} \bra z} + \sum_{\substack{y > N \\ z \le N}}{\ket y \braket{y |U_xz} \bra z} + \sum_{y, z > N}{\ket y \braket{y|z} \bra z} \\ 
+            U_x^\dag U_x & = \rbk{\sum_{y < N}{\ket y (U_x \ket y)^\dag} + \sum_{y \ge N}{\ket y \bra y}}\rbk{\sum_{z < N}{U_x \ket z \bra z} + \sum_{z \ge N}{\ket z  \bra z}} \\ 
+                         & = \rbk{\sum_{y < N}{\ket y \bra{U_x y}} + \sum_{y \ge N}{\ket y \bra y}} \rbk{\sum_{z < N}{\ket{U_x z} \bra z} + \sum_{z \ge N}{\ket z \bra z}} \\ 
+                         & = \sum_{y, z < N}{\ket y \braket{U_x y | U_x z} \bra z} + \sum_{\substack{y < N \\ z \ge N}}{\ket y \braket{U_x y| z} \bra z} + \sum_{\substack{y \ge N \\ z < N}}{\ket y \braket{y |U_xz} \bra z} + \sum_{y, z \ge N}{\ket y \braket{y|z} \bra z} \\ 
         \end{split}
     \end{equation*}
-    Now we observe that if $z > N$ and $y \le N$, by definition of $U_x$ we have that $U_x \ket y = \ket{xy \bmod N}$, hence it will be a basis state among $\ket 0, \ldots, \ket{N - 1}$. Therefore, if $z > N$ we are guaranteed that $\ket z$ and $\ket{U_x y}$ are orthogonal, i.e. $\braket{U_xy|z} = 0$ --- we recall that $N$ is \tit{not} the size of the space in this context, is just a composite number, indeed the size of the space we are considering is $2^k$. Therefore, we have that $$ \sum_{\substack{y \le N \\ z > N}}{\ket y \braket{U_x y| z} \bra z} = \sum_{\substack{y > N \\ z \le N}}{\ket y \braket{y |U_xz} \bra z} = 0$$ so we conclude that
+    Now we observe that if $z > N$ and $y \le N$, by definition of $U_x$ we have that $U_x \ket y = \ket{xy \bmod N}$, hence it will be a basis state among $\ket 0, \ldots, \ket{N - 1}$. Therefore, if $z > N$ we are guaranteed that $\ket z$ and $\ket{U_x y}$ are orthogonal, i.e. $\braket{U_xy|z} = 0$ --- we recall that $N$ is \tit{not} the size of the space in this context, is just a composite number, indeed the size of the space we are considering is $2^k$. Therefore, we have that $$ \sum_{\substack{y < N \\ z \ge N}}{\ket y \braket{U_x y| z} \bra z} = \sum_{\substack{y \ge N \\ z < N}}{\ket y \braket{y |U_xz} \bra z} = 0$$ so we conclude that
     \begin{equation*}
-        \begin{split}
-            U_x^\dag U_x & = \sum_{y, z \le N}{\ket y \braket{U_x y | U_x z} \bra z} + \sum_{\substack{y \le N \\ z > N}}{\ket y \braket{U_x y| z} \bra z} + \sum_{\substack{y > N \\ z \le N}}{\ket y \braket{y |U_xz} \bra z} + \sum_{y, z > N}{\ket y \braket{y|z} \bra z} \\ 
-                         & = \sum_{y, z \le N}{\ket y \braket{U_x y | U_x z} \bra z} + \sum_{y, z > N}{\ket y \braket{y|z} \bra z} \\ 
-        \end{split}
+        \begin{alignedat}{2}
+            U_x^\dag U_x & = \sum_{y, z  < N}{\ket y \braket{U_x y | U_x z} \bra z} + \sum_{\substack{y < N \\ z \ge N}}{\ket y \braket{U_x y| z} \bra z} + \sum_{\substack{y \ge N \\ z < N}}{\ket y \braket{y |U_xz} \bra z} + \sum_{y, z \ge N}{\ket y \braket{y|z} \bra z} & \\ 
+                         & = \sum_{y, z < N}{\ket y \braket{U_x y | U_x z} \bra z} + \sum_{y, z \ge N}{\ket y \braket{y|z} \bra z} & \\ 
+                         & = \sum_{\substack{y, z < N : \\ y \equiv z \bmod N}}{\ket y \braket{U_xy |U_xz} \bra z} + \sum_{\substack{y, z < N : \\ y \not\equiv z \bmod N}}{\ket y \braket{U_xy |U_xz} \bra z} + \sum_{y , z \ge N}{\ket y \braket{y|z} \bra z} & \\ 
+        \end{alignedat}
     \end{equation*}
-    TODO \todo{da finire}
+    To progress, we observe that when $y, z \le N$ we get that $$\braket{U_x y | U_x z} = \braket{xy \bmod N | xz \bmod N} = \soe{ll}{1 & xy \equiv xz \bmod N \\ 0 & \mbox{otherwise}}$$ and by \cref{number theory} we know that $$xy \equiv xz \bmod N \iff y \equiv z \bmod N$$ thus getting
+    \begin{equation*}
+        \begin{alignedat}{2}
+            U_x^\dag U_x & = \sum_{\substack{y, z < N : \\ y \equiv z \bmod N}}{\ket y \braket{U_xy |U_xz} \bra z} + \sum_{\substack{y, z < N : \\ y \not\equiv z \bmod N}}{\ket y \braket{U_xy |U_xz} \bra z} + \sum_{y , z \ge N}{\ket y \braket{y|z} \bra z} & \\ 
+                         & = \sum_{\substack{y, z < N : \\ y \equiv z \bmod N}}{\ket y  \bra z} + \sum_{y , z \ge N}{\ket y \braket{y|z} \bra z} & \\ 
+                         & = \sum_{\substack{y, z < N : \\ y = z}}{\ket y  \bra z} + \sum_{y , z \ge N}{\ket y \delta_{yz} \bra z} \\ 
+                         & = \sum_{\substack{y < N}}{\ket y  \bra y} + \sum_{y \ge  N}{\ket y  \bra y} &  \\
+                         & = \sum_{y}{\ket y \bra y} & \\ 
+                         & = I & \\ 
+        \end{alignedat}
+    \end{equation*}
+
+    Now, we need to prove the opposite product \todo{da fare}
 \end{proof}
+
+TODO \todo{conjunction}
+
+\begin{framedprop}{}
+    Given $N \in \N$, and $x \in [0, N - 1]$, if $r$ is the order of $x$ modulo $N$, it holds that $$\forall s \in [0, r - 1] \quad \ket{u_s} = \dfrac{1}{\sqrt r} \sum_{k = 0}^{r - 1}{e^{-2 \pi i sk/r} \ket{x^k \bmod N}}$$ is an eigenvector of $U_x$.
+\end{framedprop}
+
+\begin{proof}
+    Fix $s \in [0, r - 1]$; to prove that $\ket{u_s}$ is an eigenvector of $U_x$ we need to show that there exists some phase $\varphi$ such that $$U_x \ket{u_s} = e^{2 \pi i \varphi} \ket{u_s}$$ because of \cref{spectral thm}. Hence, we get that
+    \begin{equation*}
+        \hspace{-1cm}
+        \begin{alignedat}{2}
+            U_x \ket{u_s} & = U_x \rbk{\dfrac{1}{\sqrt r} \sum_{k = 0}^{r - 1}{e^{-2 \pi i sk/r} \ket{x^k \bmod N}}} & \\ 
+                          & = \dfrac{1}{\sqrt r} \sum_{k = 0}^{r - 1}{e^{-2 \pi i sk/r} U_x \ket{x^k \bmod N}} & \\ 
+                          & = \dfrac{1}{\sqrt r} \sum_{k = 0}^{r - 1}{e^{-2 \pi i sk/r}  \ket{x\rbk{x^k \bmod N} \bmod N}} & \quad \rbk{x^k \bmod N < N} & \\ 
+                          & = \dfrac{1}{\sqrt r} \sum_{k = 0}^{r - 1}{e^{-2 \pi i sk/r}  \ket{x^{k + 1} \bmod N \bmod N}} & \\ 
+                          & = \dfrac{1}{\sqrt r} \sum_{k = 0}^{r - 1}{e^{-2 \pi i sk/r}  \ket{x^{k + 1} \bmod N}} &  \\ 
+                          & = \dfrac{1}{\sqrt r} \cdot \dfrac{e^{2 \pi i s/r}}{e^{2 \pi i s/r}} \cdot \sum_{k = 0}^{r - 1}{e^{-2 \pi i sk/r} \ket{x^{k + 1} \bmod N}} & \\ 
+                          & = \dfrac{1}{\sqrt r}  e^{2 \pi i s/r} \cdot \sum_{k = 0}^{r - 1}{e^{-2 \pi i s(k + 1)/r}  \ket{x^{k + 1} \bmod N}} & \\ 
+                          & = \dfrac{1}{\sqrt r} \cdot e^{2 \pi i s/r} \rbk{\sum_{k = 0}^{r - 2}{e^{-2 \pi i s(k + 1)/r}  \ket{x^{k + 1} \bmod N}} + e^{ - 2 \pi i s r /r} \ket{x^r \bmod N}} & \\ 
+                          & = \dfrac{1}{\sqrt r}  e^{2 \pi i s/r} \rbk{\sum_{k = 0}^{r - 2}{e^{-2 \pi i s(k + 1)/r}  \ket{x^{k + 1} \bmod N}} + e^{ - 2 \pi i s} \ket{1}} & \quad (x^r \equiv 1 \bmod N) \\ 
+                          & = \dfrac{1}{\sqrt r} e^{2 \pi i s/r} \rbk{\sum_{m = 1}^{r - 1}{e^{-2 \pi i s m /r}  \ket{x^m \bmod N}} +  \ket{1}} & \\ 
+                          & = \dfrac{1}{\sqrt r}  e^{2 \pi i s/r} \rbk{\sum_{m = 0}^{r - 1}{e^{-2 \pi i s m /r}  \ket{x^m \bmod N}}} & \quad (\ket 1 = \ket{x^0 \bmod N})\\ 
+                          & = e^{2 \pi i s/r}  \ket {u_s} \\
+        \end{alignedat}
+    \end{equation*}
+    Therefore, we conclude that $\varphi = s/r$.
+\end{proof}
+
+TODO \todo{da finire}
 
 \printbibliography % UNCOMMENT FOR BIBLIOGRAPHY
 
