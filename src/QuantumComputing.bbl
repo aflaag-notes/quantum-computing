@@ -292,6 +292,37 @@
     \field{year}{1964}
   \endentry
 
+  \entry{shor}{inproceedings}{}{}
+    \name{author}{1}{}{%
+      {{hash=SP}{%
+         family={Shor},
+         familyi={S\bibinitperiod},
+         given={P.W.},
+         giveni={P\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IEEE Comput. Soc. Press}%
+    }
+    \strng{namehash}{SP1}
+    \strng{fullhash}{SP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Sho}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{booktitle}{Proceedings 35th Annual Symposium on Foundations of Computer Science}
+    \verb{doi}
+    \verb 10.1109/sfcs.1994.365700
+    \endverb
+    \field{pages}{124–134}
+    \field{series}{SFCS-94}
+    \field{title}{Algorithms for quantum computation: discrete logarithms and factoring}
+    \verb{url}
+    \verb http://dx.doi.org/10.1109/SFCS.1994.365700
+    \endverb
+  \endentry
+
   \entry{nocloning}{article}{}{}
     \name{author}{2}{}{%
       {{hash=WWK}{%
