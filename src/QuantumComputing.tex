@@ -1654,11 +1654,71 @@ Nevetheless, notice what happened here: we engangled the control qubit with the 
 \end{equation*}
 assuming that $\varphi_s = s/r$ can be written through $t$ bits. This entangled quantum state is exactly what we want, because now by measuring the first $t$ registers we get that for each $s \in [0, r - 1]$ they will collapse into $\ket{\varphi_s}$ with probability $\tfrac{1}{r}$, and the last register will collapse into $\ket{u-s}$ which is exactly the eigenvector associated to $e^{2 \pi i \varphi_s}$. This proves that we truly computed the phases of all the possible eigenvectors simultaneously.
 
-We are almost done. We now know that we can retrieve $\varphi_s = s/r$ for each $s \in [0, r - 1]$ without even knowing a single eigenvector of $U_x$, but we still don't know $r$, and any value of $s$ depends on $r$ itself, so how do we preoceed?
+We are almost done. We now know that we can retrieve $\varphi_s = s/r$ for each $s \in [0, r - 1]$ without even knowing a single eigenvector of $U_x$, but there is a problem. Say that we want to find the order of $x = 3$ modulo $N = 11$, and suppose that the true phase is $$\varphi_s = \dfrac{s}{r} = \dfrac{2}{5} = 0.4$$ The QPE algorithm cannot output this exact value, because 0.4 cannot be written precisely in binary --- in particular, the reason is that 5 does not divide $2^t$ for any $t$. This means that our algorithm will return an \tit{approximation} of $\varphi_s$. Say that we are working with 6 registers of precision and fix $t = 6$; then QPE will output the closest approximation of 0.4 with 6 bits: $$\tilde \varphi_s = 0.40625 = \dfrac{13}{32}$$ Now, it would be a mistake to assume that $r = 32$! How do we proceed?
 
-% \begin{frameddefn}
-% \end{frameddefn}
+\begin{frameddefn}{Continued fraction}
+    Given a rational number $x \in \Q$, the continued fraction of $x$ is composed by a set of numbers $a_0, \ldots, a_n \in \N$ --- where $a_n \neq 0$ --- such that $$x = a_0 + \dfrac{1}{a_1 + \dfrac{1}{a_2 + \dfrac{1}{\ddots + \dfrac{1}{a_n}}}}$$ The continued fraction is usually denoted with the following notation $$x = [a_0; a_1, a_2, \ldots , a_n]$$
+\end{frameddefn}
 
+Moreover, each \curlyquotes{partial} continued fraction
+\begin{equation*}
+    \begin{split}
+        & [a_0] \\ 
+        & [a_0; a_1] \\ 
+        & [a_0; a_1, a_2] \\ 
+        & \ldots \\ 
+        & [a_0; a_1, a_1, \ldots, a_n] \\ 
+    \end{split}
+\end{equation*}
+is called \tbf{convergent} of the original number.
+
+For instance, the number $\tfrac{338}{121}$ can be written as follows: $$\dfrac{338}{121} = [2;1,3,1,5,4]$$ and its convergents are
+\begin{equation*}
+    \begin{split}
+        & [2] \\ 
+        & [2;1] \\
+        & [2;1, 3] \\ 
+        & \ldots \\ 
+        & [2;1, 3, \ldots, 4] \\ 
+    \end{split}
+\end{equation*}
+We will use continued fractions to recover $r$ from $s/r$. Suppose that QPE outputs $\tilde \varphi_s = \tfrac{13}{32}$ as in the previous example. Without going into the details, there is a classical algorithm which is able to recover its continued fraction in $O(L^3)$ time --- where $L = \ceil{\log N}$. Thus, we get that $$\tilde \varphi_s = 0 + \dfrac{1}{2 + \dfrac{1}{2 + \dfrac{1}{6}}} = [0;2,2,6]$$ Now, to recover $\tfrac{2}{5}$ we just need to compute the convergents:
+\begin{equation*}
+    \begin{split}
+        & [0] = 0 \\ 
+        & [0;2] = \dfrac{1}{2} \\ 
+        & [0;2,2] = \dfrac{2}{5} \\ 
+        & [0;2, 2, 6] = \dfrac{13}{32} \\
+    \end{split}
+\end{equation*}
+Finally, since we know that $r$ is the order of $x$ modulo $N$, we just need to pick the convergent with the smallest denominator $r$ such that $x^r \equiv 1 \bmod N$. In our example we had $x = 3$ and $N = 11$, thus
+\begin{equation*}
+    \begin{split}
+        & 3^2 \equiv 9 \not\equiv1 \bmod 11 \\
+        & 3^5 \equiv 243 \equiv 1 \bmod 11 \\ 
+    \end{split}
+\end{equation*}
+This is how we can recover $r = 5$ --- to be precise, there are theoretical results which guarantee that $\tfrac{2}{5}$ shows between the convergents of $\tfrac{13}{32}$ but this is ouside the scope of our discussion.
+
+\section{Shor's algorithm}
+
+TODO \todo{intro}
+
+\begin{framedthm}{Fundamental Theorem of Arithmetic}
+    Given any $N \in \N$, there exists unique $p_1, \ldots, p_m \in \Primes$ primes and $\alpha_1, \ldots, \alpha_m$ exponents --- for some $m \in \N$ --- such that $$N = p_1^{\alpha_1} \cdot \ldots \cdot p_m^{\alpha_m}$$
+\end{framedthm}
+
+The set of primes $p_1, \ldots, p_m \in \Primes$ is called \tbf{prime factorization} of $N$. The \tbf{Integer Factoring Problem (IFP)} asks to retrieve the prime factorization of any given $N \in \N$.
+
+\begin{framedthm}{}
+    Given any $L$-bit long composite natural number $N \in \N$, let $x \in [2, N]$ different from $N - 1$ be a solution to the equation $$x^2 \equiv 1 \bmod N$$ Then, at least one of $\gcd(x- 1, N)$ and $\gcd(x + 1, N)$ is a non-trivial factor of $N$ that can be computed using $O(L^3)$ operations.
+\end{framedthm}
+
+\begin{framedthm}{}
+    Given any $N \in \N$ odd composite positive integer with $m$ prime factors, let $x \in_R [1, N - 1]$ such that $\gcd(1, N - 1) = 1$. Then, if $r$ is the order of $x$ modulo $N$, it holds that $$\Pr[\mbox{$r$ is even and $x^{r/2} \not \equiv 1 \bmod N$}] \ge 1 - \dfrac{1}{2^m}$$
+\end{framedthm}
+
+TODO \todo{write the alg and explain stuff?}
 
 TODO \todo{size of QPE}
 
