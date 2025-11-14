@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex QuantumComputing"] 1763129490.88979 "QuantumComputing.aux" "QuantumComputing.bbl" "QuantumComputing" 1763129503.3726 0
-  "./QuantumComputing-blx.bib" 1763129502.83637 344 b9a53cb296db97caea92c7ca383542c0 ""
-  "./references.bib" 1763121827.47198 5802 1c6862b345f0c997b0724a0a42f3a8ae ""
+["bibtex QuantumComputing"] 1763141527.59287 "QuantumComputing.aux" "QuantumComputing.bbl" "QuantumComputing" 1763141539.28053 0
+  "./QuantumComputing-blx.bib" 1763141538.7904 344 b9a53cb296db97caea92c7ca383542c0 ""
+  "./references.bib" 1763138135.80511 6294 ae55a02ffbd1f8043d5c960915729c2a ""
   "/usr/share/texmf-dist/bibtex/bst/biblatex/biblatex.bst" 1755987285 65510 b1f696b0241395385f422f67543c37fd ""
-  "QuantumComputing.aux" 1763129502.79237 21539 5b7076b5e3116beaeae5f9b1df6ae4da "pdflatex"
+  "QuantumComputing.aux" 1763141538.75857 23273 e7040a5c34d5fa34e86ac79584f5424e "pdflatex"
   (generated)
   "QuantumComputing.bbl"
   "QuantumComputing.blg"
   (rewritten before read)
-["pdflatex"] 1763129490.97164 "QuantumComputing.tex" "QuantumComputing.pdf" "QuantumComputing" 1763129503.3732 0
+["pdflatex"] 1763141527.68668 "QuantumComputing.tex" "QuantumComputing.pdf" "QuantumComputing" 1763141539.28087 0
   "../../packages/Nyx/logo.png" 1759341402.38967 91419 8de48debf770a599a084520c83ce5d80 ""
   "../../packages/Nyx/nyx-frames.sty" 1759341402.38967 4480 04a89589d0a12ba668ea579e07c3b82c ""
   "../../packages/Nyx/nyx-intro.sty" 1759341402.38967 3476 d82343305e561945eb7e4f3f9e3a4fe2 ""
@@ -20,6 +20,7 @@
   "../assets/cnot.png" 1759596885.33139 3511 d17828202d9a32b687a9a0a06c49dd68 ""
   "../assets/deutsch.png" 1761000455.69162 7238 acd33312b7aced9382f39f0b63b22637 ""
   "../assets/epr.png" 1759676078.17339 3862 7fd455216a0a293ef9ebac8ff4127c05 ""
+  "../assets/faraday.svg" 1763135944.93392 14125 cfcfc758181899ba8cf6c39c17ba864a ""
   "../assets/ghz.png" 1759678321.90027 6386 b6b84cd116e14f5ec1f7add90635435c ""
   "../assets/grover1.svg" 1762553280.03622 28413 0d8ba73542bbc8cdd725c3a00d523319 ""
   "../assets/grover2.svg" 1762552008.24029 35276 abb842ccbdafbd3e490bf0946e3cd974 ""
@@ -432,12 +433,19 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1755987285 42087 b0f9697c952c8f5a8eede4134282cb0d ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1756479450 5311557 9da84c45f5b388655502706482323571 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1756479348 2061861 222ceaad63638c4f9ad47b14b26d897e ""
-  "QuantumComputing.aux" 1763129502.79237 21539 5b7076b5e3116beaeae5f9b1df6ae4da "pdflatex"
-  "QuantumComputing.bbl" 1763129490.94937 11654 292d108dbf4a20d985f23715f4d9ae4a "bibtex QuantumComputing"
-  "QuantumComputing.out" 1763129502.83037 5056 59d82ca7eb83a1f25c39918d0f29d169 "pdflatex"
-  "QuantumComputing.run.xml" 1763129502.8386 2638 2ed173551a6eea6508d643154ff36a7e "pdflatex"
-  "QuantumComputing.tex" 1763129492.91637 167698 3a8bddd655d1aeb91e854271213ecbb3 ""
-  "QuantumComputing.toc" 1763129502.8386 2760 144c5b5bb79125c3a96c18cdf81f1c00 "pdflatex"
+  "QuantumComputing.aux" 1763141538.75857 23273 e7040a5c34d5fa34e86ac79584f5424e "pdflatex"
+  "QuantumComputing.bbl" 1763141527.6614 12749 79b31546c23dbea55c6f3e97fed03a5f "bibtex QuantumComputing"
+  "QuantumComputing.out" 1763141538.7864 5226 20706bb531c61940929686e42a67cef3 "pdflatex"
+  "QuantumComputing.run.xml" 1763141538.79254 2638 2ed173551a6eea6508d643154ff36a7e "pdflatex"
+  "QuantumComputing.tex" 1763137817.83908 2525 cf9ebf2c7aeac2ddd8380a2f2b5f39ae ""
+  "QuantumComputing.toc" 1763141538.79254 2841 4389ee5096d600e20b33cf0ecbdbe7ce "pdflatex"
+  "chapters/1.tex" 1763129770.9994 33033 d1f6f66bb0716875c53df3be2253739e ""
+  "chapters/2.tex" 1763129867.1744 28831 84acc3984b92b7867bacc05db27661fa ""
+  "chapters/3.tex" 1763137927.05609 47844 d65561fda7fbfb1f70a166ca1d255d0c ""
+  "chapters/4.tex" 1763134932.93484 55528 442ae359183f77e3f3af59107706dc35 ""
+  "chapters/5.tex" 1763141514.5484 7353 5ff4091f1f4c39c82e4665deae824b75 ""
+  "svg-inkscape/faraday_svg-tex.pdf" 1763137781.85208 9714 953bd5f22958f779cf8c1e25e4789137 ""
+  "svg-inkscape/faraday_svg-tex.pdf_tex" 1763137781.8539 2086 b72f765a771ce6e92638f187b4a9b9a4 ""
   "svg-inkscape/grover1_svg-tex.pdf" 1762553319.71622 11995 2207ecfa4ab9c787f4130ab5c964133d ""
   "svg-inkscape/grover1_svg-tex.pdf_tex" 1762553319.71748 2068 b414964d6e5e3fb183d539c7617f47dd ""
   "svg-inkscape/grover2_svg-tex.pdf" 1762552408.44527 14613 6f994d3686f086a19cebda469da2ebd2 ""

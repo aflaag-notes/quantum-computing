@@ -17,6 +17,46 @@
 \endgroup
 
 \datalist[entry]{anyt/global//global/global/global}
+  \entry{bb84}{article}{}{}
+    \name{author}{2}{}{%
+      {{hash=BCH}{%
+         family={Bennett},
+         familyi={B\bibinitperiod},
+         given={Charles\bibnamedelima H.},
+         giveni={C\bibinitperiod\bibinitdelim H\bibinitperiod},
+      }}%
+      {{hash=BG}{%
+         family={Brassard},
+         familyi={B\bibinitperiod},
+         given={Gilles},
+         giveni={G\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Elsevier BV}%
+    }
+    \strng{namehash}{BCHBG1}
+    \strng{fullhash}{BCHBG1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{BB14}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \verb{doi}
+    \verb 10.1016/j.tcs.2014.05.025
+    \endverb
+    \field{issn}{0304-3975}
+    \field{pages}{7–11}
+    \field{title}{Quantum cryptography: Public key distribution and coin tossing}
+    \verb{url}
+    \verb http://dx.doi.org/10.1016/j.tcs.2014.05.025
+    \endverb
+    \field{volume}{560}
+    \field{journaltitle}{Theoretical Computer Science}
+    \field{month}{12}
+    \field{year}{2014}
+  \endentry
+
   \entry{bennett}{article}{}{}
     \name{author}{1}{}{%
       {{hash=BCH}{%

@@ -1,0 +1,474 @@
+\chapter{Shor's algorithm}
+
+\tbf{Shor's algorithm} is a quantum algorithm for finding the \tit{prime factors of an integer}, developed in 1994 by the American mathematician \textcite{shor}. It is one of the few known quantum algorithms with compelling potential applications and strong evidence of \tbf{superpolynomial} speedup compared to best known classical (non-quantum) algorithm. It is one of the most famous algorithms in the field, and it sparked a lot of interest in recent years due to the implications of its theoretical speedup.
+
+Shor's algorithm utilizes a lot of mathematical tools \todo{da finire}
+
+Before explaining Shor's algorithm, we first need to present a very useful tool that is widely employed in various areas of computer science and mathematics, such as integer multiplication, signal processing (e.g. speech recognition, audio compression) and much more.
+
+\section{A recap on the Discrete Fourier Transform}
+
+The \tbf{Discrete Fourier Transform (DFT)} is a very powerful tool used in many applications and probably most widely known for its use in signal processing. Indeed, the Fourier transform is used to transform a signal defined on the \tit{time domain} into its equivalent in the \tit{frequency domain}. We will briefly explore the most important concepts that define the DFT to have a better understanding in order to the progress with its quantum counterpart.
+
+First, what is the \curlyquotes{time domain}? When we sample a signal, we usually sample such signal through some finite amount of time, and we discretize such time interval --- this is why we consider the Discrete Fourier transform. What we are interested in is to transform such signal into the \curlyquotes{frequency domain}, which essentially means to understand what frequencies of sinusoids contribute to our signal and in which percentage. To do this, we will use some concepts of Linear Algebra. Say that the signal we sampled is discretized into $N$ parts, thus our sample lives in the $\R^N$ space --- it is nothing but a vector of $N$ complex values which describe the signal at each timestep. When we say \curlyquotes{time domain}, what we mean is basically this exact vector, i.e. expressed in the canonical orthonormal basis $$e_0 = \rmat{1 \\ 0 \\ \vdots \\ 0 } \quad e_1 = \rmat{0 \\ 1 \\ \vdots \\ 0} \quad \ldots \quad e_{N - 1} = \rmat{0 \\ \vdots \\ 0 \\ 1}$$ (we will start counting at 0 for convenience sake). In other words, if our signal is defined by some vector $$\mathbf x = \rmat{t_0 \\ t_1 \\ \vdots \\ t_{N - 1}}$$ it holds that $$\mathbf x = \sum_{n = 0}^{N - 1}{t_n e_n}$$
+
+Then, what is the \curlyquotes{frequency domain}? We need some preliminary observations to describe it. Our goal is to take into account the frequencies that define our signal, therefore we need to move into a space in which frequencies are \curlyquotes{first-class citizens}. The idea is to use each possible sinusoid by varying the frequency, add up their contributions, and weight the latter in the precise way that allows us to reconstruct our original signal. Let us fix a component $n \in [0, N - 1]$, and first consider only cosinusoids, for instance $$\cos(2 \pi \cdot 0 \cdot n) \quad \cos(2 \pi \cdot 1 \cdot n) \quad \cos(2 \pi \cdot 2 \cdot n) \quad \ldots \quad \cos(2 \pi \cdot (N - 1) \cdot n)$$ Basically, we are trying to construct a basis built on each possible frequency $f$ by obtaining a basis vector $\cos(2 \pi \cdot f \cdot n)$. Moreover, we will consider $\cos (2 \pi m n / N)$ for $m \in [0, N - 1]$ since it can be shown that the number of possible frequencies that can be represented on a $N$-sized time window is exactly $N$, and to scale the frequency accordingly we just need to divide $m$ over $N$, the size of the sample.
+
+Is this enough to reach our goal? Can we describe any signal in this way? Well, we observe that $m$ is ranging from $0$ to $N -1$, but $\cos(- \theta) = \cos(\theta)$, which implies that $$m > \dfrac{N}{2} \implies \cos(2 \pi m n/ N) = \cos(2 \pi (N - m) n / N)$$ In other words, basically half of our basis vectors add no information at all. Indeed, the span of the vectors we chose has size $$\dim \rbk{\mbox{span}\rbk{\cbk{\cos(2 \pi \cdot m\cdot n/ N)}_{m = 1}^{N - 1}}} = \soe{ll}{\tfrac{N}{2} + 1 & \mbox{$N$ is even} \\ \tfrac{N + 1}{2} & \mbox{$N$ is odd}} $$ where the last added 1 comes from the fact that when $m = 0$ we generate $\cos(0) = 1$ which is really linearly independent from the others cosines. This suggests that cosinusoids alone are not enough to describe our space.
+
+Hence, the most natural thing that we can do is add the contributions of sinusoids as well. A geometric interpretation of the fact that cosinusoids are not enough is that sinusoids are just phase-shifted cosines, but the shift in phase is not captured by changing the frequencies of the cosines alone. We need the contributions of some \curlyquotes{altered} cosinusoids --- in terms of phases --- to get an actual basis and be able to represent any possible vector. Hence, let's consider additional $N$ sinusoids $$\sin(2 \pi \cdot 0 \cdot n) \quad \sin(2 \pi \cdot 1 \cdot n) \quad \sin(2 \pi \cdot 2 \cdot n) \quad \ldots \quad \sin(2 \pi \cdot (N - 1) \cdot n)$$ Do we get a base of size more than $N$ then? We observe that $\sin(\theta) = - \sin (-\theta)$, therefore we have that $$m > \dfrac{N}{2} \implies \sin(2 \pi m n/N) = - \sin (2\pi (N - m) n/N)$$ which again it implies that half of these sinusoids add no useful information. However, in this case we also have the fact that $$\sin(2 \pi \cdot 0 \cdot n /M) =  \sin(0)  = 0$$ and for $N$ even it also happens that $$\sin(2\pi \cdot (N/2) \cdot n/N) = \sin(\pi n) = 0$$ which means that these two sinusoid cannot be considered because they are the 0 vector of this space. Therefore, we get that $$\dim \rbk{\mbox{span}\rbk{\cbk{\cos(2 \pi \cdot m\cdot n/ N)}_{m = 1}^{N - 1}}} = \soe{ll}{\tfrac{N}{2} - 1 & \mbox{$N$ is even} \\ \tfrac{N - 1}{2} & \mbox{$N$ is odd}}$$ Finally, this means that putting all these cosines and sinusoids together we form a base for a space that has size $$\soe{ll}{\tfrac{N}{2} + 1 + \tfrac{N}{2} - 1 = N & \mbox{$N$ is even} \\ \tfrac{N + 1}{2} + \tfrac{N - 1}{2} = N & \mbox{$N$ is odd}} = N$$ Hence, we can fully describe $\R^N$, namely for any vector $\mathbf x \in \R^N$ we have that $$\forall n \in [0, N- 1] \quad \mathbf x(n) = \sum_{m = 0}^{N - 1}{\alpha_m \cos(2\pi m n/N)} + \sum_{m = 0}^{N - 1}{\beta_m \sin(2\pi m n/N)}$$ by describing the vector component-wise.
+
+Furthermore, we observe that this basis is actually orthogonal. \todo{prove it, boring}
+
+Now, the last thing that we need to do is move into the complex space $\C^N$. Thankfully, we can leverage the very powerful Euler's formula $$e^{i \theta} = \cos \theta + i \sin \theta$$ to immediately some the contributions of cosinusoids and sinusoids into a single value $e^{2 \pi i m n/N}$. In other words, for any vector $\mathbf x \in \C^N$ it holds that $$\forall n \in [0, N - 1] \quad \mathbf x(n) = \sum_{m = 0}^{N - 1}{\gamma_m e^{2\pi i m n/N}}$$ The basis of this space is thus $$e^{2 \pi i \cdot 0 \cdot x / N} \quad e ^{2 \pi i \cdot 1 \cdot x / N } \quad \ldots \quad e^{2 \pi i \cdot (N - 1) \cdot n / N}$$ We observe that this basis is orthogonal as well, but it's not orthonormal in fact \todo{prove it, boring too} Hence, because the norm of each vector is
+\begin{equation*}
+    \begin{split}
+        \sqrt{\abk{e^{2 \pi i m n/N}|e^{2 \pi i mn/N}}} & = \sqrt{\sum_{n = 0}^{N - 1}{e^{2 \pi i mn/N} \cdot \overline{e^{2 \pi i mn/N}}}} \\ 
+                                                       & = \sqrt{\sum_{n = 0}^{N - 1}{\abs{e^{2 \pi i m n/ N}}^2}} \\ 
+                                                       & = \sqrt{\sum_{n = 0}^{N - 1}{1}} \\ 
+                                                       & = \sqrt N \\ 
+    \end{split}
+\end{equation*}
+we usually consider the same base but scaled by a factor of $\tfrac{1}{\sqrt N}$, i.e. $$\forall n \in [0, N - 1] \quad \mathbf x(n) = \dfrac{1}{\sqrt N}\sum_{m = 0}^{N - 1}{\delta_m e^{2\pi i m n/N}}$$ We define $\delta_m$ to be the $m$-th component of the \tbf{discrete Fourier transform} of $\mathbf x$, and the operation that reconstructs $\mathbf x(n)$ is called \tbf{inverse discrete Fourier transform}. In other words, the DFT of a vector computes the projection of said vector into the space $\C^N$ through the orthonormal basis $$\cbk{\tfrac{1}{\sqrt N}e^{2 \pi i m n/N}}_{m = 0}^{N - 1}$$ Indeed, we can compute the DFT by simply applying the matrix that performs the \tbf{change of basis}, but we will see the details of this idea in the next section.
+
+\section{The Quantum Fourier Transform}
+
+Now that we have a general understanding of what the DFT is, let's see how the matrix operation is actually defined.
+
+\begin{frameddefn}{$n$-th root of unity}
+    Given a commutative ring $R$, and a natural number $n \in N$, an element $\omega \in R$ is called \tbf{$n$-th root of unity} if $\omega ^n = 1$.
+\end{frameddefn}
+
+For instance, $-i$ is a $4$-th root of unity, in fact $(-i)^4 = 1$. We observe that, since multiplication in the complex plane is a rotation, the $n-$-th roots of 1 evenly divide the unit circle as shown below:
+
+TODO \todo{drawing}
+
+Now, among all possible $n$-th roots of unity we are going to provide a more specific definition. Let the \tbf{order of an $n$-th root of unity} $\omega$ be the smallest power $d$ such that $\omega^d = 1$. For instance, $(-1)^4 = 1$ indeed $-1$ is a $4$-th root of unity, however its order is 2 since $(-1)^2 = 1$ and $2 < 4$.
+
+\begin{frameddefn}{Principal $n$-th root of unity}
+    Given an $n$-th root of unity $\omega$, we say that $\omega$ is \tbf{principal} if and only if $\omega \neq 1$ and the order of $\omega$ is $n$.
+\end{frameddefn}
+
+In other words, the principal $n$-th root of unity is the first root (after 1) that we encounter on the unit circle. Indeed, thanks to Euler's formula we usually define the principal $n$-th principal root of unity as $$\omega := e^{2 \pi i /n}$$ since $\tfrac{2 \pi}{n}$ is the $n$-th slice of the unit circle. Furthermore, the second condition of the definition is usually not provided in terms of order of the root, and it's written as follows $$\forall p \in [n - 1] \quad \sum_{j = 0 }^{n - 1}{\omega^{jp}} = 0$$ Aside from the geometric interpretation of this sum, this is a finite complex geometric series with common ratio $\omega^p$, which implies that
+
+\begin{itemize}
+    \item if $\omega^p = 1$, then every term is $(\omega^p)^j = 1^j = 1$ for any $j$, meaning that the sum is equal to $$\sum_{j = 0}^{n - 1}{\omega^{jp }} = \sum_{j = 0}^{n - 1}{1} = n$$
+    \item if $\omega^p \neq 1$, then we know that $$\sum_{j = 0}^{n - 1}{\omega^{jp }} = \dfrac{1 - (\omega^p)^n}{1 - \omega^p}$$ and this ratio is equal to 0 if and only if $$1 - (\omega^p)^n = 0 \iff \omega^{pn} = 1$$
+\end{itemize}
+
+Therefore, we have that this sum is equal to 0 if and only if $\omega^p \neq 1$ and $\omega^{pn} = 1$. However, we observe that if $\omega^p = 1$, since $p \in [n - 1]$ this would imply that the order of $\omega$ is less than $n$, meaning that $\omega$ was not a principal root.
+
+Now that we presented roots of unity we can finally present how the DFT matrix is usually defined.
+
+\begin{frameddefn}{Discrete Fourier Transform}
+    Given a commutative ring $R$ of dimension $N$, the \tbf{Discrete Fourier Transform (DFT)} matrix in $R$ is defined as follows: $$\forall j,k \in [0, N - 1] \quad \mbox{DFT}_{jk} = \omega^{-jk}$$ where $\omega$ is the principal $N$-th root of unity.
+\end{frameddefn}
+
+Therefore, in general the DFT matrix looks like this: $$\mbox{DFT} := \rmat{1 & 1 & 1 & \cdots & 1 \\ 1 & \omega^{-1} & \omega^{-2} & \cdots & \omega^{-(N - 1)} \\ 1 & \omega^{-2} & \omega^{-4} & \cdots & \omega^{-2(N - 1)} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ 1 & \omega^{-(N - 1)} & \omega^{-2(N - 1)} & \cdots & \omega^{-(N - 1)^2}}$$
+
+Moreover, we usually define the DFT matrix by setting $\omega = e^{\tfrac{2 \pi i}{n}}$, thus getting $$\forall j , k \in [0, N - 1] \quad \mbox{DFT}_{jk} = e^{-2 \pi i j k /N}$$ Indeed, having presented the intuition behing the DFT beforehand, it's now fairly obvious the reason why the DFT matrix looks like this: its just the matrix that performs the change of basis, and since the basis of the DFT space can be defined in terms of $n$-th roots of unity, this is the matrix we get.
+
+Furthermore, not surprisingly the DFT matrix is invertible, in fact we have that $$\forall j , k \in [0, N - 1] \quad \mbox{IDFT}_{jk} = \mbox{DFT}^{-1}_{jk } = \dfrac{1}{N}\omega^{jk} = \dfrac{1}{N}e^{+2 \pi i j k /N}$$ and this matrix takes the name of \tbf{Inverse Discrete Fourier Transform (IDFT)}.
+
+Then, can't we just use the DFT matrix in quantum computations whenever we need it and be done? The problem is that the DFT matrix is clearly not unitary: if we look closely, we see that the columns of the DFT matrix are only orthogonal and not orthonormal. Thus, to solve this problem, we need to normalize the column vectors.
+
+\begin{frameddefn}{Quantum Fourier Transform}
+    Given a Hilbert space $\mathcal H$ of size $N$, the \tbf{Quantum Fourier Transform (QFT)} matrix in $\mathcal H$ is defined as follows: $$\forall j, k \in [0, N - 1] \quad \mbox{QFT}_{jk} = \dfrac{1}{\sqrt N}\omega^{jk}$$ where $\omega$ is the principal $N$-th root of unity.
+\end{frameddefn}
+
+We observe that the QFT matrix has positive exponents, which is just a convention employed in quantum computing. Therefore, we get the following matrix: $$\mbox{QFT} := \rmat{1 & 1 & 1 & \cdots & 1 \\ 1 & \omega & \omega^2 & \cdots & \omega^{N - 1} \\ 1 & \omega^2 & \omega^4 & \cdots & \omega^{2(N - 1)} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ 1 & \omega^{N - 1} & \omega^{2(N - 1)} & \cdots & \omega^{(N - 1)^2}}$$ In particular, for any $\ket x$ basis state, the quantum Fourier transform can also be expressed as follows: $$\mbox{QFT} \ket x = \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}e^{+2 \pi i x k/ N} \ket k$$ which directly implies that we can rewrite the QFT matrix as follows $$\mbox{QFT} = \sum_{j = 0}^{N - 1}{\rbk{\dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{e^{2 \pi i j k /N} \ket k}} \bra j }$$ thanks to \cref{U constr}.
+
+\begin{framedprop}[label={qft unitary}]{}
+    The QFT operator is a unitary, and in particular $$\mbox{QFT}^\dag  = \sum_{j = 0}^{N - 1}{\ket j \rbk{\dfrac{1}{\sqrt N} \sum_{k = 0}^{N  -1}{e^{-2 \pi i j k /N} \bra k}}}$$
+\end{framedprop}
+
+\begin{proof}
+    We will leave the proof of correctness of $\mbox{QFT}^\dag$ as an exercise, and we will focus on proving that the QFT operator is indeed unitary. To prove it, is satisfies to show that $$\mbox{QFT} ^\dag \ \mbox{QFT}  = \mbox{QFT} \ \mbox{QFT}^\dag  = I$$ We are going to prove the leftmost product first.
+    \begin{equation*}
+        % \hspace{-1.5cm}
+        \begin{alignedat}{2}
+            \mbox{QFT}^\dag \ \mbox{QFT} & = \sum_{j = 0}^{N - 1}{\ket j \rbk{\dfrac{1}{\sqrt N}\sum_{r = 0 }^{N - 1}{e^{-2 \pi i jr / N} \bra r}}} \sum_{k = 0}^{N - 1}{\rbk{\dfrac{1}{\sqrt N} \sum_{s = 0}^{N - 1}{e^{2 \pi isk/N} \ket s}} \bra k} & \\ 
+                                       & = \dfrac{1}{N} \sum_{j, k = 0}^{N - 1}{\ket j \rbk{\sum_{r = 0}^{N - 1}{e^{-2 \pi i jr/N} \bra r}} \rbk{\sum_{s = 0}^{N - 1}{e^{2 \pi i sk/N} \ket s}}\bra k} & \\ 
+                                       & = \dfrac{1}{N} \sum_{j, k = 0}^{N - 1}{\ket j \rbk{\sum_{r, s = 0}^{ N - 1}{e^{2 \pi i (-jr+ks)/ N} \braket{r|s}}}\bra k} & \\ 
+                                       & = \dfrac{1}{N} \sum_{j, k = 0}^{N - 1}{\ket j \rbk{\sum_{r = 0}^{ N - 1}{e^{2 \pi i r(k - j)/ N}}}\bra k} & \quad (\braket{r|s} = \delta_{rs}) \\ 
+                                       & = \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j = k}}^{N - 1}{\ket j \rbk{\sum_{r = 0}^{N - 1}{1}} \bra k} + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\sum_{r = 0}^{N - 1}{e^{2 \pi i r(k - j)/ N}}}\bra k} & \\ 
+                                       & = \dfrac{1}{N} \sum_{j = 0}^{N - 1}{\ket j \bra j} + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\sum_{r = 0}^{N - 1}{e^{2 \pi i r(k - j)/ N}}}\bra k} & \\ 
+                                       & = I + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\sum_{r = 0}^{N - 1}{e^{2 \pi i r(k - j)/ N}}}\bra k} & \quad (\mbox{resolution of $I$}) \\ 
+                                       & = I + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\sum_{r = 0}^{N - 1}{\rbk{e^{2 \pi i (k - j)/ N}}^r}}\bra k} & \quad (\mbox{resolution of $I$}) \\ 
+        \end{alignedat}
+    \end{equation*}
+    Now, we observe that the inner sum is a geometric series of ratio $e^{2 \pi i (k - j)/ N}$, and we can use its known result to simplify the calculations. However, we observe that this is true only if the ratio of the series is not equal to 1, but due to the way we split the sums we already took care of all the possible terms that could be equal to 1 so we do not need to make additional assumptions. Thus, we have that
+    \begin{equation*}
+        \begin{alignedat}{2}
+            \mbox{QFT}^\dag \ \mbox{QFT} & = I + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\sum_{r = 0}^{N - 1}{\rbk{e^{2 \pi i (k - j)/ N}}^r}}\bra k} & \\ 
+                                         & = I + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\dfrac{1 - \rbk{e^{2 \pi i(k - j)/ N}}^N}{1 - e^{2\pi i (k - j)/ N}}}\bra k} & \\ 
+                                       & = I + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\dfrac{1 - e^{2 \pi i(k - j)}}{1 - e^{2\pi i (k - j)/ N}}}\bra k} & \\ 
+        \end{alignedat}
+    \end{equation*}
+    Lastly, since $k - j$ is an integer for any $j, k \in [0, N - 1]$ --- and in particular whenever $j \neq k$ --- it holds that $$e^{2 \pi i (k - j )} = \cos(2 \pi i (k - j)) + i \sin(2 \pi i (k - j)) = 1$$ Therefore, the numerator is always equal to $1 - 1 = 0$, so the sum vanishes. However, we need to check that the denominator is well defined too: we observe that $$e^{2 \pi i (k - j) / N} = \cos(2 \pi i (k - j)) + i \sin(2 \pi i (k - j))$$ and this is never equal to 1 because $(k - j )/ N$ is always not an integer since $j \neq k$ due to how we split the sums. Finally, we can conclude that $$\mbox{QFT}^\dag \ \mbox{QFT} = I + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\dfrac{1 - 1}{1 - e^{2\pi i (k - j)/ N}}}\bra k} = I$$
+
+    TODO \todo{prove the second product}
+\end{proof}
+
+\subsection{The quantum circuit}
+
+The previous section showed how the QFT matrix operator is defined, why its unitary and its similarities with the DFT. It's finally time to address the most important question: how do we turn the QFT matrix into a quantum circuit? Assume that $N = 2^n$, and consider the definition we provided $$\mbox{QFT} \ket x = \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}e^{+2 \pi i x k/ N} \ket k$$ The problem arises because we are using fractional exponents, however $x \in \B^n$. To solve this issue, we need to take a closer look at the exponent. Since $x \in \B^n$, there exist some bits $x_1, \ldots, x_n \in \B$ such that $x$ can be written as $$x = x_1 \cdot 2^{n - 1} + \ldots + x_n \cdot 2^{0}$$ Since $k \in [0, N- 1]$, we can also define such $k_1, \ldots, k_n \in \B$, and we can see what happens when we evaluate $xk/N$:
+\begin{equation*}
+    \begin{split}
+        kx/N & = \dfrac{\rbk{k_1 \cdot 2^{n - 1} + \ldots + k_n \cdot 2^0} \cdot \rbk{x_1 2^{n - 1} + \ldots + x_n 2^0}}{2^n} \\ 
+             & = \rbk{k_1 \cdot 2^{n - 1} + \ldots + k_n \cdot 2^0} \cdot \rbk{x_1 \cdot \dfrac{2^{n - 1}}{2 ^ n} + \ldots + x_n \cdot \dfrac{2^0}{2^n}} \\ 
+             & = \rbk{k_1 \cdot 2^{n - 1} + \ldots + k_n \cdot 2^0} \cdot 0.x_1 \ldots x_n \\ 
+             & = k_1 \cdot 2^{n - 1} \cdot 0.x_1 \ldots x_n + \ldots + k_n \cdot 2^0 \cdot  0.x_1 \ldots x_n
+    \end{split}
+\end{equation*}
+This is true because we recall that $$0.x_1 \ldots x_n = x_1 \cdot 2^{-1} + \ldots + x_n \cdot 2^{-n}$$ and since we are computing $x / N$ and $N = 2^n$ what we get is just a \curlyquotes{displacement of the decimal point}, but in binary. Now, we observe that $$\forall \ell \in [n] \quad 2^{n - \ell} \cdot 0.x_1 \ldots x_n = x_1 \ldots x_{n - \ell} . x_{n - \ell + 1} \ldots x_n$$ since again, we are just moving the decimal point $n - \ell$ times to the right. Therefore, we get that
+\begin{equation*}
+    \begin{split}
+        kx/N & = k_1 \cdot x_1 \ldots x_{n - 1}. x_n + \ldots + k_n 0.x_1 \ldots x_n \\ 
+             & = k_n \cdot 0.x_1 \ldots x_n + \sum_{h = 1}^{n - 1}{k_h \cdot x_1 \ldots x_{n - h}.x_{n - h + 1} \ldots x_n}
+    \end{split}
+\end{equation*}
+we observe that we need to put $0.x_1 \ldots x_n$ just because we cannot include it in the same sum. Now, let's see what happens when we put this term at the exponent:
+\begin{equation*}
+    \begin{split}
+         & e^{2 \pi i k x /N} \\ 
+        = & \exp(2 \pi i k x /N) \\ 
+                          =&  \exp\rbk{2 \pi i \rbk{ k_n0.x_1 \ldots x_n + \sum_{h = 1}^{n-1}{k_h \cdot x_1 \ldots x_{n - h}.x_{n - h + 1} \ldots x_n}}} \\ 
+                          =&  \exp(2 \pi i k_n0.x_1 \ldots x_n  ) \cdot \exp\rbk{2 \pi i \sum_{h = 1}^{n-1}{k_h \cdot x_1 \ldots x_{n - h}.x_{n - h + 1} \ldots x_n}} \\ 
+                          =&  \exp(2 \pi i k_n0.x_1 \ldots x_n  ) \cdot \exp\rbk{2 \pi i \sum_{h = 1}^{n - 1}{k_h \cdot \rbk{x_1 \ldots x_{n - h}} + 2 \pi i \sum_{h = 1}^{n - 1}{k_h \cdot 0.x_{n - h + 1}} \ldots x_n}} \\ 
+                          =& \exp(2 \pi i k_n0.x_1 \ldots x_n  ) \cdot \exp\rbk{2 \pi i \sum_{h = 1}^{n - 1}{k_h \cdot \rbk{x_1 \ldots x_{n - h}}}} \cdot \exp \rbk{ 2 \pi i \sum_{h = 1}^{n-1}{k_h \cdot 0.x_{n - h + 1}} \ldots x_n} \\ 
+                          =& \exp(2 \pi i k_n0.x_1 \ldots x_n  ) \cdot 1 \cdot \exp \rbk{ 2 \pi i \sum_{h = 1}^{n-1}{k_h \cdot 0.x_{n - h + 1}\ldots x_n} } \\ 
+    \end{split}
+\end{equation*}
+The last semplitifcation derives immediately from the fact that $e^{2 \pi i \theta} = 1$ when $\theta$ is an integer, as we mentioned in the previous section, so that is what we are left with --- since $x_1 \ldots x_{n - h}$ is definitely an integer. We can proceed as follows:
+\begin{equation*}
+    \begin{split}
+          & \mbox{QFT} \ket x \\ 
+        = & \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\rbk{\exp(2 \pi i k_n0.x_1 \ldots x_n  ) \cdot \exp \rbk{ 2 \pi i \sum_{h = 1}^{n-1}{k_h \cdot 0.x_{n - h + 1}\ldots x_n}} }\ket k } \\ 
+        = & \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\rbk{\exp(2 \pi i k_n0.x_1 \ldots x_n  ) \cdot \exp \rbk{ 2 \pi i \sum_{m = 2}^{n}{k_{n - m + 1} \cdot 0.x_m\ldots x_n} }}\ket k } \\ 
+        = & \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\exp \rbk{2 \pi i \sum_{m = 1}^n{k_{n - m + 1} \cdot 0. x_m \ldots x_n}}\ket k } \\ 
+        = & \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{\prod_{m = 1}^n{\exp \rbk{2 \pi i k_{n - m + 1} \cdot 0.x_m \ldots x_n}} \ket k} \\ 
+    \end{split}
+\end{equation*}
+If we look closely, this sum of products as an interesting property:
+
+\begin{itemize}
+    \item $m = 1 \implies k_{n- m + 1} = k_{n - 1 + 1} = k_n$
+    \item $m = n \implies k_{n - m + 1} = k_{n -n +1} = k_1$
+\end{itemize}
+
+implying that it can be rewritten as follows $$\dfrac{1}{\sqrt N}\sum_{k = 0}^{N - 1}{\rbk{e^{2 \pi i k_n \cdot 0.x_1 \ldots x_n} \cdot \ldots \cdot e^{2 \pi i k_1 \cdot 0.x_n}}}$$ In other words the bits of $k$ are \tit{indexing} which exponentials to use in the $k$-th coefficient of the sum. This means that we can rewrite the last step as follows: $$\mbox{QFT} \ket x =  \dfrac{1}{\sqrt N} \bigotimes_{m = 1}^n{\rbk{\ket 0 + e^{2\pi i 0.x_m \ldots x_n} \ket 1}}$$ Finally, the QFT written in this form can be actually implemented in a quantum circuit. \todo{da finire sonostufo}
+
+\section{Quantum Phase Estimation}
+
+Let's see a very useful application of the QFT introduced by \textcite{qpe} in 1995. By \cref{spectral thm} we know that the eigenvalues of a unitary operator are complex values of modulus 1. This means that any eigenvalue of a unitary operator can be ewritten as $e^{2 \pi i \varphi}$ for some real value $\varphi \in [0, 1]$ --- $\varphi$ being the \tit{phase} of the complex value, i.e. the angle w.r.t. the unitary circumference.
+
+Given a unitary operator $U$, and an eigenvalue $\lambda = e^{2 \pi i \varphi}$, can we determine $\varphi$? Let $u$ be an eigenvector associated to the unknown eigenvalue $\lambda$, i.e. $$U \ket u  = \lambda \ket u = e^{2 \pi i \varphi} \ket u$$ Now, let $U^{2^k}$ be the quantum gate that applies the $U$ operator $2^k$ times repeatedly, and define the following operator $$\mbox{C-} U^{2^k} = \ket 0 \bra 0 \otimes I + \ket 1 \bra 1 \otimes U^{2^k}$$ This operator is the \tbf{controlled} version of $U^{2^k}$, and it can easily be showed by plugging $\ket 0$ and $\ket 1$ as first argument --- alongside with some other quantum state $\ket \psi$
+\begin{equation*}
+    \begin{split}
+        \mbox{C-}U^{2^k} (\ket 0 \otimes \ket \psi) & = (\ket 0 \bra 0 \otimes I + \ket 1 \bra 1 \otimes U^{2^k}) (\ket 0 \otimes \ket \psi) \\ 
+                                                    & = (\ket 0 \bra 0 \otimes I)\ket 0 \otimes \ket \psi  + (\ket 1 \bra 1 \otimes U^{2^k} )\ket 0 \otimes \ket \psi \\ 
+                                                    & = \ket 0 \otimes \ket \psi \\ 
+    \end{split}
+\end{equation*}
+Hence, if the first input is $\ket 0$ the state $\ket \psi$ is unchanged, otherwise if the former is $\ket 1$ we get that we actually apply $U^{2^k}$ to $\ket \psi$:
+\begin{equation*}
+    \begin{split}
+        \mbox{C-}U^{2^k} (\ket 1 \otimes \ket \psi) & = (\ket 0 \bra 0 \otimes I + \ket 1 \bra 1 \otimes U^{2^k}) (\ket 1 \otimes \ket \psi) \\ 
+                                                    & = (\ket 0 \bra 0 \otimes I)\ket 1 \otimes \ket \psi + (\ket 1 \bra 1 \otimes U^{2^k}) \ket 0 \otimes \ket \psi \\ 
+                                                    & = \ket 1 \otimes U^{2^k} \ket \psi
+    \end{split}
+\end{equation*}
+Indeed, in general if we have an operator $V$, its controlled version can be easily built in this manner.
+
+However, this controlled gate can also be \curlyquotes{abused}: what happens if the control bit is a superposition of states? In particular, what happens when the control is set to $$\ket + = \dfrac{1}{\sqrt 2}(\ket 0 + \ket 1)$$ meaning that $\ket 0$ and $\ket 1$ are equally probable?
+\begin{equation*}
+    \begin{split}
+        \mbox{C-}U^{2^k}(\ket + \otimes \ket \psi) & = \dfrac{1}{\sqrt 2} \mbox{C-}U^{2^k}(\ket 0 \otimes \ket \psi + \ket 1 \otimes \ket \psi) \\ 
+                                                   & = \dfrac{1}{\sqrt 2} (\mbox{C-}U^{2^k}(\ket 0 \otimes \ket \psi) + \mbox{C-}U^{2^k}(\ket 1 \otimes \ket \psi)) \\ 
+                                                   & = \dfrac{1}{\sqrt 2} ((\ket 0 \otimes \ket \psi) + (\ket 1 \otimes U^{2^k} \ket \psi))
+    \end{split}
+\end{equation*}
+As we would expect, what happens is that the two outcomes we previously described are now equally likely, but this gets interesting if we carefully choose the target qubit. Instead of any possible $\ket \psi$, let's pick $\ket u$, the eigenvector presented at the beginning of the discussion. First, we observe that $U \ket u = e^{2 \pi i \varphi} \ket u \implies U^{2^k} \ket u = \rbk{e^{2 \pi i \varphi}}^{2^k} \ket u = e^{2 \pi i 2^k \varphi} \ket u$ Indeed, intuitively we are just performing the rotation that $U$ performs on $\ket u$ exactly $2^k$ times. This means that
+\begin{equation*}
+    \begin{split}
+        \mbox{C-}U^{2^k}(\ket + \otimes \ket u) & = \dfrac{1}{\sqrt 2} ((\ket 0 \otimes \ket u) + (\ket 1 \otimes U^{2^k} \ket u)) \\ 
+                                                & = \dfrac{1}{\sqrt 2} ((\ket 0 \otimes \ket u) + (\ket 1 \otimes e^{2\pi i 2^k \varphi}\ket u)) \\ 
+                                                & = \dfrac{1}{\sqrt 2} (\ket 0 + e^{2 \pi i 2^k \varphi} \ket 1) \otimes \ket u
+    \end{split}
+\end{equation*}
+Notice what happened here: $\ket 0$ and $\ket 1$ are parts of the first input, and $\ket u$ is the second input. In other words, by putting $\ket u$ as target input of the controlled gate, the target is \tbf{unchanged}, and the effect is seen on the control. We observe that this could not have been done with any other state $\ket \psi$ because the trick works precisely because $U$ becomes a scalar $e^{2 \pi i \varphi}$ when applied to $\ket u$, so it can be grouped as shown. The following quantum circuit computes the \tbf{Quantum Phase Estimation (QPE)} algorithm, and it uses precisely this trick.
+
+\centeredimage[The Quantum Phase Estimation circuit.]{0.6}{../assets/qpe.png}
+
+The circuit is composed of the following elements: \todo{fixa l'immagine che la misurazione non va bene scritta cosi}
+
+\begin{itemize}
+    \item the first are $t > 0$ qubits $\ket{0^t}$ to which we apply $H^{\otimes t}$ at the beginning of the algorithm, which means now each state is set to $\ket +$
+    \item the $(t + 1)$-th register is a qubit set to $\ket u$ --- we are not going to cover the practical details about how to set a qubit to this precise quantum state
+    \item these superpositions are used as control to the lower part of the circuit, which conditionally computes $U^{2^k}$ for each $k \in [0, t - 1]$
+    \item at the end we compute $\mbox{QFT}^\dag$ to the first $t$ registers
+\end{itemize}
+
+The interesting part of this circuit is that the last register remains unchanged throughout the whole computation, set precisely to $\ket u$, for the reason we described earlier. In fact, what happens is that what we are actually changing are the first $t$ qubits which will be chaned according to the $k$-th controlled gate we are using. Therefore, if we compute what happens through the QPE circuit we get the following --- we will refer to the first $t$ registers as $q_0, \ldots, q_{t - 1}$:
+\begin{equation*}
+    \hspace{-1cm}
+    \begin{split}
+        & \ket{q_0 \cdots q_{t - 1}} \otimes \ket u \\ 
+        = & \ket{0}^{\otimes t} \otimes \ket u \\ 
+        \xrightarrow{H(q_0)} & H(\ket{0}_{q_0}) \otimes \ket{0}^{\otimes t - 1} \otimes \ket u \\ 
+        = & \ket +_{q_0} \otimes \ket{0}^{\otimes t - 1} \otimes \ket u \\ 
+        = & \ket +_{q_0} \otimes \ket u \otimes \ket{0}^{\otimes t - 1} \\ 
+        \xrightarrow{\mathrm{C}\mbox{-}U^{2^0}(q_0, \ket u)} & \mbox{C-}U^{2^0}(\ket + \otimes \ket u) \otimes \ket{0}^{\otimes t - 1} \\ 
+ & \dfrac{1}{\sqrt 2}(\ket{0}_{q_0} + e^{2 \pi i 2^0 \varphi} \ket 1_{q_0}) \otimes \ket u \otimes \ket{0}^{\otimes t - 1} \\ 
+        = & \dfrac{1}{\sqrt 2}(\ket{0}_{q_0} + e^{2 \pi i 2^0 \varphi} \ket 1_{q_0}) \otimes \ket{0}^{\otimes t - 1} \otimes \ket u \\ 
+        = & \dfrac{1}{\sqrt 2}(\ket{0}_{q_0} \otimes \ket{0}^{\otimes t - 1}  + e^{2 \pi i 2^0 \varphi} \ket{1}_{q_0} \otimes \ket{0}^{\otimes t - 1}) \otimes \ket u \\ 
+        \xrightarrow{H(q_1)} & \dfrac{1}{\sqrt 2}(\ket 0_{q_0} \otimes H(\ket{0}_{q_1}) \otimes \ket{0}^{\otimes t - 2}  + e^{2 \pi i 2^0 \varphi} \ket 1_{q_0} \otimes H(q_1) \otimes \ket{0}^{\otimes t - 2}) \otimes \ket u \\ 
+        = & \dfrac{1}{2} \rbk{\ket{00}_{q_0 q_1} + \ket{01}_{q_0 q_1} + e^{2 \pi i 2^0 \varphi}\ket{10}_{q_0 q_1} + e^{2 \pi i 2^0 \varphi} \ket {11}_{q_0 q_1}} \otimes \ket{0}^{\otimes t - 1} \otimes \ket u \\ 
+        \xrightarrow{\mathrm{C}\mbox{-}U^{2^1}(q_1, \ket u)} & \dfrac{1}{2}\rbk {\ket{00}_{q_0 q_ 1} + e^{2 \pi i 2^1 \varphi} \ket{01}_{q_0 q_1} + e^{2 \pi i 2^0 \varphi} \ket{10}_{q_0 q_1} + e^{2 \pi i (2^0 + 2^1) \varphi} \ket{11}_{q_0 q_1}} \otimes \ket{0}^{\otimes t - 1} \otimes \ket u \\ 
+        \xrightarrow{\ldots} & \ldots \\ 
+        = & \dfrac{1}{\sqrt {2^t}} \sum_{k = 0}^{2^t - 1}{\prod_{m = 1}^{t}{e^{2 \pi i k_{t - m + 1} \cdot 2 ^{m - 1} \varphi} \ket k}} \otimes \ket u \\ 
+        = & \dfrac{1}{\sqrt {2^t}} \bigotimes_{m = 1}^{t} {\rbk{\ket 0 + e^{2 \pi i 2^{m - 1} \varphi} \ket 1}} \otimes \ket u \\ 
+    \end{split}
+\end{equation*}
+Furthermore, we obseve that $\varphi \in [0, 1)$, because as we already metioned there is no need to consider the integral part of the phases. Thus, suppose that $\varphi$ can be written through $t$ bits $\varphi_1, \ldots, \varphi_t \in \B$ such that $$\varphi = 0.\varphi_1 \ldots \varphi_t$$ This implies that
+\begin{equation*}
+    \begin{split}
+        2^{m - 1} \cdot \varphi & = 2^{m - 1} \cdot 0.\varphi_1 \ldots \varphi_t \\ 
+                                & = \varphi_1 \ldots \varphi_{m - 1}. \varphi_m \ldots \varphi_t \\ 
+    \end{split}
+\end{equation*}
+Thus, since this is the exponent of $e^{2 \pi i}$, we already know that $$\exp(2 \pi i \varphi_1 \ldots \varphi_{m - 1} . \varphi_m \ldots \varphi_t) = \exp(2 \pi i 0. \varphi_m \ldots \varphi_t)$$ therefore the ternsor product can be rewritten as $$\dfrac{1}{\sqrt{2^t}} \bigotimes_{m = 1}^{t}{(\ket 0 + e^{2 \pi i 0.\varphi_m \ldots \varphi_t} \ket 1)}$$ Very elegantly, this is exactly $\mbox{QFT}_t \ket \varphi$ we computed in the previous section (only applied in a $t$-dimensional space). Finally, if we place the inverse QFT --- namely $\mbox{QFT}_t^\dag$ --- at the end of the circuit we retrieve $\ket x$ itself, which is also the entire state of the system at this point (without considering $\ket u$). This means that if we measure each register at the end of the circuit we retrieve the bits of $\varphi_i \in \B^t$ --- i.e. the bits that describe $\varphi$ --- with probability 1. In the end, we recovered the phase $\varphi$ of the eigenvalue associated to $\ket u$ with probability 1. \todo{scrivere QPE come alg}
+
+As a final note, what if $\varphi$ cannot be expressed in exactly $t$ bits? It can be shown that $\varphi$ can be estimated with $n$ bits of precision through a QPE circuit composed of $n + \ceil{\log(2 + \tfrac{1}{2 \varepsilon})}$ qubits with a success probability at least $1 - \varepsilon$, for some $\varepsilon > 0$.
+
+\section{Order-finding problem}
+
+The last ingredient that we need for Shor's algorithm is the \tbf{order-finding} algorithm. We recall the following property of number theory.
+
+\begin{framedprop}{Euclidean division}
+    Given some $p \in \N_{> 0}$, for any $n \in \N$ there exists unique integers $q, r \in \Z$ such that $0 \le r < p$ and $$n = p \cdot q + r$$
+\end{framedprop}
+
+This is the usual division with remainder, which defines modular arithmetic, for instance $$31 = 4 \cdot 7 + 3$$ Indeed, with equivalence classes we would write that $$31 \equiv 3 \bmod 7$$
+
+\begin{frameddefn}{Order of a number}
+    Given a number $N \in \N$, for any $x \in \Z$ the \tbf{order} of $x$ modulo $N$ is the least integer $r$ such that $$x^r \equiv 1 \bmod N$$
+\end{frameddefn}
+
+For instance, the order of 4 modulo 7 is 3, because $$4^3 = 64 = 9 \cdot 7 + 1 \implies 4^3 \equiv 1 \bmod 7$$ We observe that throughout our discussion $N$ is \tit{not necessarily} a power of 2 as we used to assume in previous sections, however the symbol $N$ is conventionally used in this context.
+
+Given a number $N$, and a number $x < N$ that is coprime with $N$, can we compute its order modulo $N$? This is the so called \tbf{order-finding problem}, and currently there is no classical algorithm able to solve it in polynomial time. Let's see what quantum computation can achieve.
+
+Consider the following unitary operator $U_x$ that computes as follows: $$\forall y \in \{0, 1\}^k \quad U_x \ket y = \soe{ll}{\ket{xy \bmod N} & y < N \\ \ket y & y \ge N}$$ To derive the complete operator $U_x$ we just follow \cref{U constr}:
+\begin{equation*}
+    \begin{split}
+        U_x & = \sum_{y \in \{0, 1\}^k}{U_x \ket y \bra y} \\ 
+            & = \sum_{y < N}{U_x \ket y \bra y} + \sum_{y \ge N}{U_x \ket y \bra y} \\ 
+            & = \sum_{y < N}{U_x \ket y \bra y} + \sum_{y \ge N}{\ket y  \bra y} \\ 
+    \end{split}
+\end{equation*}
+We will not replace $U_x$ inside the first sum for now in order to prove that $U_x$ is unitary. But first, we need to present a result in number theory.
+
+\begin{framedthm}[label={number theory}]{}
+    If $x$ and $N$ are coprime, it holds that $$\forall y, z \in \Z \quad xy \equiv xz \bmod N \iff y \equiv z \bmod N$$
+\end{framedthm}
+
+\begin{framedprop}{}
+    The operator $U_x$ is unitary, and in particular $$U_x^\dag = \sum_{y < N}{\ket y (U_x \ket y)^\dag} + \sum_{y \ge N}{\ket y \bra y}$$
+\end{framedprop}
+
+\begin{proof}
+    It is easy to prove the correctness of $U_x^\dag$, so we are going to prove that $U_x$ is unitary directly.
+    \begin{equation*}
+        \begin{split}
+            U_x^\dag U_x & = \rbk{\sum_{y < N}{\ket y (U_x \ket y)^\dag} + \sum_{y \ge N}{\ket y \bra y}}\rbk{\sum_{z < N}{U_x \ket z \bra z} + \sum_{z \ge N}{\ket z  \bra z}} \\ 
+                         & = \rbk{\sum_{y < N}{\ket y \bra{U_x y}} + \sum_{y \ge N}{\ket y \bra y}} \rbk{\sum_{z < N}{\ket{U_x z} \bra z} + \sum_{z \ge N}{\ket z \bra z}} \\ 
+                         & = \sum_{y, z < N}{\ket y \braket{U_x y | U_x z} \bra z} + \sum_{\substack{y < N \\ z \ge N}}{\ket y \braket{U_x y| z} \bra z} + \sum_{\substack{y \ge N \\ z < N}}{\ket y \braket{y |U_xz} \bra z} + \sum_{y, z \ge N}{\ket y \braket{y|z} \bra z} \\ 
+        \end{split}
+    \end{equation*}
+    Now we observe that if $z > N$ and $y \le N$, by definition of $U_x$ we have that $U_x \ket y = \ket{xy \bmod N}$, hence it will be a basis state among $\ket 0, \ldots, \ket{N - 1}$. Therefore, if $z > N$ we are guaranteed that $\ket z$ and $\ket{U_x y}$ are orthogonal, i.e. $\braket{U_xy|z} = 0$ --- we recall that $N$ is \tit{not} the size of the space in this context, is just a composite number, indeed the size of the space we are considering is $2^k$. Therefore, we have that $$ \sum_{\substack{y < N \\ z \ge N}}{\ket y \braket{U_x y| z} \bra z} = \sum_{\substack{y \ge N \\ z < N}}{\ket y \braket{y |U_xz} \bra z} = 0$$ so we conclude that
+    \begin{equation*}
+        \begin{alignedat}{2}
+            U_x^\dag U_x & = \sum_{y, z  < N}{\ket y \braket{U_x y | U_x z} \bra z} + \sum_{\substack{y < N \\ z \ge N}}{\ket y \braket{U_x y| z} \bra z} + \sum_{\substack{y \ge N \\ z < N}}{\ket y \braket{y |U_xz} \bra z} + \sum_{y, z \ge N}{\ket y \braket{y|z} \bra z} & \\ 
+                         & = \sum_{y, z < N}{\ket y \braket{U_x y | U_x z} \bra z} + \sum_{y, z \ge N}{\ket y \braket{y|z} \bra z} & \\ 
+                         & = \sum_{\substack{y, z < N : \\ y \equiv z \bmod N}}{\ket y \braket{U_xy |U_xz} \bra z} + \sum_{\substack{y, z < N : \\ y \not\equiv z \bmod N}}{\ket y \braket{U_xy |U_xz} \bra z} + \sum_{y , z \ge N}{\ket y \braket{y|z} \bra z} & \\ 
+        \end{alignedat}
+    \end{equation*}
+    To progress, we observe that when $y, z \le N$ we get that $$\braket{U_x y | U_x z} = \braket{xy \bmod N | xz \bmod N} = \soe{ll}{1 & xy \equiv xz \bmod N \\ 0 & \mbox{otherwise}}$$ and by \cref{number theory} we know that $$xy \equiv xz \bmod N \iff y \equiv z \bmod N$$ thus getting
+    \begin{equation*}
+        \begin{alignedat}{2}
+            U_x^\dag U_x & = \sum_{\substack{y, z < N : \\ y \equiv z \bmod N}}{\ket y \braket{U_xy |U_xz} \bra z} + \sum_{\substack{y, z < N : \\ y \not\equiv z \bmod N}}{\ket y \braket{U_xy |U_xz} \bra z} + \sum_{y , z \ge N}{\ket y \braket{y|z} \bra z} & \\ 
+                         & = \sum_{\substack{y, z < N : \\ y \equiv z \bmod N}}{\ket y  \bra z} + \sum_{y , z \ge N}{\ket y \braket{y|z} \bra z} & \\ 
+                         & = \sum_{\substack{y, z < N : \\ y = z}}{\ket y  \bra z} + \sum_{y , z \ge N}{\ket y \delta_{yz} \bra z} \\ 
+                         & = \sum_{\substack{y < N}}{\ket y  \bra y} + \sum_{y \ge  N}{\ket y  \bra y} &  \\
+                         & = \sum_{y}{\ket y \bra y} & \\ 
+                         & = I & \\ 
+        \end{alignedat}
+    \end{equation*}
+
+    Now, we need to prove the opposite product \todo{da fare}
+\end{proof}
+
+We did not provide any reason to why we defined the operator $U_x$ as such, but before giving a geometrical intuition consider the following proposition.
+
+\begin{framedthm}{}
+    Given $N \in \N$, and $x \in [0, N - 1]$, if $r$ is the order of $x$ modulo $N$, it holds that $$\forall s \in [0, r - 1] \quad \ket{u_s} = \dfrac{1}{\sqrt r} \sum_{k = 0}^{r - 1}{e^{-2 \pi i sk/r} \ket{x^k \bmod N}}$$ is an eigenvector of $U_x$.
+\end{framedthm}
+
+\begin{proof}
+    Fix $s \in [0, r - 1]$; to prove that $\ket{u_s}$ is an eigenvector of $U_x$ we need to show that there exists some phase $\varphi_s$ such that $$U_x \ket{u_s} = e^{2 \pi i \varphi_s} \ket{u_s}$$ because of \cref{spectral thm}. Hence, we get that
+    \begin{equation*}
+        \hspace{-1cm}
+        \begin{alignedat}{2}
+            U_x \ket{u_s} & = U_x \rbk{\dfrac{1}{\sqrt r} \sum_{k = 0}^{r - 1}{e^{-2 \pi i sk/r} \ket{x^k \bmod N}}} & \\ 
+                          & = \dfrac{1}{\sqrt r} \sum_{k = 0}^{r - 1}{e^{-2 \pi i sk/r} U_x \ket{x^k \bmod N}} & \\ 
+                          & = \dfrac{1}{\sqrt r} \sum_{k = 0}^{r - 1}{e^{-2 \pi i sk/r}  \ket{x\rbk{x^k \bmod N} \bmod N}} & \quad \rbk{x^k \bmod N < N} & \\ 
+                          & = \dfrac{1}{\sqrt r} \sum_{k = 0}^{r - 1}{e^{-2 \pi i sk/r}  \ket{x^{k + 1} \bmod N \bmod N}} & \\ 
+                          & = \dfrac{1}{\sqrt r} \sum_{k = 0}^{r - 1}{e^{-2 \pi i sk/r}  \ket{x^{k + 1} \bmod N}} &  \\ 
+                          & = \dfrac{1}{\sqrt r} \cdot \dfrac{e^{2 \pi i s/r}}{e^{2 \pi i s/r}} \cdot \sum_{k = 0}^{r - 1}{e^{-2 \pi i sk/r} \ket{x^{k + 1} \bmod N}} & \\ 
+                          & = \dfrac{1}{\sqrt r}  e^{2 \pi i s/r} \cdot \sum_{k = 0}^{r - 1}{e^{-2 \pi i s(k + 1)/r}  \ket{x^{k + 1} \bmod N}} & \\ 
+                          & = \dfrac{1}{\sqrt r} \cdot e^{2 \pi i s/r} \rbk{\sum_{k = 0}^{r - 2}{e^{-2 \pi i s(k + 1)/r}  \ket{x^{k + 1} \bmod N}} + e^{ - 2 \pi i s r /r} \ket{x^r \bmod N}} & \\ 
+                          & = \dfrac{1}{\sqrt r}  e^{2 \pi i s/r} \rbk{\sum_{k = 0}^{r - 2}{e^{-2 \pi i s(k + 1)/r}  \ket{x^{k + 1} \bmod N}} + e^{ - 2 \pi i s} \ket{1}} & \quad (x^r \equiv 1 \bmod N) \\ 
+                          & = \dfrac{1}{\sqrt r} e^{2 \pi i s/r} \rbk{\sum_{m = 1}^{r - 1}{e^{-2 \pi i s m /r}  \ket{x^m \bmod N}} +  \ket{1}} & \\ 
+                          & = \dfrac{1}{\sqrt r}  e^{2 \pi i s/r} \rbk{\sum_{m = 0}^{r - 1}{e^{-2 \pi i s m /r}  \ket{x^m \bmod N}}} & \quad (\ket 1 = \ket{x^0 \bmod N})\\ 
+                          & = e^{2 \pi i s/r}  \ket {u_s} \\
+        \end{alignedat}
+    \end{equation*}
+    Therefore, we conclude that $\varphi_s = s/r$.
+\end{proof}
+
+TODO \todo{intuizione geometrica}
+
+What happenns if the input of $U_x$ is $\ket{x^0}$? By definition of our problem $x < N$, therefore $$U_x \ket{x^0} = \ket{x \cdot x^0 \bmod N} = \ket{x^1 \bmod N}$$ Indeed in general it's easy to see that $$U_x \ket{x^k} = \ket{x^{k + 1} \bmod N}$$ In other words $U_x$ is cycling through $x$'s powers, which also implies that when $k = r - 1$ we get that $$U_x \ket{x^{r - 1}} = \ket{x^r \bmod N} = \ket{1 \bmod N}$$ since $r$ is the order of $x$ modulo $N$. Moreover, as we already know these are basis states so they are both normalized and orthogonal to each other, thus the powers $x$ form an orthonormal base of the following space $$\mathcal H_r = \mbox{span}\rbk{\ket{x^k \bmod N} \mid k \in [0, r - 1]}$$ which is a restriction of the whole Hilbert space that has exactly $r$ dimensions. Now look again at how the eigenvectors of $U_x$ are defined: $$\forall s \in [0, r - 1] \quad \ket{u_s} = \dfrac{1}{\sqrt r} \sum_{k = 0}^{r - 1}{e^{-2 \pi i sk/r} \ket{x^k \bmod N}}$$ This looks very similar to how we defined $\mbox{QFT} \ket x$: $$\mbox{QFT} \ket x = \dfrac{1}{\sqrt N} \sum_{k = 0}^{N - 1}{e^{2 \pi i x k / N} \ket k}$$ Indeed, it holds that $\ket{u_s}$ is basically $\mbox{QFT} \ket s$ but taken inside $\mathcal H_r$ --- the only difference being the sign of the exponent, ndeed it technically holds that $$\ket{u_s} = \mbox{QFT}_r \ket{- s \bmod r}$$ but as we said the sign of the exponent is just a convention either sign is found in literature, we only need to be consistent with the calculations. \todo{non ho capito che c'entra però}
+
+The most interesting part is that, as proved in the last theorem, for any fixed $s \in [0, N - 1]$ its associated phase $\varphi_s$ is exactly $s/r$, thus if we knew how to prepare the last register of the QPE as $\ket{u_s}$ we could recover its phase, and maybe get closer to know $r$ itself. However, we have two probems with this idea:
+
+\begin{itemize}
+    \item there is really no easy or practical way to prepare the second register to some arbitrary state
+    \item $\ket{u_s}$ actually depends on $r$ itself, which actually is a very big problem on its own
+\end{itemize}
+
+Thankfully, the following property will solve both of these issues at the same time.
+
+\begin{framedprop}{}
+    Given $N \in \N$, and $x \in [0, N - 1]$, if $r$ is the order of $x$ modulo $N$ it holds that $$\dfrac{1}{\sqrt r} \sum_{s = 0}^{r - 1} \ket{u_s} = \ket 1$$
+\end{framedprop}
+
+\begin{proof}
+    Through some algebraic manipulation we see that
+    \begin{equation*}
+        \begin{split}
+            \dfrac{1}{\sqrt r} \sum_{s = 0}^{r - 1}{\ket{u_s}} & = \dfrac{1}{\sqrt r} \sum_{s = 0}^{r - 1}{\rbk{\dfrac{1}{\sqrt r} \sum_{k = 0}^{r - 1}{e^{- 2 \pi i s k / r} \ket {x^k \bmod N}}}} \\ 
+                                                               & = \dfrac{1}{r} \sum_{s, k = 0}^{r - 1}{e^{- 2 \pi i sk/ r} \ket{x^k \bmod N}} \\ 
+                                                               & = \dfrac{1}{r} \sum_{s = 0}^{r - 1}{e^{- 2 \pi i s \cdot 0 / r} \ket{x^0 \bmod N}} + \dfrac{1}{r} \sum_{s = 0, k = 1}^{r - 1}{e^{- 2 \pi i sk/ r} \ket{x^k \bmod N}} \\ 
+                                                               & = \dfrac{1}{r} \sum_{s = 0}^{r - 1}{\ket{1}} + \dfrac{1}{r} \sum_{s = 0, k = 1}^{r - 1}{e^{- 2 \pi i sk/ r} \ket{x^k \bmod N}} \\ 
+                                                               & = \dfrac{1}{r} r \ket 1 + \dfrac{1}{r} \sum_{s = 0, k = 1}^{r - 1}{e^{- 2 \pi i sk/ r} \ket{x^k \bmod N}} \\ 
+                                                               & = \ket 1 + \dfrac{1}{r}\sum_{k = 1}^{r - 1}{\ket{x^k \bmod N} \sum_{s = 0}^{r - 1}{e^{- 2 \pi i sk/r }}} \\ 
+                                                               & = \ket 1 + \dfrac{1}{r}\sum_{k = 1}^{r - 1}{\ket{x^k \bmod N} \sum_{s = 0}^{r - 1}{\rbk{e^{- 2 \pi i k/r}}^s}} \\ 
+        \end{split}
+    \end{equation*}
+    As we did for the proof of \cref{qft unitary}, because of how we split the sums we know that $e^{- 2 \pi i k/ r}$ cannot be 0, but it cannot be 1 either because $k/r$ is not an integer, therefore we get that
+    \begin{equation*}
+        \begin{split}
+            \dfrac{1}{\sqrt r} \sum_{s = 0}^{r - 1}{\ket{u_s}} & = \ket 1 + \dfrac{1}{r}\sum_{k = 1}^{r - 1}{\ket{x^k \bmod N} \dfrac{1 - (e^{-2 \pi i k/r})^r}{1 - e^{- 2 \pi i k/r}}} \\ 
+                                                               & = \ket 1 + \dfrac{1}{r}\sum_{k = 1}^{r - 1}{\ket{x^k \bmod N} \dfrac{1 - e^{-2 \pi i k}}{1 - e^{- 2 \pi i k/r}}} \\ 
+                                                               & = \ket 1 + \dfrac{1}{r}\sum_{k = 1}^{r - 1}{\ket{x^k \bmod N} \dfrac{1 - 1}{1 - e^{- 2 \pi i k/r}}} \\ 
+                                                               & = \ket 1
+        \end{split}
+    \end{equation*}
+\end{proof}
+
+Indeed, this property is incredibly useful because we can provide $\ket 1$ to the lower register of the QPE circuit instead of a single eigenvector, in order to compute the same algorithm but to all the eigenvectors \tbf{simultaneously}. We observe that $\ket 1$ is essentially a superposition of all the eigenvectors of $U_x$, which means that when fed to $\mbox{C-}U_x^{2^k}$ as target qubit we don't really get $\ket 1$ back, indeed
+\begin{equation*}
+    \begin{split}
+        \mbox{C-}U_x^{2^k} (\ket{+}_0 \otimes \ket{1}_1) & = \dfrac{1}{\sqrt 2} \rbk{\ket{0}_0 \otimes \ket{1}_1 + \ket{1}_0 \otimes U_x^{2^k} \ket 1_1} \\ 
+                                                         & = \dfrac{1}{\sqrt 2} \rbk{\ket{0}_0 \otimes \ket{1}_1 + \ket{1}_0 \otimes U_x^{2^k} \dfrac{1}{\sqrt r} \sum_{s = 0}^{r - 1}{\ket{u_s}_1}} \\ 
+                                                         & = \dfrac{1}{\sqrt 2} \rbk{\ket{0}_0 \otimes \ket{1}_1 + \ket{1}_0 \otimes \dfrac{1}{\sqrt r} \sum_{s = 0}^{r - 1}{U_x^{2^k}\ket{u_s}_1}} \\ 
+                                                         & = \dfrac{1}{\sqrt 2} \rbk{\ket{0}_0 \otimes \ket{1}_1 + \ket{1}_0 \otimes \dfrac{1}{\sqrt r} \sum_{s = 0}^{r - 1}{e^{2 \pi i 2^k s/r} \ket{u_s}_1}} \\ 
+                                                         & = \dfrac{1}{\sqrt 2} \rbk{\ket{0}_0 \otimes \dfrac{1}{\sqrt r}\sum_{s = 0}^{r - 1}{\ket{u_s}_1} + \ket{1}_0 \otimes \dfrac{1}{\sqrt r} \sum_{s = 0}^{r - 1}{e^{2 \pi i 2^k s/r} \ket{u_s}_1}} \\ 
+                                                         & = \dfrac{1}{\sqrt{2r}} \sum_{s = 0}^{r - 1}{\rbk{\ket{0}_0 + e^{2 \pi i 2^k s/r} \ket{1}_0} \otimes \ket{u_s}_1} \\
+    \end{split}
+\end{equation*}
+Nevetheless, notice what happened here: we engangled the control qubit with the target qubit, such that now the target \tit{picked up the phase} $e^{2 \pi i 2^k s/r}$ --- exactly as the standard QPE --- and we are still preserving the superposition of eigenvectors $\ket{u_s}$. This is exactly what we need, however it also means that the result at the end of the circuit is not very straightforward: in standard QPE the resulting state is just the tensor product of the single control qubits because they are independent from each other, but here we are entangling all the control and the target qubits together at each application of $\mbox{C-}U_x^{2^k}$. Hence, we need to compute what happens step by step: \todo{fallo}
+\begin{equation*}
+    \begin{split}
+        & TODO \\ 
+        = & \dfrac{1}{\sqrt r} \sum_{s = 0}^{r - 1}{\dfrac{1}{\sqrt{2^t}} \bigotimes_{m = 1}^{t}{\rbk{\ket 0 + e^{2 \pi i 2^{m - 1} s/r} \ket 1}} \otimes \ket{u_s}} \\  
+        = & \dfrac{1}{\sqrt r} \sum_{s = 0}^{r - 1}{\dfrac{1}{\sqrt{2^t}} \bigotimes_{m = 1}^{t}{\rbk{\ket 0 + e^{2 \pi i 0.\varphi_{s_m} \ldots \varphi_{s_t}} \ket 1}} \otimes \ket{u_s}} \\ 
+        = & \dfrac{1}{\sqrt r} \sum_{s = 0}^{r - 1}{\mbox{QFT}_t \ket{\varphi_s}_{q_0 \cdots q_{t - 1}} \otimes \ket{u_s}} \\ 
+        \xrightarrow{\mathrm{QFT}_t^\dag (\ket{q_0 \cdots q_{t - 1}})} & \dfrac{1}{\sqrt r} \sum_{s = 0}^{r - 1}{\ket{\varphi_s} \otimes \ket{u_s}} \\ 
+    \end{split}
+\end{equation*}
+assuming that $\varphi_s = s/r$ can be written through $t$ bits. This entangled quantum state is exactly what we want, because now by measuring the first $t$ registers we get that for each $s \in [0, r - 1]$ they will collapse into $\ket{\varphi_s}$ with probability $\tfrac{1}{r}$, and the last register will collapse into $\ket{u-s}$ which is exactly the eigenvector associated to $e^{2 \pi i \varphi_s}$. This proves that we truly computed the phases of all the possible eigenvectors simultaneously.
+
+We are almost done. We now know that we can retrieve $\varphi_s = s/r$ for each $s \in [0, r - 1]$ without even knowing a single eigenvector of $U_x$, but there is a problem. Say that we want to find the order of $x = 3$ modulo $N = 11$, and suppose that the true phase is $$\varphi_s = \dfrac{s}{r} = \dfrac{2}{5} = 0.4$$ The QPE algorithm cannot output this exact value, because 0.4 cannot be written precisely in binary --- in particular, the reason is that 5 does not divide $2^t$ for any $t$. This means that our algorithm will return an \tit{approximation} of $\varphi_s$. Say that we are working with 6 registers of precision and fix $t = 6$; then QPE will output the closest approximation of 0.4 with 6 bits: $$\tilde \varphi_s = 0.40625 = \dfrac{13}{32}$$ Now, it would be a mistake to assume that $r = 32$! How do we proceed?
+
+\begin{frameddefn}{Continued fraction}
+    Given a rational number $x \in \Q$, the continued fraction of $x$ is composed by a set of numbers $a_0, \ldots, a_n \in \N$ --- where $a_n \neq 0$ --- such that $$x = a_0 + \dfrac{1}{a_1 + \dfrac{1}{a_2 + \dfrac{1}{\ddots + \dfrac{1}{a_n}}}}$$ The continued fraction is usually denoted with the following notation $$x = [a_0; a_1, a_2, \ldots , a_n]$$
+\end{frameddefn}
+
+Moreover, each \curlyquotes{partial} continued fraction
+\begin{equation*}
+    \begin{split}
+        & [a_0] \\ 
+        & [a_0; a_1] \\ 
+        & [a_0; a_1, a_2] \\ 
+        & \ldots \\ 
+        & [a_0; a_1, a_1, \ldots, a_n] \\ 
+    \end{split}
+\end{equation*}
+is called \tbf{convergent} of the original number.
+
+For instance, the number $\tfrac{338}{121}$ can be written as follows: $$\dfrac{338}{121} = [2;1,3,1,5,4]$$ and its convergents are
+\begin{equation*}
+    \begin{split}
+        & [2] \\ 
+        & [2;1] \\
+        & [2;1, 3] \\ 
+        & \ldots \\ 
+        & [2;1, 3, \ldots, 4] \\ 
+    \end{split}
+\end{equation*}
+We will use continued fractions to recover $r$ from $s/r$. Suppose that QPE outputs $\tilde \varphi_s = \tfrac{13}{32}$ as in the previous example. Without going into the details, there is a classical algorithm which is able to recover its continued fraction in $O(L^3)$ time --- where $L = \ceil{\log N}$. Thus, we get that $$\tilde \varphi_s = 0 + \dfrac{1}{2 + \dfrac{1}{2 + \dfrac{1}{6}}} = [0;2,2,6]$$ Now, to recover $\tfrac{2}{5}$ we just need to compute the convergents:
+\begin{equation*}
+    \begin{split}
+        & [0] = 0 \\ 
+        & [0;2] = \dfrac{1}{2} \\ 
+        & [0;2,2] = \dfrac{2}{5} \\ 
+        & [0;2, 2, 6] = \dfrac{13}{32} \\
+    \end{split}
+\end{equation*}
+Finally, since we know that $r$ is the order of $x$ modulo $N$, we just need to pick the convergent with the smallest denominator $r$ such that $x^r \equiv 1 \bmod N$. In our example we had $x = 3$ and $N = 11$, thus
+\begin{equation*}
+    \begin{split}
+        & 3^2 \equiv 9 \not\equiv1 \bmod 11 \\
+        & 3^5 \equiv 243 \equiv 1 \bmod 11 \\ 
+    \end{split}
+\end{equation*}
+This is how we can recover $r = 5$ --- to be precise, there are theoretical results which guarantee that $\tfrac{2}{5}$ shows between the convergents of $\tfrac{13}{32}$ but this is ouside the scope of our discussion.
+
+\section{Shor's algorithm}
+
+TODO \todo{intro}
+
+\begin{framedthm}{Fundamental Theorem of Arithmetic}
+    Given any $N \in \N$, there exists unique $p_1, \ldots, p_m \in \Primes$ primes and $\alpha_1, \ldots, \alpha_m$ exponents --- for some $m \in \N$ --- such that $$N = p_1^{\alpha_1} \cdot \ldots \cdot p_m^{\alpha_m}$$
+\end{framedthm}
+
+The set of primes $p_1, \ldots, p_m \in \Primes$ is called \tbf{prime factorization} of $N$. The \tbf{Integer Factorization Problem (IFP)} asks to retrieve the prime factorization of any given $N \in \N$.
+
+\begin{framedthm}{}
+    Given any $L$-bit long composite natural number $N \in \N$, let $x \in [2, N]$ different from $N - 1$ be a solution to the equation $$x^2 \equiv 1 \bmod N$$ Then, at least one of $\gcd(x- 1, N)$ and $\gcd(x + 1, N)$ is a non-trivial factor of $N$ that can be computed using $O(L^3)$ operations.
+\end{framedthm}
+
+\begin{framedthm}{}
+    Given any $N \in \N$ odd composite positive integer with $m$ prime factors, let $x \in_R [1, N - 1]$ such that $\gcd(1, N - 1) = 1$. Then, if $r$ is the order of $x$ modulo $N$, it holds that $$\Pr[\mbox{$r$ is even and $x^{r/2} \not \equiv 1 \bmod N$}] \ge 1 - \dfrac{1}{2^m}$$
+\end{framedthm}
+
+TODO \todo{write the alg and explain stuff?}
+
+TODO \todo{size of QPE}
+TODO \todo{write QPE alg}
+
+TODO \todo{size of Ux gates}

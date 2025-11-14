@@ -1,0 +1,70 @@
+\chapter{Quantum Key Distribution}
+
+Why is Shor's algorithm so important? Most widely used \tbf{public-key cryptography} algorithms rely on the difficulty of one of the three following mathematical problems:
+
+\begin{itemize}
+	\item the Integer Factorization problem
+	\item the Discrete Logarithm problem
+	\item the Elliptic-Curve Discrete Logarithm problem
+\end{itemize}
+
+In particular, all of the problems are currently \tit{vary hard} to solve efficiently, and basically any modern cryptosystem is based on the fact that we don't know any fast-enough algorithm that is able to solve them. However, all of these could be easily solved on a sufficiently powerful quantum computer that runs Shor's algorithm, as we already seen. \todo{explain details}
+
+Nevertheless, at the time of writing quantum computers lack the processing power to break widely used cyrptographic algorithm, so we are still safe from a world without crypto. However, because of the length of time required for migration to \tbf{quantum-safe cryptograpy}, are already desining new algorithms to prepare for the so called \tbf{Q-Day}, the day when current algorithms will be vulnerable to quantum computing attacks. For example, NIST already initiated a proces to quotes \curlyquotes{solicit, evaluate and standardize one or more quantum-resistand public-key cryptography algorithms}.
+
+In this chapter we will cover \todo{vedi de che parla prima de parla a vuoto}
+
+is a \tbf{Quantum Key Distribution (QKD)} protocol. In particular, we are interested in finding secure protocols that able to allow two parties to share a \tit{private key} quantum-safely.
+
+The protocol that we will present is usually called BB84, and it was published in 1984 by \textcite{bb84}. Suppose that our two usual protagonists Alice and Bob need to share a key quantum-safely. Alice will choose two random binary strings $(4 + \delta)n$-long which are usually referred to as $a$ and $b$. Then, depending on the bits of these two strings she will construct a superposition of states based on the following table:
+
+\begin{center}
+	\begin{tabular}{cc|c}
+		\hline
+		$a_i$ & $b_i$ & Chosen state \\
+		\hline\hline
+		0     & 0     & $\ket 0$     \\
+		\hline
+		1     & 0     & $\ket 1$     \\
+		\hline
+		0     & 1     & $\ket +$     \\
+		\hline
+		1     & 1     & $\ket - $    \\
+		\hline
+	\end{tabular}
+\end{center}
+
+For example, if her two random strings are $$a = 01101$$ $$b = 00110$$ then she will construct the following superposition $$\ket \psi = \ket 0 + \ket 1 + \ket - + \ket + + \ket 1$$ Now, we will assume that Alice and Bob share a communication channel that can be eavesdropped by a third party Eve that wants to know their shared key. Alice will send $\ket \psi$ to Bob through this medium. Before describing what happens when Eve comes into play, we will describe the complete protocol.
+
+Let's do a step back: each time we talked about \curlyquotes{measuring} we never actually mentioned that when we are \tit{physically} performing a measure what we are really performing is applying a \curlyquotes{polarizing lens} to the final state. For instance, this operation can be implemented through \href{https://en.wikipedia.org/wiki/Faraday_rotator}{Faraday rotators}, which leverage the \tbf{Faraday effect}:
+
+\centeredsvg[A Faraday polarization rotator.]{0.5}{../assets/faraday}
+
+This is important because it means that when we talk about measurement we need to define the \curlyquotes{angle} at which we perform it. Mathematically speaking, this is equivalent to defining the \curlyquotes{base of choice} for the measurement --- since we always consider orthonormal basis only. The importance of the choice of the basis can be illustrated with the BB84 protocol.
+
+\begin{itemize}
+	\item If we have a qubit in the state $\ket \phi = \ket +$, we know that the probability of getting either $\ket 0$ or $\ket 1$ when measured in the canonical basis --- formed by the vector $\ket 0$ and $\ket 1$ themselves --- is precisely 50\% for both outcomes because $$\Pr[\mbox{measure$(\ket \phi = \ket 0)$}] = \abs{\braket{0|+}}^2 = \dfrac{1}{2}$$
+	\item Now, consider the orthonormal basis formed by the vector $\ket +$ and $\ket - $ --- which we will call the \tbf{diagonal basis}; we observe that this space is just a rotation of $45°$ clockwise. This space is interesting: when we measure a qubit $\ket \phi $ set to the state $\ket 0$ in the canonical base we get $\ket 0$ with 100\% certainty, but in this space we have that
+	      \begin{equation*}
+		      \begin{split}
+			      \Pr[\mbox{measure($\ket \phi = \ket +)$}] & = \abs{\braket{0|+}}^2                              \\
+			                                                & = \abs{\dfrac{1}{\sqrt 2}\bra 0(\ket 0 + \ket 1)}^2 \\
+			                                                & = \abs{\dfrac{1}{\sqrt 2}(1 + 0)}^2                 \\
+			                                                & = \dfrac{1}{2}                                      \\
+		      \end{split}
+	      \end{equation*}
+	      Indeed, as we would expect $\ket 0$ and $\ket 1$ in the diagonal basis behave exactly as $\ket +$ and $\ket - $ do in the canonical one.
+\end{itemize}
+
+We will see how the BB84 protocol takes advantage of this fact later in our discussion.
+
+Now that Alice has sent her superposition $\ket \psi$, she will send it to Bob which will receive $\mathcal E(\ket \psi)$, where $\mathcal E$ describes the quantum operation due to the combined effect of the channel and Eve's actions. If Bob correctly receives the information, he publicly announces this fact.
+
+Bob will then proceed to generate a random string of $(4 + \delta)n$ bits as well, which we will call $b'$, and based on this very string he will measure the received quantum superposition --- in particular, if $b_i' = 0$ he will use the canonical base, and if $b_i' = 1$ he will employ the diagonal one. In our example, assuming that Bob generated the random string $$b' = 10111$$ he will measure something like $$\mbox{measure}(\ket \psi) = \ket - + \ket 1 + \ket - + \ket + + \ket + $$ We observe that the first and the last bit randomly collapsed to $\ket -$ and $\ket +$ respectively because they were measured in the wrong basis --- indeed, the original string was $b = 00110$ and $b \oplus b' = 10001$. Bob then tries to reconstruct the original string $a$ based on its $b'$, thus getting the string $$a' = 11100$$ We observe that Bob this string of no use for now, and this is important when we will discuss Eve's role in the protocol.
+
+After Alice has heard that Bob received the state, she can proceed to send $b$ itself as it is over a public channel, and Bob can then discard all the bits of $a'$ that were generated through wrong bits of $b'$ --- we observe that their remaining bits satisfy $a = a'$. This step is usually called \tbf{basis reconciliation}, and the expected number of qubits kept by Bob after this step is $$\Exp[\mbox{kept qubits}] = \sum_{i = 1}^{(4 + \delta)n}{1 \cdot \Pr[b_i = b_i']} = \sum_{i = 1}^{(4 + \delta)n}{\dfrac{1}{2}} = \dfrac{1}{2} \cdot (4 + \delta)n = \rbk{2 + \dfrac{\delta}{2}}n$$ We will assume that both Alice and Bob will just weep $2n$ bits of their result --- $\delta$ can be chosen sufficiently large so that this can be done with exponentially high probability.
+
+% Afterwards, Alice selects $n$ bits
+
+TODO \todo{what happens if eve looks}
+
