@@ -36,7 +36,7 @@ The protocol that we will present is usually called \tbf{BB84}, and it was publi
 	\end{tabular}
 \end{center}
 
-For example, if her two random strings are $$a = 01101$$ $$b = 00110$$ then she will construct the following superposition $$\ket \psi = \ket 0 + \ket 1 + \ket - + \ket + + \ket 1$$ Now, we will assume that Alice and Bob share two communication channels
+For example, if her two random strings are $$a = 01101$$ $$b = 00110$$ then she will construct the following superposition $$\ket \psi = \ket 0 + \ket 1 + \ket - + \ket + + \ket 1$$ We observe that $\ket \psi$ in practice is treated as sequence of single qubits --- indeed this can be done in general whenever we are summing qubits that are not entangled between each other, such as $\ket{00} + \ket{11}$. Now, we will assume that Alice and Bob share two communication channels:
 
 \begin{itemize}
 	\item one quantum channel, which can be eavesdropped by a third party Eve that wants to know their shared key
@@ -83,32 +83,48 @@ At this point, the protocol is basically finished, and the last step involves \t
 Now, it's time to discuss the Eve's role in the protocol. Suppose that Eve has access to the quantum channel Alice and Bob are using, and wants to understand the key they are trying to share. At the beginning of the protocol Alice sends her $\ket \psi$ which encodes the states she generated through $a$ and $b$, so what happens if Eve can see this qubit? Due to the No-cloning theorem, she definitely cannot clone $\ket \psi$ --- unless she can violate the laws of physics; but, what she could theoretically do is intercept $\ket \psi$, measure it herself, and send the qubit back to Bob acting as a \tit{man-in-the-middle} --- and Bob would have no way to know this actually happened. Nevertheless, nor Bob neither Eve know the sequence of bases Alice chose originally, so the best thing Eve can do is try randomly (exactly as Bob does in the protocol anyway). Hence, fix a state $\ket \psi_i$ of the states that constitute $\ket \psi$; the following can happen:
 
 \begin{itemize}
-	\item Eve chooses the correct basis for $\ket \psi_i$: this means that she does not introduce any disturbance to the state Bob will receive, and Bob still has 50\% change of recovering Alice's original bit
+	\item Eve chooses the correct basis for $\ket \psi_i$: this means that she does not introduce any disturbance to the state Bob will receive, and Bob still has 50\% chance of recovering Alice's original bit
 	\item Eve chooses the wrong basis for $\ket \psi_i$: this means that she introduces some disturbance to the state Bob will receive, in the sense that now Bob has only 25\% chance of recovering Alice's original bit
 \end{itemize}
 
 We observe that, on average, with big enough bit strings the chance that Eve correctly chooses each basis can be made exponentially low. Moreover, Eve's actions are exactly the reason why in the last step of the algorithm we perform a thresholded check on the error rate: if the error rate is too high (some noise has to be expected) on average it probably means that someone eavesdropped on the channel.
 
-Is this everything Eve can  do? The attack we presented has a very high chance of introducing too much disturbance and being detected by the error rate check step, so for Eve to have some chance of not being detected she needs to \tbf{avoid introducing disturbance completely}. However, due to the No-cloning theorem this is not straightforward and she must employ \tit{quantum entanglement}. The idea is the following: suppose that there exists some unitary operator $U$ that on input $\ket \psi \otimes \ket x$ --- for some state $\ket x$ --- it behaves as follows: $$U(\ket \psi \otimes \ket x) = \ket \psi \otimes \ket y$$ In other words, $U$ leaves $\ket \psi$ unchanged and turns $\ket x$ into $\ket y$. If such operator exists, Eve could use it in order to try to measure $\ket y$ in a later moment and gain some information about $\ket \psi$, without ever measuring the latter directly.
+Is this everything Eve can do? The attack we presented has a very high chance of introducing too much disturbance and being detected by the error rate check step, so for Eve to have some chance of not being detected she needs to \tbf{avoid introducing disturbance completely}. However, due to the No-cloning theorem this is not straightforward and she must employ \tit{quantum entanglement}. The idea is the following: suppose that there exists some unitary operator $U$ that on input $\ket \psi \otimes \ket x$ --- for some state $\ket x$ --- it behaves as follows: $$U(\ket \psi \otimes \ket x) = \ket \psi \otimes \ket y$$ In other words, $U$ leaves $\ket \psi$ unchanged and turns $\ket x$ into $\ket y$. For now, consider $\ket \psi$ as 1 single qubit. If such operator exists, Eve could use it in order to try to measure $\ket y$ in a later moment and gain some information about $\ket \psi$, without ever measuring the latter directly.
 
-This idea seems compelling, however for Eve's attack to be effective $U$ must behave differently depending on the input superposition: $$U(\ket \psi \otimes \ket x) = \ket \psi \otimes \ket y$$ $$U(\ket \phi \otimes \ket x) = \ket \phi \otimes \ket{y'}$$ such that
+This idea seems compelling, however for Eve's attack to be effective $U$ must compute as follows: $$U(\ket \psi \otimes \ket x) = \ket \psi \otimes \ket y$$ $$U(\ket \phi \otimes \ket x) = \ket \phi \otimes \ket{y'}$$ where $\ket y$ and $\ket{y'}$ must be \tbf{different}. In this way
 
 \begin{itemize}
 	\item $U$ leaves $\ket \psi$ unchanged, and the latter can be sent to Bob without anyone noticing
 	\item $U$ behaves differently depending on the input superposition, i.e. $\ket y \neq \ket{y'}$, otherwise she cannot distinguish between $\ket \psi$ and $\ket \phi$ upon measurement
 \end{itemize}
 
-However, we know that $U$ must be unitary, and by \cref{unitary alt def} this implies that $U$ preserves the scalar product, i.e.
+Suppose that Alice sends some qubit which can be either $\ket \psi$ or $\ket \phi$, where $$\ket \phi, \ket \psi \in \{\ket 0, \ket 1, \ket + , \ket -\}$$ Since $U$ must be unitary, by \cref{unitary alt def} we know that $U$ preserves the scalar product, i.e.
 \begin{equation*}
 	\begin{alignedat}{2}
-		     & \braket{U(\ket \psi \otimes \ket x)| U(\ket \phi \otimes \ket x)} = \braket{ \psi \otimes  x|  \phi \otimes x} &                                   \\
-		\iff & \braket{ \psi \otimes y | \phi \otimes y'} = \braket{\psi \otimes x| \phi \otimes x}                           &                                   \\
-		\iff & \braket{\psi|\phi} \braket{y|y'} = \braket{\psi| \phi} \braket{x|x}                                            &                                   \\
-		\iff & \braket{y|y'} = \braket{x|x}                                                                                   & \quad (\braket{\psi|\phi} \neq 0) \\
-		\iff & \braket{y|y'} = 1                                                                                              &                                   \\
-		\iff & \ket{y} = \ket{y'}                                                                                             &                                   \\
+		     & \braket{U(\ket \psi \otimes \ket x)| U(\ket \phi \otimes \ket x)} = \braket{ \psi \otimes  x|  \phi \otimes x} & \\
+		\iff & \braket{ \psi \otimes y | \phi \otimes y'} = \braket{\psi \otimes x| \phi \otimes x}                           & \\
+		\iff & \braket{\psi|\phi} \braket{y|y'} = \braket{\psi| \phi} \braket{x|x}                                            & \\
 	\end{alignedat}
 \end{equation*}
-This proves that there is no way for Eve to gain any information at all, but there is a subtlety to point out: the condition $\braket{\psi|\phi} \neq 0$ means that $\ket \psi$ and $\ket \phi$ must \tit{not be orthogonal}, and this is the only reason why the BB84 protocol works in the first place. Consider any two possible superpositions $\ket \psi$ and $\ket \phi$ Alice might send; since the Z and the X bases are not perfectly orthogonal it holds that $$\abs{\braket{0|+}}^2 = \abs{\braket{0|-}}^2 = \abs{\braket{1|+}}^2 = \abs{\braket{1|-}}^2 = \dfrac{1}{2} \neq 0$$ which means that its impossible that $\ket \psi$ and $\ket \phi$ are orthogonal. Indeed, without this crutial detail Eve could actually recover information of what Alice sent.
+Now, there are two possible scenarios.
+
+\begin{itemize}
+	\item In the first scenario, the two possible qubits Alice might send are \tit{orthogonal}, i.e. $\braket{\psi|\phi} = 0$. Namely, these are the cases in which $\ket \psi = \ket 0$ and $\ket \phi = \ket 1$, and vice versa, and the cases in which $\ket \psi = \ket +$ and $\ket \phi = \ket - $, and viceversa. In these scenario the equality above is always satisfied, indeed Eve has a chance to recover some information without introducing disturbance. For instance, if Alice is sending either $\ket 0$ or $\ket 1$, a transformation $U$ such that $$U (\ket 0 \otimes \ket 0) = \ket 0 \otimes \ket 0$$ $$U (\ket 1 \otimes \ket 0) = \ket 1 \otimes \ket 1$$ is literally just a CNOT on $\ket 0$ where Alice's qubit is the control bit. In this case, if Eve guesses the Z basis (which happens with 50\% chance), she can measure the ancilla qubit and correctly deduce the value of Alice's qubit without introducing any disturbance at all. Nevertheless, this is really not an issue because
+	      \begin{itemize}
+		      \item Eve has no way to know if her choice was correct
+		      \item if Eve chose the wrong basis, she introduces disturbance, which inevitably fails her plan
+		      \item the BB84 protocol requires Alice to send a sufficiently large amount of qubits such that the possibilities of Eve being able to recover all the qubits by random chance is exponentially low
+	      \end{itemize}
+	\item In the second scenario, the two possible qubits Alice might send are \tit{non-orthogonal}, i.e. $\braket{\psi|\phi} \neq 0$. Let's see what happens to the previous equality:
+	      \begin{equation*}
+		      \begin{alignedat}{2}
+			      \iff & \braket{\psi|\phi} \braket{y|y'} = \braket{\psi| \phi} \braket{x|x} &                                   \\
+			      \iff & \braket{y|y'} = \braket{x|x}                                        & \quad (\braket{\psi|\phi} \neq 0) \\
+			      \iff & \braket{y|y'} = 1                                                   &                                   \\
+			      \iff & \ket{y} = \ket{y'}                                                  &                                   \\
+		      \end{alignedat}
+	      \end{equation*}
+	      This is even worse for Eve: in this scenario, such $U$ cannot possibly exist, which means that there is no way for Eve to gain any information at all without introducing disturbance.
+\end{itemize}
 
 Lastly, we observe that BB84 requires Alice to wait before hearing back from Bob that he \tit{actually measured} $\ket \psi$. This is to prevent that Alice sends $b$ too early, so that Eve could use the latter to decode $\ket \psi$ into the original string $a$ without any issue. Therefore, we require Alice to wait for Bob's measurement so that there is no way for Eve to recover $a$ after looking at $b$ becasuse the original superposition is definitively destroyed --- unless she can go back in time!
