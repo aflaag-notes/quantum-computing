@@ -357,20 +357,20 @@ Interestingly enough, we can look at what happens to the amplitudes of $q_0$ fro
                         & = \dfrac{1}{\sqrt N} \sum_{y \in \B^n}{\sum_{x \in \B^n}{\alpha_x \delta_{xy}}} & \quad (\mbox{basis states are orthonormal}) \\ 
                         & = \dfrac{1}{\sqrt N} \sum_{x \in \B^n}{\alpha_x \sum_{y \in \B^n}{\delta_{xy}}} & \\ 
                         & = \dfrac{1}{\sqrt N} \sum_{x \in \B^n}{\alpha_x} & \\ 
-                        & = \sqrt N \overline{\alpha_\psi}
+                        & = \sqrt N \overline{\alpha}_\psi
     \end{alignedat}
 \end{equation*}
-where $\overline{\alpha_\psi}$ is the average amplitude of $\ket \psi$. This implies that
+where $\overline{\alpha}_\psi$ is the average amplitude of $\ket \psi$. This implies that
 \begin{equation*}
     \begin{alignedat}{2}
         W \ket \psi & = (2 \ket s \bra s - I) \ket \psi & \\ 
                     & = 2 \ket s \braket{s|\psi} - \sum_{x \in \B^n}{\ket x} & \\  
-                    & = 2 \ket s \rbk{\sqrt N \overline{\alpha_\psi}} - \sum_{x \in \alpha_x \ket x} & \quad (\mbox{for the previous observation}) \\ 
-                    & = 2 \rbk{\dfrac{1}{\sqrt N} \sum_{y \in \B^n}{\ket y}} \sqrt N \overline{\alpha_\psi} - \sum_{x \in \B^n}{\alpha_x \ket x} & \\
-                    & = \sum_{x \in \B^n}{\rbk{2 \overline{\alpha_\psi} - \alpha_x} \ket x} & \\ 
+                    & = 2 \ket s \rbk{\sqrt N \overline{\alpha}_\psi} - \sum_{x \in \alpha_x \ket x} & \quad (\mbox{for the previous observation}) \\ 
+                    & = 2 \rbk{\dfrac{1}{\sqrt N} \sum_{y \in \B^n}{\ket y}} \sqrt N \overline{\alpha}_\psi - \sum_{x \in \B^n}{\alpha_x \ket x} & \\
+                    & = \sum_{x \in \B^n}{\rbk{2 \overline{\alpha}_\psi - \alpha_x} \ket x} & \\ 
     \end{alignedat}
 \end{equation*}
-In other words, when we apply $W$ to a superposition of states, what happens is that each amplitude of the basis states is trasformed as follows: $$\func{W}{\alpha_x}{2 \overline{\alpha_\psi} - \alpha_x}$$ To understand why this is important, let's look at what happens in Grover's algorithm after the first Hadamard application. TODO \todo{da finire}
+In other words, when we apply $W$ to a superposition of states, what happens is that each amplitude of the basis states is trasformed as follows: $$\func{W}{\alpha_x}{2 \overline{\alpha}_\psi - \alpha_x}$$ To understand why this is important, let's look at what happens in Grover's algorithm after the first Hadamard application. TODO \todo{da finire}
 
 \subsection{Fixed-Point Quantum Search}
 

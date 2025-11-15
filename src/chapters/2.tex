@@ -167,7 +167,7 @@ At the beginning of the previous chapter we said that all quantum gates are \tit
 
 In other words, $U$ is unitary if and only if its adjoint operator is also its inverse. An interesting characterization of unitary transformations is the following property.
 
-\begin{framedprop}{Unitary operators (alt. def.)}
+\begin{framedprop}[label={unitary alt def}]{Unitary operators (alt. def.)}
 	An operator $U$ defined over a Hilbert space $\mathcal H$ is unitary if and only if
 
 	\begin{itemize}
@@ -358,12 +358,26 @@ Now, since each $P_{\lambda_i}$ is a projector, we know that when $i \neq j$ it 
 Therefore, by adding only the non-zero terms we get that $$\sum_{i = 1}^m{\norm{P_{\lambda_i}v}^2} = 1$$ Hence, we define $$\Pr[A = \lambda_i \mid v] := \norm{P_{\lambda_i}v}^2$$ such that $$\Pr[A \mid v] = \sum_{i = 1}^m{\Pr[A = \lambda_i \mid v]} = \sum_{i = 1}^m{\norm{P_{\lambda_i}v}^2} = \norm{v}^2 = 1$$ which also means that our probabilities will add up to 1 automatically. Finally, we can rewrite this proability as follows (we will drop the index of the eigenvalue):
 \begin{equation*}
 	\begin{alignedat}{2}
-		\Pr[A = \lambda \mid v] & = \braket{P_\lambda v | P_\lambda v}      & \quad (\mbox{by def. of adjoint})  \\
-		                        & = \braket{v | P_\lambda^\dag P_\lambda v} & \quad (\mbox{by self-adjointness}) \\
-		                        & = \braket{v | P_\lambda^2 v}              & \quad (\mbox{by idempotency})      \\
+		\Pr[A = \lambda \mid v] & = \braket{P_\lambda v | P_\lambda v}      &                                    \\
+		                        & = \braket{v | P_\lambda^\dag P_\lambda v} &                                    \\
+		                        & = \braket{v | P_\lambda^2 v}              & \quad (\mbox{by self-adjointness}) \\
 		                        & = \braket{v | P_\lambda P_\lambda v}      &                                    \\
 		                        & = \braket{v | P_\lambda v}                &                                    \\
 	\end{alignedat}
 \end{equation*}
 
-Another postulate that we need to discuss is the third one, regarding the Schrödinger equation. In particular, the solution of the latter is $$v(t_1) = U(t_2, t_1)v(t_1)$$ where $U(t_2, t_1)$ is called \tbf{time-evaluation operator}, and it is defined as follows: $$U(t_2, t_1) = e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}$$ (assuming $H$ does not depend on time). We recall that $H$ is a matrix, so we are raising $e$ to the power of a matrix, an operation that is defined by the power series of the exponential as follows: $$e^A = \sum_{n = 0}^\infty{\dfrac{A^n}{n!}}$$ What is interesting about this operator is that $U$ is \tbf{unitary}, and in order to show it is suffices to prove that $U^\dag = U^{-1}$. But how do we compute the adjoint of $U$? We observe that by the properties of the adjoint operation it holds that $$\rbk{e^A}^\dag = \rbk{\sum_{n = 0}^\infty{\dfrac{A^n}{n!}}}^\dag = \sum_{n = 0}^\infty{\dfrac{(A^n)^\dag}{n!}} = \sum_{n = 0}^\infty{\dfrac{(A^\dag)^n}{n!}} = e^{A^\dag}$$ which means that the adjoint of an exponential is the exponential of the adjoint. This suffices to prove that $$U^\dag = \rbk{e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}}^\dag = e^{\rbk{-\tfrac{i}{\hbar}H(t_2 - t_1)}^\dag} = e^{\tfrac{i}{\hbar}H(t_2 - t_1)} = \rbk{e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}}^{-1} = U^{-1}$$ This is a crucial characteristic for quantum mechanics: since $U$ is unitary, we know that it preserves the scalar product, therefore it also preserve \tbf{probabilities and norms}. This is why we say that evolution in quantum systems --- or \tit{quantum evolution}, for short --- is unitary.
+For instance, if we have a superposition $$\ket \psi = \alpha \ket 0 + \beta \ket 1$$ and we want to know what is the probability that $\ket \psi$ collapses to $\ket 0$ after a measurement, we have that
+\begin{equation*}
+	\begin{split}
+		\Pr[\mbox{measure}(\ket \psi = \ket 0)] & = \Pr[A = 0 | \ket \psi]                   \\
+		                                        & = \Pr \sbk{\rmat{0                     & 0 \\ 0 & 1} =0 \middle| \ket \psi} \\
+		                                        & = \braket{\psi|P_0 \psi}                   \\
+		                                        & = \braket{\psi|(\ket  0 \bra 0) \psi }     \\
+		                                        & = \braket{\psi|\ket 0 \bra 0 \psi}         \\
+		                                        & = (\braket{\psi|0})(\braket{0|\psi})       \\
+		                                        & = \abs{\braket{\psi|0}}^2
+	\end{split}
+\end{equation*}
+We observe that the matrix we used is derived as follows: $$A = 0 \cdot P_0 + 1 \cdot P_1 = 0 \cdot \ket 0 \bra 0 + 1 \cdot \ket 1 \bra 1$$ Notice that to evaluate this proability we did not use any particular assumption on the choice of the basis, so in general whenever the projector $P_\lambda$ has rank 1, i.e. $P_\lambda$ can be written as $$P_\lambda = \ket \lambda \bra \lambda$$ we can always directly write that $$\Pr[\mbox{measure}(\ket \psi = \ket \lambda)] = \abs{\braket{\psi|\lambda}}^2$$ This formulation of the probability will be used extensively for our purposes, and allows us to avoid the description of the matrix $A$ completely.
+
+Another postulate that we need to discuss is the third one, regarding the Schrödinger equation. In particular, the solution of the latter is $$v(t_1) = U(t_2, t_1)v(t_1)$$ where $U(t_2, t_1)$ is called \tbf{time-evaluation operator}, and it is defined as follows: $$U(t_2, t_1) = e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}$$ (assuming $H$ does not depend on time). We recall that $H$ is a matrix, so we are raising $e$ to the power of a matrix, an operation that is defined by the power series of the exponential as follows: $$e^A = \sum_{n = 0}^\infty{\dfrac{A^n}{n!}}$$ What is interesting about this operator is that $U$ is \tbf{unitary}, and in order to show it is suffices to prove that $U^\dag = U^{-1}$. But how do we compute the adjoint of $U$? We observe that by the properties of the adjoint operation it holds that $$\rbk{e^A}^\dag = \rbk{\sum_{n = 0}^\infty{\dfrac{A^n}{n!}}}^\dag = \sum_{n = 0}^\infty{\dfrac{(A^n)^\dag}{n!}} = \sum_{n = 0}^\infty{\dfrac{(A^\dag)^n}{n!}} = e^{A^\dag}$$ which means that the adjoint of an exponential is the exponential of the adjoint. This suffices to prove that $$U^\dag = \rbk{e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}}^\dag = e^{\rbk{-\tfrac{i}{\hbar}H(t_2 - t_1)}^\dag} = e^{\tfrac{i}{\hbar}H(t_2 - t_1)} = \rbk{e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}}^{-1} = U^{-1}$$ This is a crucial characteristic for quantum mechanics: since $U$ is unitary, we know that it preserves the scalar product by \cref{unitary alt def}, therefore it also preserves \tbf{probabilities and norms}. This is why we say that evolution in quantum systems --- or \tit{quantum evolution}, for short --- is unitary.

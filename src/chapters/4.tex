@@ -16,7 +16,7 @@ Then, what is the \curlyquotes{frequency domain}? We need some preliminary obser
 
 Is this enough to reach our goal? Can we describe any signal in this way? Well, we observe that $m$ is ranging from $0$ to $N -1$, but $\cos(- \theta) = \cos(\theta)$, which implies that $$m > \dfrac{N}{2} \implies \cos(2 \pi m n/ N) = \cos(2 \pi (N - m) n / N)$$ In other words, basically half of our basis vectors add no information at all. Indeed, the span of the vectors we chose has size $$\dim \rbk{\mbox{span}\rbk{\cbk{\cos(2 \pi \cdot m\cdot n/ N)}_{m = 1}^{N - 1}}} = \soe{ll}{\tfrac{N}{2} + 1 & \mbox{$N$ is even} \\ \tfrac{N + 1}{2} & \mbox{$N$ is odd}} $$ where the last added 1 comes from the fact that when $m = 0$ we generate $\cos(0) = 1$ which is really linearly independent from the others cosines. This suggests that cosinusoids alone are not enough to describe our space.
 
-Hence, the most natural thing that we can do is add the contributions of sinusoids as well. A geometric interpretation of the fact that cosinusoids are not enough is that sinusoids are just phase-shifted cosines, but the shift in phase is not captured by changing the frequencies of the cosines alone. We need the contributions of some \curlyquotes{altered} cosinusoids --- in terms of phases --- to get an actual basis and be able to represent any possible vector. Hence, let's consider additional $N$ sinusoids $$\sin(2 \pi \cdot 0 \cdot n) \quad \sin(2 \pi \cdot 1 \cdot n) \quad \sin(2 \pi \cdot 2 \cdot n) \quad \ldots \quad \sin(2 \pi \cdot (N - 1) \cdot n)$$ Do we get a base of size more than $N$ then? We observe that $\sin(\theta) = - \sin (-\theta)$, therefore we have that $$m > \dfrac{N}{2} \implies \sin(2 \pi m n/N) = - \sin (2\pi (N - m) n/N)$$ which again it implies that half of these sinusoids add no useful information. However, in this case we also have the fact that $$\sin(2 \pi \cdot 0 \cdot n /M) =  \sin(0)  = 0$$ and for $N$ even it also happens that $$\sin(2\pi \cdot (N/2) \cdot n/N) = \sin(\pi n) = 0$$ which means that these two sinusoid cannot be considered because they are the 0 vector of this space. Therefore, we get that $$\dim \rbk{\mbox{span}\rbk{\cbk{\cos(2 \pi \cdot m\cdot n/ N)}_{m = 1}^{N - 1}}} = \soe{ll}{\tfrac{N}{2} - 1 & \mbox{$N$ is even} \\ \tfrac{N - 1}{2} & \mbox{$N$ is odd}}$$ Finally, this means that putting all these cosines and sinusoids together we form a base for a space that has size $$\soe{ll}{\tfrac{N}{2} + 1 + \tfrac{N}{2} - 1 = N & \mbox{$N$ is even} \\ \tfrac{N + 1}{2} + \tfrac{N - 1}{2} = N & \mbox{$N$ is odd}} = N$$ Hence, we can fully describe $\R^N$, namely for any vector $\mathbf x \in \R^N$ we have that $$\forall n \in [0, N- 1] \quad \mathbf x(n) = \sum_{m = 0}^{N - 1}{\alpha_m \cos(2\pi m n/N)} + \sum_{m = 0}^{N - 1}{\beta_m \sin(2\pi m n/N)}$$ by describing the vector component-wise.
+Hence, the most natural thing that we can do is add the contributions of sinusoids as well. A geometric interpretation of the fact that cosinusoids are not enough is that sinusoids are just phase-shifted cosines, but the shift in phase is not captured by changing the frequencies of the cosines alone. We need the contributions of some \curlyquotes{altered} cosinusoids --- in terms of phases --- to get an actual basis and be able to represent any possible vector. Hence, let's consider additional $N$ sinusoids $$\sin(2 \pi \cdot 0 \cdot n) \quad \sin(2 \pi \cdot 1 \cdot n) \quad \sin(2 \pi \cdot 2 \cdot n) \quad \ldots \quad \sin(2 \pi \cdot (N - 1) \cdot n)$$ Do we get a base of size more than $N$ then? We observe that $\sin(\theta) = - \sin (-\theta)$, therefore we have that $$m > \dfrac{N}{2} \implies \sin(2 \pi m n/N) = - \sin (2\pi (N - m) n/N)$$ which again it implies that half of these sinusoids add no useful information. However, in this case we also have the fact that $$\sin(2 \pi \cdot 0 \cdot n /M) =  \sin(0)  = 0$$ and for $N$ even it also happens that $$\sin(2\pi \cdot (N/2) \cdot n/N) = \sin(\pi n) = 0$$ which means that these two sinusoid cannot be considered because they are the 0 vector of this space. Therefore, we get that $$\dim \rbk{\mbox{span}\rbk{\cbk{\sin(2 \pi \cdot m\cdot n/ N)}_{m = 1}^{N - 1}}} = \soe{ll}{\tfrac{N}{2} - 1 & \mbox{$N$ is even} \\ \tfrac{N - 1}{2} & \mbox{$N$ is odd}}$$ Finally, this means that putting all these cosines and sinusoids together we form a base for a space that has size $$\soe{ll}{\tfrac{N}{2} + 1 + \tfrac{N}{2} - 1 = N & \mbox{$N$ is even} \\ \tfrac{N + 1}{2} + \tfrac{N - 1}{2} = N & \mbox{$N$ is odd}} = N$$ Hence, we can fully describe $\R^N$, namely for any vector $\mathbf x \in \R^N$ we have that $$\forall n \in [0, N- 1] \quad \mathbf x(n) = \sum_{m = 0}^{N - 1}{\alpha_m \cos(2\pi m n/N)} + \sum_{m = 0}^{N - 1}{\beta_m \sin(2\pi m n/N)}$$ by describing the vector component-wise.
 
 Furthermore, we observe that this basis is actually orthogonal. \todo{prove it, boring}
 
@@ -179,9 +179,7 @@ Hence, if the first input is $\ket 0$ the state $\ket \psi$ is unchanged, otherw
                                                     & = \ket 1 \otimes U^{2^k} \ket \psi
     \end{split}
 \end{equation*}
-Indeed, in general if we have an operator $V$, its controlled version can be easily built in this manner.
-
-However, this controlled gate can also be \curlyquotes{abused}: what happens if the control bit is a superposition of states? In particular, what happens when the control is set to $$\ket + = \dfrac{1}{\sqrt 2}(\ket 0 + \ket 1)$$ meaning that $\ket 0$ and $\ket 1$ are equally probable?
+Indeed, in general if we have an operator $V$, its controlled version can be easily built in this manner: $$\mbox{C-}V = \ket 0 \bra 0 \otimes I + \ket 1 \bra 1 \otimes V$$ However, this controlled gate can also be \curlyquotes{abused}: what happens if the control bit is a superposition of states? In particular, what happens when the control is set to $$\ket + = \dfrac{1}{\sqrt 2}(\ket 0 + \ket 1)$$ meaning that $\ket 0$ and $\ket 1$ are equally probable?
 \begin{equation*}
     \begin{split}
         \mbox{C-}U^{2^k}(\ket + \otimes \ket \psi) & = \dfrac{1}{\sqrt 2} \mbox{C-}U^{2^k}(\ket 0 \otimes \ket \psi + \ket 1 \otimes \ket \psi) \\ 
@@ -189,7 +187,7 @@ However, this controlled gate can also be \curlyquotes{abused}: what happens if 
                                                    & = \dfrac{1}{\sqrt 2} ((\ket 0 \otimes \ket \psi) + (\ket 1 \otimes U^{2^k} \ket \psi))
     \end{split}
 \end{equation*}
-As we would expect, what happens is that the two outcomes we previously described are now equally likely, but this gets interesting if we carefully choose the target qubit. Instead of any possible $\ket \psi$, let's pick $\ket u$, the eigenvector presented at the beginning of the discussion. First, we observe that $U \ket u = e^{2 \pi i \varphi} \ket u \implies U^{2^k} \ket u = \rbk{e^{2 \pi i \varphi}}^{2^k} \ket u = e^{2 \pi i 2^k \varphi} \ket u$ Indeed, intuitively we are just performing the rotation that $U$ performs on $\ket u$ exactly $2^k$ times. This means that
+As we would expect, what happens is that the two outcomes we previously described are now equally likely, but this gets interesting if we carefully choose the target qubit. Instead of any possible $\ket \psi$, let's pick $\ket u$, the eigenvector presented at the beginning of the discussion. First, we observe that $$U \ket u = e^{2 \pi i \varphi} \ket u \implies U^{2^k} \ket u = \rbk{e^{2 \pi i \varphi}}^{2^k} \ket u = e^{2 \pi i 2^k \varphi} \ket u$$ Indeed, intuitively we are just performing the rotation that $U$ performs on $\ket u$ exactly $2^k$ times. This means that
 \begin{equation*}
     \begin{split}
         \mbox{C-}U^{2^k}(\ket + \otimes \ket u) & = \dfrac{1}{\sqrt 2} ((\ket 0 \otimes \ket u) + (\ket 1 \otimes U^{2^k} \ket u)) \\ 
@@ -201,7 +199,7 @@ Notice what happened here: $\ket 0$ and $\ket 1$ are parts of the first input, a
 
 \centeredimage[The Quantum Phase Estimation circuit.]{0.6}{../assets/qpe.png}
 
-The circuit is composed of the following elements: \todo{fixa l'immagine che la misurazione non va bene scritta cosi}
+The circuit is composed of the following elements:
 
 \begin{itemize}
     \item the first are $t > 0$ qubits $\ket{0^t}$ to which we apply $H^{\otimes t}$ at the beginning of the algorithm, which means now each state is set to $\ket +$
@@ -216,16 +214,16 @@ The interesting part of this circuit is that the last register remains unchanged
     \begin{split}
         & \ket{q_0 \cdots q_{t - 1}} \otimes \ket u \\ 
         = & \ket{0}^{\otimes t} \otimes \ket u \\ 
-        \xrightarrow{H(q_0)} & H(\ket{0}_{q_0}) \otimes \ket{0}^{\otimes t - 1} \otimes \ket u \\ 
-        = & \ket +_{q_0} \otimes \ket{0}^{\otimes t - 1} \otimes \ket u \\ 
-        = & \ket +_{q_0} \otimes \ket u \otimes \ket{0}^{\otimes t - 1} \\ 
-        \xrightarrow{\mathrm{C}\mbox{-}U^{2^0}(q_0, \ket u)} & \mbox{C-}U^{2^0}(\ket + \otimes \ket u) \otimes \ket{0}^{\otimes t - 1} \\ 
- & \dfrac{1}{\sqrt 2}(\ket{0}_{q_0} + e^{2 \pi i 2^0 \varphi} \ket 1_{q_0}) \otimes \ket u \otimes \ket{0}^{\otimes t - 1} \\ 
-        = & \dfrac{1}{\sqrt 2}(\ket{0}_{q_0} + e^{2 \pi i 2^0 \varphi} \ket 1_{q_0}) \otimes \ket{0}^{\otimes t - 1} \otimes \ket u \\ 
-        = & \dfrac{1}{\sqrt 2}(\ket{0}_{q_0} \otimes \ket{0}^{\otimes t - 1}  + e^{2 \pi i 2^0 \varphi} \ket{1}_{q_0} \otimes \ket{0}^{\otimes t - 1}) \otimes \ket u \\ 
-        \xrightarrow{H(q_1)} & \dfrac{1}{\sqrt 2}(\ket 0_{q_0} \otimes H(\ket{0}_{q_1}) \otimes \ket{0}^{\otimes t - 2}  + e^{2 \pi i 2^0 \varphi} \ket 1_{q_0} \otimes H(q_1) \otimes \ket{0}^{\otimes t - 2}) \otimes \ket u \\ 
-        = & \dfrac{1}{2} \rbk{\ket{00}_{q_0 q_1} + \ket{01}_{q_0 q_1} + e^{2 \pi i 2^0 \varphi}\ket{10}_{q_0 q_1} + e^{2 \pi i 2^0 \varphi} \ket {11}_{q_0 q_1}} \otimes \ket{0}^{\otimes t - 1} \otimes \ket u \\ 
-        \xrightarrow{\mathrm{C}\mbox{-}U^{2^1}(q_1, \ket u)} & \dfrac{1}{2}\rbk {\ket{00}_{q_0 q_ 1} + e^{2 \pi i 2^1 \varphi} \ket{01}_{q_0 q_1} + e^{2 \pi i 2^0 \varphi} \ket{10}_{q_0 q_1} + e^{2 \pi i (2^0 + 2^1) \varphi} \ket{11}_{q_0 q_1}} \otimes \ket{0}^{\otimes t - 1} \otimes \ket u \\ 
+        \xrightarrow{H(q_0)} & H(\ket{0}_0) \otimes \ket{0}^{\otimes t - 1} \otimes \ket u \\ 
+        = & \ket +_0 \otimes \ket{0}^{\otimes t - 1} \otimes \ket u \\ 
+        = & \ket +_0 \otimes \ket u \otimes \ket{0}^{\otimes t - 1} \\ 
+        \xrightarrow{\mathrm{C}\mbox{-}U^{2^0}(q_0, \ket u)} & \mbox{C-}U^{2^0}(\ket +_0 \otimes \ket u) \otimes \ket{0}^{\otimes t - 1} \\ 
+ & \dfrac{1}{\sqrt 2}(\ket{0}_0 + e^{2 \pi i 2^0 \varphi} \ket 1_0) \otimes \ket u \otimes \ket{0}^{\otimes t - 1} \\ 
+        = & \dfrac{1}{\sqrt 2}(\ket{0}_0 + e^{2 \pi i 2^0 \varphi} \ket 1_0) \otimes \ket{0}^{\otimes t - 1} \otimes \ket u \\ 
+        = & \dfrac{1}{\sqrt 2}(\ket{0}_0 \otimes \ket{0}^{\otimes t - 1}  + e^{2 \pi i 2^0 \varphi} \ket{1}_0 \otimes \ket{0}^{\otimes t - 1}) \otimes \ket u \\ 
+        \xrightarrow{H(q_1)} & \dfrac{1}{\sqrt 2}(\ket 0_0 \otimes H(\ket{0}_{q_1}) \otimes \ket{0}^{\otimes t - 2}  + e^{2 \pi i 2^0 \varphi} \ket 1_0 \otimes H(q_1) \otimes \ket{0}^{\otimes t - 2}) \otimes \ket u \\ 
+        = & \dfrac{1}{2} \rbk{\ket{00}_{01} + \ket{01}_{01} + e^{2 \pi i 2^0 \varphi}\ket{10}_{01} + e^{2 \pi i 2^0 \varphi} \ket {11}_{01}} \otimes \ket{0}^{\otimes t - 2} \otimes \ket u \\ 
+        \xrightarrow{\mathrm{C}\mbox{-}U^{2^1}(q_1, \ket u)} & \dfrac{1}{2}\rbk {\ket{00}_{01} + e^{2 \pi i 2^1 \varphi} \ket{01}_{01} + e^{2 \pi i 2^0 \varphi} \ket{10}_{01} + e^{2 \pi i (2^0 + 2^1) \varphi} \ket{11}_{01}} \otimes \ket{0}^{\otimes t - 2} \otimes \ket u \\ 
         \xrightarrow{\ldots} & \ldots \\ 
         = & \dfrac{1}{\sqrt {2^t}} \sum_{k = 0}^{2^t - 1}{\prod_{m = 1}^{t}{e^{2 \pi i k_{t - m + 1} \cdot 2 ^{m - 1} \varphi} \ket k}} \otimes \ket u \\ 
         = & \dfrac{1}{\sqrt {2^t}} \bigotimes_{m = 1}^{t} {\rbk{\ket 0 + e^{2 \pi i 2^{m - 1} \varphi} \ket 1}} \otimes \ket u \\ 
@@ -287,7 +285,7 @@ We will not replace $U_x$ inside the first sum for now in order to prove that $U
                          & = \sum_{y, z < N}{\ket y \braket{U_x y | U_x z} \bra z} + \sum_{\substack{y < N \\ z \ge N}}{\ket y \braket{U_x y| z} \bra z} + \sum_{\substack{y \ge N \\ z < N}}{\ket y \braket{y |U_xz} \bra z} + \sum_{y, z \ge N}{\ket y \braket{y|z} \bra z} \\ 
         \end{split}
     \end{equation*}
-    Now we observe that if $z > N$ and $y \le N$, by definition of $U_x$ we have that $U_x \ket y = \ket{xy \bmod N}$, hence it will be a basis state among $\ket 0, \ldots, \ket{N - 1}$. Therefore, if $z > N$ we are guaranteed that $\ket z$ and $\ket{U_x y}$ are orthogonal, i.e. $\braket{U_xy|z} = 0$ --- we recall that $N$ is \tit{not} the size of the space in this context, is just a composite number, indeed the size of the space we are considering is $2^k$. Therefore, we have that $$ \sum_{\substack{y < N \\ z \ge N}}{\ket y \braket{U_x y| z} \bra z} = \sum_{\substack{y \ge N \\ z < N}}{\ket y \braket{y |U_xz} \bra z} = 0$$ so we conclude that
+    Now note that if $z \ge N$ and $y < N$, by definition of $U_x$ we have that $U_x \ket y = \ket{xy \bmod N}$, hence it will be a basis state among $\ket 0, \ldots, \ket{N - 1}$. Therefore, if $z > N$ we are guaranteed that $\ket z$ and $\ket{U_x y}$ are orthogonal, i.e. $\braket{U_xy|z} = 0$ --- we recall that $N$ is \tit{not} the size of the space in this context, is just a composite number, indeed the size of the space we are considering is $2^k$. Therefore, we have that $$ \sum_{\substack{y < N \\ z \ge N}}{\ket y \braket{U_x y| z} \bra z} = \sum_{\substack{y \ge N \\ z < N}}{\ket y \braket{y |U_xz} \bra z} = 0$$ so we conclude that
     \begin{equation*}
         \begin{alignedat}{2}
             U_x^\dag U_x & = \sum_{y, z  < N}{\ket y \braket{U_x y | U_x z} \bra z} + \sum_{\substack{y < N \\ z \ge N}}{\ket y \braket{U_x y| z} \bra z} + \sum_{\substack{y \ge N \\ z < N}}{\ket y \braket{y |U_xz} \bra z} + \sum_{y, z \ge N}{\ket y \braket{y|z} \bra z} & \\ 
@@ -295,7 +293,7 @@ We will not replace $U_x$ inside the first sum for now in order to prove that $U
                          & = \sum_{\substack{y, z < N : \\ y \equiv z \bmod N}}{\ket y \braket{U_xy |U_xz} \bra z} + \sum_{\substack{y, z < N : \\ y \not\equiv z \bmod N}}{\ket y \braket{U_xy |U_xz} \bra z} + \sum_{y , z \ge N}{\ket y \braket{y|z} \bra z} & \\ 
         \end{alignedat}
     \end{equation*}
-    To progress, we observe that when $y, z \le N$ we get that $$\braket{U_x y | U_x z} = \braket{xy \bmod N | xz \bmod N} = \soe{ll}{1 & xy \equiv xz \bmod N \\ 0 & \mbox{otherwise}}$$ and by \cref{number theory} we know that $$xy \equiv xz \bmod N \iff y \equiv z \bmod N$$ thus getting
+    To progress, we observe that when $y, z < N$ we get that $$\braket{U_x y | U_x z} = \braket{xy \bmod N | xz \bmod N} = \soe{ll}{1 & xy \equiv xz \bmod N \\ 0 & \mbox{otherwise}}$$ and by \cref{number theory} we know that $$xy \equiv xz \bmod N \iff y \equiv z \bmod N$$ thus getting
     \begin{equation*}
         \begin{alignedat}{2}
             U_x^\dag U_x & = \sum_{\substack{y, z < N : \\ y \equiv z \bmod N}}{\ket y \braket{U_xy |U_xz} \bra z} + \sum_{\substack{y, z < N : \\ y \not\equiv z \bmod N}}{\ket y \braket{U_xy |U_xz} \bra z} + \sum_{y , z \ge N}{\ket y \braket{y|z} \bra z} & \\ 
@@ -446,7 +444,7 @@ Finally, since we know that $r$ is the order of $x$ modulo $N$, we just need to 
         & 3^5 \equiv 243 \equiv 1 \bmod 11 \\ 
     \end{split}
 \end{equation*}
-This is how we can recover $r = 5$ --- to be precise, there are theoretical results which guarantee that $\tfrac{2}{5}$ shows between the convergents of $\tfrac{13}{32}$ but this is ouside the scope of our discussion.
+This is how we can recover $r = 5$ --- to be precise, there are theoretical results which guarantee that $\tfrac{2}{5}$ shows among the convergents of $\tfrac{13}{32}$ but this is ouside the scope of our discussion.
 
 \section{Shor's algorithm}
 
