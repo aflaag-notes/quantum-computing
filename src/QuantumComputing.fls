@@ -769,11 +769,6 @@ INPUT ./chapters/2.tex
 INPUT ./chapters/3.tex
 INPUT ./chapters/3.tex
 INPUT ./chapters/3.tex
-INPUT ../assets/deutsch.png
-INPUT ../assets/deutsch.png
-INPUT ../assets/deutsch.png
-INPUT ../assets/deutsch.png
-INPUT ../assets/deutsch.png
 INPUT ../assets/grover1.svg
 INPUT ../assets/grover1.svg
 INPUT ../assets/grover1.svg

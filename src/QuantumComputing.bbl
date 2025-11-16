@@ -306,11 +306,11 @@
          given={Y.},
          giveni={Y\bibinitperiod},
       }}%
-      {{hash=dlaEBCE}{%
+      {{hash=dlaECE}{%
          prefix={de\bibnamedelima l'{\'e}nergie\bibnamedelima atomique},
          prefixi={d\bibinitperiod\bibinitdelim l\bibinitperiod\bibinitdelim a\bibinitperiod},
-         family={Euratom\bibnamedelima (Bruxelles)},
-         familyi={E\bibinitperiod\bibinitdelim B\bibinitperiod},
+         family={Euratom},
+         familyi={E\bibinitperiod},
          given={Communaut{\'e}\bibnamedelima Europ{\'e}enne},
          giveni={C\bibinitperiod\bibinitdelim E\bibinitperiod},
       }}%
@@ -318,11 +318,11 @@
     \list{publisher}{1}{%
       {Euratom}%
     }
-    \strng{namehash}{LYEBCEdla1}
-    \strng{fullhash}{LYEBCEdla1}
+    \strng{namehash}{LYECEdla1}
+    \strng{fullhash}{LYECEdla1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{labelalpha}{LEB64}
+    \field{labelalpha}{LE64}
     \field{sortinit}{L}
     \field{sortinithash}{L}
     \field{title}{Logique math{\'e}matique: 1. Machines de Turing r{\'e}versibles. R{\'e}cursive insolubilit{\'e} en n epsilon ny de l'{\'e}quation u}

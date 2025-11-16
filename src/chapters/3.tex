@@ -1,8 +1,14 @@
 \chapter{Quantum algorithms}
 
-TODO \todo{intro, talk about the adv wrt classical that you do all the inputs at once}
+Now that we presented all the mathematical tools we need to perform quantum computations, we are ready to explore some of the most famous and most important quantum algorithm that have been developed in recent years. But before introducing any algorithm, let's discuss \tit{why} we are interested in quantum computing at all.
 
-When we introduced quantum operators we underlined the fact that each quantum gate has to be a \tit{unitary} operator, and we now have the mathematical foundation to know that if a matrix is unitary, it is clearly also invertible --- indeed, its adjoint is its inverse. This directly implies a very important property of quantum computation: except for the measurement operation, every quantum computation operation is \tbf{reversible}.
+Consider some computable function $f(x)$ and some classical algorithm that is able to compute it for any valid input $x$. If we have an input $x_1$, and we want to compute its output we need to run the algorithm in order to compute $f(x_1)$. Analogously, if we have another input $x_2$ we need to run the algorithm again in order to compute $f(x_2)$. In general, if we want to know the outputs $f(x_1), \ldots, f(x_N)$ of $N$ inputs $x_1, \ldots, x_N$, with classical computing we must the algorithm $N$ distinct times, because there is no way to compute more than one output at a time. With quantum computations, however, we will see that not ony this is possible, but we can actually compute \tit{all} the possible outputs related to all the possible inputs \tbf{simultaneously}. To the best of our knowledge, through the laws of quantum mechanics we \tit{really} can compute all the possible outpus $f(x)$ for each $x \in \B^n$ --- for a fixed input length $n$.
+
+How does this work in practice? Recall that we \tit{seemingly arbitrarily} decided to denote the vectors of the canonical basis with binary strings, such as $\ket{000}$, $\ket{001}$, $\ket{010}$ and so on (we chose $n = 3$ for this example). This is no coincidence: since this vectors form a basis, we can write any quantum state $\ket \psi$ as a linear combination of them, and by doing so we obtain something like $$\ket \psi = \sum_{x \in \B^3}{\alpha_x \ket x}$$ Say that we want to compute $f(x)$ for all $x \in \B^3$. Assuming that the function $f(x)$ can be defined with a unitary operator $U$ (which means that $U$ is 1 single quantum gate), by linearity of quantum operators when we apply $U$ to $\ket \psi$ we get that $$U \ket \psi = \sum_{x \in \B^3}{\alpha_x U \ket x}$$ Notice what happened here! By only applying $U$ to $\ket \psi$ we actually applied $U$ on \tit{all the vectors of the basis} \tbf{simultaneously}. This explains the choice of the labeling of the vectors of the canonical basis.
+
+So, what's the catch? Well, we also recall that superpositions of states must be measured at some point, and this is the problem: when we measure the result of $U \ket \psi$ we will inevitably only get 1 single value, namely $U \ket x$ for some $x \in \B^n$, with probability $\abs{\alpha_x}^2$. This makes finding \tit{useful} quantum algorithm extremely difficult, because even if we are performing all the computations at once we can only see the result of 1 possible output, at random. Hence, not only quantum algorithms are hard to discover because of this inherent limitation of quantum mechanics, but they must also be more efficient than any classical alternative we currently know, otherwise there is really no point in using this very complicated computing framework (both in terms of hardware and software). The algorithms that we will see in this chapter --- and also in the next one --- are some of the most important quantum procedures that we know, and sparked a lot of interest in this area of research in recent years.
+
+But before starting our discussion about quantum algorithm, we need to present another peculiarity of quantum computation. When we introduced quantum operators we underlined the fact that each quantum gate has to be a \tit{unitary} operator, and we now have the mathematical foundation to know that if a matrix is unitary, it is clearly also invertible --- indeed, its adjoint is its inverse. This directly implies a very important property of quantum computation: except for the measurement operation, every quantum computation operation is \tbf{reversible}.
 
 Truth be precise, classical computation \tit{admits} reversible computation. In fact, we observe that we do have examples of reversible classical computaion that does not lose efficiency --- in terms of time. In 1963 \textcite{lecerf} proposed a reversible Turing machine, and in 1973 a landmark result by \textcite{bennett} proved that any standard Turing machine can be actually simulated by a reversible one --- his construction involves augmenting the Turing machine with an auxiliary \tit{history tape}, which can potentially lead to a large space overhead.
 
@@ -69,9 +75,17 @@ Then, how do we extract useful \tit{global} information from the superposition o
     \end{algorithmic}
 \end{framedalgo}
 
-\centeredimage[The quantum circuit for Deutsch's algorithm. The box colored in \tit{magenta} labeled with \texttt{U\_f} represents a \curlyquotes{black-box} for whatever computation $U_f$ represents (which directly depends on the chioce of $f$).]{0.9}{../assets/deutsch.png}
+\begin{figure}[H]
+	\[
+		\Qcircuit @C=3em @R=3em {
+                  & \lstick{q_0} & \gate H & \qw & \multigate{1}{U_f} & \gate{H} & \meter & \cw \\ 
+                  & \lstick{q_1} & \gate{X} & \gate H & \ghost{U_f} & \qw & \qw & \qw \\
+		}
+	\]
+	\caption{The quantum circuit for Deutsch's algorithm. The box labeled with $U_f$ represents a \curlyquotes{black-box} for whatever computation $U_f$ represents (which directly depends on the chioce of $f$).}
+\end{figure}
 
-Proving that this quantum circuit is correct will be a little more involved than the quantum teleportation one. First, we need a lemma that will simplify our calculations.
+Proving that this quantum circuit is correct, however, will be a little more involved than what we did for the quantum teleportation. First, we need a lemma that will simplify our calculations.
 
 \begin{framedlem}[label={U lemma}]{}
     For any Boolean function $f$ defined on $n$ bits, and $a \in \{0, 1\}^n$, it holds that $$U_f \ket a \otimes \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1) = (-1)^{f(a)} \ket a \otimes \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1)$$
@@ -157,32 +171,40 @@ Moreover, this problem actually shows the power of quantum parallelism more evid
 
 Note that in this algorithm $q_0$ are actually $n$ qubits, thus $q_0$ is initially set to $\ket{0}^{\otimes n}$. Before proving the correctness of this general version of the algorithm, let us first take a look at the quantum circuit that defines it.
 
-TODO \todo{drawing}
+\begin{figure}[H]
+	\[
+		\Qcircuit @C=3em @R=3em {
+                  & \lstick{q_0^{\otimes n}} & \gate{H^{\otimes n}} & \qw & \multigate{1}{U_f} & \gate{H^{\otimes n}} & \meter & \cw \\ 
+                  & \lstick{q_1} & \gate{X} & \gate H & \ghost{U_f} & \qw & \qw & \qw \\
+		}
+	\]
+	\caption{The quantum circuit for the Deutsch-Josza algorithm.}
+\end{figure}
 
-For our discussion we will call $\B = \{0, 1\}$.
+\begin{framedprop}[label={H prop}]{}
+    For any $x \in \B^n$ it holds that $$H^{\otimes n}\ket x = \dfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{(-1)^{x \cdot a} \ket a}$$
+\end{framedprop}
 
-\claim[Claim 1]{
-    $\forall a \in \B \quad H \ket a = \tfrac{1}{\sqrt 2} \sum_{b \in \B}{(-1)^{a \cdot b} \ket b}$.
-}{
-    We observe that $$H \ket 0 = \ket + = \dfrac{1}{\sqrt 2}(\ket 0 + \ket 1) = \dfrac{1}{\sqrt 2} \sum_{b \in \B}{(-1)^{0 \cdot b} \ket b}$$ and analogously $$H \ket 1 = \ket - = \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1) = \dfrac{1}{\sqrt 2} \sum_{b \in \B}{(-1)^{1 \cdot b} \ket b}$$
-}
+\begin{proof}
+    First, consider the following claim.
 
-In the following claim, we will denote with the $\cdot$ symbol the \curlyquotes{canonical} scalar product, i.e. $$\forall x, y \in \B^n \quad x \cdot y := \sum_{i = 1}^n{x_i y_i}$$
+    \claim{
+        $\forall a \in \B \quad H \ket a = \tfrac{1}{\sqrt 2} \sum_{b \in \B}{(-1)^{a \cdot b} \ket b}$.
+    }{
+        We observe that $$H \ket 0 = \ket + = \dfrac{1}{\sqrt 2}(\ket 0 + \ket 1) = \dfrac{1}{\sqrt 2} \sum_{b \in \B}{(-1)^{0 \cdot b} \ket b}$$ and analogously $$H \ket 1 = \ket - = \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1) = \dfrac{1}{\sqrt 2} \sum_{b \in \B}{(-1)^{1 \cdot b} \ket b}$$
+    }
 
-\claim[Claim 2]{
-    $\forall x \in \B^n \quad H^{\otimes n}\ket x = \tfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{(-1)^{x \cdot a} \ket a}$
-}{
-    By the previous claim, we have that
+    In the rest of the proof we will denote with the $\cdot$ symbol the \curlyquotes{canonical} scalar product, i.e. $$\forall x, y \in \B^n \quad x \cdot y := \sum_{i = 1}^n{x_i y_i}$$ Fix $x \in \B^n$; by the previous claim, we have that
     \begin{equation*}
         \begin{alignedat}{2}
             H^{\otimes n} \ket x & = \bigotimes_{i = 1}^n{H \ket{x_i}} & \\ 
-                                 & = \bigotimes_{i = 1}^n{\rbk{\dfrac{1}{\sqrt 2} \sum_{b \in \B}{(-1)^{x_ib} \ket b}} \ket{x_i} }  & \quad (\mbox{by Claim 1}) & \\ 
+                                 & = \bigotimes_{i = 1}^n{\rbk{\dfrac{1}{\sqrt 2} \sum_{b \in \B}{(-1)^{x_ib} \ket b}} \ket{x_i} }  & \quad (\mbox{by the claim}) & \\ 
                                  & = \dfrac{1}{\sqrt 2^n} \bigotimes_{i = 1}^n{\rbk{\ket 0 + (-1)^{x_i} \ket 1}} & \\ 
                                  & = \dfrac{1}{\sqrt 2^n} \sum_{a \in \B^n}{(-1)^{x \cdot a} \ket a } & \\ 
         \end{alignedat}
     \end{equation*}
-}
-
+\end{proof}
+    
 Finally, we are ready to prove the correctness of the algorithm.
 
 \begin{equation*}
@@ -191,14 +213,14 @@ Finally, we are ready to prove the correctness of the algorithm.
         = & \ket{0}^{\otimes n} \otimes \ket 0 & \\ 
         \xrightarrow{X(q_1)} & \ket{0}^{\otimes n} \otimes \ket 1 & \\ 
         \xrightarrow{H^{\otimes n}(q_0, q_1)} & H^{\otimes n} \ket{0}^{\otimes n} \otimes H \ket 1 & \\ 
-        = & \dfrac{1}{\sqrt 2^n} \sum_{a \in \B^n}{(-1)^{0^n \cdot a} \ket a} \otimes \ket - & \quad (\mbox{by Claim 2}) \\ 
+        = & \dfrac{1}{\sqrt 2^n} \sum_{a \in \B^n}{(-1)^{0^n \cdot a} \ket a} \otimes \ket - & \quad (\mbox{by \cref{H prop}}) \\ 
         = & \dfrac{1}{\sqrt 2^n} \sum_{a \in \B^n}{\ket a} \otimes \ket -  & \\ 
         = & \dfrac{1}{\sqrt 2^n } \sum_{a \in \B^n}{(\ket a \otimes \ket - )} & \\ 
         \xrightarrow{U_f(q_0, q_1)} & \dfrac{1}{\sqrt 2^n} \sum_{a \in \B^n}{\rbk{(-1)^{f(a)} \ket a \otimes \ket - }} & \quad (\mbox{by \cref{U lemma}}) \\ 
         = & \dfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{(-1)^{f(a)} \ket a} \otimes \ket - & \\ 
         \xrightarrow{H^{\otimes n}(q_0)} & H^{\otimes n} \rbk{\dfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{(-1)^{f(a)} \ket a }} \otimes \ket - & \\ 
         = & \dfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{\rbk{(-1)^{f(a)} H^{\otimes n} \ket a }} \otimes \ket - & \\ 
-        = & \dfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{(-1)^{f(a)} \rbk{\dfrac{1}{\sqrt 2^n} \sum_{b \in \B^n} {(-1)^{a \cdot b} \ket b}}} \otimes \ket - & \quad (\mbox{by Claim 2}) \\ 
+        = & \dfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{(-1)^{f(a)} \rbk{\dfrac{1}{\sqrt 2^n} \sum_{b \in \B^n} {(-1)^{a \cdot b} \ket b}}} \otimes \ket - & \quad (\mbox{by \cref{H prop}}) \\ 
         = & \dfrac{1}{2^n} \sum_{a \in \B^n}{\sum_{b \in \B^n}{(-1)^{f(a) + a \cdot b}} \ket b } \otimes \ket - & \\ 
         = & \dfrac{1}{2^n} \sum_{a \in \B^n}{\sum_{b \in \B^n}{(-1)^{f(a) + a \cdot b}} \ket b } \otimes \ket - & \\ 
         = & \sum_{b \in \B^n}{\rbk{\dfrac{1}{2^n}\sum_{a \in \B^n}{(-1)^{f(a) + a \cdot b}}} \ket b_0} \otimes \ket -_1 & \\
@@ -220,7 +242,7 @@ In 1997, \textcite{grover} published a landmark paper called \curlyquotes{Quantu
 
 More formally, given a Boolean function $$\funcmap{f}{\{0, \ldots, N - 1\}}{\B}{x}{\soe{ll}{1 & A[x] \in S \\ 0 & \mbox{otherwise}}}$$ where $A$ is our array, and $S$ is the set of solution elements, the problem asks to return an $x$ such that $f(x) = 1$, i.e. such that $A[x]$ is a solution.
 
-With a classical computation, it is easy to see that we need $O \rbk{\dfrac{N}{M}}$ accesses to $A$ to solve our problem, however we will see that the algorithm Grover developed is able to return a \curlyquotes{solution index} in $O\rbk{\sqrt{\dfrac{M}{N}}}$ with \tit{high probability}, i.e. Grover's algorithm provides a \tbf{quadratic} speedup compared to any classical algorithm --- however, it is probabilistic.
+With a classical computation, it is easy to see that we need $O \rbk{\tfrac{N}{M}}$ accesses to $A$ to solve our problem, however we will see that the algorithm Grover developed is able to return a \curlyquotes{solution index} in $O\rbk{\sqrt{\tfrac{M}{N}}}$ with \tit{high probability}, i.e. Grover's algorithm provides a \tbf{quadratic} speedup compared to any classical algorithm --- however, it is probabilistic.
 
 Before explaining the details of the algorithm, we need to define some new operators that will be used in Grover's algorithm, and introduce some general notation:
 
@@ -247,9 +269,17 @@ Before explaining the details of the algorithm, we need to define some new opera
     \end{algorithmic}
 \end{framedalgo}
 
-First of all, we see that this algorithm takes only $n$ qubits as input, however the actual implementation of the algorithm is slightly different, as shown in the following quantum circuit:
+First of all, we see that this algorithm takes only $n$ qubits as input, however the actual implementation of the algorithm is slightly different, as shown in the following quantum circuit below.
 
-TODO \todo{drawing}
+\begin{figure}[H]
+	\[
+		\Qcircuit @C=3em @R=3em {
+                  & \lstick{q_0^{\otimes n}} & \gate{H^{\otimes n}} & \multigate{1}{G} & \qw & \push{\cdots} & \multigate{1}{G} & \meter & \cw \\ 
+                  & \lstick{q_1} & \qw & \ghost{G} & \qw & \push{\cdots} & \ghost{G} & \qw & \qw \\
+		}
+	\]
+	\caption{The quantum circuit for Grover's algorithm.}
+\end{figure}
 
 Indeed, we can see that the real quantum circuit takes $n + 1$ inputs, and the additional register is called \curlyquotes{ancilla} becuase its only purpose is to actually implement the $O_f$ operator, which is designed exactly as if it was the $U_f$ black-box we discussed in previous algorithms. This can be done thanks to \cref{U lemma}, which guarantees that if we give $\ket -$ as the second input to $U_f$ we get $$O_f \ket x \otimes \ket -  = (-1)^{f(x)} \otimes \ket - $$ which implies that the ancilla register will sill be $\ket -$, therefore we can just ignore the second register completely throughout the whole computation, and we are sure that $O_f$ computes correctly.
 
