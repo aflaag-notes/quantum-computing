@@ -138,7 +138,7 @@ We observe that $q_1$ then becomes the output of the CNOT operation, and $q_0$ r
 In particular, in this cirtuit we see that:
 
 \begin{itemize}
-	\item the vertical \curlyquotes{double line} reprents \tit{a measured state}
+	\item the vertical \curlyquotes{double line} reprents \tit{a measured state} --- which we usually call \tit{classical wire} (even if it's still a qubit) because it became either $\ket 0$ or $\ket 1$
 	\item the number 1 next to the label \texttt{meas} indicates the number of qubits that have been measured
 	\item the number 0 is the index of the measured qubit
 \end{itemize}
@@ -295,11 +295,51 @@ Thus, in the end Bob was able to reconstruct $\ket \psi$ correctly, at the cost 
 \begin{figure}[H]
 	\[
 		\Qcircuit @C=2em @R=2em {
-		& \lstick{q_0} & \qw      & \qw      & \ctrl{1} & \gate{H} & \meter & \cw      & \cw       & \cctrl{2}   &  \cw \\
-		& \lstick{q_1} & \gate{H} & \ctrl{1} & \targ    & \qw      & \meter  & \cw      & \cctrl{1} &  \cw          & \cw \\
-		& \lstick{q_2} & \qw      & \targ    & \qw      & \qw      & \qw                   & \qw      & \gate{X}  & \gate{Z}    & \qw
+		& \lstick{q_0} & \qw      & \qw      & \ctrl{1} & \gate{H} & \meter &   \cw       & \cctrl{2}   &  \cw \\
+		& \lstick{q_1} & \gate{H} & \ctrl{1} & \targ    & \qw      & \meter  &      \cctrl{1} &  \cw          & \cw \\
+		& \lstick{q_2} & \qw      & \targ    & \qw      & \qw      & \qw        & \gate{X}  & \gate{Z}    & \qw
 		}
 	\]
 	\caption{The Quantum Teleportation circuit.}
 \end{figure}
 
+As a final note, we observe that the circuit written in this form is rather unusual. Indeed, it helps to visualize the fact that Alice performs the measurement before Bob can have his qubit collapse, but in reality the measurement could have been done at the end of the circuit and it would not have made any difference at all.
+
+\begin{figure}[H]
+	\[
+		\Qcircuit @C=2em @R=2em {
+		& \lstick{q_0} & \qw      & \qw      & \ctrl{1} & \gate{H}     & \qw       & \ctrl{2}    & \meter & \cw\\
+		& \lstick{q_1} & \gate{H} & \ctrl{1} & \targ    & \qw       & \ctrl{1} &  \qw          & \meter & \cw\\
+		& \lstick{q_2} & \qw      & \targ    & \qw      & \qw       & \gate{X}  & \gate{Z}    &  \qw &  \qw \\
+		}
+	\]
+	\caption{The Quantum Teleportation circuit with the measurement moved at the end.}
+\end{figure}
+
+Indeed, all the quantum circuits we will present from now on will have their measurements placed at the end of the whole computation. This idea is summed up below.
+
+\begin{framedprinc}{Principle of deferred measurement}
+	Measurement can always be moved from an intermediate stage of a quantum circuit to the end of the circuit. If the measurement results are used at any stage of the circuit then the classically controlled operations can be replaced by conditional quantum operations.
+\end{framedprinc}
+
+Algorithmically, this means that the following sequence of operations on two qubits $q_0$, $q_1$
+
+\begin{figure}[H]
+	\begin{algorithmic}[1]
+		\State $b = \mbox{measure}(q_0)$
+		\If{$b$}
+		\State $q_1 = U(q_1)$
+		\EndIf
+	\end{algorithmic}
+\end{figure}
+
+which performs an application of the $U$ gate \tit{classically conditioned} on the result of $b$, can be equivalently rewritten as
+
+\begin{figure}[H]
+	\begin{algorithmic}[1]
+		\State $q_0, q_1 = \mbox{C-}U(q_0, q_1)$
+		\State $b = \mbox{measure}(q_0)$
+	\end{algorithmic}
+\end{figure}
+
+assuming that $\mbox{C-}U$ is the \tit{controlled} version of the $U$ gate. Let's prove that this is true. Assume that the complete state of the system $\ket \psi$ is equal to $$q_0 \otimes q_1 = \alpha_0 \ket{00} + \alpha_1 \ket{01} + \alpha_2 \ket{10} + \alpha_3 \ket{11}$$ Note that this is the most general case, since $q_0$ and $q_1$ might be entangled so it might not be possible to treat them separately. Thus, in the first case we have that after measuring $q_0$ the state becomes $$\ket \psi \soe{ll}{\ket 0 \otimes (\beta_{00} \ket 0  + \beta_{01} \ket 1) & @ \ \abs{\alpha_0}^2 + \abs{\alpha_1}^2 \\ \ket 1 \otimes(\beta_{10} \ket 0 + \beta_{11} \ket 1) & @ \ \abs{\alpha_2}^2 + \abs{\alpha_3}^3}$$ for some probability amplitudes $\beta_{ij}$. Then, with the application of $U$ conditioned of the outcome of the measurement the state becomes $$\ket \psi \soe{ll}{\ket 0 \otimes (\beta_{00} \ket 0  + \beta_{01} \ket 1) & @ \ \abs{\alpha_0}^2 + \abs{\alpha_1}^2 \\ \ket 1 \otimes(\beta_{10} U \ket 0 + \beta_{11} U \ket 1) & @ \ \abs{\alpha_2}^2 + \abs{\alpha_3}^3}$$ It's easy to see that this very outcome of probabilities could have been achieved by first applying the controlled $U$ gate to $\ket \psi$ at the beginning, getting $$\ket \psi = \alpha_0 \ket {00} + \alpha_1 \ket{01} + \alpha_2 \ket 1 \otimes U \ket 0 + \alpha_3 \ket 1 \otimes U \ket 1$$ and then measuring $q_0$ afterwards.
