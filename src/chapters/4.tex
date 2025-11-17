@@ -197,6 +197,24 @@ As we would expect, what happens is that the two outcomes we previously describe
 \end{equation*}
 Notice what happened here: $\ket 0$ and $\ket 1$ are parts of the first input, and $\ket u$ is the second input. In other words, by putting $\ket u$ as target input of the controlled gate, the target is \tbf{unchanged}, and the effect is seen on the control. We observe that this could not have been done with any other state $\ket \psi$ because the trick works precisely because $U$ becomes a scalar $e^{2 \pi i \varphi}$ when applied to $\ket u$, so it can be grouped as shown. The following quantum circuit computes the \tbf{Quantum Phase Estimation (QPE)} algorithm, and it uses precisely this trick.
 
+\begin{framedalgo}{Quantum Phase Estimation algorithm}
+    Given a unitary operator $U$, and an eigenvector $\ket u$ of $U$, the algorithm returns the phase $\varphi$ to which $\ket u$ is associated to. \\
+    \hrule
+
+    \quad
+    \begin{algorithmic}[1]
+        \Function{QuantumPhaseEstimation}{$U$, $\ket u$}
+            \State $q_t \takes \ket u$ \Comment{$q_t$ is the $(t + 1)$-th register}
+            \For{$k \in [0, t - 1]$}
+                \State $q_k \takes H(q_k)$
+                \State $q_k, q_t \takes U^{2^k}(q_k, q_t)$
+            \EndFor
+            \State $q_0, \ldots, q_{t - 1} \takes \mbox{QFT}^\dag(q_0, \ldots, q_{t - 1})$
+            \State \tbf{return} $\mbox{measure}(q_0, \ldots, q_{t - 1})$
+        \EndFunction
+    \end{algorithmic}
+\end{framedalgo}
+
 \centeredimage[The Quantum Phase Estimation circuit.]{0.6}{../assets/qpe.png}
 
 The circuit is composed of the following elements:

@@ -204,22 +204,22 @@ The No-cloning theorem represents an inherent limitation of quantum computation,
 
 So far we saw that quantum states cannot be cloned, but can we at least \tit{send} them? Suppose that Alice wants to send Bob $\ket \psi$, described by some $\alpha$ and $\beta$. Clearly, the only thing that Bob has to receive are indeed the probability amplitudes of $\ket \psi$, so even if Alice cannot clone her quantum state, nothing prevents her to build a quantum circuit which allows Bob to receive $\alpha$ and $\beta$ --- at the cost of \curlyquotes{destroying} her $\ket \psi$, i.e. mesuring it. This process is called \tbf{quantum teleportation}, and can be achieved through the following algorithm.
 
-\begin{framedalgo}{Quantum teleportation algorithm}
+\begin{framedalgo}{Quantum Teleportation algorithm}
 	Given three qubits $q_0$, $q_1$ and $q_2$, the algorithm moves the state of $q_0$ into $q_2$. \\
 	\hrule
 
 	\quad
 	\begin{algorithmic}[1]
 		\Function{QuantumTeleportation}{$q_0$, $q_1$, $q_2$}
-		\State $q_1 = H(q_1)$
-		\State $q_2 = CX(q_1, q_2)$ \Comment{entangle $q_1$ and $q_2$}
-		\State $q_1 = CX(q_0, q_1)$
-		\State $q_0, q_1 = \mbox{measure}(q_0, q_1)$
+		\State $q_1 \takes H(q_1)$
+		\State $q_2 \takes CX(q_1, q_2)$ \Comment{entangle $q_1$ and $q_2$}
+		\State $q_1 \takes CX(q_0, q_1)$
+		\State $q_0, q_1 \takes \mbox{measure}(q_0, q_1)$
 		\If{$q_1 == \ket 1$}
-		\State $q_2 = X(q_2)$
+		\State $q_2 \takes X(q_2)$
 		\EndIf
 		\If{$q_0 == \ket 1$}
-		\State $q_2 = Z(q_2)$
+		\State $q_2 \takes Z(q_2)$
 		\EndIf
 		\State \tbf{return} $q_2$
 		\EndFunction
@@ -326,9 +326,9 @@ Algorithmically, this means that the following sequence of operations on two qub
 
 \begin{figure}[H]
 	\begin{algorithmic}[1]
-		\State $b = \mbox{measure}(q_0)$
+		\State $b \takes \mbox{measure}(q_0)$
 		\If{$b$}
-		\State $q_1 = U(q_1)$
+		\State $q_1 \takes U(q_1)$
 		\EndIf
 	\end{algorithmic}
 \end{figure}
@@ -337,8 +337,8 @@ which performs an application of the $U$ gate \tit{classically conditioned} on t
 
 \begin{figure}[H]
 	\begin{algorithmic}[1]
-		\State $q_0, q_1 = \mbox{C-}U(q_0, q_1)$
-		\State $b = \mbox{measure}(q_0)$
+		\State $q_0, q_1 \takes \mbox{C-}U(q_0, q_1)$
+		\State $b \takes \mbox{measure}(q_0)$
 	\end{algorithmic}
 \end{figure}
 

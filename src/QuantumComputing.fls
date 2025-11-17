@@ -243,6 +243,10 @@ INPUT /usr/share/texmf-dist/tex/latex/csquotes/csquotes.def
 INPUT /usr/share/texmf-dist/tex/latex/csquotes/csquotes.cfg
 INPUT /usr/share/texmf-dist/tex/latex/csquotes/csquotes.cfg
 INPUT /usr/share/texmf-dist/tex/latex/csquotes/csquotes.cfg
+INPUT /usr/share/texmf-dist/tex/latex/colortbl/colortbl.sty
+INPUT /usr/share/texmf-dist/tex/latex/colortbl/colortbl.sty
+INPUT /usr/share/texmf-dist/tex/latex/tools/array.sty
+INPUT /usr/share/texmf-dist/tex/latex/tools/array.sty
 INPUT /usr/share/texmf-dist/tex/latex/float/float.sty
 INPUT /usr/share/texmf-dist/tex/latex/float/float.sty
 INPUT /usr/share/texmf-dist/tex/latex/bbm-macros/bbm.sty
@@ -328,8 +332,6 @@ INPUT /usr/share/texmf-dist/tex/latex/nicematrix/nicematrix.sty
 INPUT /usr/share/texmf-dist/tex/latex/nicematrix/nicematrix.sty
 INPUT /usr/share/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty
 INPUT /usr/share/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty
-INPUT /usr/share/texmf-dist/tex/latex/tools/array.sty
-INPUT /usr/share/texmf-dist/tex/latex/tools/array.sty
 INPUT /usr/share/texmf-dist/tex/latex/stmaryrd/stmaryrd.sty
 INPUT /usr/share/texmf-dist/tex/latex/stmaryrd/stmaryrd.sty
 INPUT /usr/share/texmf-dist/tex/latex/mathtools/mathtools.sty
@@ -402,6 +404,8 @@ INPUT /usr/share/texmf-dist/tex/generic/pgf/libraries/pgflibraryplotmarks.code.t
 INPUT /usr/share/texmf-dist/tex/generic/pgf/libraries/pgflibraryplotmarks.code.tex
 INPUT /usr/share/texmf-dist/tex/latex/multirow/multirow.sty
 INPUT /usr/share/texmf-dist/tex/latex/multirow/multirow.sty
+INPUT /usr/share/texmf-dist/tex/latex/amsfonts/eufrak.sty
+INPUT /usr/share/texmf-dist/tex/latex/amsfonts/eufrak.sty
 INPUT /usr/share/texmf-dist/tex/latex/braket/braket.sty
 INPUT /usr/share/texmf-dist/tex/latex/braket/braket.sty
 INPUT /usr/share/texmf-dist/tex/latex/algorithms/algorithm.sty

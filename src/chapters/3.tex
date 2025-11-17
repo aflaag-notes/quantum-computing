@@ -66,10 +66,10 @@ Then, how do we extract useful \tit{global} information from the superposition o
     \quad
     \begin{algorithmic}[1]
         \Function{Deutsch}{$f$, $q_0$, $q_1$}
-            \State $q_1 = X(q_1)$
-            \State $q_0, q_1 = (H \otimes H)(q_0, q_1)$
-            \State $q_0, q_1 = U_f(q_0, q_1)$
-            \State $q_0 = H(q_0)$
+            \State $q_1 \takes X(q_1)$
+            \State $q_0, q_1 \takes (H \otimes H)(q_0, q_1)$
+            \State $q_0, q_1 \takes U_f(q_0, q_1)$
+            \State $q_0 \takes H(q_0)$
             \State \tbf{return} $\mbox{measure}(q_0)$
         \EndFunction
     \end{algorithmic}
@@ -110,6 +110,7 @@ Proving that this quantum circuit is correct, however, will be a little more inv
 
 We are now ready to prove the correctness of Deutsch's algorithm. To make things less cluttered, we will use the following standard notation: $$\ket + := \dfrac{1}{\sqrt 2}(\ket 0 + \ket 1) \quad \quad \ket - := \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1)$$ In particular, we observe that $$H \ket 0 = \ket + \quad \quad H \ket 1 = \ket - $$ Moreover, we will omit the subscript of the corresponding qubit when the context is clear enough
 \begin{equation*}
+    \hspace{-0.7cm}
     \begin{alignedat}{2}
       & q_0 \otimes q_1 &  \\ 
         = & \ket 0 \otimes \ket 0 & \\ 
@@ -160,10 +161,10 @@ Moreover, this problem actually shows the power of quantum parallelism more evid
     \quad
     \begin{algorithmic}[1]
         \Function{DeutschJosza}{$f$, $q_0$, $q_1$}
-            \State $q_1 = X(q_1)$
-            \State $q_0, q_1 = (H^{\otimes n} \otimes H)(q_0, q_1)$
-            \State $q_0, q_1 = U_f(q_0, q_1)$
-            \State $q_0 = H^{\otimes n}(q_0)$
+            \State $q_1 \takes X(q_1)$
+            \State $q_0, q_1 \takes (H^{\otimes n} \otimes H)(q_0, q_1)$
+            \State $q_0, q_1 \takes U_f(q_0, q_1)$
+            \State $q_0 \takes H^{\otimes n}(q_0)$
             \State \tbf{return} $\mbox{measure}(q_0)$
         \EndFunction
     \end{algorithmic}
@@ -260,9 +261,9 @@ Before explaining the details of the algorithm, we need to define some new opera
     \quad
     \begin{algorithmic}[1]
         \Function{Grover}{$f$, $q_0$}
-            \State $q_0 = H^{\otimes n}(q_0)$
+            \State $q_0 \takes H^{\otimes n}(q_0)$
             \For{$i \in \sbk{1, O\rbk{\sqrt{\tfrac{N}{M}}}}$} \Comment{where $N = 2^n$}
-                \State $q_0 = G(q_0)$
+                \State $q_0 \takes G(q_0)$
             \EndFor
             \State \tbf{return} $\mbox{measure}(q_0)$
         \EndFunction
@@ -274,8 +275,8 @@ First of all, we see that this algorithm takes only $n$ qubits as input, however
 \begin{figure}[H]
 	\[
 		\Qcircuit @C=3em @R=3em {
-                  & \lstick{q_0^{\otimes n}} & \gate{H^{\otimes n}} & \multigate{1}{G} & \qw & \push{\cdots} & \multigate{1}{G} & \meter & \cw \\ 
-                  & \lstick{q_1} & \qw & \ghost{G} & \qw & \push{\cdots} & \ghost{G} & \qw & \qw \\
+                  & \lstick{q_0^{\otimes n}} & \gate{H^{\otimes n}} & \multigate{1}{G} &  \multigate{1}{\cdots} & \multigate{1}{G} & \meter & \cw \\ 
+                  & \lstick{q_1} & \qw & \ghost{G} & \ghost{\cdots}  & \ghost{G} & \qw & \qw \\
 		}
 	\]
 	\caption{The quantum circuit for Grover's algorithm.}
@@ -326,14 +327,14 @@ Consider any state $\ket \psi = \sum_{x \in \B^n}{\alpha_x \ket x}$; we observe 
 \end{equation*}
 which basically means that each time we apply the $O_f$ operator we are flipping the sign of the amplitudes of the compoents of $\ket \psi$ that represent solution indices. In other words, the $O_f$ operator flips its input w.r.t. $\ket a$.
 
-Moreover, we observe that any state $\ket \psi$ can be decomposed into $$\ket \psi = \alpha \ket s + \ket{\psi_\bot}$$ where $\alpha \ket s$ is the projection of $\ket \psi$ along $\ket s$'s space --- thus $\alpha = \braket{s|\psi}$ --- and $\ket {\psi_\bot}$ is the projection of $\ket \psi$ along the space that is orthogonal to $\ket s$'s. Therefore, we have that
+Moreover, we observe that any state $\ket \psi$ can be decomposed into $$\ket \psi = \alpha \ket s + \beta \ket{\psi_\bot}$$ where $\alpha \ket s$ is the projection of $\ket \psi$ along $\ket s$'s space --- thus $\alpha = \braket{s|\psi}$ --- and $\ket {\psi_\bot}$ is the projection of $\ket \psi$ along the space that is orthogonal to $\ket s$'s. Therefore, we have that
 \begin{equation*}
     \begin{split}
-        W \ket \psi & = W(\alpha \ket s + \ket{\psi_\bot}) \\ 
-                    & = 2 \ket s \bra s (\alpha \ket s + \ket{\psi_\bot}) - (\alpha \ket s + \ket{\psi_\bot}) \\ 
-                    & = 2 \alpha \ket s \braket{s|s} + 2 \ket s \braket{s|\psi_\bot} - (\alpha \ket s + \ket{\psi_\bot}) \\ 
-                    & = 2 \alpha \ket s \cdot 1 + 0 - (\alpha \ket s + \ket{\psi_\bot}) \\ 
-                    & = \alpha \ket s - \ket{\psi_\bot}
+        W \ket \psi & = W(\alpha \ket s + \beta \ket{\psi_\bot}) \\ 
+                    & = 2 \ket s \bra s (\alpha \ket s + \beta \ket{\psi_\bot}) - (\alpha \ket s + \beta \ket{\psi_\bot}) \\ 
+                    & = 2 \alpha \ket s \braket{s|s} + 2 \beta \ket s \braket{s|\psi_\bot} - (\alpha \ket s + \beta \ket{\psi_\bot}) \\ 
+                    & = 2 \alpha \ket s \cdot 1 + 0 - (\alpha \ket s + \beta \ket{\psi_\bot}) \\ 
+                    & = \alpha \ket s - \beta \ket{\psi_\bot}
     \end{split}
 \end{equation*}
 which means that what $W$ actually performs is leaving the component along $\ket s$'s space unchanged, and it flips the sign of the component of the orthogonal space. In other words, what $W$ computes is the reflection of $\ket \psi$ w.r.t. $\ket s$.
@@ -359,7 +360,7 @@ Indeed, the only purpose of the first Hadamard operator is to \curlyquotes{move}
 
 This is the core idea of Grover's algorithm: if we rewrite $q_0$ in terms of $\ket a$ and $\ket b$ $$q_0 = \beta_0 \ket a + \beta_1 \ket b$$ we get that through Grover's algorithm we transformed $q_0$ such that it is now very close to $\ket b$, meaning that $\beta_0 \ll \beta_1$. This direcly implies that when we will measure $q_0$ at the end of Grover's procedure the likelihood that it will collapse into some $\ket x$ that is a component of $\ket b$ --- i.e. a solution index --- is very high. In other words, what happens with Grover's algorithm is that we gradually increase the amplitudes of the solution indices, in order to maximize the probability that our qubit will collapse in one them when it will be measured at the end of the procedure.
 
-Now that we know how Grover's algorithm works, the only thing left to discuss is the $O \rbk{\sqrt{\dfrac{N}{M}}}$. Why is it guaranteed that after this amount of applications of the $G$ operator we are done with the algorithm? Well, we actually have the opposite problem: in reality, we have to \tit{stop early enough}. Consider again how Grover's algorithm operates in the Grover plane; clearly, if we apply $G$ too many times, what happens is that $q_0$ will end up past $\ket b$ itself: \todo{drawing}
+Now that we know how Grover's algorithm works, the only thing left to discuss is the $O \rbk{\sqrt{\tfrac{N}{M}}}$ factor. Why is it guaranteed that after this amount of applications of the $G$ operator we are done with the algorithm? Well, we actually have the opposite problem: in reality, we have to \tit{stop early enough}. Consider again how Grover's algorithm operates in the Grover plane; clearly, if we apply $G$ too many times, what happens is that $q_0$ will end up past $\ket b$ itself: \todo{drawing}
 
 Let the angle between $\ket a$ and $\ket s$ be $\theta$; since $O_f$ flips $q_0$ w.r.t. $\ket a$, and $W$ flips $O_f \ q_0$ w.r.t. $\ket s$, $G$ will cumulatively rotate $q_0$ by $2 \theta$: \todo{drawing} Indeed, with each application of $G$ we are rotating $q_0$ by $2 \theta$, which means that at the $k$-th application it holds that $$G^k \ q_0 = \cos (2k + 1) \theta \ket a + \sin (2k + 1) \theta \ket b$$ for any $k \in \N$, where the additional 1 comes from the fact that $q_0 = \ket s$ through the Hadamard transformation at the start of the process. Thus, to evaluate the optimal number of iterations we need to find the optimal $k$, i.e. the one that maximizes the probability of measuring a solution index, which is equal to the squared amplitude of $\ket b$, namely $$\Pr[\mbox{measure}(q_0) = \ket b] = \sin^2(2k + 1) \theta$$ Hence, we have that $\sin^2(2k + 1)\theta = 1$ when $(2k +1) \theta = \tfrac{\pi}{2}$, and solving for $k$ we get that $$k = \dfrac{\pi}{4 \theta} - \dfrac{1}{2}$$ Lastly, since $\theta$ is the angle between $\ket a$ and $\ket s$, we can rewrite $\ket s$ as $$\ket s = \cos \theta \ket a + \sin \theta \ket b$$ which directly implies that $$\sin \theta = \sqrt {\dfrac{M}{N}} \iff \theta = \arcsin \sqrt{\dfrac{M}{N}}$$ and therefore
 \begin{equation*}
@@ -416,7 +417,7 @@ First, we need to define two new operators: $$R_s := I - (1 - e^{i \theta}) \ket
     TODO \todo{todo}
 }
 
-What are these two operators in the first place? When we presented the $W$ operator, we also noticed how it actually performes a reflection of its input w.r.t. the space of $\ket s$. Well, through a very similar argument it can be shown that $$W^\bot := I - 2 \ket s \bra s$$ performs a reflection of its input w.r.t. the space \tit{orthogonal} to $\ket s$ --- indeed, we end up with $$W^\bot \ket \psi = \ket{\psi_\bot} - \alpha \ket s$$ If we now look at the $R_s$ operator, we can see that when we actually compute the reflection it performs we end up with $$R_s \ket \psi = \ket{\psi_\bot} + e^{i \theta} \alpha \ket s$$ This suggests that what $R_s$ actually computes is a \curlyquotes{soft reflection} w.r.t. the space perpendicular to $\ket s$. Through an analogous argument, we can see that $$R_t \ket \psi= \ket{\psi_\bot} + e^{i \theta} \alpha \ket t $$ meaning that $R_t$ computes a \curlyquotes{soft reflection} w.r.t. the space perpendicular to $\ket t$ --- however, we observe that the latter is literally the space of $\ket a$, indeed $O$ in Grover's algorithm could have been defined as $$O = I - 2 \ket b \bra b$$ and indeed it is sometimes defined such.
+What are these two operators in the first place? When we presented the $W$ operator, we also noticed how it actually performes a reflection of its input w.r.t. the space of $\ket s$. Well, through a very similar argument it can be shown that $$W^\bot := I - 2 \ket s \bra s$$ performs a reflection of its input w.r.t. the space \tit{orthogonal} to $\ket s$ --- indeed, we end up with $$W^\bot \ket \psi = \beta \ket{\psi_\bot} - \alpha \ket s$$ If we now look at the $R_s$ operator, we can see that when we actually compute the reflection it performs we end up with $$R_s \ket \psi = \beta \ket{\psi_\bot} + e^{i \theta} \alpha \ket s$$ This suggests that what $R_s$ actually computes is a \curlyquotes{soft reflection} w.r.t. the space perpendicular to $\ket s$. Through an analogous argument, we can see that $$R_t \ket \psi= \beta \ket{\psi_\bot} + e^{i \theta} \alpha \ket t $$ meaning that $R_t$ computes a \curlyquotes{soft reflection} w.r.t. the space perpendicular to $\ket t$ --- however, we observe that the latter is literally the space of $\ket a$, indeed $O$ in Grover's algorithm could have been defined as $$O = I - 2 \ket b \bra b$$ and indeed it is sometimes defined such.
 
 Now, we are going to define an addition operator called $U$ as such: let $U$ be any unitary operator such that, for some small $\varepsilon > 0$, it holds that $$\abs{\braket{t|Us}}^2 = 1 - \varepsilon$$ We observe that
 

@@ -321,25 +321,23 @@ TODO \todo{TODO}
 
 \section{Rules of quantum mechanics}
 
-Now that we defined Hilbert spaces and their operators in great detail, we can finally present we needed this mathematical foundations in order to progress: quantum mechanics is developed over Hilbert spaces with \tit{countable} bases, and quantum computing works with finite-dimensional Hilbert spaces. In particular, these are the four fundamental \tbf{postulates of quantum mechanics}:
+Now that we defined Hilbert spaces and their operators in great detail, we can finally present we needed this mathematical foundations in order to progress: quantum mechanics is developed over Hilbert spaces with \tit{countable} bases, and quantum computing works with finite-dimensional Hilbert spaces. In particular, these are the four fundamental \tbf{postulates of quantum mechanics}.
 
-\begin{enumerate}
-	\item \tbf{State postulate}: the state of a quantum system is completely described by a vector $\ket \psi$ in a Hilbert space $\mathcal H$ --- $\ket \psi$ is usually normalized, as we saw at the beginning of the previous chapter, and physical systems of different types live in different Hilbert spaces.
-	\item \tbf{Measurement postulate}: every measurable (i.e. \tit{observable}) quantity corresponds to a self-adjoint operator on $\mathcal H$. In particular, given an observable $A$, and a state $v \in \mathcal H$, it holds that:
-	      \begin{itemize}
-		      \item the only possible results of measuring $A$ are one of its eigenvalues
-		      \item the probability of measuring eigenvalue $\lambda$ in state $v$ is given by $$\Pr[A = \lambda \mid v] = \braket{v|P_\lambda v}$$ where $P_\lambda$ is the linear map that projects $v$ onto the $\lambda$-eigenspace
-	      \end{itemize}
-	\item \tbf{Time evolution postulate}: a closed system evolves through time according to the Schrödinger equation $$i \hbar \dfrac{\diff}{\diff t} v(t) = Hv(t)$$ where the elements of this first-order linear differential equation are the following:
+\begin{framedpost}{State postulate}
+	The state of a quantum system is completely described by a vector $\ket \psi$ in a Hilbert space $\mathcal H$.
+\end{framedpost}
 
-	      \begin{itemize}
-		      \item $v(t)$ is the state vector at time $t$ (a vector in a Hilbert space)
-		      \item $H$ is the system \tit{Hamiltonian}, a self-adjoint operator that describes the total energy of the system
-	      \end{itemize}
-	\item \tbf{Composite systems postulate}: the Hilbert space of a composite system is the tensor product of the Hilbert spaces of its subsystems. In other words, if system $A$ is defined over $\mathcal H_A$, and system $B$ is defined over $\mathcal H_B$, the total system lives in $$\mathcal H_{AB} = \mathcal H_A \otimes \mathcal H_B$$
-\end{enumerate}
+As we saw at the beginning of the previous chapter, $\ket \psi$ is always considered to be normalized. We observe that different physical systems of different types live in different Hilbert spaces.
 
-If we take a closer look at the second postulate, we can actually explain why we choose that particular scalar product to be the probability. Since by convention any quantum state is normalize, i.e. $\norm v = 1$, it holds that
+\begin{framedpost}{Measurement postulate}
+	Every measurable (i.e. \tit{observable}) quantity corresponds to a self-adjoint operator on $\mathcal H$. In particular, given an observable $A$, and a state $v \in \mathcal H$, it holds that:
+	\begin{itemize}
+		\item the only possible results of measuring $A$ are one of its eigenvalues
+		\item the probability of measuring eigenvalue $\lambda$ in state $v$ is given by $$\Pr[A = \lambda \mid v] = \braket{v|P_\lambda v}$$ where $P_\lambda$ is the linear map that projects $v$ onto the $\lambda$-eigenspace.
+	\end{itemize}
+\end{framedpost}
+
+We can actually explain why we choose that particular scalar product to be the probability. Since by convention any quantum state is normalize, i.e. $\norm v = 1$, it holds that
 \begin{equation*}
 	\begin{split}
 		1 & = \norm{v}^2                                                                 \\
@@ -378,6 +376,29 @@ For instance, if we have a superposition $$\ket \psi = \alpha \ket 0 + \beta \ke
 		                                        & = \abs{\braket{\psi|0}}^2
 	\end{split}
 \end{equation*}
-We observe that the matrix we used is derived as follows: $$A = 0 \cdot P_0 + 1 \cdot P_1 = 0 \cdot \ket 0 \bra 0 + 1 \cdot \ket 1 \bra 1$$ Notice that to evaluate this proability we did not use any particular assumption on the choice of the basis, so in general whenever the projector $P_\lambda$ has rank 1, i.e. $P_\lambda$ can be written as $$P_\lambda = \ket \lambda \bra \lambda$$ we can always directly write that $$\Pr[\mbox{measure}(\ket \psi = \ket \lambda)] = \abs{\braket{\psi|\lambda}}^2$$ This formulation of the probability will be used extensively for our purposes, and allows us to avoid the description of the matrix $A$ completely.
+We observe that the matrix we used is derived as follows: $$A = 0 \cdot P_0 + 1 \cdot P_1 = 0 \cdot \ket 0 \bra 0 + 1 \cdot \ket 1 \bra 1$$ Notice that to evaluate this proability we did not use any particular assumption on the choice of the basis, so in general whenever the projector $P_\lambda$ has rank 1, i.e. $P_\lambda$ can be written as $$P_\lambda = \ket \lambda \bra \lambda$$ we can always directly write the following.
 
-Another postulate that we need to discuss is the third one, regarding the Schrödinger equation. In particular, the solution of the latter is $$v(t_1) = U(t_2, t_1)v(t_1)$$ where $U(t_2, t_1)$ is called \tbf{time-evaluation operator}, and it is defined as follows: $$U(t_2, t_1) = e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}$$ (assuming $H$ does not depend on time). We recall that $H$ is a matrix, so we are raising $e$ to the power of a matrix, an operation that is defined by the power series of the exponential as follows: $$e^A = \sum_{n = 0}^\infty{\dfrac{A^n}{n!}}$$ What is interesting about this operator is that $U$ is \tbf{unitary}, and in order to show it is suffices to prove that $U^\dag = U^{-1}$. But how do we compute the adjoint of $U$? We observe that by the properties of the adjoint operation it holds that $$\rbk{e^A}^\dag = \rbk{\sum_{n = 0}^\infty{\dfrac{A^n}{n!}}}^\dag = \sum_{n = 0}^\infty{\dfrac{(A^n)^\dag}{n!}} = \sum_{n = 0}^\infty{\dfrac{(A^\dag)^n}{n!}} = e^{A^\dag}$$ which means that the adjoint of an exponential is the exponential of the adjoint. This suffices to prove that $$U^\dag = \rbk{e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}}^\dag = e^{\rbk{-\tfrac{i}{\hbar}H(t_2 - t_1)}^\dag} = e^{\tfrac{i}{\hbar}H(t_2 - t_1)} = \rbk{e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}}^{-1} = U^{-1}$$ This is a crucial characteristic for quantum mechanics: since $U$ is unitary, we know that it preserves the scalar product by \cref{unitary alt def}, therefore it also preserves \tbf{probabilities and norms}. This is why we say that evolution in quantum systems --- or \tit{quantum evolution}, for short --- is unitary.
+\begin{framedprop}{}
+	The probability that a qubit $\ket \psi$ collapses to $\ket \lambda$ when measured is $$\Pr[\mbox{measure}(\ket \psi = \ket \lambda)] = \abs{\braket{\psi|\lambda}}^2$$
+\end{framedprop}
+
+This formulation of the probability will be used extensively for our purposes, and allows us to avoid the description of the matrix $A$ completely.
+
+\begin{framedpost}{Time evolution postulate}
+	A closed system evolves through time according to the Schrödinger equation: $$i \hbar \dfrac{\diff}{\diff t} v(t) = Hv(t)$$
+\end{framedpost}
+
+We observe that the Schrödinger equation is a first-order linear differential equation, and it is composed by the following elements:
+
+\begin{itemize}
+	\item $v(t)$ which is the state vector at time $t$ (a vector in a Hilbert space)
+	\item $H$ which is the system \tit{Hamiltonian}, a self-adjoint operator that describes the total energy of the system
+\end{itemize}
+
+The solution of the Schrödinger equation is $$v(t_1) = U(t_2, t_1)v(t_1)$$ where $U(t_2, t_1)$ is called \tbf{time-evaluation operator}, and it is defined as follows: $$U(t_2, t_1) = e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}$$ (assuming $H$ does not depend on time). We recall that $H$ is a matrix, so we are raising $e$ to the power of a matrix, an operation that is defined by the power series of the exponential as follows: $$e^A = \sum_{n = 0}^\infty{\dfrac{A^n}{n!}}$$ What is interesting about this operator is that $U$ is \tbf{unitary}, and in order to show it is suffices to prove that $U^\dag = U^{-1}$. But how do we compute the adjoint of $U$? We observe that by the properties of the adjoint operation it holds that $$\rbk{e^A}^\dag = \rbk{\sum_{n = 0}^\infty{\dfrac{A^n}{n!}}}^\dag = \sum_{n = 0}^\infty{\dfrac{(A^n)^\dag}{n!}} = \sum_{n = 0}^\infty{\dfrac{(A^\dag)^n}{n!}} = e^{A^\dag}$$ which means that the adjoint of an exponential is the exponential of the adjoint. This suffices to prove that $$U^\dag = \rbk{e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}}^\dag = e^{\rbk{-\tfrac{i}{\hbar}H(t_2 - t_1)}^\dag} = e^{\tfrac{i}{\hbar}H(t_2 - t_1)} = \rbk{e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}}^{-1} = U^{-1}$$ This is a crucial characteristic for quantum mechanics: since $U$ is unitary, we know that it preserves the scalar product by \cref{unitary alt def}, therefore it also preserves \tbf{probabilities and norms}. This is why we say that evolution in quantum systems --- or \tit{quantum evolution}, for short --- is unitary.
+
+\begin{framedpost}{Composite systems postulate}
+	If system $A$ is defined over $\mathcal H_A$, and system $B$ is defined over $\mathcal H_B$, the total system lives in $$\mathcal H_{AB} = \mathcal H_A \otimes \mathcal H_B$$
+\end{framedpost}
+
+In other words, the last postulate states that the Hilbert space of a composite system is the tensor product of the Hilbert spaces of its subsystems.
