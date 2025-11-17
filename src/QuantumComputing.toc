@@ -30,7 +30,7 @@
 \contentsline {section}{\numberline {4.2}The Quantum Fourier Transform}{62}{section.4.2}%
 \contentsline {subsection}{\numberline {4.2.1}The quantum circuit}{67}{subsection.4.2.1}%
 \contentsline {section}{\numberline {4.3}Quantum Phase Estimation}{69}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Order-finding problem}{73}{section.4.4}%
+\contentsline {section}{\numberline {4.4}Order-finding problem}{72}{section.4.4}%
 \contentsline {section}{\numberline {4.5}Shor's algorithm}{81}{section.4.5}%
 \contentsline {chapter}{\numberline {5}Quantum Key Distribution}{83}{chapter.5}%
 \contentsline {section}{\numberline {5.1}The BB84 protocol}{83}{section.5.1}%

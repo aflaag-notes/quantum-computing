@@ -105,7 +105,7 @@ We observe that the QFT matrix has positive exponents, which is just a conventio
                                        & = I + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\dfrac{1 - e^{2 \pi i(k - j)}}{1 - e^{2\pi i (k - j)/ N}}}\bra k} & \\ 
         \end{alignedat}
     \end{equation*}
-    Lastly, since $k - j$ is an integer for any $j, k \in [0, N - 1]$ --- and in particular whenever $j \neq k$ --- it holds that $$e^{2 \pi i (k - j )} = \cos(2 \pi i (k - j)) + i \sin(2 \pi i (k - j)) = 1$$ Therefore, the numerator is always equal to $1 - 1 = 0$, so the sum vanishes. However, we need to check that the denominator is well defined too: we observe that $$e^{2 \pi i (k - j) / N} = \cos(2 \pi i (k - j)) + i \sin(2 \pi i (k - j))$$ and this is never equal to 1 because $(k - j )/ N$ is always not an integer since $j \neq k$ due to how we split the sums. Finally, we can conclude that $$\mbox{QFT}^\dag \ \mbox{QFT} = I + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\dfrac{1 - 1}{1 - e^{2\pi i (k - j)/ N}}}\bra k} = I$$
+    Lastly, since $k - j$ is an integer for any $j, k \in [0, N - 1]$ --- and in particular whenever $j \neq k$ --- it holds that $$e^{2 \pi i (k - j )} = \cos(2 \pi i (k - j)) + i \sin(2 \pi i (k - j)) = 1$$ Therefore, the numerator is always equal to $1 - 1 = 0$, so the sum vanishes. Finally, we can conclude that $$\mbox{QFT}^\dag \ \mbox{QFT} = I + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\dfrac{1 - 1}{1 - e^{2\pi i (k - j)/ N}}}\bra k} = I$$
 
     TODO \todo{prove the second product}
 \end{proof}
@@ -366,7 +366,7 @@ Thankfully, the following property will solve both of these issues at the same t
                                                                & = \ket 1 + \dfrac{1}{r}\sum_{k = 1}^{r - 1}{\ket{x^k \bmod N} \sum_{s = 0}^{r - 1}{\rbk{e^{- 2 \pi i k/r}}^s}} \\ 
         \end{split}
     \end{equation*}
-    As we did for the proof of \cref{qft unitary}, because of how we split the sums we know that $e^{- 2 \pi i k/ r}$ cannot be 0, but it cannot be 1 either because $k/r$ is not an integer, therefore we get that
+    As we did for the proof of \cref{qft unitary}, because of how we split the sums we know that $k \neq 0$ hence $e^{-2 \pi i k/r} \neq 1$ because $k/r$ is not an integer (since $k \in [1, r - 1]$), therefore we get that
     \begin{equation*}
         \begin{split}
             \dfrac{1}{\sqrt r} \sum_{s = 0}^{r - 1}{\ket{u_s}} & = \ket 1 + \dfrac{1}{r}\sum_{k = 1}^{r - 1}{\ket{x^k \bmod N} \dfrac{1 - (e^{-2 \pi i k/r})^r}{1 - e^{- 2 \pi i k/r}}} \\ 
