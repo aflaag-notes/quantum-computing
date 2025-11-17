@@ -36,7 +36,7 @@ The protocol that we will present is usually called \tbf{BB84}, and it was publi
 	\end{tabular}
 \end{center}
 
-For example, if her two random strings are $$a = 01101$$ $$b = 00110$$ then she will construct the following superposition $$\ket \psi = \ket 0 + \ket 1 + \ket - + \ket + + \ket 1$$ We observe that $\ket \psi$ in practice is treated as sequence of single qubits --- indeed this can be done in general whenever we are summing qubits that are not entangled between each other, such as $\ket{00} + \ket{11}$. Now, we will assume that Alice and Bob share two communication channels:
+For example, if her two random strings are $$a = 01101$$ $$b = 00110$$ then she will construct the following superposition $$\ket \psi = \ket 0 \otimes \ket 1 \otimes \ket - \otimes \ket + \otimes \ket 1$$ Now, we will assume that Alice and Bob share two communication channels:
 
 \begin{itemize}
 	\item one quantum channel, which can be eavesdropped by a third party Eve that wants to know their shared key
@@ -67,7 +67,7 @@ We will see how the BB84 protocol takes advantage of this fact later in our disc
 
 Now that Alice has constructed her superposition $\ket \psi$, she will send it to Bob which will receive $\mathcal E(\ket \psi)$, where $\mathcal E$ describes the quantum operation due to the combined effect of the channel's noise and Eve's actions --- we will describe what Eve can do later in our discussion.
 
-Bob will then proceed to generate a random string of $(4 + \delta)n$ bits as well, which we will call $b'$, and based on this very string he will measure the received quantum superposition --- in particular, if $b_i' = 0$ he will use the Z base, and if $b_i' = 1$ he will employ the X one. In our example, assuming that Bob generated the random string $$b' = 10111$$ he will measure something like $$\mbox{measure}(\ket \psi) = \ket - + \ket 1 + \ket - + \ket + + \ket + $$ We observe that the first and the last states randomly collapsed to $\ket -$ and $\ket +$ respectively because they were measured in the wrong basis --- indeed, the original string was $b = 00110$ and $b \oplus b' = 10001$. Bob then tries to reconstruct the original string $a$ based on its $b'$, thus getting the string $$a' = 11100$$ When this process is complete, Bob publicly announces that he measured the superposition he received in the authenticated channel to Alice.
+Bob will then proceed to generate a random string of $(4 + \delta)n$ bits as well, which we will call $b'$, and based on this very string he will measure the received quantum superposition --- in particular, if $b_i' = 0$ he will use the Z base, and if $b_i' = 1$ he will employ the X one. In our example, assuming that Bob generated the random string $$b' = 10111$$ he will measure something like $$\mbox{measure}(\ket \psi) = \ket - \otimes \ket 1 \otimes \ket - \otimes \ket + \otimes \ket + $$ We observe that the first and the last states randomly collapsed to $\ket -$ and $\ket +$ respectively because they were measured in the wrong basis --- indeed, the original string was $b = 00110$ and $b \oplus b' = 10001$. Bob then tries to reconstruct the original string $a$ based on its $b'$, thus getting the string $$a' = 11100$$ When this process is complete, Bob publicly announces that he measured the superposition he received in the authenticated channel to Alice.
 
 After Alice has heard that Bob has measured the state, she can proceed to send $b$ itself \tit{as it is} over the authenticated public channel to Bob --- we will see why she is sure that she can perform this operation safely. Through $b$ Bob can then discard all the bits of $a'$ that were generated through wrong bits of $b'$ --- we observe that their remaining bits satisfy $a_i = a'_i$ for all kept indices $i$. This step is usually called \tbf{basis reconciliation}, and the expected number of bits kept by Bob after this step is $$\Exp[\mbox{kept bits}] = \sum_{i = 1}^{(4 + \delta)n}{1 \cdot \Pr[b_i = b_i']} = \sum_{i = 1}^{(4 + \delta)n}{\dfrac{1}{2}} = \dfrac{1}{2} \cdot (4 + \delta)n = \rbk{2 + \dfrac{\delta}{2}}n$$ At this point, Alice and Bob will agree on $2n$ bits to keep from the reconciled string (which can be done again through the public medium) --- $\delta$ can be chosen sufficiently large so that there at least $2n$ bits to choose with exponentially high probability.
 
@@ -75,7 +75,7 @@ At this point, the protocol is basically finished, and the last step involves \t
 
 \begin{itemize}
 	\item if more than $t$ bits disagree, they abort and re-try the protocol from the start
-	\item if less that $t$ bits disagree, the error rate is estimated and used to apply \tit{error correction} algorithms to the key bits --- we will not cover the details of the error correction procedures
+	\item if less that $t$ bits disagree, the error rate is estimated and used to apply \tit{error correction} algorithms to the key bits --- we will not cover the details of the error correction procedures since they are not part of the key distribution protocol itself
 \end{itemize}
 
 \subsection{Eve's attacks}
@@ -83,48 +83,74 @@ At this point, the protocol is basically finished, and the last step involves \t
 Now, it's time to discuss the Eve's role in the protocol. Suppose that Eve has access to the quantum channel Alice and Bob are using, and wants to understand the key they are trying to share. At the beginning of the protocol Alice sends her $\ket \psi$ which encodes the states she generated through $a$ and $b$, so what happens if Eve can see this qubit? Due to the No-cloning theorem, she definitely cannot clone $\ket \psi$ --- unless she can violate the laws of physics; but, what she could theoretically do is intercept $\ket \psi$, measure it herself, and send the qubit back to Bob acting as a \tit{man-in-the-middle} --- and Bob would have no way to know this actually happened. Nevertheless, nor Bob neither Eve know the sequence of bases Alice chose originally, so the best thing Eve can do is try randomly (exactly as Bob does in the protocol anyway). Hence, fix a state $\ket \psi_i$ of the states that constitute $\ket \psi$; the following can happen:
 
 \begin{itemize}
-	\item Eve chooses the correct basis for $\ket \psi_i$: this means that she does not introduce any disturbance to the state Bob will receive, and Bob still has 50\% chance of recovering Alice's original bit
-	\item Eve chooses the wrong basis for $\ket \psi_i$: this means that she introduces some disturbance to the state Bob will receive, in the sense that now Bob has only 25\% chance of recovering Alice's original bit
+	\item Eve chooses the correct basis for $\ket \psi_i$: this means that she does not introduce any disturbance to the state Bob will receive, and Bob still has 50\% chance of recovering Alice's original qubit
+	\item Eve chooses the wrong basis for $\ket \psi_i$: this means that she introduces some disturbance to the state Bob will receive, in the sense that now Bob has only 25\% chance of recovering Alice's original qubit
 \end{itemize}
+
+For instance, suppose that Alice sends $\ket +$; if Eve guesses the correct basis it holds that
+\begin{equation*}
+	\hspace{-1cm}
+	\begin{split}
+		\Pr[\mbox{Bob measures $\ket + $}\mid \mbox{Eve chooses $X$}] & =  \Pr[\mbox{Bob measures $\ket +$} \mid \mbox{Bob chooses $X$}, \mbox{Eve sends $\ket + $}] \\
+		                                                              & \quad \cdot \Pr[\mbox{Bob chooses $X$}]                                                      \\
+		                                                              & \quad \cdot \Pr[\mbox{Eve sends $\ket +$} \mid \mbox{Eve chooses $X$}]                       \\
+		                                                              & =  1 \cdot \dfrac{1}{2} \cdot 1                                                              \\
+		                                                              & =  \dfrac{1}{2}                                                                              \\
+	\end{split}
+\end{equation*}
+(obviously, all the probabilities are conditioned under the fact that Alice sent $\ket +$). Differently, if Eve guesses the wrong basis we have that
+\begin{equation*}
+	\hspace{-1cm}
+	\begin{split}
+		\Pr[\mbox{Bob measures $\ket + $} \mid \mbox{Eve chooses $Z$}] & = \sum_{b \in \B}(\Pr[\mbox{Bob measures $\ket +$} \mid \mbox{Bob chooses $X$, Eve sends $\ket b$}]       \\
+		                                                               & \quad \quad \quad \cdot \Pr[\mbox{Bob chooses $X$}]                                                       \\
+		                                                               & \quad \quad \quad \cdot \Pr[\mbox{Eve sends $\ket b$} \mid \mbox{Eve chooses $Z$}] )                      \\
+		                                                               & = \dfrac{1}{2} \cdot \dfrac{1}{2} \cdot \dfrac{1}{2} + \dfrac{1}{2} \cdot \dfrac{1}{2} \cdot \dfrac{1}{2} \\
+		                                                               & = \dfrac{1}{4}                                                                                            \\
+	\end{split}
+\end{equation*}
+Note that 25\% is \tit{not} the chances that Bob has to recover $\ket +$ \tit{in general}, because that is given by
+\begin{equation*}
+	\begin{split}
+		\Pr[\mbox{Bob measures $\ket +$}] & = \sum_{B \in \{X, Z\}}{\rbk{\Pr[\mbox{Bob measures $\ket + $} \mid \mbox{Eve chooses $B$}] \cdot \Pr[\mbox{Eve chooses $B$}]}} \\
+		                                  & = \dfrac{1}{2} \cdot \dfrac{1}{2} + \dfrac{1}{4} \cdot \dfrac{1}{2}                                                             \\
+		                                  & = \dfrac{3}{8}                                                                                                                  \\
+	\end{split}
+\end{equation*}
+which is still less than $\tfrac{1}{2}$.
 
 We observe that, on average, with big enough bit strings the chance that Eve correctly chooses each basis can be made exponentially low. Moreover, Eve's actions are exactly the reason why in the last step of the algorithm we perform a thresholded check on the error rate: if the error rate is too high (some noise has to be expected) on average it probably means that someone eavesdropped on the channel.
 
-Is this everything Eve can do? The attack we presented has a very high chance of introducing too much disturbance and being detected by the error rate check step, so for Eve to have some chance of not being detected she needs to \tbf{avoid introducing disturbance completely}. However, due to the No-cloning theorem this is not straightforward and she must employ \tit{quantum entanglement}. The idea is the following: suppose that there exists some unitary operator $U$ that on input $\ket \psi \otimes \ket x$ --- for some state $\ket x$ --- it behaves as follows: $$U(\ket \psi \otimes \ket x) = \ket \psi \otimes \ket y$$ In other words, $U$ leaves $\ket \psi$ unchanged and turns $\ket x$ into $\ket y$. For now, consider $\ket \psi$ as 1 single qubit. If such operator exists, Eve could use it in order to try to measure $\ket y$ in a later moment and gain some information about $\ket \psi$, without ever measuring the latter directly.
+Is this everything Eve can do? The attack we presented has a very high chance of introducing too much disturbance and being detected by the error rate check step, so for Eve to have some chance of not being detected she needs to \tbf{avoid introducing disturbance completely}. However, due to the No-cloning theorem this is not straightforward. The idea is the following: suppose that there exists some unitary operator $U$ that on input $\ket \psi \otimes \ket x$ --- for some state $\ket x$ --- it behaves as follows: $$U(\ket \psi \otimes \ket x) = \ket \psi \otimes \ket y$$ In other words, $U$ leaves $\ket \psi$ unchanged and turns $\ket x$ into $\ket y$. For now, consider $\ket \psi$ as 1 single qubit. If such operator exists, Eve could use it in order to try to measure $\ket y$ in a later moment and gain some information about $\ket \psi$, without ever measuring the latter directly.
 
 This idea seems compelling, however for Eve's attack to be effective $U$ must compute as follows: $$U(\ket \psi \otimes \ket x) = \ket \psi \otimes \ket y$$ $$U(\ket \phi \otimes \ket x) = \ket \phi \otimes \ket{y'}$$ where $\ket y$ and $\ket{y'}$ must be \tbf{different}. In this way
 
 \begin{itemize}
 	\item $U$ leaves $\ket \psi$ unchanged, and the latter can be sent to Bob without anyone noticing
-	\item $U$ behaves differently depending on the input superposition, i.e. $\ket y \neq \ket{y'}$, otherwise she cannot distinguish between $\ket \psi$ and $\ket \phi$ upon measurement
+	\item $U$ behaves differently depending on the input superposition, i.e. $\ket y \neq \ket{y'}$, otherwise she cannot distinguish between $\ket \psi$ and $\ket \phi$ upon measurement --- to be clear, this has nothing to do with \tit{entanglement}, in fact for Eve it is sufficient to look at the second qubit and infer what the first must have been based on the fact that $\ket y$ and $\ket {y'}$ are distinguishable
 \end{itemize}
 
-Suppose that Alice sends some qubit which can be either $\ket \psi$ or $\ket \phi$, where $$\ket \phi, \ket \psi \in \{\ket 0, \ket 1, \ket + , \ket -\}$$ Since $U$ must be unitary, by \cref{unitary alt def} we know that $U$ preserves the scalar product, i.e.
+Suppose that Alice sends some qubit which can be either $\ket \psi$ or $\ket \phi$, where $$\ket \psi, \ket \phi \in \{\ket 0, \ket 1, \ket + , \ket -\}$$ Since $U$ must be unitary, by \cref{unitary alt def} we know that $U$ preserves the scalar product, meaning that
 \begin{equation*}
 	\begin{alignedat}{2}
 		     & \braket{U(\ket \psi \otimes \ket x)| U(\ket \phi \otimes \ket x)} = \braket{ \psi \otimes  x|  \phi \otimes x} & \\
 		\iff & \braket{ \psi \otimes y | \phi \otimes y'} = \braket{\psi \otimes x| \phi \otimes x}                           & \\
 		\iff & \braket{\psi|\phi} \braket{y|y'} = \braket{\psi| \phi} \braket{x|x}                                            & \\
+		\iff & \braket{\psi|\phi} \braket{y|y'} = \braket{\psi| \phi}                                                         & \\
 	\end{alignedat}
 \end{equation*}
-Now, there are two possible scenarios.
+We observe that between all the possible choices of pairs of $\ket \psi$ and $\ket \phi$, half of them are such that $\braket{\psi|\phi} \neq 0$, i.e. $\ket \psi$ and $\ket \phi$ are \tit{non-orthogonal}. This means that we can simplify the last equality even more, obtaining that
+\begin{equation*}
+	\begin{alignedat}{2}
+		     & \braket{\psi|\phi} \braket{y|y'} = \braket{\psi| \phi} &                                   \\
+		\iff & \braket{y|y'} = 1                                      & \quad (\braket{\psi|\phi} \neq 0) \\
+		\iff & \ket{y} = \ket{y'}                                     &                                   \\
+	\end{alignedat}
+\end{equation*}
+This proves that such an operator $U$ cannot exist, which means that there is no way for Eve to gain any information at all without introducing disturbance.
 
-\begin{itemize}
-	\item In the first scenario, the two possible qubits Alice might send are \tit{orthogonal}, i.e. $\braket{\psi|\phi} = 0$. Namely, these are the cases in which $\ket \psi = \ket 0$ and $\ket \phi = \ket 1$, and vice versa, and the cases in which $\ket \psi = \ket +$ and $\ket \phi = \ket - $, and viceversa. In these scenario the equality above is always satisfied, indeed Eve has a chance to recover some information without introducing disturbance. For instance, if Alice is sending either $\ket 0$ or $\ket 1$, a transformation $U$ such that $$U (\ket 0 \otimes \ket 0) = \ket 0 \otimes \ket 0$$ $$U (\ket 1 \otimes \ket 0) = \ket 1 \otimes \ket 1$$ is literally just a CNOT on $\ket 0$ where Alice's qubit is the control bit. In this case, if Eve guesses the Z basis (which happens with 50\% chance), she can measure the ancilla qubit and correctly deduce the value of Alice's qubit without introducing any disturbance at all. Nevertheless, this is really not an issue because
-	      \begin{itemize}
-		      \item Eve has no way to know if her choice was correct
-		      \item if Eve chose the wrong basis, she introduces disturbance, which inevitably fails her plan
-		      \item the BB84 protocol requires Alice to send a sufficiently large amount of qubits such that the possibilities of Eve being able to recover all the qubits by random chance is exponentially low
-	      \end{itemize}
-	\item In the second scenario, the two possible qubits Alice might send are \tit{non-orthogonal}, i.e. $\braket{\psi|\phi} \neq 0$. Let's see what happens to the previous equality:
-	      \begin{equation*}
-		      \begin{alignedat}{2}
-			      \iff & \braket{\psi|\phi} \braket{y|y'} = \braket{\psi| \phi} \braket{x|x} &                                   \\
-			      \iff & \braket{y|y'} = \braket{x|x}                                        & \quad (\braket{\psi|\phi} \neq 0) \\
-			      \iff & \braket{y|y'} = 1                                                   &                                   \\
-			      \iff & \ket{y} = \ket{y'}                                                  &                                   \\
-		      \end{alignedat}
-	      \end{equation*}
-	      This is even worse for Eve: in this scenario, such $U$ cannot possibly exist, which means that there is no way for Eve to gain any information at all without introducing disturbance.
-\end{itemize}
+Furthermore, we observe that this condition of non-orthogonality is precisly why the BB84 protocol chooses the Z and the X basis, which are non-orthogonal between each other. In fact, let's see what happens if the choice of Alice was restricted to only vectors $\ket \psi$ and $\ket \phi$ that are orthogonal. For instance, say that $$\ket \phi, \ket \psi \in \{\ket 0, \ket 1\}$$ In this scenario, Eve actually \tit{has chance} to recover some information without introducing disturbance. Indeed, a transformation $U$ such that $$U (\ket 0 \otimes \ket 0) = \ket 0 \otimes \ket 0$$ $$U (\ket 1 \otimes \ket 0) = \ket 1 \otimes \ket 1$$ is literally just a CNOT on $\ket 0$ where Alice's qubit is the control bit. This shows that the non-orthogonality condition guarantees the security of the protocol itself.
+
+To be precise, there are more subtle attacks that do employ \tit{quantum entagnlement}, such as \tbf{optimal intercept–resend tradeoffs}, where Eve applies a unitary operator that \tit{partially entangles} the signal with a probe to trade a small amount of information for a small disturbance. It can be proven that the BB84 protocol is also resistant against these type of attacks, however this is beyond the scope of our discussion.
 
 Lastly, we observe that BB84 requires Alice to wait before hearing back from Bob that he \tit{actually measured} $\ket \psi$. This is to prevent that Alice sends $b$ too early, so that Eve could use the latter to decode $\ket \psi$ into the original string $a$ without any issue. Therefore, we require Alice to wait for Bob's measurement so that there is no way for Eve to recover $a$ after looking at $b$ becasuse the original superposition is definitively destroyed --- unless she can go back in time!
