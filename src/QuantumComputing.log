@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2025.11.15)  19 NOV 2025 11:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2025.11.15)  19 NOV 2025 11:58
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -3124,12 +3124,12 @@ Package cleveref Info: loaded `english' language definitions on input line 1.
 Chapter 5.
 
 
-Package cleveref Info: loaded `english' language definitions on input line 22.
+Package cleveref Info: loaded `english' language definitions on input line 21.
 [83
 
 ]
 
-Package cleveref Info: loaded `english' language definitions on input line 48.
+Package cleveref Info: loaded `english' language definitions on input line 45.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -3137,18 +3137,29 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 48.
+Package cleveref Info: loaded `english' language definitions on input line 45.
 [84]
-Package svg Info: Last page of `./svg-inkscape/faraday_svg-tex.pdf' is 1 on input line 79.
+
+Package cleveref Info: loaded `english' language definitions on input line 78.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+Package cleveref Info: loaded `english' language definitions on input line 78.
+[85]
+Package svg Info: Last page of `./svg-inkscape/faraday_svg-tex.pdf' is 1 on input line 87.
  (./svg-inkscape/faraday_svg-tex.pdf_tex
-<./svg-inkscape/faraday_svg-tex.pdf, id=839, page=1, 252.44289pt x 187.19963pt>
+<./svg-inkscape/faraday_svg-tex.pdf, id=845, page=1, 252.44289pt x 187.19963pt>
 File: ./svg-inkscape/faraday_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/faraday_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/faraday_svg-tex.pdf , page1 used on input line 56.
 (pdftex.def)             Requested size: 227.62206pt x 168.79517pt.
 )
 
-Package cleveref Info: loaded `english' language definitions on input line 80.
+Package cleveref Info: loaded `english' language definitions on input line 94.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -3156,21 +3167,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 80.
-[85]
-
-Package cleveref Info: loaded `english' language definitions on input line 100.
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-Package cleveref Info: loaded `english' language definitions on input line 100.
+Package cleveref Info: loaded `english' language definitions on input line 94.
 [86 <./svg-inkscape/faraday_svg-tex.pdf>]
 
-Package cleveref Info: loaded `english' language definitions on input line 114.
+Package cleveref Info: loaded `english' language definitions on input line 111.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -3178,29 +3178,30 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 114.
+Package cleveref Info: loaded `english' language definitions on input line 111.
 [87]
-Overfull \hbox (32.73918pt too wide) detected at line 131
+Overfull \hbox (32.73918pt too wide) detected at line 139
 []
  []
 
 
-Overfull \hbox (30.0pt too wide) in paragraph at lines 131--131
+Overfull \hbox (30.0pt too wide) in paragraph at lines 139--139
 [] 
  []
 
 
-Overfull \hbox (50.62291pt too wide) detected at line 142
-[]
- []
 
+Package cleveref Info: loaded `english' language definitions on input line 139.
 
-Overfull \hbox (30.0pt too wide) in paragraph at lines 142--142
-[] 
- []
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-
-Overfull \hbox (17.6185pt too wide) detected at line 150
+Package cleveref Info: loaded `english' language definitions on input line 139.
+[88]
+Overfull \hbox (50.62291pt too wide) detected at line 150
 []
  []
 
@@ -3210,8 +3211,18 @@ Overfull \hbox (30.0pt too wide) in paragraph at lines 150--150
  []
 
 
+Overfull \hbox (17.6185pt too wide) detected at line 158
+[]
+ []
 
-Package cleveref Info: loaded `english' language definitions on input line 150.
+
+Overfull \hbox (30.0pt too wide) in paragraph at lines 158--158
+[] 
+ []
+
+
+
+Package cleveref Info: loaded `english' language definitions on input line 164.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -3219,20 +3230,20 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-Package cleveref Info: loaded `english' language definitions on input line 150.
-[88]
-
-Package cleveref Info: loaded `english' language definitions on input line 167.
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-Package cleveref Info: loaded `english' language definitions on input line 167.
+Package cleveref Info: loaded `english' language definitions on input line 164.
 [89])
 
+Package cleveref Info: loaded `english' language definitions on input line 103.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+Package cleveref Info: loaded `english' language definitions on input line 103.
+[90]
+
 Package cleveref Info: loaded `english' language definitions on input line 104.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -3242,7 +3253,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 Package cleveref Info: loaded `english' language definitions on input line 104.
-[90]
+[91]
 Overfull \hbox (2.63792pt too wide) in paragraph at lines 105--105
 []\T1/cmr/m/n/12 Y. Lecerf and Com-mu-nauté Eu-ropéenne de l'énergie atom-ique Eu-ratom. \T1/cmr/m/it/12 Logique
  []
@@ -3250,7 +3261,7 @@ Overfull \hbox (2.63792pt too wide) in paragraph at lines 105--105
 
 
 Package cleveref Info: loaded `english' language definitions on input line 104.
-[91
+[92
 
 ]
 
@@ -3263,7 +3274,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 Package cleveref Info: loaded `english' language definitions on input line 106.
-[92] (./QuantumComputing.aux
+[93] (./QuantumComputing.aux
 Package cleveref Info: loaded `english' language definitions on input line 13.
 )
  ***********
@@ -3281,18 +3292,18 @@ Package logreq Info: Writing requests to 'QuantumComputing.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 80890 strings out of 475119
- 1935550 string characters out of 5765715
- 3228021 words of memory out of 5000000
- 102499 multiletter control sequences out of 15000+600000
+ 80889 strings out of 475119
+ 1935497 string characters out of 5765715
+ 3227880 words of memory out of 5000000
+ 102497 multiletter control sequences out of 15000+600000
  587804 words of font info for 102 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  115i,25n,123p,2067b,2731s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf-dist/fonts/type1/public/tex-gyre/qtmr.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc1728.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc2074.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfti1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb></usr/share/texmf-dist/fonts/type1/public/stmaryrd/stmary10.pfb>
-Output written on QuantumComputing.pdf (95 pages, 1026086 bytes).
+Output written on QuantumComputing.pdf (96 pages, 1027826 bytes).
 PDF statistics:
- 1118 PDF objects out of 1200 (max. 8388607)
- 911 compressed objects within 10 object streams
- 284 named destinations out of 1000 (max. 500000)
+ 1123 PDF objects out of 1200 (max. 8388607)
+ 915 compressed objects within 10 object streams
+ 285 named destinations out of 1000 (max. 500000)
  396 words of extra memory for PDF output out of 10000 (max. 10000000)
 
