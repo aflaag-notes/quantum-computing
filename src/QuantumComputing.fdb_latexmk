@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex QuantumComputing"] 1763549438.98227 "QuantumComputing.aux" "QuantumComputing.bbl" "QuantumComputing" 1763549896.06722 0
-  "./QuantumComputing-blx.bib" 1763549895.52064 344 b9a53cb296db97caea92c7ca383542c0 ""
+["bibtex QuantumComputing"] 1763569827.09593 "QuantumComputing.aux" "QuantumComputing.bbl" "QuantumComputing" 1763569841.06662 0
+  "./QuantumComputing-blx.bib" 1763569840.55186 344 b9a53cb296db97caea92c7ca383542c0 ""
   "./references.bib" 1763320114.31263 6282 1663aa0d98668f7229e05d2dbd3ac94a ""
   "/usr/share/texmf-dist/bibtex/bst/biblatex/biblatex.bst" 1755987285 65510 b1f696b0241395385f422f67543c37fd ""
-  "QuantumComputing.aux" 1763549895.48164 23149 cf0705668c382f76a15593ebf7573caf "pdflatex"
+  "QuantumComputing.aux" 1763569840.51286 23432 31a3dd9bf75b39befc81cd926d6cd032 "pdflatex"
   (generated)
   "QuantumComputing.bbl"
   "QuantumComputing.blg"
   (rewritten before read)
-["pdflatex"] 1763549882.17164 "QuantumComputing.tex" "QuantumComputing.pdf" "QuantumComputing" 1763549896.06788 0
+["pdflatex"] 1763569827.19657 "QuantumComputing.tex" "QuantumComputing.pdf" "QuantumComputing" 1763569841.06719 0
   "../../packages/Nyx/logo.png" 1759341402.38967 91419 8de48debf770a599a084520c83ce5d80 ""
   "../../packages/Nyx/nyx-frames.sty" 1763494587.47954 4411 ae8501e3bb3ad8d6333aa8a36ec2cf41 ""
   "../../packages/Nyx/nyx-intro.sty" 1759341402.38967 3476 d82343305e561945eb7e4f3f9e3a4fe2 ""
@@ -453,15 +453,15 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1755987285 42087 b0f9697c952c8f5a8eede4134282cb0d ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1763208245 5311557 9da84c45f5b388655502706482323571 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1763208213 2061857 1fa1c5eda06642eaec32dd0d0ec75ddc ""
-  "QuantumComputing.aux" 1763549895.48164 23149 cf0705668c382f76a15593ebf7573caf "pdflatex"
-  "QuantumComputing.bbl" 1763549439.05111 12690 a92bd02b81e540bb6a96b69c339b5dba "bibtex QuantumComputing"
-  "QuantumComputing.out" 1763549895.51564 5518 c48083cc9938270a6a8c2a772c75d976 "pdflatex"
-  "QuantumComputing.run.xml" 1763549895.52188 2638 2ed173551a6eea6508d643154ff36a7e "pdflatex"
+  "QuantumComputing.aux" 1763569840.51286 23432 31a3dd9bf75b39befc81cd926d6cd032 "pdflatex"
+  "QuantumComputing.bbl" 1763569827.17387 12690 a92bd02b81e540bb6a96b69c339b5dba "bibtex QuantumComputing"
+  "QuantumComputing.out" 1763569840.54786 5518 c48083cc9938270a6a8c2a772c75d976 "pdflatex"
+  "QuantumComputing.run.xml" 1763569840.55421 2638 2ed173551a6eea6508d643154ff36a7e "pdflatex"
   "QuantumComputing.tex" 1763413744.29982 2548 ae75b648cf4d92ad05007688d1d93688 ""
-  "QuantumComputing.toc" 1763549895.52188 2997 41f1dba09b81e9f21ca7a4b4d013b8ee "pdflatex"
+  "QuantumComputing.toc" 1763569840.55421 2997 55126ea42d2bbfa2f44c532e3e3a87aa "pdflatex"
   "chapters/1.tex" 1763549531.46119 39383 15ce76a050d34b6a4ef58856ac95a011 ""
   "chapters/2.tex" 1763409518.2328 30549 75a30b1944ba321520642486e2447f99 ""
-  "chapters/3.tex" 1763543261.65322 52448 8474f309ce46641a257296573e48fc8e ""
+  "chapters/3.tex" 1763569816.23387 55699 18f814e2fa91bf917c7a165894bf6486 ""
   "chapters/4.tex" 1763543221.40118 56036 0f9d5d128d30247b546c76b7aef8eaf1 ""
   "chapters/5.tex" 1763549882.05759 23848 0f34b2256ed0e8c595f96173c20a20ff ""
   "svg-inkscape/faraday_svg-tex.pdf" 1763137781.85208 9714 953bd5f22958f779cf8c1e25e4789137 ""

@@ -22,16 +22,16 @@
 \contentsline {section}{\numberline {3.1}Deutsch's algorithm}{37}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Deutsch-Josza algorithm}{41}{section.3.2}%
 \contentsline {section}{\numberline {3.3}Grover's algorithm}{45}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Another perspective}{53}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}Fixed-Point Quantum Search}{53}{subsection.3.3.2}%
-\contentsline {chapter}{\numberline {4}Shor's algorithm}{59}{chapter.4}%
-\contentsline {section}{\numberline {4.1}A recap on the Discrete Fourier Transform}{59}{section.4.1}%
-\contentsline {section}{\numberline {4.2}The Quantum Fourier Transform}{62}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}The quantum circuit}{67}{subsection.4.2.1}%
-\contentsline {section}{\numberline {4.3}Quantum Phase Estimation}{69}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Order-finding problem}{73}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Shor's algorithm}{81}{section.4.5}%
-\contentsline {chapter}{\numberline {5}Quantum Key Distribution}{83}{chapter.5}%
-\contentsline {section}{\numberline {5.1}The No-cloning theorem}{83}{section.5.1}%
-\contentsline {section}{\numberline {5.2}The BB84 protocol}{85}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Eve's attacks}{88}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {3.3.1}Another perspective}{54}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Fixed-Point Quantum Search}{55}{subsection.3.3.2}%
+\contentsline {chapter}{\numberline {4}Shor's algorithm}{61}{chapter.4}%
+\contentsline {section}{\numberline {4.1}A recap on the Discrete Fourier Transform}{61}{section.4.1}%
+\contentsline {section}{\numberline {4.2}The Quantum Fourier Transform}{64}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}The quantum circuit}{69}{subsection.4.2.1}%
+\contentsline {section}{\numberline {4.3}Quantum Phase Estimation}{71}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Order-finding problem}{75}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Shor's algorithm}{83}{section.4.5}%
+\contentsline {chapter}{\numberline {5}Quantum Key Distribution}{85}{chapter.5}%
+\contentsline {section}{\numberline {5.1}The No-cloning theorem}{85}{section.5.1}%
+\contentsline {section}{\numberline {5.2}The BB84 protocol}{87}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Eve's attacks}{90}{subsection.5.2.1}%

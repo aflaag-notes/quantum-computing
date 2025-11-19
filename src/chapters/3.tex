@@ -362,7 +362,55 @@ This is the core idea of Grover's algorithm: if we rewrite $q_0$ in terms of $\k
 
 Now that we know how Grover's algorithm works, the only thing left to discuss is the $O \rbk{\sqrt{\tfrac{N}{M}}}$ factor. Why is it guaranteed that after this amount of applications of the $G$ operator we are done with the algorithm? Well, we actually have the opposite problem: in reality, we have to \tit{stop early enough}. Consider again how Grover's algorithm operates in the Grover plane; clearly, if we apply $G$ too many times, what happens is that $q_0$ will end up past $\ket b$ itself: \todo{drawing}
 
-Let the angle between $\ket a$ and $\ket s$ be $\theta$; since $O_f$ flips $q_0$ w.r.t. $\ket a$, and $W$ flips $O_f \ q_0$ w.r.t. $\ket s$, $G$ will cumulatively rotate $q_0$ by $2 \theta$: \todo{drawing} Indeed, with each application of $G$ we are rotating $q_0$ by $2 \theta$, which means that at the $k$-th application it holds that $$G^k \ q_0 = \cos (2k + 1) \theta \ket a + \sin (2k + 1) \theta \ket b$$ for any $k \in \N$, where the additional 1 comes from the fact that $q_0 = \ket s$ through the Hadamard transformation at the start of the process. Thus, to evaluate the optimal number of iterations we need to find the optimal $k$, i.e. the one that maximizes the probability of measuring a solution index, which is equal to the squared amplitude of $\ket b$, namely $$\Pr[\mbox{measure}(q_0) = \ket b] = \sin^2(2k + 1) \theta$$ Hence, we have that $\sin^2(2k + 1)\theta = 1$ when $(2k +1) \theta = \tfrac{\pi}{2}$, and solving for $k$ we get that $$k = \dfrac{\pi}{4 \theta} - \dfrac{1}{2}$$ Lastly, since $\theta$ is the angle between $\ket a$ and $\ket s$, we can rewrite $\ket s$ as $$\ket s = \cos \theta \ket a + \sin \theta \ket b$$ which directly implies that $$\sin \theta = \sqrt {\dfrac{M}{N}} \iff \theta = \arcsin \sqrt{\dfrac{M}{N}}$$ and therefore
+Let the angle between $\ket a$ and $\ket s$ be $\theta$; since $O_f$ flips $q_0$ w.r.t. $\ket a$, and $W$ flips $O_f \ q_0$ w.r.t. $\ket s$, $G$ will cumulatively rotate $q_0$ by $2 \theta$: \todo{drawing} More formally, we can actually show that the matrix $G$ is a rotation matrix of $2 \theta$.
+
+\begin{framedprop}{}
+    The Grover operator $G$ can be rewritten in the basis $\{\ket a, \ket b\}$ as follows: $$G = \rmat{\cos{2 \theta} & - \sin {2 \theta} \\ \sin{2 \theta} & \cos {2 \theta}}$$ where $\ket s = \cos \theta \ket a + \sin \theta \ket b$.
+\end{framedprop}
+
+\begin{proof}
+    First, we need two small identities in trigonometry.
+
+    \claim[Claim 1]{
+        For any angle $\theta$ it holds that $2 \cos^2 \theta  - 1 = \cos 2 \theta$.
+    }{
+        Through algebraic manipulation we have that
+        \begin{equation*}
+            \begin{alignedat}{2}
+                2 \cos^2 \theta - 1 & = 2 \cos^2 \theta - (\sin^2 \theta + \cos^2 \theta) & \\ 
+                                    & = 2 \cos^2 \theta - \sin^2 \theta - \cos^2 \theta & \\ 
+                                    & = \cos^2 \theta - \sin^2 \theta & \\ 
+                                    & = \cos 2 \theta & (\mbox{double-angle formula}) \\ 
+            \end{alignedat}
+        \end{equation*}
+    }
+
+    \claim[Claim 2]{
+        For any angle $\theta$ it holds that $1 - 2 \sin^2 \theta = \cos 2 \theta$.
+    }{
+        From the previous claim we have that $$1 - 2 \sin ^2 \theta = 1 - 2 (1 - \cos^2 \theta) = 1 - 2 + 2\cos^2 \theta = 1 + \cos 2 \theta - 1 = \cos 2 \theta$$
+    }
+
+    Let $\ket v$ be any vector described inside the $\{\ket a, \ket b\}$: $$\ket v = \alpha \ket a + \beta \ket b$$ We already saw how the $O_f$ operator flips its input w.r.t. the $\ket a$ axis, indeed its action on $\ket v$ would be the following: $$O_f \ket v = \alpha \ket a - \beta \ket b$$ Thus, starting from the definition of $G$, by the two previous claims we have that
+    \begin{equation*}
+        \begin{split}
+            G \ket v & = W \cdot O_f  \ket v \\ 
+                     & = W \cdot (\alpha \ket a - \beta \ket b) \\ 
+                     & = (2 \ket s \bra s - I)(\alpha \ket a - \beta \ket b) \\ 
+                     & = 2 \ket s \bra s (\alpha \ket a - \beta \ket b) - (\alpha \ket a - \beta \ket b) \\ 
+                     & = 2 \ket s (\cos \theta \ket a + \sin \theta \ket b)^\dag (\alpha \ket a - \beta \ket b) - (\alpha \ket a - \beta \ket b) \\ 
+                     & = 2 \ket s (\cos \theta \bra a + \sin \theta \bra b)(\alpha \ket a - \beta \ket b) - (\alpha \ket a - \beta \ket b) \\ 
+                     & = 2 \ket s (\alpha \cos \theta - \beta \sin \theta) - (\alpha \ket a - \beta \ket b) \\ 
+                     & = 2 (\cos \theta \ket a + \sin \theta \ket b) (\alpha \cos \theta - \beta \sin \theta) - (\alpha \ket a - \beta \ket b) \\ 
+                     & = 2 \alpha \cos^2 \theta \ket a - 2 \beta \cos \theta \sin \theta \ket a + 2 \alpha \sin \theta \cos \theta \ket b - 2 \beta \sin^2 \theta \ket b - \alpha \ket a + \beta \ket b \\  
+                     & = \sbk{\alpha \rbk{2 \cos^2 \theta - 1} - 2 \beta \cos \theta \sin \theta} \ket a + \sbk{\beta \rbk{1 - 2 \sin^2 \theta} + 2 \alpha \sin \theta \cos \theta} \ket b \\ 
+                     & = (\alpha \cos 2 \theta - \beta \sin 2 \theta) \ket a + (\beta \cos 2 \theta + \alpha \sin 2 \theta) \ket b \\ 
+        \end{split}
+    \end{equation*}
+    TODO \todo{da finire}
+\end{proof}
+
+Indeed, with each application of $G$ we are rotating $q_0$ by $2 \theta$, which means that at the $k$-th application it holds that $$G^k \ q_0 = \cos (2k + 1) \theta \ket a + \sin (2k + 1) \theta \ket b$$ for any $k \in \N$, where the additional 1 comes from the fact that $q_0 = \ket s$ through the Hadamard transformation at the start of the process. Thus, to evaluate the optimal number of iterations we need to find the optimal $k$, i.e. the one that maximizes the probability of measuring a solution index, which is equal to the squared amplitude of $\ket b$, namely $$\Pr[\mbox{measure}(q_0) = \ket b] = \sin^2(2k + 1) \theta$$ Hence, we have that $\sin^2(2k + 1)\theta = 1$ when $(2k +1) \theta = \tfrac{\pi}{2}$, and solving for $k$ we get that $$k = \dfrac{\pi}{4 \theta} - \dfrac{1}{2}$$ Lastly, since $\theta$ is the angle between $\ket a$ and $\ket s$, we can rewrite $\ket s$ as $$\ket s = \cos \theta \ket a + \sin \theta \ket b$$ which directly implies that $$\sin \theta = \sqrt {\dfrac{M}{N}} \iff \theta = \arcsin \sqrt{\dfrac{M}{N}}$$ and therefore
 \begin{equation*}
     \begin{split}
         k & = \dfrac{\pi}{4 \theta} - \dfrac{1}{2}  \\
