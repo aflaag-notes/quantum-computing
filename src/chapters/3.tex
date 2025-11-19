@@ -66,10 +66,10 @@ Then, how do we extract useful \tit{global} information from the superposition o
     \quad
     \begin{algorithmic}[1]
         \Function{Deutsch}{$f$, $q_0$, $q_1$}
-            \State $q_1 \takes X(q_1)$
-            \State $q_0, q_1 \takes (H \otimes H)(q_0, q_1)$
-            \State $q_0, q_1 \takes U_f(q_0, q_1)$
-            \State $q_0 \takes H(q_0)$
+            \State $q_1 \gets X(q_1)$
+            \State $q_0, q_1 \gets (H \otimes H)(q_0, q_1)$
+            \State $q_0, q_1 \gets U_f(q_0, q_1)$
+            \State $q_0 \gets H(q_0)$
             \State \tbf{return} $\mbox{measure}(q_0)$
         \EndFunction
     \end{algorithmic}
@@ -161,10 +161,10 @@ Moreover, this problem actually shows the power of quantum parallelism more evid
     \quad
     \begin{algorithmic}[1]
         \Function{DeutschJosza}{$f$, $q_0$, $q_1$}
-            \State $q_1 \takes X(q_1)$
-            \State $q_0, q_1 \takes (H^{\otimes n} \otimes H)(q_0, q_1)$
-            \State $q_0, q_1 \takes U_f(q_0, q_1)$
-            \State $q_0 \takes H^{\otimes n}(q_0)$
+            \State $q_1 \gets X(q_1)$
+            \State $q_0, q_1 \gets (H^{\otimes n} \otimes H)(q_0, q_1)$
+            \State $q_0, q_1 \gets U_f(q_0, q_1)$
+            \State $q_0 \gets H^{\otimes n}(q_0)$
             \State \tbf{return} $\mbox{measure}(q_0)$
         \EndFunction
     \end{algorithmic}
@@ -261,9 +261,9 @@ Before explaining the details of the algorithm, we need to define some new opera
     \quad
     \begin{algorithmic}[1]
         \Function{Grover}{$f$, $q_0$}
-            \State $q_0 \takes H^{\otimes n}(q_0)$
+            \State $q_0 \gets H^{\otimes n}(q_0)$
             \For{$i \in \sbk{1, O\rbk{\sqrt{\tfrac{N}{M}}}}$} \Comment{where $N = 2^n$}
-                \State $q_0 \takes G(q_0)$
+                \State $q_0 \gets G(q_0)$
             \EndFor
             \State \tbf{return} $\mbox{measure}(q_0)$
         \EndFunction

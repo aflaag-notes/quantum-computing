@@ -173,36 +173,28 @@ To finish off this section, we can actually generate entangled states, or \tbf{E
 
 In particular, we observe that the first Hadamard gate will transform $\ket 0$ to $\tfrac{1}{\sqrt 2}\rbk{\ket 0 + \ket 1}$, and through the CNOT operation we obtain $$\ket{\Phi^+} := \dfrac{1}{\sqrt 2}\rbk{\ket{00} + \ket{11}}$$
 
-\subsection{No-cloning theorem}
-
-An operation that we take for granted in classical computation is the possibility to \tit{copy} the value of a bit: if Alice has two bits $x, y \in \{0, 1\}$, and she wants to copy the value of $x$ into $y$, she can do it without any issues. However, in quantum mechanics this is \tit{not} possible, because it would quite literally violate the laws of physics --- as far as we understand it.
-
-In 1982 \textcite{nocloning} proved the so called \tbf{No-cloning theorem}, which states that it is impossible to create an independent and identical copy of an arbitrary \tit{unknown} quantum state.
-
-\begin{framedthm}{No-cloning theorem}
-	There is no quantum transformation that copies an unknown quantum state.
-\end{framedthm}
-
-\begin{proof}
-	By way of contradiction, suppose that there exists such a transformation CP that is able to copy an unknown quantum state --- and in particular, we observe that such transformation would have to be linear. But clearly, in order to have a copy we need to actually \tit{store} it somewhere, so we can assume that CP has to take two inputs, one being the state that we want to copy and the other one being the state that we want to replace with the copy of the first one. In other words, we are assuming that $$\exists y \forall x \quad \mbox{CP}(x \otimes y) = x \otimes x$$ Now, through some algebraic manipulation we get that
-	\begin{equation*}
-		\begin{alignedat}{2}
-			       & \exists y \forall x \quad \mbox{CP}(x \otimes y) = x \times x                                                  &                                         \\
-			\equiv & \exists y \forall x, a \quad \mbox{CP}((x + a) \otimes y) = (x + a) \otimes (x + a)                            &                                         \\
-			\equiv & \exists y \forall x, a \quad \mbox{CP}(x \otimes y + a \otimes y) = (x + a) \otimes (x + a)                    & (\mbox{by distributivity of $\otimes$}) \\
-			\equiv & \exists y \forall x, a \quad \mbox{CP}(x \otimes y) + \mbox{CP}(a \otimes y) = (x + a) \otimes (x + a)         & (\mbox{by linearity of CP})             \\
-			\equiv & \exists y \forall x, a \quad x \otimes x + a \otimes a = x \otimes x + x \otimes a + a \otimes x + a \otimes a & \quad (\mbox{by definition of CP})      \\
-			\equiv & \exists y \forall x, a \quad \mathbf 0 = x \otimes a + a \times x
-		\end{alignedat}
-	\end{equation*}
-	which should be true for every $x$ and every $a$, however it does not hold for $x = \ket 0$ and $a = \ket 1$, thus raising a contradiction $\lightning$.
-\end{proof}
-
-The No-cloning theorem represents an inherent limitation of quantum computation, and has direct impacts on \tbf{quantum cryptography} and \tbf{quantum error correction}, but must importantly it directly impacts a phenomenon called \tbf{quantum teleportation}
-
 \subsection{Quantum teleportation} \label{quantum teleportation}
 
-So far we saw that quantum states cannot be cloned, but can we at least \tit{send} them? Suppose that Alice wants to send Bob $\ket \psi$, described by some $\alpha$ and $\beta$. Clearly, the only thing that Bob has to receive are indeed the probability amplitudes of $\ket \psi$, so even if Alice cannot clone her quantum state, nothing prevents her to build a quantum circuit which allows Bob to receive $\alpha$ and $\beta$ --- at the cost of \curlyquotes{destroying} her $\ket \psi$, i.e. mesuring it. This process is called \tbf{quantum teleportation}, and can be achieved through the following algorithm.
+An operation that we take for granted in classical computation is the possibility to \tit{copy} the value of a bit: if Alice has two bits $x, y \in \{0, 1\}$, and she wants to copy the value of $x$ into $y$, she can do it without any issues. However, in quantum mechanics this is not so straightforward. In 1982 \textcite{nocloning} proved the so called \tbf{No-cloning theorem}, which states that it is impossible to create an independent and identical copy of \underline{any} arbitrary \tit{unknown} quantum state. However, in order to state the theorem properly we need to introduce a lot of mathematical tools which will be discussed in the following chapter. We will prove the theorem formally in \cref{no-cloning}, but for now we will assume that cloning an arbitrary $\ket \psi$ is \tit{not} possible.
+
+% 	By way of contradiction, suppose that there exists such a transformation CP that is able to copy an unknown quantum state --- and in particular, we observe that such transformation would have to be unitary. But clearly, in order to have a copy we need to actually \tit{store} it somewhere, so we can assume that CP has to take two inputs, one being the state that we want to copy and the other one being the state that we want to replace with the copy of the first one. In other words, we are assuming that $$\forall x \exists y \quad \mbox{CP}(x \otimes y) = x \otimes x$$ However, such an operator would clearly by \tit{not} injective, and --- as we will see in later sections \todo{dimostralo} --- if an operator is unitary it must also be injective. This implies that our best hope is for an additional input $y$ that suits all possible inputs $x$ $$\exists y \forall x \quad \mbox{CP}(x \otimes y) = x \otimes x$$ Nevertheless, through some algebraic manipulation we get that
+% 	\begin{equation*}
+% 		\begin{alignedat}{2}
+% 			       & \exists y \forall x \quad \mbox{CP}(x \otimes y) = x \otimes x                                                 &                                         \\
+% 			\equiv & \exists y \forall x, a \quad \mbox{CP}((x + a) \otimes y) = (x + a) \otimes (x + a)                            &                                         \\
+% 			\equiv & \exists y \forall x, a \quad \mbox{CP}(x \otimes y + a \otimes y) = (x + a) \otimes (x + a)                    & (\mbox{by distributivity of $\otimes$}) \\
+% 			\equiv & \exists y \forall x, a \quad \mbox{CP}(x \otimes y) + \mbox{CP}(a \otimes y) = (x + a) \otimes (x + a)         & (\mbox{by linearity of CP})             \\
+% 			\equiv & \exists y \forall x, a \quad x \otimes x + a \otimes a = x \otimes x + x \otimes a + a \otimes x + a \otimes a & \quad (\mbox{by definition of CP})      \\
+% 			\equiv & \exists y \forall x, a \quad \mathbf 0 = x \otimes a + a \otimes x
+% 		\end{alignedat}
+% 	\end{equation*}
+% 	which should be true for every $x$ and every $a$, however it does not hold for $x = \ket 0$ and $a = \ket 1$, thus raising a contradiction $\lightning$.
+% \end{proof}
+%
+% The No-cloning theorem represents an inherent limitation of quantum computation, and has direct impacts on \tbf{quantum cryptography} and \tbf{quantum error correction}, but we need to underline the \tit{hypothesis} of the theorem itself. In the formulation we presented, we are assuming that the state is \tit{unknown}, and in the literature this assumption means that this theorem holds only if we want to find a \tit{general} operator CP that is able to copy \tit{all} possible inputs. In particular, this means that if the set of possible states we are working with is \tit{restricted} we cannot apply this theorem, and we must be careful on which qubits we are working with.
+% After we will have laid down the mathematical foundations, we will explain what are the conditions for which it is possible to \tit{duplicate} a qubit (i.e. the set of inputs to which we can restrict $x$).
+
+Hence, if quantum states cannot be cloned, can we at least \tit{send} them? Suppose that Alice wants to send Bob $\ket \psi$, described by some $\alpha$ and $\beta$. Clearly, the only thing that Bob has to receive are indeed the probability amplitudes of $\ket \psi$, so even if Alice cannot clone her quantum state, nothing prevents her to build a quantum circuit which allows Bob to receive $\alpha$ and $\beta$ --- at the cost of \curlyquotes{destroying} her $\ket \psi$, i.e. mesuring it. This process is called \tbf{quantum teleportation}, and can be achieved through the following algorithm.
 
 \begin{framedalgo}{Quantum Teleportation algorithm}
 	Given three qubits $q_0$, $q_1$ and $q_2$, the algorithm moves the state of $q_0$ into $q_2$. \\
@@ -211,15 +203,15 @@ So far we saw that quantum states cannot be cloned, but can we at least \tit{sen
 	\quad
 	\begin{algorithmic}[1]
 		\Function{QuantumTeleportation}{$q_0$, $q_1$, $q_2$}
-		\State $q_1 \takes H(q_1)$
-		\State $q_2 \takes CX(q_1, q_2)$ \Comment{entangle $q_1$ and $q_2$}
-		\State $q_1 \takes CX(q_0, q_1)$
-		\State $q_0, q_1 \takes \mbox{measure}(q_0, q_1)$
+		\State $q_1 \gets H(q_1)$
+		\State $q_2 \gets CX(q_1, q_2)$ \Comment{entangle $q_1$ and $q_2$}
+		\State $q_1 \gets CX(q_0, q_1)$
+		\State $q_0, q_1 \gets \mbox{measure}(q_0, q_1)$
 		\If{$q_1 == \ket 1$}
-		\State $q_2 \takes X(q_2)$
+		\State $q_2 \gets X(q_2)$
 		\EndIf
 		\If{$q_0 == \ket 1$}
-		\State $q_2 \takes Z(q_2)$
+		\State $q_2 \gets Z(q_2)$
 		\EndIf
 		\State \tbf{return} $q_2$
 		\EndFunction
@@ -326,9 +318,9 @@ Algorithmically, this means that the following sequence of operations on two qub
 
 \begin{figure}[H]
 	\begin{algorithmic}[1]
-		\State $b \takes \mbox{measure}(q_0)$
+		\State $b \gets \mbox{measure}(q_0)$
 		\If{$b$}
-		\State $q_1 \takes U(q_1)$
+		\State $q_1 \gets U(q_1)$
 		\EndIf
 	\end{algorithmic}
 \end{figure}
@@ -337,8 +329,8 @@ which performs an application of the $U$ gate \tit{classically conditioned} on t
 
 \begin{figure}[H]
 	\begin{algorithmic}[1]
-		\State $q_0, q_1 \takes \mbox{C-}U(q_0, q_1)$
-		\State $b \takes \mbox{measure}(q_0)$
+		\State $q_0, q_1 \gets \mbox{C-}U(q_0, q_1)$
+		\State $b \gets \mbox{measure}(q_0)$
 	\end{algorithmic}
 \end{figure}
 

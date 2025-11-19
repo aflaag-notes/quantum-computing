@@ -204,12 +204,12 @@ Notice what happened here: $\ket 0$ and $\ket 1$ are parts of the first input, a
     \quad
     \begin{algorithmic}[1]
         \Function{QuantumPhaseEstimation}{$U$, $\ket u$}
-            \State $q_t \takes \ket u$ \Comment{$q_t$ is the $(t + 1)$-th register}
+            \State $q_t \gets \ket u$ \Comment{$q_t$ is the $(t + 1)$-th register}
             \For{$k \in [0, t - 1]$}
-                \State $q_k \takes H(q_k)$
-                \State $q_k, q_t \takes U^{2^k}(q_k, q_t)$
+                \State $q_k \gets H(q_k)$
+                \State $q_k, q_t \gets U^{2^k}(q_k, q_t)$
             \EndFor
-            \State $q_0, \ldots, q_{t - 1} \takes \mbox{QFT}^\dag(q_0, \ldots, q_{t - 1})$
+            \State $q_0, \ldots, q_{t - 1} \gets \mbox{QFT}^\dag(q_0, \ldots, q_{t - 1})$
             \State \tbf{return} $\mbox{measure}(q_0, \ldots, q_{t - 1})$
         \EndFunction
     \end{algorithmic}
