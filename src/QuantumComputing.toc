@@ -31,7 +31,8 @@
 \contentsline {section}{\numberline {4.3}Quantum Phase Estimation}{71}{section.4.3}%
 \contentsline {section}{\numberline {4.4}Order-finding problem}{75}{section.4.4}%
 \contentsline {section}{\numberline {4.5}Shor's algorithm}{83}{section.4.5}%
-\contentsline {chapter}{\numberline {5}Quantum Key Distribution}{85}{chapter.5}%
-\contentsline {section}{\numberline {5.1}The No-cloning theorem}{85}{section.5.1}%
-\contentsline {section}{\numberline {5.2}The BB84 protocol}{87}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Eve's attacks}{90}{subsection.5.2.1}%
+\contentsline {section}{\numberline {4.6}Furhter considerations on Grover's algorithm}{84}{section.4.6}%
+\contentsline {chapter}{\numberline {5}Quantum Key Distribution}{87}{chapter.5}%
+\contentsline {section}{\numberline {5.1}The No-cloning theorem}{87}{section.5.1}%
+\contentsline {section}{\numberline {5.2}The BB84 protocol}{89}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Eve's attacks}{92}{subsection.5.2.1}%

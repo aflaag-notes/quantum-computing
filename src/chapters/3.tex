@@ -239,7 +239,7 @@ Now note that this state describes the superposition of the system, but the next
 
 Even though Deutsch-Josza algorithm is able to solve the decision problem we described through \tit{one} single evaluation of $f$, it is fairly apparent that the problem their algorithm solves is quite artificial. However the next algorithm that we are going to discuss solves a problem that is definitely more useful.
 
-In 1997, \textcite{grover} published a landmark paper called \curlyquotes{Quantum Mechanics Helps in Searching for a Needle in a Haystack}, and the name already suggests the problem his work tried to solve: the search problem. The setting is the following: we are given an array of $N$ elements --- we can assume that $N$ is always a power of 2 for some $n$, i.e. $N= 2^n$ --- that contains $M$ \curlyquotes{solution} elements. However, we do not know their positions, and the problem asks to find the index of any solution element.
+In 1996, \textcite{grover} published a landmark paper called \curlyquotes{Quantum Mechanics Helps in Searching for a Needle in a Haystack}, and the name already suggests the problem his work tried to solve: the search problem. The setting is the following: we are given an array of $N$ elements --- we can assume that $N$ is always a power of 2 for some $n$, i.e. $N= 2^n$ --- that contains $M$ \curlyquotes{solution} elements. However, we do not know their positions, and the problem asks to find the index of any solution element.
 
 More formally, given a Boolean function $$\funcmap{f}{\{0, \ldots, N - 1\}}{\B}{x}{\soe{ll}{1 & A[x] \in S \\ 0 & \mbox{otherwise}}}$$ where $A$ is our array, and $S$ is the set of solution elements, the problem asks to return an $x$ such that $f(x) = 1$, i.e. such that $A[x]$ is a solution.
 
@@ -364,7 +364,7 @@ Now that we know how Grover's algorithm works, the only thing left to discuss is
 
 Let the angle between $\ket a$ and $\ket s$ be $\theta$; since $O_f$ flips $q_0$ w.r.t. $\ket a$, and $W$ flips $O_f \ q_0$ w.r.t. $\ket s$, $G$ will cumulatively rotate $q_0$ by $2 \theta$: \todo{drawing} More formally, we can actually show that the matrix $G$ is a rotation matrix of $2 \theta$.
 
-\begin{framedprop}{}
+\begin{framedprop}[label={grover op}]{}
     The Grover operator $G$ can be rewritten in the basis $\{\ket a, \ket b\}$ as follows: $$G = \rmat{\cos{2 \theta} & - \sin {2 \theta} \\ \sin{2 \theta} & \cos {2 \theta}}$$ where $\ket s = \cos \theta \ket a + \sin \theta \ket b$.
 \end{framedprop}
 
@@ -404,10 +404,13 @@ Let the angle between $\ket a$ and $\ket s$ be $\theta$; since $O_f$ flips $q_0$
                      & = 2 (\cos \theta \ket a + \sin \theta \ket b) (\alpha \cos \theta - \beta \sin \theta) - (\alpha \ket a - \beta \ket b) \\ 
                      & = 2 \alpha \cos^2 \theta \ket a - 2 \beta \cos \theta \sin \theta \ket a + 2 \alpha \sin \theta \cos \theta \ket b - 2 \beta \sin^2 \theta \ket b - \alpha \ket a + \beta \ket b \\  
                      & = \sbk{\alpha \rbk{2 \cos^2 \theta - 1} - 2 \beta \cos \theta \sin \theta} \ket a + \sbk{\beta \rbk{1 - 2 \sin^2 \theta} + 2 \alpha \sin \theta \cos \theta} \ket b \\ 
-                     & = (\alpha \cos 2 \theta - \beta \sin 2 \theta) \ket a + (\beta \cos 2 \theta + \alpha \sin 2 \theta) \ket b \\ 
+                     & = (\alpha \cos 2 \theta - \beta \sin 2 \theta) \ket a + (\alpha \sin 2 \theta + \beta \cos 2 \theta) \ket b \\ 
+                     & = \rmat{\alpha \cos 2 \theta - \beta \sin 2 \theta \\ \alpha \sin \theta + \beta \cos \theta} \\ 
+                     & = \rmat{\cos 2 \theta & - \sin 2\theta \\ \sin \theta & \cos \theta} \rmat{\alpha \\ \beta} \\ 
+                     & = \rmat{\cos 2 \theta & - \sin 2\theta \\ \sin \theta & \cos \theta} \ket v \\ 
         \end{split}
     \end{equation*}
-    TODO \todo{da finire}
+    which concludes that $G$ must be the rotation matrix of $2 \theta$.
 \end{proof}
 
 Indeed, with each application of $G$ we are rotating $q_0$ by $2 \theta$, which means that at the $k$-th application it holds that $$G^k \ q_0 = \cos (2k + 1) \theta \ket a + \sin (2k + 1) \theta \ket b$$ for any $k \in \N$, where the additional 1 comes from the fact that $q_0 = \ket s$ through the Hadamard transformation at the start of the process. Thus, to evaluate the optimal number of iterations we need to find the optimal $k$, i.e. the one that maximizes the probability of measuring a solution index, which is equal to the squared amplitude of $\ket b$, namely $$\Pr[\mbox{measure}(q_0) = \ket b] = \sin^2(2k + 1) \theta$$ Hence, we have that $\sin^2(2k + 1)\theta = 1$ when $(2k +1) \theta = \tfrac{\pi}{2}$, and solving for $k$ we get that $$k = \dfrac{\pi}{4 \theta} - \dfrac{1}{2}$$ Lastly, since $\theta$ is the angle between $\ket a$ and $\ket s$, we can rewrite $\ket s$ as $$\ket s = \cos \theta \ket a + \sin \theta \ket b$$ which directly implies that $$\sin \theta = \sqrt {\dfrac{M}{N}} \iff \theta = \arcsin \sqrt{\dfrac{M}{N}}$$ and therefore

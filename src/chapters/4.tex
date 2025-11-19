@@ -488,3 +488,57 @@ TODO \todo{size of QPE}
 TODO \todo{write QPE alg}
 
 TODO \todo{size of Ux gates}
+
+\section{Furhter considerations on Grover's algorithm}
+
+At the end of the previous chapter we ended our discussion of Grover's algorithm by noticing how the $G$ operator was actually performing a \tit{rotation} of an angle $2 \theta$, but there is still something left to be explained. Shor developed his algorithm in 1994, while Grover presented his own in 1996, however in the same year he stated the following famous sentence
+
+\begin{quote}
+It might be possible to combine the search scheme of this paper with \textcite{shor} and other quantum mechanical algorithms to design faster algorithms
+\end{quote}
+
+which subsequently lead many to believe that he actually took inspiration for his algorithm.
+
+Let's try to understand how we can actually employ some of the ideas used in Shor's algorithm for Grover's quantum search. Recall that in \cref{grover op} we proved that the Grover operator can be rewritten as follows: $$G = \rmat{\cos{2 \theta} & - \sin {2 \theta} \\ \sin{2 \theta} & \cos {2 \theta}}$$ We observe the following property.
+
+\begin{framedprop}{}
+    The eigenvalues of $G$ are $e^{\pm 2 \theta i}$.
+\end{framedprop}
+
+\begin{proof}
+    The characteristic polynomial of $G$ is given by
+    \begin{equation*}
+        \begin{split}
+            p(\lambda) & = \det (G - \lambda I) \\ 
+                       & = \det \rbk{\rmat{\cos{2 \theta} & - \sin {2 \theta} \\ \sin{2 \theta} & \cos {2 \theta}} - \rmat{\lambda & 0 \\ 0 & \lambda}} \\ 
+                       & = \det \rmat{\cos 2 \theta - \lambda & - \sin 2 \theta \\ \sin 2 \theta & \cos 2 \theta - \lambda} \\ 
+                       & = \lambda^2 - 2 \lambda \cos 2 \theta  + \cos^2 2 \theta + \sin ^2 2 \theta \\ 
+                       & = \lambda^2 - 2 \lambda \cos 2 \theta  + 1 \\ 
+        \end{split}
+    \end{equation*}
+    and solving for $p(\lambda) = 0$ yields the following two eigenvalues:
+    \begin{equation*}
+        \begin{split}
+            \lambda & = \dfrac{2 \cos 2 \theta \pm \sqrt{4 \cos^2 2 \theta - 4}}{2} \\ 
+                    & = \cos 2 \theta \pm \sqrt{\cos^2 2 \theta - 1} \\ 
+                    & = \cos 2 \theta \pm \sqrt{- \sin^2 2 \theta} \\ 
+                    & = \cos 2 \theta \pm i \sin 2 \theta \\ 
+                    & = e^{\pm 2 \theta i } \\
+        \end{split}
+    \end{equation*}
+\end{proof}
+
+This means that we can use the QPE algorithm with the matrix $G$ in order to obtain an estimate of $\theta$! In particular, with this information we can actually solve two problems at once:
+
+\begin{itemize}
+    \item we can determine an estimate how many iterations of Grover's algorithm we need to run, since $$k = \dfrac{\pi}{4 \theta} - \dfrac{1}{2}$$
+    \item we can also evaluate an estimate on $M$, the number of solutions, since $$\theta = \arcsin \sqrt{\dfrac{M}{N}} \iff M = N \sin^2 \theta$$
+\end{itemize}
+
+The problem of estimating $M$ is usually referred to as \tbf{quantum counting} in the literature, since the output is the number of solutions inside the given array.
+
+TODO \todo{drawing}
+
+It can be proven that the quantum counting circuit estimates $\pm \theta$ --- to be precise, it actually estimates $\theta$ or $2\pi - \theta$ since QPE does not return negative angles --- to a degree of accuracy up to a desired $2^-m$ with probability at least $1 - \varepsilon$. Moreover, it can be shown that $$\abs{\tilde M - M} < \rbk{2 \sqrt{MN} + \dfrac{N}{2^{m + 1}}} 2^{-m}$$ where $\tilde M$ is the estimated value of $M$ through the QPE algorithm. For instance, choosing $m = \ceil{\tfrac{n}{2}} + 1$ and $\varepsilon = \tfrac{1}{6}$, we get that $t = \ceil{\tfrac{n}{2}} + 3$ and $$\abs{\tilde M - M} < \sqrt{\dfrac{M}{2}} + \dfrac{1}{4} = O(\sqrt M)$$ with only $O(2^t) = O(\sqrt N)$ iterations of the Grover operator, i.e. array accesses. Classically, to know the value of $M$ we would necessarily need $O(N)$ accesses.
+
+Lastly, another problem that quantum counting solves is knowing if $M$ is 0 or not. Indeed, Grover's algorithm relies on the assumpion that $M \neq 0$, i.e. there are solution elements, otherwise the procedure actually does nothing.
