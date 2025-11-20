@@ -216,3 +216,36 @@ Once again, through an argument fairly similar of the one we used for the No-clo
 To be precise, there are more subtle attacks that do employ \tit{quantum entagnlement}, such as \tbf{optimal intercept–resend tradeoffs}, where Eve applies a unitary operator that \tit{partially entangles} the signal with a probe to trade a small amount of information for a small disturbance. It can be proven that the BB84 protocol is also resistant against these type of attacks, however this is beyond the scope of our discussion.
 
 Lastly, we observe that BB84 requires Alice to wait before hearing back from Bob that he \tit{actually measured} $\ket \psi$. This is to prevent that Alice sends $b$ too early, so that Eve could use the latter to decode $\ket \psi$ into the original string $a$ without any issue. Therefore, we require Alice to wait for Bob's measurement so that there is no way for Eve to recover $a$ after looking at $b$ becasuse the original superposition is definitively destroyed --- unless she can go back in time!
+
+\section{Bell Inequalities}
+
+Imagine we perform the following experiment: there are two parties involved, namely Alice and Bob, and a third party Charlie which prepares two particles. It does not matter how he prepares the particles, the only thing that matters is that he is capable of repeating the experimental procedure which he uses --- i.e. the experiment must be repeatable. Once he has completed the preparation procedure, he sends one particle to Alice, and one to Bob.
+
+Once alice receives her particles, she performs a measurement on it. In particular, let's imagine that she has available two different measurement apparatuses, which measure different physical properties that we will label as $P_Q$ and $P_R$, respectively. For simplicity, we can suppose that the measurements can each have one of two outcomes, namely $+1$ or $-1$, and the outcome of measuring property $P_Q$ and $P_R$ are described by two random variables $Q, R \in \{+1, -1\}$ respectively. It is also important to assume that Alice does not know in advance which measurement she will choose to perform, instead when she receives her particle she flips a coin and chooses which property to measure accordingly. Similarly, suppose that Bob is capable of measuring one of two properties, $P_S$ or $P_T$, and the outcomes of such measurements are also described by random variables $S, T \in \{ + 1, -1\}$. Again, the choice of the measurement apparatus is random, and we also assume that Alice and BOb do their measurements \tit{at the same time}. This implies that there is no way for Alice's measurement to disturb the result of Bob's measurement (and vice versa) since physical influences cannot propagate faster than light. Interestingly, we can obtain the following result.
+
+\begin{framedprop}{Bell inequality}
+	It holds that $$\Exp(QS) + \Exp(RS) + \Exp(RT) - \Exp(QT) \le 2$$
+\end{framedprop}
+
+\begin{proof}
+	Let $q$ and $r$ be two outcomes of the random variables $Q$ and $R$, respectively. Since $q, r, \in \{+1, - 1\}$, either $q = r$ or $q = -r$, therefore either $q - r = 0$ or $q + r = 0$. For simplicity, let $$p(q, r, s, t) := \Pr[Q = q, R = r, S = s, T = t]$$ Then, we have that
+	\begin{equation*}
+		\begin{split}
+			\Exp(QS) + \Exp(RS) + \Exp(RT) - \Exp(QT) & = \Exp(QS + RS + RT - QT)                                                         \\
+			                                          & = \sum_{q, r, s, t \in \{+1, -1\}}{p(q, r, s, t) \cdot (qs + rs + rt - qt)}       \\
+			                                          & = \sum_{q, r, s, t \in \{+1, -1\}}{p(q, r, s, t) \cdot \sbk{(q + r)s + (r - q)t}} \\
+			                                          & \le \sum_{q, r, s, t \in \{+1, -1\}}{p(q, r, s, t) \cdot 2}                       \\
+			                                          & \le 2 \cdot \sum_{q, r, s, t \in \{+1, -1\}}{p(q, r, s, t)}                       \\
+			                                          & = 2
+		\end{split}
+	\end{equation*}
+\end{proof}
+
+This result is also known as the \tbf{CHSH inequality}, named after the initials of its four discoverers. Nevertheless, it is generally referred to as the Bell inequality since it is part of a larger set of inequalities known as \tbf{Bell inequalities}, named after the work of \textcite{bell} published in 1964.
+
+By repeating the experiment multiple times, Alice and Bob can determine each term on the left hand side of the Bell inequality --- for example, after a set of experiments they get a sample of values for $Q$ and $S$, and by multiplying the results they get multiple estimates of $QS$ which can subsequently be averaged out to get $\Exp (QS)$.
+
+% Now, let's try to perform the same experiment and 
+
+
+Suppose that Charlie prepares a quantum system of two entangled qubits in the Bell state $$\ket{\Psi^-} = \dfrac{1}{\sqrt 2}(\ket{01} - \ket{10})$$ and gives the two qubits to Alice and Bob. \todo{da finire}
