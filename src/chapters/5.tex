@@ -55,6 +55,49 @@ This is just the particular case in which $S = \mathcal H$, and $\mathcal H$ obv
 
 The hypothesis of the No-cloning theorem regarding the choice of $S$ is used strategically by the BB84 protocol, as we will see in the next section.
 
+\section{Measurements}
+
+Before describing the next step of the protocol, we need to do a step back and talk about \tit{measurement} in greater detail. Each time we discussed \curlyquotes{measuring} we never actually mentioned that when we are \tit{physically} performing a measurement what we are really doing is applying a \curlyquotes{polarizing lens} to the final state. For instance, this operation can be implemented through \href{https://en.wikipedia.org/wiki/Faraday_rotator}{Faraday rotators}, which leverage the \tbf{Faraday effect}:
+
+\centeredsvg[A Faraday polarization rotator.]{0.5}{../assets/faraday}
+
+This is important because it means that when we talk about measurement we need to define the \curlyquotes{angle} at which we perform it. Mathematically speaking, this is equivalent to defining the \tbf{basis of choice} for the measurement --- we always consider orthonormal bases only, so all the possible bases of a space are identical up to a rotation. Indeed, the importance of the choice of the basis can be illustrated through the BB84 protocol itself.
+
+\begin{itemize}
+	\item If we have a qubit in the state $\ket \phi = \ket +$, we know that the probability of getting either $\ket 0$ or $\ket 1$ when measured in the Z basis is precisely 50\% for both outcomes because $$\Pr[\mbox{measure$(\ket \phi = \ket 0)$}] = \abs{\braket{0|+}}^2 = \dfrac{1}{2}$$
+	\item Now, consider the orthonormal basis formed by the vector $\ket +$ and $\ket - $ --- which is usually called \tbf{X basis}; we observe that this space is just a rotation of 45° clockwise of the Z basis. This space is interesting: when we measure a qubit $\ket \phi $ set to the state $\ket 0$ in the Z basis we get $\ket 0$ with 100\% certainty, but in this space we have that
+	      \begin{equation*}
+		      \begin{split}
+			      \Pr[\mbox{measure($\ket \phi = \ket +)$}] & = \abs{\braket{0|+}}^2                              \\
+			                                                & = \abs{\dfrac{1}{\sqrt 2}\bra 0(\ket 0 + \ket 1)}^2 \\
+			                                                & = \abs{\dfrac{1}{\sqrt 2}(1 + 0)}^2                 \\
+			                                                & = \dfrac{1}{2}                                      \\
+		      \end{split}
+	      \end{equation*}
+	      Indeed, as we would expect $\ket 0$ and $\ket 1$ in the X basis behave exactly as $\ket +$ and $\ket - $ do in the Z one.
+\end{itemize}
+
+We will see how the BB84 protocol takes advantage of this fact later in our discussion. The last detail that we want to mention about measurements in non-diagonal bases is that we can actually define unitary operators that allow us to perform measurements in the Z basis no matter the basis of choice, by first applying some particular unitary operator that creates a \curlyquotes{map} between the two bases. For instance, say that we have some vector $$\ket v = \alpha \ket + + \beta \ket -$$ defined in the X basis, and we want to measure this vector in the Z basis. This can be done by first applying the following operator: $$U = \ket 0 \bra + + \ket 1 \bra -$$ In fact, it holds that
+\begin{equation*}
+	\begin{split}
+		U \ket v & = (\ket 0 \bra + + \ket 1 \bra - )(\alpha \ket + + \beta \ket -)                               \\
+		         & = \ket 0 \bra + (\alpha \ket + + \beta \ket - ) + \ket 1 \bra - (\alpha \ket + + \beta \ket -) \\
+		         & = \alpha \ket 0 + \beta \ket 1
+	\end{split}
+\end{equation*}
+We can actually generalize this idea: if we have two bases $\{f_i\}_{i = 1}^n$ and $\{g_i\}_{i = 1}^n$ an operator that maps each $f_i$ to $g_i$ for all $i \in [n]$ is exactly $$U_{fg} = \sum_{i = 1}^n \ket{g_i}\bra{f_i}$$ Interestingly enough, we already know an operator that acts as a map between the X and the Z bases:
+\begin{equation*}
+	\begin{split}
+		U & = \ket 0 \bra + + \ket 1 \bra -     \\
+		  & = \rmat{1                           \\ 0} \cdot \sbk{\dfrac{1}{\sqrt 2} (\ket 0 + \ket 1)}^\dag + \rmat{0 \\ 1} \cdot \sbk{\dfrac{1}{\sqrt 2} (\ket 0 - \ket 1)}^\dag \\
+		  & = \dfrac{1}{\sqrt 2} \rmat{1        \\ 0 } \rmat{1 & 1} + \dfrac{1}{\sqrt 2} \rmat{0 \\ 1} \rmat{1 & -1} \\
+		  & = \dfrac{1}{\sqrt 2} \rmat{1    & 1 \\ 0 & 0} + \dfrac{1}{\sqrt 2} \rmat{0 & 0 \\ 1 & -1} \\
+		  & = \dfrac{1}{\sqrt 2} \rmat{1    & 1 \\ 1 & -1} \\
+		  & = H
+	\end{split}
+\end{equation*}
+This should not come as a suprise, since we already knew that $$H \ket 0 = \ket + \quad \quad H \ket 1 = \ket -$$
+
 \section{The BB84 protocol}
 
 The protocol that we will present is usually called \tbf{BB84}, and it was published in 1984 by \textcite{bb84}. The protocol works as follows: suppose that our two usual protagonists Alice and Bob need to share a key quantum-safely. At the beginning, Alice will choose two random binary strings $(4 + \delta)n$-long --- for some $\delta > 0$ sufficiently large --- which are usually referred to as $a$ and $b$. Then, depending on the bits of these two strings she will construct a superposition of states based on the following table:
@@ -81,28 +124,6 @@ For example, if her two random strings are $$a = 01101$$ $$b = 00110$$ then she 
 	\item one quantum channel, which can be eavesdropped by a third party Eve that wants to know their shared key
 	\item one public classical \tit{authenticated} channel --- in particular Alice and Bob must be sure about the identity of the other
 \end{itemize}
-
-Before describing the next step of the protocol, we need to do a step back and talk about \tit{measurement} in greater detail. Each time we discussed \curlyquotes{measuring} we never actually mentioned that when we are \tit{physically} performing a measurement what we are really doing is applying a \curlyquotes{polarizing lens} to the final state. For instance, this operation can be implemented through \href{https://en.wikipedia.org/wiki/Faraday_rotator}{Faraday rotators}, which leverage the \tbf{Faraday effect}:
-
-\centeredsvg[A Faraday polarization rotator.]{0.5}{../assets/faraday}
-
-This is important because it means that when we talk about measurement we need to define the \curlyquotes{angle} at which we perform it. Mathematically speaking, this is equivalent to defining the \tbf{basis of choice} for the measurement --- we always consider orthonormal bases only, so all the possible bases of a space are identical up to a rotation. Indeed, the importance of the choice of the basis can be illustrated through the BB84 protocol iself.
-
-\begin{itemize}
-	\item If we have a qubit in the state $\ket \phi = \ket +$, we know that the probability of getting either $\ket 0$ or $\ket 1$ when measured in the Z basis is precisely 50\% for both outcomes because $$\Pr[\mbox{measure$(\ket \phi = \ket 0)$}] = \abs{\braket{0|+}}^2 = \dfrac{1}{2}$$
-	\item Now, consider the orthonormal basis formed by the vector $\ket +$ and $\ket - $ --- which is usually called \tbf{X basis}; we observe that this space is just a rotation of 45° clockwise of the Z basis. This space is interesting: when we measure a qubit $\ket \phi $ set to the state $\ket 0$ in the Z basis we get $\ket 0$ with 100\% certainty, but in this space we have that
-	      \begin{equation*}
-		      \begin{split}
-			      \Pr[\mbox{measure($\ket \phi = \ket +)$}] & = \abs{\braket{0|+}}^2                              \\
-			                                                & = \abs{\dfrac{1}{\sqrt 2}\bra 0(\ket 0 + \ket 1)}^2 \\
-			                                                & = \abs{\dfrac{1}{\sqrt 2}(1 + 0)}^2                 \\
-			                                                & = \dfrac{1}{2}                                      \\
-		      \end{split}
-	      \end{equation*}
-	      Indeed, as we would expect $\ket 0$ and $\ket 1$ in the X basis behave exactly as $\ket +$ and $\ket - $ do in the Z one.
-\end{itemize}
-
-We will see how the BB84 protocol takes advantage of this fact later in our discussion.
 
 Now that Alice has constructed her superposition $\ket \psi$, she will send it to Bob which will receive $\mathcal E(\ket \psi)$, where $\mathcal E$ describes the quantum operation due to the combined effect of the channel's noise and Eve's actions --- we will describe what Eve can do later in our discussion.
 

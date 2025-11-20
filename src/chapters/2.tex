@@ -251,7 +251,7 @@ The following theorem provides a characterization of the eigenvalues and eigenve
 
 Moreover, for finite-dimensional Hilbert spaces the following holds.
 
-\begin{framedthm}{Spectral theorem for fin. Hilbert spaces}
+\begin{framedthm}[label={spectral thm 2}]{Spectral theorem for fin. Hilbert spaces}
 	Given a finite-dimensional Hilbert space $\mathcal H$, and a normal operator $A$ defined over $\mathcal H$, the set of all eigenvectors of $A$ is an orthonormal basis for $\mathcal H$.
 \end{framedthm}
 
@@ -382,7 +382,7 @@ We observe that the matrix we used is derived as follows: $$A = 0 \cdot P_0 + 1 
 	The probability that a qubit $\ket \psi$ collapses to $\ket \lambda$ when measured is $$\Pr[\mbox{measure}(\ket \psi = \ket \lambda)] = \abs{\braket{\psi|\lambda}}^2$$
 \end{framedprop}
 
-This formulation of the probability will be used extensively for our purposes, and allows us to avoid the description of the matrix $A$ completely.
+We observe that this proposition is a direct consequence of \cref{spectral thm 2}, because it implies that the set of all the eigenvectors $\ket \lambda$ of the matrix $A$ we would have to consider always form an orthonormal basis of the complete Hilbert space, so we can measure any state w.r.t. them. This formulation of the probability of measurements will be used extensively for our purposes, and allows us to avoid the description of the matrix $A$ completely.
 
 \begin{framedpost}{Time evolution postulate}
 	A closed system evolves through time according to the Schrödinger equation: $$i \hbar \dfrac{\diff}{\diff t} v(t) = Hv(t)$$
