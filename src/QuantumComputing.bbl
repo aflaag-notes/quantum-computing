@@ -186,6 +186,33 @@
     \field{year}{1992}
   \endentry
 
+  \entry{ekert}{article}{}{}
+    \name{author}{1}{}{%
+      {{hash=EAK}{%
+         family={Ekert},
+         familyi={E\bibinitperiod},
+         given={Artur\bibnamedelima K},
+         giveni={A\bibinitperiod\bibinitdelim K\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {APS}%
+    }
+    \strng{namehash}{EAK1}
+    \strng{fullhash}{EAK1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{Eke91}
+    \field{sortinit}{E}
+    \field{sortinithash}{E}
+    \field{number}{6}
+    \field{pages}{661}
+    \field{title}{Quantum cryptography based on Bell's theorem}
+    \field{volume}{67}
+    \field{journaltitle}{Physical review letters}
+    \field{year}{1991}
+  \endentry
+
   \entry{epr}{article}{}{}
     \name{author}{3}{}{%
       {{hash=EA}{%
