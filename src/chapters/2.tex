@@ -313,6 +313,12 @@ As a final note, if $A$ is an linear operator, and $\lambda$ is an eigenvalue of
 	TODO \todo{TODO}
 \end{proof}
 
+The following is the last property of projectors that we will present, and it will be very useful when we will introduce the postulates of quantum mechanics in the next section.
+
+\begin{framedthm}{Spectral decomposition}
+	Given a Hilbert space $\mathcal H$, and a normal operator $A$ defined on $\mathcal H$ whose eigenvalues are $\lambda_1, \ldots, \lambda_n$, the matrix $A$ can be rewritten as follows: $$A = \sum_{i = 1}^n{\lambda_i P_{\lambda_i}}$$
+\end{framedthm}
+
 \section{Tensor product}
 
 Finally, the last ingredient that we need to discuss is the \tbf{tensor product}
@@ -371,7 +377,7 @@ This formulation was refined in 1926 by Max Born \cite{born}, when he derived th
 \end{framedthm}
 
 \begin{proof}
-	By the \cref{spectral thm 2} it holds that the set of all the eigenvectors $\ket \lambda$ of any operator always form an orthonormal basis of the complete Hilbert space. Hence, the idea is to implicitly construct a self-adjoint operator $A$ whose eigenvalues are precisely the possible values in which $\ket \psi$ might collapse into. Hence, if $\ket \psi$ is expressed in some base $\{\lambda_1, \ldots, \lambda_n\}$ $$\ket \psi = \sum_{i = 1}^n {\alpha_n \ket{\lambda_i}}$$ we define the operator $$A_{\psi} = \sum_{i = 1}^n {\lambda_i P_{\lambda_i} }= \sum_{ i= 1}^n{\lambda _i \ket {\lambda_i} \bra{\lambda_i}}$$ The proof that the operator $A_\psi$ is both self-adjoint and that has spectrum $\{\lambda_1, \ldots, \lambda_n\}$ is left as an exercise. Thus, the probability that by $\ket \psi$ it collapses to some $\ket \lambda \in\{\lambda_1, \ldots, \lambda_n\}$ can be rewritten as follows:
+	By the \cref{spectral thm 2} it holds that the set of all the eigenvectors $\ket \lambda$ of any operator always form an orthonormal basis of the complete Hilbert space. Hence, the idea is to implicitly construct a self-adjoint operator $A$ whose eigenvalues are precisely the possible values in which $\ket \psi$ might collapse into. In other words, we want to construct a self-adjoint operator whose spectral decomposition is exactly defined by $\{\lambda_1, \ldots, \lambda_n\}$ Hence, if $\ket \psi$ is defined as $$\ket \psi = \sum_{i = 1}^n {\alpha_n \ket{\lambda_i}}$$ we define the operator $$A_{\psi} = \sum_{i = 1}^n {\lambda_i P_{\lambda_i} }= \sum_{ i= 1}^n{\lambda _i \ket {\lambda_i} \bra{\lambda_i}}$$ Thus, the probability that by $\ket \psi$ it collapses to some $\ket \lambda \in\{\lambda_1, \ldots, \lambda_n\}$ can be rewritten as follows:
 	\begin{equation*}
 		\begin{alignedat}{2}
 			\Pr[\mbox{measure}(\ket \psi = \ket \lambda)] & = \Pr[A_\psi = \lambda | \ket \psi]                &                                    \\
@@ -392,6 +398,28 @@ For instance, if we have a superposition $$\ket \psi = \alpha \ket 0 + \beta \ke
 	\end{split}
 \end{equation*}
 where the $A_\psi$ matrix is precisely: $$A_\psi = 0 \cdot P_0 + 1 \cdot P_1 = 0 \cdot \ket 0 \bra 0 + 1 \cdot \ket 1 \bra 1$$ This formulation of the probability of measurements will be used extensively for our purposes, and allows us to avoid the description of the matrix $A_\psi$ completely.
+
+Before presenting to the next postulate, another very important operator that is frequently utilized in quantum mechanics is the \tbf{expected value} of a matrix. Given an observable $A$, we define the expected value of $A$ as the average eigenvector we may obtain after a measurement $$\Exp[A | v] = \sum_{i = 1}^m{\lambda_i \Pr[A = \lambda_i \mid v]}$$ We usually denote the expected value of an operator $U$ as $\abk U$. Moreover, we have the following property.
+
+\begin{framedprop}[label={exp of an op}]{Expected value of an operator}
+	Given an Hermitian operator $U$, if the system is in state $\ket \psi$ it holds that $$\abk{U} = \braket{\psi|U \psi}$$
+\end{framedprop}
+
+\begin{proof}
+	By \cref{meas post}, it follows that
+	\begin{equation*}
+		\begin{split}
+			\abk{U} & = \Exp[U \mid \psi]                                                                     \\
+			        & = \sum_{i = 1}^m{\lambda_i \Pr[U = \lambda_i \mid \ket \psi]}                           \\
+			        & = \sum_{i = 1}^m{\lambda_i \braket{\psi|P_{\lambda_i} \psi}}                            \\
+			        & = \sum_{i = 1}^m{\lambda_i \bra \psi \ket {\lambda_i} \bra{\lambda_i} \ket \psi}        \\
+			        & = \rbk{\sum_{i = 1}^m{\lambda_i \bra \psi \ket {\lambda_i} \bra{\lambda_i} }} \ket \psi \\
+			        & = \rbk{\bra \psi \sum_{i = 1}^m{\lambda_i \ket {\lambda_i} \bra{\lambda_i} }} \ket \psi \\
+			        & = \bra \psi U \ket \psi                                                                 \\
+			        & = \braket{\psi| U \psi}                                                                 \\
+		\end{split}
+	\end{equation*}
+\end{proof}
 
 \begin{framedpost}[label={time post}]{Time evolution postulate}
 	A closed system evolves through time according to the \tbf{time-dependent Schrödinger equation (TDSE)}: $$i \hbar \dfrac{\diff}{\diff t} v(t) = Hv(t)$$

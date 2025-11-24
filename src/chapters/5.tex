@@ -263,19 +263,16 @@ This matrix seems to have everything we need for our purposes, so let's set the 
 
 The only thing left to define are $S$ and $T$. For now, we will set them as follows $$S = \dfrac{Z - X}{\sqrt 2} \quad \quad T = \dfrac{Z - X}{\sqrt 2}$$ without justifying our choice --- we will provide a reason later in our discussion. Most importantly, it can be proven that the eigenvalues of two matrices are still $\pm 1$.
 
-Our goal now will be to evaluate all the terms of the Bell inequality, and check what quantum mechanics expects as outcome. We are not going into the details of all the calculations --- its a quite tedious task and definitely outside our interests. We will only outline the general idea: for example, to evaluate $\Exp[QS \mid \ket{\Psi^-}]$ we just need to follow the definition of expected value
+Our goal now will be to evaluate all the terms of the Bell inequality, and check what quantum mechanics expects as outcome. We are not going into the details of all the calculations --- its a quite tedious task and definitely outside our interests. We will only outline the general idea: for example, to evaluate $\Exp[QS \mid \ket{\Psi^-}]$ we just need to follow what we described in \cref{exp of an op} \todo{da copiare}
 
-\begin{equation*}
-	\begin{split}
-		\Exp[QS \ket {\Psi^-}] & = \sum_{q, s \in \{+1, -1\}} {\Pr[Q = q, S = s \mid \ket{\Psi^-}] (qs)}                         \\
-		                       & = \sum_{q, s \in \{+1, -1\}} {\Pr[Z = q, X = s \mid \ket{\Psi^-}] (qs)}                         \\
-		                       & = \sum_{q, s \in \{+1, -1\}} {\Pr[Z \otimes X = \ket{q} \otimes \ket{s} \mid \ket{\Psi^-}](qs)} \\
-		                       & = \sum_{q, s \in \{+1, -1\}} {\abs{\braket{\Psi^-|q \otimes s}}^2 (qs)}                         \\
-	\end{split}
-\end{equation*}
-where $\ket q$ and $\ket s$ are the eigenvectors associated to the eigenvalues $q, s \in \{+1, -1\}$ of the matrices $Z$ and $X$, respectively. \todo{lui ha fatto i calcoli :(}
+% \begin{equation*}
+% 	\begin{split}
+%             TODO 
+% 	\end{split}
+% \end{equation*}
+% where $\ket q$ and $\ket s$ are the eigenvectors associated to the eigenvalues $q, s \in \{+1, -1\}$ of the matrices $Z$ and $X$, respectively. \todo{lui ha fatto i calcoli :(}
 
-Finally, after calculating all 4 terms we end up with the following results: $$\Exp[QS] = \dfrac{1}{\sqrt 2} \quad \Exp[RS] = \dfrac{1}{\sqrt 2} \quad \Exp[RT] = \dfrac{1}{\sqrt 2} \quad \Exp[QT] = - \dfrac{1}{\sqrt 2}$$ which ultimately yield that $$\Exp[QS] + \Exp[RS] + \Exp[RT] - \Exp[QT] = 2 \sqrt 2$$ What? The Bell inequality told us that the LHS could not ever exceed 2, however quantum mechanics predicts that this sum is equal to $2 \sqrt 2$! What is going on?
+Finally, after calculating all 4 terms we end up with the following results: $$\abk{QS} = \dfrac{1}{\sqrt 2} \quad \abk{RS} = \dfrac{1}{\sqrt 2} \quad \abk{RT} = \dfrac{1}{\sqrt 2} \quad \abk{QT} = - \dfrac{1}{\sqrt 2}$$ which ultimately yield that $$\abk{QS} + \abk{RS} + \abk{RT} - \abk{QT} = 2 \sqrt 2$$ What? The Bell inequality told us that the LHS could not ever exceed 2, however quantum mechanics predicts that this sum is equal to $2 \sqrt 2$! What is going on?
 
 Short answer: we are not sure. Over the years, multiple experiments have been done to check the prediction of quantum mechanics versus the Bell inequality, and the results are resoundingly in favor of the quantum mechanical outcome. Most notably, in 2022 the Nobel Prize in Physics was awarded to Aspect, Clauser and Zeilinger for having established experimentally the violation of Bell inequalities. In simpler terms, the Bell inequality it \tit{not} obeyed by Nature.
 
@@ -293,13 +290,13 @@ To be precise, there is a third possible assumption to consider that we might de
 As a final note, the choice of $S$ and $T$ was lead by the following bound proved by \textcite{tsirelson} in 1980.
 
 \begin{framedthm}{Tsirelson bound}
-	Given 4 dichotomic observables $A_0, A_1, B_0, B_1$ with outcomes $+1$ and $-1$ such that $$\forall i, j \in \{0, 1\} \quad A_i B_j = B_j A_i$$ it holds that $$\Exp[A_0 B_0] + \Exp[A_0 B_1] + \Exp[A_1 B_0] - \Exp[A_1B_1] \le 2 \sqrt 2$$
+	Given 4 dichotomic observables $A_0, A_1, B_0, B_1$ with outcomes $+1$ and $-1$ such that $$\forall i, j \in \{0, 1\} \quad A_i B_j = B_j A_i$$ it holds that $$\abk{A_0 B_0} + \abk{A_0 B_1} + \abk{A_1 B_0} - \abk{A_1B_1} \le 2 \sqrt 2$$
 \end{framedthm}
 
 The choices for $S$ and $T$ are just the matrices that maximize this bound, given the choices for $Q$ and $R$.
 
 To this day, it is not known if the world follows either one of them with certainty, but this discrepancy between the classical and the quantum model must imply that the world is not \tit{locally realistic}. Modern quantum mechanics believes in weak locality but not in realism, and interestingly enough such assumption can actually be leveraged in order to design a more quantum-secure key distribution protocol!
 
-Consider again the experiment performed by Alice and Bob, and let $\mathcal A$ be the quantity $$\mathcal A := \Exp[QS] + \Exp[RS] + \Exp[RT] - \Exp[QT]$$ Can an eavesdropper Eve disturb this experiment without any of the two parties involved notice? Recall that the choice of measurements performed by Alice and Bob are executed \tit{randomly}, which means that Eve has no way to know in advance which setting Alice and Bob will pick --- not even Alice and Bob do! Therefore, if Eve wants to cheat successfully she must find a way to arrange the context such that she knows all the possible outcomes in advance regardless of the choices of the measurement apparatus performed by the two parties. In other words, Eve must be able to set things up in such a way that she can predict all possible outcomes ahead of time. However, because we are assuming that Nature is weakly local, Eve cannot influence nor Alice's neither Bob's outcomes after they chose which property to measure. This must imply that the only chance she has to cheat is to have some way of \curlyquotes{assigning} an outcome to every possible setting \tit{in advance}. This is exactly \tbf{realism}, and by Bell inequality any system that is locally realistic must yield a value of $\mathcal A \le 2$.
+Consider again the experiment performed by Alice and Bob, and let $\mathcal A$ be the quantity $$\mathcal A := \abk{QS} + \abk{RS} + \abk{RT} - \abk{QT}$$ Can an eavesdropper Eve disturb this experiment without any of the two parties involved notice? Recall that the choice of measurements performed by Alice and Bob are executed \tit{randomly}, which means that Eve has no way to know in advance which setting Alice and Bob will pick --- not even Alice and Bob do! Therefore, if Eve wants to cheat successfully she must find a way to arrange the context such that she knows all the possible outcomes in advance regardless of the choices of the measurement apparatus performed by the two parties. In other words, Eve must be able to set things up in such a way that she can predict all possible outcomes ahead of time. However, because we are assuming that Nature is weakly local, Eve cannot influence nor Alice's neither Bob's outcomes after they chose which property to measure. This must imply that the only chance she has to cheat is to have some way of \curlyquotes{assigning} an outcome to every possible setting \tit{in advance}. This is exactly \tbf{realism}, and by Bell inequality any system that is locally realistic must yield a value of $\mathcal A \le 2$.
 
 This is the core idea of the \tbf{E91 protocol}, published by \textcite{ekert} in 1991: suppose that Alice and Bob take a random portion of their qubits and use it in order to compute the quantity $\mathcal A$. Then, if we set $Q$, $R$, $S$ and $T$ as we outlined previously we are guaranteed that, without any external disturbance in the setting, the value of $\mathcal A$ will be $$\mathcal A \approx 2 \sqrt 2$$ This means that if Alice and Bob measure a value $\mathcal A \le 2$, then their correlations could have come from a locally realistic (and therefore \tit{predetermined}) model. And if their correlations could come from such a model, then Eve could have predicted all outcomes in advance, so their exchange would not be quantum-safe anymore and should be aborted. Hence, by chekcing the value of $\mathcal A$ Alice and Bob can choose to proceed with the exchange of the key or abort their attempt and try again.
