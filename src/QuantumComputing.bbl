@@ -126,6 +126,96 @@
     \field{year}{1973}
   \endentry
 
+  \entry{cerezo}{article}{}{}
+    \name{author}{11}{}{%
+      {{hash=CM}{%
+         family={Cerezo},
+         familyi={C\bibinitperiod},
+         given={M.},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=AA}{%
+         family={Arrasmith},
+         familyi={A\bibinitperiod},
+         given={Andrew},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=BR}{%
+         family={Babbush},
+         familyi={B\bibinitperiod},
+         given={Ryan},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=BSC}{%
+         family={Benjamin},
+         familyi={B\bibinitperiod},
+         given={Simon\bibnamedelima C.},
+         giveni={S\bibinitperiod\bibinitdelim C\bibinitperiod},
+      }}%
+      {{hash=ES}{%
+         family={Endo},
+         familyi={E\bibinitperiod},
+         given={Suguru},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=FK}{%
+         family={Fujii},
+         familyi={F\bibinitperiod},
+         given={Keisuke},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=MJR}{%
+         family={McClean},
+         familyi={M\bibinitperiod},
+         given={Jarrod\bibnamedelima R.},
+         giveni={J\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+      {{hash=MK}{%
+         family={Mitarai},
+         familyi={M\bibinitperiod},
+         given={Kosuke},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=YX}{%
+         family={Yuan},
+         familyi={Y\bibinitperiod},
+         given={Xiao},
+         giveni={X\bibinitperiod},
+      }}%
+      {{hash=CL}{%
+         family={Cincio},
+         familyi={C\bibinitperiod},
+         given={Lukasz},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=CPJ}{%
+         family={Coles},
+         familyi={C\bibinitperiod},
+         given={Patrick\bibnamedelima J.},
+         giveni={P\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {arXiv}%
+    }
+    \keyw{Quantum Physics (quant-ph), Machine Learning (cs.LG), Machine Learning (stat.ML), FOS: Physical sciences, FOS: Physical sciences, FOS: Computer and information sciences, FOS: Computer and information sciences}
+    \strng{namehash}{CMAABR+1}
+    \strng{fullhash}{CMAABRBSCESFKMJRMKYXCLCPJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{CAB+20}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \verb{doi}
+    \verb 10.48550/ARXIV.2012.09265
+    \endverb
+    \field{title}{Variational Quantum Algorithms}
+    \verb{url}
+    \verb https://arxiv.org/abs/2012.09265
+    \endverb
+    \field{year}{2020}
+  \endentry
+
   \entry{deutsch}{article}{}{}
     \name{author}{1}{}{%
       {{hash=DD}{%
@@ -423,6 +513,83 @@
     \verb https://books.google.it/books?id=e1xjGwAACAAJ
     \endverb
     \field{year}{1964}
+  \endentry
+
+  \entry{peruzzo}{article}{}{}
+    \name{author}{8}{}{%
+      {{hash=PA}{%
+         family={Peruzzo},
+         familyi={P\bibinitperiod},
+         given={Alberto},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=MJ}{%
+         family={McClean},
+         familyi={M\bibinitperiod},
+         given={Jarrod},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=SP}{%
+         family={Shadbolt},
+         familyi={S\bibinitperiod},
+         given={Peter},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=YMH}{%
+         family={Yung},
+         familyi={Y\bibinitperiod},
+         given={Man-Hong},
+         giveni={M\bibinithyphendelim H\bibinitperiod},
+      }}%
+      {{hash=ZXQ}{%
+         family={Zhou},
+         familyi={Z\bibinitperiod},
+         given={Xiao-Qi},
+         giveni={X\bibinithyphendelim Q\bibinitperiod},
+      }}%
+      {{hash=LPJ}{%
+         family={Love},
+         familyi={L\bibinitperiod},
+         given={Peter\bibnamedelima J.},
+         giveni={P\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+      {{hash=AGA}{%
+         family={Aspuru-Guzik},
+         familyi={A\bibinithyphendelim G\bibinitperiod},
+         given={Al\'{a}n},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=OJL}{%
+         family={O'Brien},
+         familyi={O\bibinitperiod},
+         given={Jeremy\bibnamedelima L.},
+         giveni={J\bibinitperiod\bibinitdelim L\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{2}{%
+      {Springer Science}%
+      {Business Media LLC}%
+    }
+    \strng{namehash}{PAMJSP+1}
+    \strng{fullhash}{PAMJSPYMHZXQLPJAGAOJL1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelalpha}{PMS+14}
+    \field{sortinit}{P}
+    \field{sortinithash}{P}
+    \verb{doi}
+    \verb 10.1038/ncomms5213
+    \endverb
+    \field{issn}{2041-1723}
+    \field{number}{1}
+    \field{title}{A variational eigenvalue solver on a photonic quantum processor}
+    \verb{url}
+    \verb http://dx.doi.org/10.1038/ncomms5213
+    \endverb
+    \field{volume}{5}
+    \field{journaltitle}{Nature Communications}
+    \field{month}{07}
+    \field{year}{2014}
   \endentry
 
   \entry{shor}{inproceedings}{}{}

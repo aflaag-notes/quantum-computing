@@ -24,7 +24,7 @@
 \contentsline {section}{\numberline {3.3}Grover's algorithm}{45}{section.3.3}%
 \contentsline {subsection}{\numberline {3.3.1}Another perspective}{54}{subsection.3.3.1}%
 \contentsline {subsection}{\numberline {3.3.2}Fixed-Point Quantum Search}{55}{subsection.3.3.2}%
-\contentsline {chapter}{\numberline {4}Quantum Phase Estimation}{61}{chapter.4}%
+\contentsline {chapter}{\numberline {4}Shor's algorithm}{61}{chapter.4}%
 \contentsline {section}{\numberline {4.1}A recap on the Discrete Fourier Transform}{61}{section.4.1}%
 \contentsline {section}{\numberline {4.2}The Quantum Fourier Transform}{64}{section.4.2}%
 \contentsline {subsection}{\numberline {4.2.1}The quantum circuit}{69}{subsection.4.2.1}%
@@ -33,6 +33,7 @@
 \contentsline {section}{\numberline {4.5}Shor's algorithm}{83}{section.4.5}%
 \contentsline {section}{\numberline {4.6}Furhter considerations on Grover's algorithm}{84}{section.4.6}%
 \contentsline {section}{\numberline {4.7}Variational Quantum Algorithms}{86}{section.4.7}%
+\contentsline {subsection}{\numberline {4.7.1}Variable Quantum Eigensolver}{87}{subsection.4.7.1}%
 \contentsline {chapter}{\numberline {5}Quantum Key Distribution}{89}{chapter.5}%
 \contentsline {section}{\numberline {5.1}The No-cloning theorem}{89}{section.5.1}%
 \contentsline {section}{\numberline {5.2}Measurements}{91}{section.5.2}%
