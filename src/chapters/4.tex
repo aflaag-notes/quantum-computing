@@ -1,4 +1,4 @@
-\chapter{Shor's algorithm}
+\chapter{Quantum Phase Estimation}
 
 \tbf{Shor's algorithm} is a quantum algorithm for finding the \tit{prime factors of an integer}, developed in 1994 by the American mathematician \textcite{shor}. It is one of the few known quantum algorithms with compelling potential applications and strong evidence of \tbf{superpolynomial} speedup compared to best known classical (non-quantum) algorithm. It is one of the most famous algorithms in the field, and it sparked a lot of interest in recent years due to the implications of its theoretical speedup. \todo{place this somewhere else anche change the intro}
 
@@ -545,23 +545,23 @@ Lastly, another problem that quantum counting solves is knowing if $M$ is 0 or n
 
 \section{Variational Quantum Algorithms}
 
-While algorithms like Grover and Shor's show the theoretical power of quantum computing, it must pointed out that they assume access to \tbf{large} and \tbf{error-free} quantum machines-hardware that \tit{does not yet exist}. In fact, today's quantum devices are known as \tbf{Noisy Intermediate-Scale Quantum (NISQ)} machines, which have a limited number of qubits, noisy gates, short coherence times, and can only run shallow circuits before errors overwhelm the computation. In this section we will present a fairly recent approach that allows to work with such noisy machines, called \tbf{Variational Quantum Algorithms (VQAs)}. They are a type of quantum algorithms that are designed to work on NISQ devices we have today. By combining short, parameterized quantum circuits with classical optimization, VQAs allow the quantum computer to handle tasks it performs best --- such as exploring complex quantum states and measuring key properties --- assisted by a classical computer that iteratively adjusts the circuit parameters. This hybrid method tolerates noise and imperfections, making it possible to obtain useful results even with limited, error-prone hardware.
+While algorithms like Grover and Shor's show the theoretical power of quantum computing, it must be pointed out that they assume access to \tbf{large} and \tbf{error-free} quantum machines, hardware that \tit{does not yet exist}. In fact, today's quantum devices are known as \tbf{Noisy Intermediate-Scale Quantum (NISQ)} machines, which have a limited number of qubits, noisy gates, short coherence times, and can only run shallow circuits before errors overwhelm the computation. In this section we will present a fairly recent approach that allows to work with such noisy machines, called \tbf{Variational Quantum Algorithms (VQAs)}. They are a type of quantum algorithms that are designed to work on NISQ devices we have today. By combining short, parameterized quantum circuits with classical optimization, VQAs allow the quantum computer to handle tasks it performs best --- such as exploring complex quantum states and measuring key properties --- assisted by a classical computer that iteratively adjusts the circuit parameters. This hybrid method tolerates noise and imperfections, making it possible to obtain useful results even with limited, error-prone hardware.
 
-VQAs are a leading method for achieving quantum advantage on today’s NISQ devices. They work by combining shallow, parameterized quantum circuits --- well-suited to noisy hardware --- with classical optimization techniques that adjust those parameters. This hybrid quantum-classical strategy resembles machine-learning approaches like neural networks and helps manage NISQ constraints while avoiding the deep circuits required by fully fault-tolerant quantum algorithms.
+VQAs are a leading method for achieving quantum advantage on today's NISQ devices. They work by combining shallow, parameterized quantum circuits --- well-suited to noisy hardware --- with classical optimization techniques that adjust those parameters. This hybrid quantum-classical strategy resembles \tbf{machine-learning} approaches like neural networks and helps manage NISQ constraints while avoiding the deep circuits required by fully fault-tolerant quantum algorithms.
 
 VQAs have been explored for a wide range of quantum computing applications and may offer the best chance for near-term quantum advantage. Due to the inherent versatility of VQAs, there is a wide variety of different algorithmics structures with different levels of complexity. Nevertheless, most of VQAs share the same basic elements. A VQA begins with a clearly defined task and, if needed, relevant training data. The first step is to design a \tbf{cost function} $C$ that captures what it means to solve the problem.
 
-Next, it must be choosen an \tbf{ansatz}, a German term that can be translated to \tit{approach, attempt}. In the context of physics and mathematics, an ansatz is kind of an initial estimate to the solution of the problem considered. For instance, given a set of experimental data that looks to be clustered about a line, a \tit{linear ansatz} could be made to find the parameters of the line by a \tit{least squares} curve fit. In other words, if experimental data looks linear, we might choose a linear model $$y = mx + b$$ becaue we believe that the solution lives somewhere in the \curlyquotes{space of all straight lines}. However, in the quantum context specifically, the ansatz is the \tbf{family of quantum states} we allow the VQA to explore $$\ket{\psi(\mathbf \theta)} = U(\mathbf \theta) \ket 0$$ Choosing the structure of the circuit is the ansatz itself, and $\theta$ is just the set of parameters of the model --- $\theta$ in this context is \tit{not} an angle. In fact, this is the reason why choosing an appropriate ansatz is one of the most important steps of the whole process, and there are a wide range of ansatze that are currently beding studied in order to model different type of problems. \textcite{cerezo} compiled a detailed list of the best known ansatze depending on the application of the VQA.
+Next, it must be choosen an \tbf{ansatz}, a German term that can be translated to \tit{approach} or \tit{attempt}. In the context of physics and mathematics, an ansatz is kind of an initial estimate to the solution of the problem considered. For instance, given a set of experimental data that looks to be clustered about a line, a \tit{linear ansatz} could be made to find the parameters of the line by a \tit{least squares} curve fit. In other words, if experimental data looks linear, we might choose a linear model $$y = mx + b$$ because we believe that the solution lives somewhere in the \curlyquotes{space of all straight lines}. Thus, in the quantum context specifically, the ansatz is the \tbf{family of quantum states} we allow the VQA to explore $$\ket{\psi(\mathbf \theta)} = U(\mathbf \theta) \ket {\psi_0}$$ for some initial state $\ket{\psi_0}$, and a set of parameters $\theta$ of the model --- $\theta$ is not an angle here! This means that choosing the structure of the circuit \tit{is} the ansatz itself. In fact, this is the reason why choosing an appropriate ansatz is one of the most important steps of the whole process, and there are a wide range of ansatze that are currently being studied in order to model different type of problems. \textcite{cerezo} compiled a detailed list of the best known ansatze depending on the application of the VQA.
 
-The algorithm then trains these parameters through a hybrid quantum-classical optimization loop, seeking the values $$\mathbf \theta^* = \argmin_{\theta}{C(\theta)}$$ that minimize the cost function chosen. The quantum computer then evaluates the cost, and a classical optimizer updates the parameters according to a preffered optimization strategy --- classical \tbf{Stochastic Gradient Descent (SGD)} is usually employed but newer alternatives are being developed in recent years.
+The algorithm then trains these parameters through a hybrid quantum-classical optimization loop, seeking the values $$\mathbf \theta^* = \argmin_{\theta}{C(\theta)}$$ that minimize the cost function chosen. The quantum computer then evaluates the cost, and a classical optimizer updates the parameters according to a preffered optimization strategy --- classical \tbf{Stochastic Gradient Descent (SGD)} is usually employed but newer alternatives are being developed in recent years that are \curlyquotes{gradient-free}.
 
 VQAs are highly flexible because they support task-oriented programming, making them suitable for nearly every major application envisioned for quantum computers. In fact, they are powerful enough to enable \tbf{universal quantum computation}. A quantum model is said to be \tbf{universal} if it can approximate any unitary operation on any number of qubits to arbitrary accuracy, only using some kind of restricted architecture. In some sense, it is the quantum analog of what being a \tit{universal gate} means with classical gates.
 
 \subsection{Variable Quantum Eigensolver}
 
-The best-known application of VQAs is by far the so called \tbf{Variable Quantum Eigensolver (VQE)} since it was the very first proposed VQA, developed to provide a near-term solution to its task.
+The best-known application of VQAs is by far the so called \tbf{Variable Quantum Eigensolver (VQE)} since it was the very first proposed VQA, developed to provide a near-term application for VQAs.
 
-First, let's describe the problem we are interested in solving. In chemistry and many other fields, we are often interested in finding the fundamental physical properties of the system we are considering. Interestingly, such properties can be directly evaluated from the eigenvalues of the \tbf{Hamiltonian}, which is an operator that we briefly introduced in \cref{time post}. The Hamiltonian of a system represent its total energy --- including kinetic energy, potential energy and the interactions between particles. This fact derives from the \tbf{time-independent Schrödinger equation (TISE)} $$H \ket \psi = E \ket \psi$$ which is used when looking at stationary states --- states whose probability distributions don't change over time. In this formula, we have that
+First, let's describe the problem we are interested in solving. In chemistry and many other fields, we are often interested in finding the fundamental physical properties of the system we are considering. Interestingly, such properties can be directly evaluated from the eigenvalues of the \tbf{Hamiltonian}, which is an operator that we briefly introduced in \cref{time post}. The Hamiltonian of a system represents its total energy --- including kinetic energy, potential energy and the interactions between particles. This fact derives from the \tbf{time-independent Schrödinger equation (TISE)}: $$H \ket \psi = E \ket \psi$$ which is used when looking at stationary states --- states whose probability distributions don't change over time. In this formula, we have that
 
 \begin{itemize}
     \item $H$ is the Hamiltonian
@@ -569,53 +569,84 @@ First, let's describe the problem we are interested in solving. In chemistry and
     \item $\ket \psi$ is an eigenvector associated to $E$, which is the stationary state we are considering
 \end{itemize}
 
-Each eigenvalue $E$ of $H$ tells us an allowed energy level of the system, and we are intereset in the \tit{lowest one}, which is called \tbf{ground-state energy}, often referred as $E_G$. In particular, $E_G$ described a molecule's stability, preferred structured and how it participates in chemical reactions. Differently, higher eigenvalues describe \tbf{excited states} that govern how mulecules absorb and emit light, making them essential for understanding spectroscopy, photochemistry, and materials used in solar cells or sensors. Beyond chemistry, many problems in physics, materials science, and engineering reduce to eigenvalue calculations as well: the behavior of electrons in solids, the vibrations of mechanical structures, the modes of waves and diffusion.
+Each eigenvalue $E$ of $H$ tells us an allowed energy level of the system, and we are interested in the \tit{lowest one}, which is called \tbf{ground-state energy}, often denoted as $E_G$. While higher eigenvalues describe \tbf{excited states} that govern how mulecules absorb and emit light, $E_G$ describes a molecule's stability, preferred structure and how it participates in chemical reactions. This is the eigenvalue we are interested in, and it will be the main focus of our discussion. Determining the ground-state energy is essential for understanding spectroscopy, photochemistry, and materials used in solar cells or sensors. Moreover, beyond chemistry many problems in physics, materials science, and engineering reduce to eigenvalue calculations as well, such as the behavior of electrons in solids and the vibrations of mechanical structures.
 
-What is the problem in finding these eigenvalues? We observe that when we have a system of $n$ particles we require a Hilbert space of dimension $2^n$, which means that the size of the Hamiltonian is $2^n \times 2^n$. This exponential growth makes the search for eigenvalues \tbf{classically intractable}. Traditional approximate methods help but cannot achieve efficient, exact solutions for large systems. Luckily, quantum computing offers a promising path forward.
+What is the problem in finding the eigenvalues of $H$ then? We observe that when we have a system of $n$ particles we require a Hilbert space of dimension $2^n$, which means that the size of the Hamiltonian is $2^n \times 2^n$. This exponential growth makes the search for eigenvalues \tbf{classically intractable}. Traditional approximate methods help but cannot achieve efficient, exact solutions for large systems. Luckily, quantum computing offers a promising path forward.
 
-Actually, we already know a quantum algorithm that is able to yield the eigenvalue of a unitary operator: it's the QPE. Indeed, this algorithm does provide exponential speedups, however it requires long coherent evolution and \tit{extremely deep circuits}, making it impractical for near-term devices. Today, in the NISQ era, QPE is still not practical. However, in 2014 \textcite{peruzzo} published a landmark paper, which proposed a VQA that avoids the long coherent runtimes required by QPE.
+Actually, we already know a quantum algorithm that is able to yield the eigenvalue of a unitary operator: it's the QPE. Indeed, this algorithm \tit{does} provide exponential speedups w.r.t. classical approaches, however it requires long coherent evolution and \tit{extremely deep circuits}, making it impractical for near-term devices. Today, in the NISQ era, QPE is still not practical. However, in 2014 \textcite{peruzzo} published a landmark paper, which proposed a VQA that avoids the long coherent runtimes required by QPE.
 
-TODO \todo{da continuare}
+From a theoretical point of view, the idea is fairly straightforward: we want to find the state $\ket {\psi^*}$ that minimizes the eigenvalue, in order to find $E_G$. But first, let's consider a more general scenario: let $A$ be any observable (i.e. a self-adjoint operator), and consider its expected value $\abk A$. In \cref{exp of an op} we already proved that if the current state is $\ket \psi$ it holds that $$\abk A = \braket{\psi|A \psi}$$ We are interested in finding the state $\ket {\psi^*}$ that will yield the lowest possible eigenvalue of $A$ after measuring the latter. We observe that
+\begin{equation*}
+    \begin{split}
+        \braket{\psi | A \psi} & = \abk A \\ 
+               & = \Exp[A \mid \ket \psi] \\ 
+               & = \sum_{i = 1}^m{\lambda_i \Pr[A = \lambda_i \mid \ket \psi]} \\ 
+               & \ge \min_{i \in [m]}{\lambda_i} \\ 
+               & = \lambda_\text{min} \\ 
+    \end{split}
+\end{equation*}
+with the equality holding if $\ket \psi = \ket{\psi^*}$. This means that by searching for $$\ket{\psi^*} = \argmin_{\ket{\psi} \in \mathcal H}{\braket{\psi|A\psi}}$$ we can immediately find $\lambda_\text{min}$. It is easy to see that this idea is clearly applicable for finding $E_G$ since $H$ is self-adjoint, thus $$\ket{\psi^*} = \argmin_{\ket \psi \in \mathcal H}{\braket{\psi|H\psi}} \implies H \ket{\psi^*} = E_G \ket{\psi^*}$$ where $E_G$ is the lowest eigenvalue of $H$, by definition. As a consequence, the idea of the VQE is to set the cost function as $$C(\theta) = \braket{\psi(\theta)|H \psi(\theta)}$$ where in this case $\ket{\psi(\theta)}$ is the \curlyquotes{trial} state that has to be defined as $$\ket{\psi(\theta)} = U(\theta) \ket{\psi_0}$$ where $U(\theta)$ represents the ansatz of choice. Therefore, we are interested in finding the best parameters such that $$\theta^* = \argmin_\theta {\braket{\psi(\theta)| H \psi (\theta)}}$$ We observe that there is no universal ansatz for the VQE, as there are multiple variants that have been developed depending on the specific Hamiltonian of interest --- different Hamiltonians may have different structures, entanglement patterns and symmetries. In conclusion, from a theoretical standpoint of view the VQE aims at minimizing $C(\theta)$ by computing the cost with a NISQ machine, and by optimizing $\theta$ through a classical computer.
 
-% The Quantum Expectation Estimation (QEE) algorithm computes the expectation value of a Hamiltonian (H) for a given quantum state . Any Hermitian Hamiltonian can be expanded as a sum of tensor products of Pauli operators with real coefficients. Because expectation values are linear, evaluating $\abk{\mathcal H}$ reduces to summing the weighted expectation values of these individual Pauli terms.
-%
-% If a Hamiltonian contains only a polynomial number of Pauli-term components—which is true for many important physical systems such as electronic structure Hamiltonians, Ising and Heisenberg models, and k-sparse Hamiltonians—then its expectation value can be computed efficiently. A quantum device can evaluate each Pauli-term expectation value efficiently, even when the overall Hamiltonian is an exponentially large $2^n \times 2^n$ matrix. Thus, QEE enables efficient estimation of otherwise intractable Hamiltonian expectation values using an (n)-qubit quantum state.
-%
-%
-% A classical approach to estimating the terms of a Hamiltonian would require optimizing many reduced states independently, but this quickly runs into the **N-representability problem**, which is QMA-hard and therefore intractable for both classical and quantum computers. The quantum method avoids this because quantum hardware naturally stores the full global quantum state without needing to reconstruct reduced states.
-%
-% The expectation value of any Pauli-term tensor product can be estimated through local measurements on each qubit, performed in parallel with constant-time coherence requirements. Since these operators have bounded spectra, each term can be estimated to precision ( $\epsilon$ ) with ($O(|h_{\max}|^2, M, \epsilon^{-2}$)) measurement repetitions, where (M) is the number of Hamiltonian terms and ($h_{\max}$) the largest coefficient.
-%
-% Compared with Quantum Phase Estimation (QPE), this variational-style expectation estimation requires many more repetitions—scaling as ($O(\epsilon^{-2}$) instead of $O(\epsilon^{-1}$)—and repeated state preparation. However, it dramatically reduces the required coherence time while still providing an exponential advantage over classical exact methods.
-%
+In particular, we observe that the evaluation of the cost depends on the value of $\abk{H}$, and the best way we have to evaluate this quantity is by repeatedly measuring $H$. However, due to the size of $H$ and the noise of the machines this step is often implemented with a better alternative. In fact, there is a very useful property of Hamiltonians that we can leverage: any Hamiltonian can be written as linear combination of products of Pauli matrices $$H = \sum_{j}{h_k \prod_{k}{\sigma_{\alpha, jk}}}$$ where $\alpha \in \{x, y, z\}$. The original approach of the VQE only considers Hamiltonians that can be written as a sum of a polynomial number of terms. This property has two practical implications:
 
+\begin{itemize}
+    \item first, the product of two Pauli matrices is a Pauli matrix multiplied by some phase, as the table below shows
+        \begin{center}
+                \begin{tabular}{c|cccc}
+                                & $I$ & $X$ & $Y$ & $Z$ \\
+                        \hline
+                        $I$     & $I$ & $X$ & $Y$ & $Z$    \\
+                        $X$     & $X$ & $I$ & $iZ$ & $-iY$    \\
+                        $Y$     & $Y$ & $-iZ$ & $I$ & $iX$    \\
+                        $Z$     & $Z$ & $iY$ & $-iX$ & $I$    \\
+                \end{tabular}
+        \end{center}
+        which means that we can rewrite the sum as follows $$H = \sum_{k}{h'_k \sigma_{\alpha, k}}$$ for some new coefficients $h'_k$
+    \item second, by linearity of expectations it holds that $$\abk H = \sum_{k = 1}{h_k' \abk{\sigma_{\alpha, k}}}$$ which means that in order to compute the cost $C(\theta)$ we can instead evaluate the following $$C(\theta) = \abk H = \braket{\psi(\theta)| H \psi(\theta)} = \sum_{k = 1}{c_k \braket{\psi (\theta) | \sigma_{\alpha, k} \psi(\theta)}}$$ 
+\end{itemize}
 
-% \begin{itemize}
-%
-% \end{itemize}
+This is much more feasible on current NISQ hardware, as measuring each $\abk{\sigma_{\alpha, k}}$ only requires shallow circuits. We observe that this is an oversemplification and we are glossing over a lot of details, both from a theoretical and physical point of view, but such specifics are definitely outside the scope of this discussion as they would require an entire chapter on their own.
 
+The last thing that we are going to mention about the VQE is its versatility. We showed how with this technique we are able to determine the ground-state energy of a Hamiltonian $H$, which is useful to know in various scientific research areas. However, in reality we observe that the method we outlined \tit{does not depend} on the meaning of $H$. In fact, $H$ really can be any self-adjoint operator that can be written as sum of \curlyquotes{easier} operators to measure. Consider any cost function $S(x)$ that we seek to minimize; what we need is a matrix $H_S$ whose eigenvalues are exactly the possible values that $S(x)$ can assume. Hence, by using the same trick that we used in the \nameref{born rule} it suffices to consider a matrix whose \nameref{spectral decomp} is exacly $$H_S = \sum_{y \in Y}S(y) \ket y \bra y$$ Thus, by construction this immediately implies that $$H_S \ket y = S(y) \ket y$$ Therefore, by executing the VQE on $H_S$ we are actually finding the lowest value of $S(y)$:
+\begin{equation*}
+    \begin{split}
+        \braket{\psi|H_S \psi} & = \abk{H_S} \\ 
+                               & = \Exp{H_S \mid \ket \psi} \\ 
+                               & = \sum_{y \in Y}{S(y) \Pr[H_S = S(y) \mid \ket \psi]} \\ 
+                               & \ge \min_{y \in Y}{S(y)} \\ 
+    \end{split}
+\end{equation*}
+In the end, we can simply run the VQE algorithm with $$C(\theta) = \abk{H_S} = \braket{\psi(\theta) | H_S \psi(\theta)}$$ to get an approximation of the minimum value for our original cost function. This strategy is used to approximate various classically intractable computational problems outside chemistry and physics, such as
 
-% TODO \todo{bridge}
-%
-% Consider the following optimization problem.
+\begin{itemize}
+    \item \tbf{max-cut} problems, in which $H_S$ encodes the cut costs
+    \item \tbf{combinatorial optimization} problems, in which $H_S$ encodes the constraints
+\end{itemize}
 
-% \begin{frameddefn}{Extremal Eigenvalue Problem (EEP)}
-%     Given an Hermitian matrix, find its extremal eigenvalues.
-% \end{frameddefn}
-%
-% First, by \cref{spectral thm} we know that the eigenvalues of any Hermitian matrix must be real, so the problem is well defined. Furthermore, consider any \tbf{Integer Linear Program (ILP)}
-%
-% \begin{figure}[H]
-%     \centering
-%     \[\begin{array}{cc}
-%         % \qquad\qquad\quad
-%         & \max \; c_1x_1 + \ldots + c_n x_n \\\\
-%         & a_{11}x_1 + \ldots + a_{1n}x_n \le b_1 \\
-%         & \vdots \\
-%         & a_{m1}x_1 + \ldots + a_{mn}x_n \le b_m \\
-%         & x_1, \ldots, x_n \in \{0, 1\}
-%     \end{array}\]
-%     % \caption{A \tit{primal} LP.}
-% \end{figure}
-%
-% and suppose that the set of solutions $Y$ is finite, so we can assign a bitstring to each solution
+The following procedure is a high-level overview of the implementation of this idea.
+
+\begin{framedalgo}{Optimization through VQE}
+    Given a cost function $S$, and a fixed parameter $N$, the algorithm returns an approximation of $\min_{y \in Y}{S(y)}$. \\
+    \hrule
+
+    \quad
+    \begin{algorithmic}[1]
+        \Function{VQEOptimization}{$S$, $N$}
+            \State $\theta \gets \theta_0$
+            \While{\tbf{true}}
+                \State Generate circuit $Q_\theta$ from ansatz based on $\theta$
+                \State $c_\theta \gets \texttt{[]}$
+                \For{$i \in [N]$}
+                    \State $\ket{\psi(\theta)} \gets Q_\theta \ket{0^n}$
+                    \State $c_i \gets H_C$ measured on $\ket{\psi(\theta)}$
+                    \State $c_\theta \texttt{.append(}c_i\texttt{)}$
+                \EndFor
+                \State $\hat c_\theta \gets \avg \rbk{c_\theta}$
+                \If{classical machine determines that $\hat c_\theta$ is ok}
+                    \State \tbf{return} $\theta$
+                \EndIf
+                \State $\theta \gets \theta'$ \Comment{$\theta'$ computed classically}
+            \EndWhile
+        \EndFunction
+    \end{algorithmic}
+\end{framedalgo}

@@ -1,4 +1,8 @@
-\chapter{Quantum Key Distribution}
+\chapter{Quantum Information Science}
+
+TODO \todo{write introduction}
+
+\section{Quantum Key Distribution}
 
 Why is Shor's algorithm so important? Most widely used \tbf{public-key cryptography} algorithms rely on the difficulty of one of the three following mathematical problems:
 
@@ -16,7 +20,7 @@ In this chapter we will cover \todo{vedi de che parla prima de parla a vuoto}
 
 is a \tbf{Quantum Key Distribution (QKD)} protocol. In particular, we are interested in finding secure protocols that able to allow two parties to share a \tit{private key} quantum-safely.
 
-\section{The No-cloning theorem} \label{no-cloning}
+\subsection{The No-cloning theorem} \label{no-cloning}
 
 Before explaining any protocol however, we need to talk about a theorem that we did not properly discuss in \cref{quantum teleportation}, namely the \tbf{No-cloning theorem}. In particular, we stated that there is no quantum transformation that copies \underline{any} quantum state. Now that we have the mathematical tools to prove the theorem, we can actually show the real formulation of the theorem. But first, let's try to understand what it means to \curlyquotes{clone} a qubit. Say that we have a qubit set to some unknown superposition of states $\ket \chi$ that we would like to clone; in other words, we need an ancilla qubit $\ket \gamma$ and some operator $U$ (which must be unitary) such that $$U(\ket \chi \otimes \ket \gamma) = \ket \chi \otimes \ket \chi$$ Essentially, the ancilla qubit is used to store the clone of $\ket \chi$. We observe that the initial state of the ancilla can be considered to be some fixed superposition, since the qubit $\ket \chi$ is \tit{unknown} and we want $U$ to work on any possible state. However, the No-cloning theorem states that such a transformation $U$ cannot exist if the choice of the possible state for $\ket \chi$ isn't restricted enough.
 
@@ -55,7 +59,7 @@ This is just the particular case in which $S = \mathcal H$, and $\mathcal H$ obv
 
 The hypothesis of the No-cloning theorem regarding the choice of $S$ is used strategically by the BB84 protocol, as we will see in the next section.
 
-\section{Measurements}
+\subsection{Measurements}
 
 Before describing the next step of the protocol, we need to do a step back and talk about \tit{measurement} in greater detail. Each time we discussed \curlyquotes{measuring} we never actually mentioned that when we are \tit{physically} performing a measurement what we are really doing is applying a \curlyquotes{polarizing lens} to the final state. For instance, this operation can be implemented through \href{https://en.wikipedia.org/wiki/Faraday_rotator}{Faraday rotators}, which leverage the \tbf{Faraday effect}:
 
@@ -98,7 +102,7 @@ We can actually generalize this idea: if we have two bases $\{f_i\}_{i = 1}^n$ a
 \end{equation*}
 This should not come as a suprise, since we already knew that $$H \ket 0 = \ket + \quad \quad H \ket 1 = \ket -$$
 
-\section{The BB84 protocol}
+\subsection{The BB84 protocol}
 
 The key exchange procedure we will present is called \tbf{BB84 protocol}, and it was published in 1984 by \textcite{bb84}. The protocol works as follows: suppose that our two usual protagonists Alice and Bob need to share a key quantum-safely. At the beginning, Alice will choose two random binary strings $(4 + \delta)n$-long --- for some $\delta > 0$ sufficiently large --- which are usually referred to as $a$ and $b$. Then, depending on the bits of these two strings she will construct a superposition of states based on the following table:
 
@@ -217,7 +221,7 @@ To be precise, there are more subtle attacks that do employ \tit{quantum entagnl
 
 Lastly, we observe that BB84 requires Alice to wait before hearing back from Bob that he \tit{actually measured} $\ket \psi$. This is to prevent that Alice sends $b$ too early, so that Eve could use the latter to decode $\ket \psi$ into the original string $a$ without any issue. Therefore, we require Alice to wait for Bob's measurement so that there is no way for Eve to recover $a$ after looking at $b$ becasuse the original superposition is definitively destroyed --- unless she can go back in time!
 
-\section{Bell Inequalities}
+\subsection{Bell Inequalities}
 
 Imagine we perform the following experiment: there are two parties involved, namely Alice and Bob, and a third party Charlie which prepares two particles. It does not matter how he prepares the particles, the only thing that matters is that he is capable of repeating the experimental procedure which he uses. Once he has completed the preparation procedure, he sends one particle to Alice, and one to Bob.
 
@@ -300,3 +304,7 @@ To this day, it is not known if the world follows either one of them with certai
 Consider again the experiment performed by Alice and Bob, and let $\mathcal A$ be the quantity $$\mathcal A := \abk{QS} + \abk{RS} + \abk{RT} - \abk{QT}$$ Can an eavesdropper Eve disturb this experiment without any of the two parties involved notice? Recall that the choice of measurements performed by Alice and Bob are executed \tit{randomly}, which means that Eve has no way to know in advance which setting Alice and Bob will pick --- not even Alice and Bob do! Therefore, if Eve wants to cheat successfully she must find a way to arrange the context such that she knows all the possible outcomes in advance regardless of the choices of the measurement apparatus performed by the two parties. In other words, Eve must be able to set things up in such a way that she can predict all possible outcomes ahead of time. However, because we are assuming that Nature is weakly local, Eve cannot influence nor Alice's neither Bob's outcomes after they chose which property to measure. This must imply that the only chance she has to cheat is to have some way of \curlyquotes{assigning} an outcome to every possible setting \tit{in advance}. This is exactly \tbf{realism}, and by Bell inequality any system that is locally realistic must yield a value of $\mathcal A \le 2$.
 
 This is the core idea of the \tbf{E91 protocol}, published by \textcite{ekert} in 1991: suppose that Alice and Bob take a random portion of their qubits and use it in order to compute the quantity $\mathcal A$. Then, if we set $Q$, $R$, $S$ and $T$ as we outlined previously we are guaranteed that, without any external disturbance in the setting, the value of $\mathcal A$ will be $$\mathcal A \approx 2 \sqrt 2$$ This means that if Alice and Bob measure a value $\mathcal A \le 2$, then their correlations could have come from a locally realistic (and therefore \tit{predetermined}) model. And if their correlations could come from such a model, then Eve could have predicted all outcomes in advance, so their exchange would not be quantum-safe anymore and should be aborted. Hence, by chekcing the value of $\mathcal A$ Alice and Bob can choose to proceed with the exchange of the key or abort their attempt and try again.
+
+\section{Quantum Error Correction}
+
+TODO \todo{todo :(}
