@@ -439,3 +439,29 @@ The solution of the Schrödinger equation is $$v(t_1) = U(t_2, t_1)v(t_1)$$ wher
 \end{framedpost}
 
 In other words, the last postulate states that the Hilbert space of a composite system is the tensor product of the Hilbert spaces of its subsystems.
+
+Speaking of tensor products, when operators can be factored out into smaller operators of smaller systems we obtain linearity of expectations w.r.t. the tensor product.
+
+\begin{framedprop}{}
+	Given an operator $O$ that can be factored out as $O = A \otimes B$, if the current state $\ket \psi$ is not entangled it holds that $$\abk{O} = \abk{A} \cdot \abk{B}$$
+\end{framedprop}
+
+\begin{proof}
+	We need to show that $$\braket{\psi|O\psi} = \braket{\psi_A| A\psi_A} \cdot \braket{\psi_B|B\psi_B}$$ where $\ket \psi = \ket{\psi_A} \otimes \ket{\psi_B}$ which we know they exist because we are assuming that $\ket \psi$ is not entangled. Let the following be the spectral decompositions of $A$ and $B$, respectively $$A = \sum_{i = 1}^m{\lambda_i^A \ket{\lambda_i^A} \bra{\lambda_i^A}} \quad \quad B = \sum_{j = 1}^m{\lambda_j^B \ket{\lambda_j^B} \bra{\lambda_j^B}}$$ Then, by computing the tensor product between $A$ and $B$ we immediately obtain the spectral decomposition of $O$: $$O = A \otimes B = \sum_{i, j \in [m]}{\lambda_i^A\lambda_j^B (\ket{\lambda_i^A} \otimes \ket{\lambda_j^B})(\bra{\lambda_i^A} \otimes \bra{\lambda_j^B})}$$ Hence, the possible values $O$ might be observed into are all the products $\lambda_i^A \lambda_j^B$ for $i, j \in [m]$. Lastly, if we define $$\forall i, j \in [m] \quad \lambda_k = \lambda_{(i - 1)m + j}$$ it suffices to consider the definition of expected value:
+
+	\begin{equation*}
+		\begin{split}
+			\braket{\psi|O\psi} & = \sum_{k = 1}^{m^2}{\lambda_k \Pr[O = \lambda_k \mid \ket \psi]}                                                                                            \\
+			                    & = \sum_{k = 1}^{m^2}{\lambda_k \Pr[A \otimes B = \lambda_k \mid \ket {\psi_A} \otimes \ket{\psi_B}]}                                                         \\
+			                    & = \sum_{k = 1}^{m^2}{\lambda_k \abs{\braket{\psi_A \otimes\psi_B | \lambda_k}}^2}                                                                            \\
+			                    & = \sum_{i = 1}^m{\sum_{j = 1}^m{\lambda_i^A \lambda_j^B \abs{\braket{\psi_A \otimes \psi_B|\lambda_i^A \otimes \lambda_j^B}}^2}}                             \\
+			                    & = \sum_{i = 1}^m{\sum_{j = 1}^m{\lambda_i^A \lambda_j^B \abs{\braket{\psi_A|\lambda_i^A} \cdot \braket{\psi_B|\lambda_j^B}}^2}}                              \\
+			                    & = \sum_{i = 1}^m{\sum_{j = 1}^m{\lambda_i^A \lambda_j^B \abs{\braket{\psi_A|\lambda_i^A}}^2 \cdot \abs{\braket{\psi_B|\lambda_j^B}}^2}}                      \\
+			                    & = \rbk{\sum_{i = 1}^m{\lambda_i^A \abs{\braket{\psi_A|\lambda_i^A}}^2}} \cdot \rbk{\sum_{j = 1}^m{\lambda_j^B \abs{\braket{\psi_B|\lambda_j^B}}^2}}          \\
+			                    & = \rbk{\sum_{i = 1}^m{\lambda_i^A \Pr\sbk{A = \lambda_i^A| \ket{\psi_A}}}} \cdot \rbk{\sum_{j = 1}^m{\lambda_j^B  \Pr\sbk{B = \lambda_j^B | \ket {\psi_B}}}} \\
+			                    & = \braket{\psi_A| A \psi_A} \cdot \braket{\psi_B|B \psi_B}                                                                                                   \\
+		\end{split}
+	\end{equation*}
+\end{proof}
+
+This result should not come as a surprise, since for any two distributions $X$ and $Y$ we know that $$\Exp[XY] = \Exp[X] \cdot \Exp[Y]$$ only if $X$ and $Y$ are \tbf{independent}. Indeed, by assuming that $O$ and $\ket \psi$ can be factorized, we are assuming that the two underlying subsystems $\mathcal H_A$ and $\mathcal H_B$ --- in which $\ket{\psi_A}$ and $A$,  and $\ket{\psi_B}$ and $B$ live, respectively --- are \curlyquotes{independent} in the sense that they are \tit{not entangled}!
