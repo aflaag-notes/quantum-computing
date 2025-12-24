@@ -41,4 +41,8 @@
 \contentsline {subsection}{\numberline {5.1.3}The BB84 protocol}{99}{subsection.5.1.3}%
 \contentsline {subsection}{\numberline {5.1.4}Eve's attacks}{101}{subsection.5.1.4}%
 \contentsline {subsection}{\numberline {5.1.5}Bell Inequalities}{104}{subsection.5.1.5}%
-\contentsline {section}{\numberline {5.2}Quantum Error Correction}{108}{section.5.2}%
+\contentsline {chapter}{\numberline {6}Quantum Error Correction}{109}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Repetition codes}{109}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Three bits bit flip code}{109}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Three qubits bit flip code}{110}{subsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.1.3}Three qubits phase flip code}{112}{subsection.6.1.3}%

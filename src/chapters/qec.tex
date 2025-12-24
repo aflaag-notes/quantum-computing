@@ -1,0 +1,129 @@
+\chapter{Quantum Error Correction}
+
+TODO \todo{introduction}
+
+\section{Repetition codes}
+
+\subsection{Three bits bit flip code}
+
+Before discussing error correction in quantum contexts, let's present what how the classical world handles noise in communications. Suppose we have two parties, Alice and Bob, and say that Alice wants to send Bob some bit $b \in \B$. However, the channel they has at their disposal is \tbf{noisy}, meaning that with some probability $p$ the bit she sends will be flipped and Bob will receive the wrong information --- we will assume that each flip is independent of each other. How can Alice raise the odds of Bob getting the bit she originally sent? What she needs is some type of \tit{redundancy}, and the most straightforward and way to achieve it is clearly \tbf{repetition}.
+
+Therefore, suppose Alice now sends 2 bits to Bob instead of one, such that both bits are equal to the original $b$ she intended to sent $$b = b_0 = b_1$$ Her idea is to make Bob able to recover the original $b$ by looking at both $b_0$ and $b_1$. However, there is an issue with this idea: since both $b_0$ and $b_1$ could flip during the transmission, its easy to see that if $b_0 \neq b_1$ Bob has no way to determine what $b$ was. This suggests that what Alice needs to provide is \tit{more} information!
+
+Suppose that Alice now sends $b_0$, $b_1$ and $b_2$ such that $$b = b_0 = b_1 = b_2$$ and for now, let's assume that $b_0$ flipped during the transmission. Then, Bob will see that $$b_0 \neq b_1 = b_2$$ which ultimately helps him determine that the value Alice wanted to send is contained in the bits $b_1$ and $b_2$, and $b_0$ flipped because of the noise. For a more practical example, if Alice wants to send 0 to Bob she transmits 000 through the noisy medium, but whenever Bob receive 100 he will infer that what Alice actually sent was 000, therefore the bit he was meant to receive was 0.
+
+This idea is called \tit{majority voting}, as Bob decides how to recover the bit by looking at the value of the bits that appears more often, however its easy too see a very big flaw of this approach: with 2 or more bit flips the majority voting fails! If Bob receives 110, by majority he will infer that we was meant to receive 1 from Alice, however he cannot be sure that what really happened is that both $b_0$ and $b_1$ flipped through the transmission and what Alice originally sent was 0. In general, we have that
+\begin{equation*}
+	\begin{split}
+		\Pr[\mbox{recovering the wrong bit}] & = \Pr[\mbox{at least 2 two bits flipped}]                 \\
+		                                     & = \Pr[\mbox{2 bits flipped}] + \Pr[\mbox{3 bits flipped}] \\
+		                                     & = 3p^2(1 - p) + p^3                                       \\
+		                                     & = 3p^2 - 3p^3 + p^3                                       \\
+		                                     & = 3p^2 - 2p^3
+	\end{split}
+\end{equation*}
+This means that as long as $$3p^2 - 2p^3 < p \iff p < \dfrac{1}{2}$$ this error correction code improves reliability. The codes of these type are called \tbf{repetition codes}, as they rely on repeating the same information multiple times for increase the probability of transmitting the correct information.
+
+\subsection{Three qubits bit flip code}
+
+Can we replicate the same idea in a quantum setting? More specifically, suppose that Alice wants to send a qubit $$\ket \psi = \alpha \ket 0 + \beta \ket 1$$ to Bob through a quantum channel, however said channel is noisy and might introduce errors with probability $p$ at each transmission they perform. Because of the peculiarities of the quantum worlds, we know there are some important differences between classical and quantum information that require new ideas in order to apply the same redundancy technique presented:
+
+\begin{itemize}
+	\item first and foremost, the \nameref{nct} forbids the cloning of a quantum state multiple times, so it is not as straightforward as in the classical context to produce the needed redundancy
+	\item in the quantum context values are \tbf{continuous}, and errors are continuous as well, meaning that determining which error occurred would appear to require infinite precision --- more details about this will be discussed later
+	\item in classical error correction Bob can just check the values of the received bits and that's it, however upon receiving qubits Bob cannot simply \tbf{measure} them to \curlyquotes{look at their value}, otherwise he would destroy all the information making the recovery impossible
+\end{itemize}
+
+Fortunately, we can circumvent all of these problems with some clever ideas. First, consider the following quantum circuit:
+
+\begin{figure}[H]
+	\[
+		\Qcircuit @C=2.5em @R=2.5em {
+		& \lstick{\ket \psi}    & \ctrl{1}  & \ctrl{2} & \qw \\
+		& \lstick{\ket 0}       & \targ  & \qw & \qw      \\
+		& \lstick{\ket 0}       & \qw    & \targ   & \qw \\
+		}
+	\]
+	% \caption{The circuit.}
+\end{figure}
+
+Let's analyze what this circuit does:
+
+\begin{equation*}
+	\begin{split}
+		                                    & \ket \psi \otimes \ket 0 \otimes \ket 0                                   \\
+		=                                   & (\alpha \ket 0 + \beta \ket 1) \otimes \ket 0 \otimes \ket 0              \\
+		=                                   & (\alpha \ket {00} + \beta \ket {10}) \otimes \ket 0                       \\
+		\xrightarrow{\mbox{CNOT}(q_0, q_1)} & \mbox{CNOT}(\alpha \ket {00} + \beta \ket {10}) \otimes \ket 0            \\
+		=                                   & (\alpha \mbox{CNOT} \ket{00} + \beta \mbox{CNOT}\ket{10} ) \otimes \ket 0 \\
+		=                                   & (\alpha \ket {00} + \beta \ket{11}) \otimes \ket 0                        \\
+		\xrightarrow{\mbox{CNOT}(q_0, q_2)} & \alpha \ket{000} + \beta \ket{111}                                        \\
+	\end{split}
+\end{equation*}
+
+This is exactly what we needed: we started with a state $\ket \psi = \alpha \ket 0 + \beta \ket 1$ and we ended up with $$\ket{\hat \psi} = \alpha \ket{000} + \beta \ket{111}$$ which yields the redundancy we need in order to utilize the repetition strategy.
+
+Now, suppose that Alice sends each of the three qubits through the noisy quantum channel, and each qubit will experience the effect of the noise, independently, with probability $p$. But what is this effect in practice? So far, we did not mention the word \tit{flip}, because we actually need to define what a \tit{flip} even is in this context. Well, if a \curlyquotes{classical bit flip} is an application of a NOT operator on some bit $b_i$, it makes sense to define a \curlyquotes{quantum bit flip} as the application of the $X$ operator of some $q_i$ sent, analogously.
+
+However, this immediately shows that there is a \tbf{continuous spectrum} of possible errors that can occur to the qubits --- namely every possible linear transformation --- and apart from the $X$ gate itself none of them have a classical analogue! For now, let's just focus on the $X$ operator, and suppose that \tit{at most one} bit flip occurred on the qubits Alice sent to Bob. How can Bob recover the original message? Consider the following table:
+
+\begin{center}
+	\begin{tabular}{l|l}
+		\hline
+		Projector                                         & Error occured      \\
+		\hline\hline
+		$P_0 = \ket{000} \bra{000} + \ket{111} \bra{111}$ & No error occurred  \\
+		\hline
+		$P_1 = \ket{100} \bra{000} + \ket{011} \bra{011}$ & First bit flipped  \\
+		\hline
+		$P_2 = \ket{010} \bra{010} + \ket{101} \bra{101}$ & Second bit flipped \\
+		\hline
+		$P_3 = \ket{001} \bra{001} + \ket{110} \bra{110}$ & Third bit flipped  \\
+		\hline
+	\end{tabular}
+\end{center}
+
+This table contains 4 projectors that Bob can apply to discover which qubit, if any, flipped during the transmission. We underline that Bob \tit{must} use these projectors in order to understand which bit flip happend, because he cannot measure what he received. For instance, say that the first bit flipped during the transmission, i.e. Bob receives $$\ket{\hat \psi} = \alpha \ket{100} + \beta \ket{011}$$ Then, when he applies $P_1$ to $\ket{\hat \psi}$ he discovers that
+\begin{equation*}
+	\begin{split}
+		\braket{\hat \psi|P_1 \hat \psi} & = \braket{\hat \psi|(\ket{100} \bra{000} + \ket{011} \bra{011})(\alpha \ket{000} + \beta \ket{111})} \\
+		                                 & = \braket{ \hat \psi| \alpha \ket{100} + \beta \ket{011}}                                            \\
+		                                 & = \braket{\hat \psi | \hat \psi}                                                                     \\
+		                                 & = 1                                                                                                  \\
+	\end{split}
+\end{equation*}
+This means that Bob is sure that the second bit flipped, hence the original message can be recovered flawlessly by flipping the second qubit received. Again, this error correction procedure works perfectly, provided that bit flips occur on at most one qubit per message, so reliability still requires that $p < 1/2$.
+
+TODO \todo{add slide 14 and 15}
+
+\subsection{Three qubits phase flip code}
+
+As previously mentioned, the case of the $X$ gate is \curlyquotes{easy} to solve, in the sense that it requires no significant innovation w.r.t. any classical context. However, what if instead of performing an application of the $X$ operator with probability $p$, our noisy channel applies the $Z$ transformation instead? When Alice sends her qubit $\ket \psi = \alpha \ket 0 + \beta \ket 1$ it is transformed with probability $p$ into $$Z \ket \psi = \alpha \ket 0 - \beta \ket 1$$ As previously mentioned, this scenario has no classical analogue, but it is still easy to handle. In fact, we already know a key fact: the $Z$ operator acts like a standard bit flip in the $Z$ basis, i.e. $$Z \ket +  = \ket - \quad \quad Z \ket - = \ket +$$ This suggests that we can still employ the same redundancy strategy of the previous section, provided that we perform a change of basis. Luckily, we already know a matrix that performs the change from the X to the Z bases, as discussed in \cref{measurements}, namely the Hadamard operator! Therefore, all Alice has to do is send the following:
+
+\begin{figure}[H]
+	\[
+		\Qcircuit @C=2.5em @R=2.5em {
+		& \lstick{\ket \psi}    & \ctrl{1}  & \ctrl{2} & \gate{H} & \qw \\
+		& \lstick{\ket 0}       & \targ  & \qw & \gate{H} & \qw      \\
+		& \lstick{\ket 0}       & \qw    & \targ   & \gate{H} & \qw \\
+		}
+	\]
+	% \caption{The circuit.}
+\end{figure}
+
+Then, Bob can discover if a qubit phase flip occured through the following table:
+\begin{center}
+	\begin{tabular}{l|l}
+		\hline
+		Projector                                         & Error occured      \\
+		\hline\hline
+		$P_0 = \ket{+++} \bra{+++} + \ket{---} \bra{---}$ & No error occurred  \\
+		\hline
+		$P_1 = \ket{-++} \bra{-++} + \ket{+--} \bra{+--}$ & First bit flipped  \\
+		\hline
+		$P_2 = \ket{+-+} \bra{+-+} + \ket{-+-} \bra{-+-}$ & Second bit flipped \\
+		\hline
+		$P_3 = \ket{++-} \bra{++-} + \ket{--+} \bra{--+}$ & Third bit flipped  \\
+		\hline
+	\end{tabular}
+\end{center}

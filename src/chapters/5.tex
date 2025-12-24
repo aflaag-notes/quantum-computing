@@ -1,5 +1,7 @@
 \chapter{Quantum Information Science}
 
+TODO \todo{consider changing name to the chapter}
+
 TODO \todo{write introduction}
 
 \section{Quantum Key Distribution}
@@ -24,7 +26,7 @@ is a \tbf{Quantum Key Distribution (QKD)} protocol. In particular, we are intere
 
 Before explaining any protocol however, we need to talk about a theorem that we did not properly discuss in \cref{quantum teleportation}, namely the \tbf{No-cloning theorem}. In particular, we stated that there is no quantum transformation that copies \underline{any} quantum state. Now that we have the mathematical tools to prove the theorem, we can actually show the real formulation of the theorem. But first, let's try to understand what it means to \curlyquotes{clone} a qubit. Say that we have a qubit set to some unknown superposition of states $\ket \chi$ that we would like to clone; in other words, we need an ancilla qubit $\ket \gamma$ and some operator $U$ (which must be unitary) such that $$U(\ket \chi \otimes \ket \gamma) = \ket \chi \otimes \ket \chi$$ Essentially, the ancilla qubit is used to store the clone of $\ket \chi$. We observe that the initial state of the ancilla can be considered to be some fixed superposition, since the qubit $\ket \chi$ is \tit{unknown} and we want $U$ to work on any possible state. However, the No-cloning theorem states that such a transformation $U$ cannot exist if the choice of the possible state for $\ket \chi$ isn't restricted enough.
 
-\begin{framedthm}{No-cloning theorem}
+\begin{framedthm}[label={nct}]{No-cloning theorem}
 	Let $\mathcal H$ be a Hilbert space, and let $S \subseteq \mathcal H$ be a set of vectors. If $S$ contains two distinct non-orthogonal vectors, there is no unitary operator $$\func{U}{\mathcal H \otimes \mathcal H}{\mathcal H \otimes \mathcal H}$$ such that there exists a fixed vector $\ket \gamma \in \mathcal H$ such that $$\forall \ket \chi \in S \quad U(\ket \chi \otimes \ket \gamma) = \ket \chi \otimes \ket \chi$$
 \end{framedthm}
 
@@ -59,7 +61,7 @@ This is just the particular case in which $S = \mathcal H$, and $\mathcal H$ obv
 
 The hypothesis of the No-cloning theorem regarding the choice of $S$ is used strategically by the BB84 protocol, as we will see in the next section.
 
-\subsection{Measurements}
+\subsection{Measurements} \label{measurements}
 
 Before describing the next step of the protocol, we need to do a step back and talk about \tit{measurement} in greater detail. Each time we discussed \curlyquotes{measuring} we never actually mentioned that when we are \tit{physically} performing a measurement what we are really doing is applying a \curlyquotes{polarizing lens} to the final state. For instance, this operation can be implemented through \href{https://en.wikipedia.org/wiki/Faraday_rotator}{Faraday rotators}, which leverage the \tbf{Faraday effect}:
 
@@ -305,6 +307,3 @@ Consider again the experiment performed by Alice and Bob, and let $\mathcal A$ b
 
 This is the core idea of the \tbf{E91 protocol}, published by \textcite{ekert} in 1991: suppose that Alice and Bob take a random portion of their qubits and use it in order to compute the quantity $\mathcal A$. Then, if we set $Q$, $R$, $S$ and $T$ as we outlined previously we are guaranteed that, without any external disturbance in the setting, the value of $\mathcal A$ will be $$\mathcal A \approx 2 \sqrt 2$$ This means that if Alice and Bob measure a value $\mathcal A \le 2$, then their correlations could have come from a locally realistic (and therefore \tit{predetermined}) model. And if their correlations could come from such a model, then Eve could have predicted all outcomes in advance, so their exchange would not be quantum-safe anymore and should be aborted. Hence, by chekcing the value of $\mathcal A$ Alice and Bob can choose to proceed with the exchange of the key or abort their attempt and try again.
 
-\section{Quantum Error Correction}
-
-TODO \todo{todo :(}
