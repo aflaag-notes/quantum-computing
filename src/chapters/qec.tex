@@ -111,19 +111,69 @@ As previously mentioned, the case of the $X$ gate is \curlyquotes{easy} to solve
 	% \caption{The circuit.}
 \end{figure}
 
+meaning that at the end of the circuit we will get exactly:
+\begin{equation*}
+	\begin{split}
+		                                           & \ket \psi \otimes \ket 0 \otimes \ket 0                        \\
+		\xrightarrow{\ldots}                       & \ldots                                                         \\
+		=                                          & \alpha \ket{000} + \beta \ket{111}                             \\
+		\xrightarrow{H^{\otimes 3}(q_0, q_1, q_2)} & H^{\otimes 3}(\alpha \ket{000} + \beta \ket{111})              \\
+		=                                          & \alpha H^{\otimes 3} \ket{000} + \beta H^{\otimes 3} \ket{111} \\
+		=                                          & \alpha \ket{+++} + \beta \ket{---}                             \\
+	\end{split}
+\end{equation*}
+
 Then, Bob can discover if a qubit phase flip occured through the following table:
 \begin{center}
 	\begin{tabular}{l|l}
 		\hline
-		Projector                                         & Error occured      \\
+		Projector                                         & Error occured        \\
 		\hline\hline
-		$P_0 = \ket{+++} \bra{+++} + \ket{---} \bra{---}$ & No error occurred  \\
+		$P_0 = \ket{+++} \bra{+++} + \ket{---} \bra{---}$ & No error occurred    \\
 		\hline
-		$P_1 = \ket{-++} \bra{-++} + \ket{+--} \bra{+--}$ & First bit flipped  \\
+		$P_1 = \ket{-++} \bra{-++} + \ket{+--} \bra{+--}$ & First phase flipped  \\
 		\hline
-		$P_2 = \ket{+-+} \bra{+-+} + \ket{-+-} \bra{-+-}$ & Second bit flipped \\
+		$P_2 = \ket{+-+} \bra{+-+} + \ket{-+-} \bra{-+-}$ & Second phase flipped \\
 		\hline
-		$P_3 = \ket{++-} \bra{++-} + \ket{--+} \bra{--+}$ & Third bit flipped  \\
+		$P_3 = \ket{++-} \bra{++-} + \ket{--+} \bra{--+}$ & Third phase flipped  \\
 		\hline
 	\end{tabular}
 \end{center}
+
+Once Bob learns which qubit phase flipped (if any) he can apply a $Z$ operator to the corresponding qubit. We say that the channel that applies the $X$ matrix and the one that applies the $Z$ martix are \tbf{unitarily equivalent}, since there is a unitary operator --- the Hadamard gate, in this case --- such that the action of one channel is the same as the other, provided that the first channel is preceded by $U$ and followed by $U^\dag$ in every operation performed --- we will leave the proof of this fact as an exercise.
+
+TODO \todo{i have no idea what slide 19 is saying}
+
+\subsection{The Shor code}
+
+The last quantum repetition code we will present is called \tbf{Shor code}, after its inventor, and it is a simple code that protecs againts the effects of at most one \tit{arbitrary Pauli error} on any qubit. Not surprisingly, the code is a combination of the three qubit bit and phase flip codes we saw earlier. In particular, we observe that in the bit flip code the quantum circuit acted on $\ket 0$ and $\ket 1$ as follows: $$\ket 0 \xrightarrow{\mbox{bit flip code}} \ket{000}$$ $$\ket 1 \xrightarrow{\mbox{bit flip code}} \ket{111}$$ Similarily, the circuit for the phase flip acted as follows: $$\ket 0 \xrightarrow{\mbox{phase flip code}} \ket{+++}$$ $$\ket 1 \xrightarrow{\mbox{phase flip code}} \ket{---}$$ Then, the Shor code applies the following transformation: $$\ket 0 \xrightarrow{\mbox{phase flip code}} \ket{+++} \xrightarrow{\mbox{bit flip code}} \dfrac{1}{\sqrt 8}(\ket{000} + \ket{111})^{\otimes 3}$$ $$\ket 1 \xrightarrow{\mbox{phase flip code}} \ket{---} \xrightarrow{\mbox{bit flip code}} \dfrac{1}{\sqrt 8}(\ket{000} - \ket{111})^{\otimes 3}$$ Indeed, this code is able to detect any Pauli error on any qubit, meaning that it can detect if either
+
+\begin{itemize}
+	\item a bit flip
+	\item a phase flip
+	\item both a bit and a phase flip
+\end{itemize}
+
+occurred on at most one transmitted qubit --- and it also works by switching the order of the concatenated codes. This is because
+
+\begin{itemize}
+	\item bit flips correspond to $\sigma_x$
+	\item phase flip correspond to $\sigma_z$
+	\item $\sigma_y = i \sigma_x \sigma_z$, so we can correct $Y$ transformations as well
+\end{itemize}
+
+Therefore, we just need to apply the procedures for detecting bit and phase flips one after the other in order to retrieve the original message.
+
+We note that the fact that the Shor code actually enables the correction of combined bit and phase flip errors on a single qubit suggests that we could use the Shor code for more complicated type of errors. However, we might expect some additional work to be done in order to be protected against \tbf{arbitrary errors}, however quite suprisingly we can actually prove that this code detects any possible error with \tit{no additional work required}! At the beginning of our discussion we said that there is a \tit{continuum} of errors that may occur on a single qubit, which may seem to imply that we need much more sophisticated quantum error correction procedures, however such continuum can actually be handled by correcting only a \tit{discrete} subset of it. All the other possible errors are corrected automatically. The discretization of the errors is central to why quantum error-correction works, and should be regarded in contrast to classical error-correction for analog systems, where no such discretization of errors is possible.
+
+\begin{framedthm}{}
+	Any quantum error-correcting code that corrects at most $k$ Pauli errors on at most $k$ qubits will also correct an arbitrary quantum operation on thos qubits.
+\end{framedthm}
+
+\begin{proof}[Idea of the proof.]
+	TODO \todo{pag 434 of the book}
+\end{proof}
+
+% What about generic unitary transformations that
+
+
