@@ -47,3 +47,5 @@
 \contentsline {subsection}{\numberline {6.1.2}Three qubits bit flip code}{110}{subsection.6.1.2}%
 \contentsline {subsection}{\numberline {6.1.3}Three qubits phase flip code}{112}{subsection.6.1.3}%
 \contentsline {subsection}{\numberline {6.1.4}The Shor code}{113}{subsection.6.1.4}%
+\contentsline {section}{\numberline {6.2}Linear codes}{115}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}The Hamming code}{120}{subsection.6.2.1}%

@@ -6,7 +6,7 @@ TODO \todo{introduction}
 
 \subsection{Three bits bit flip code}
 
-Before discussing error correction in quantum contexts, let's present what how the classical world handles noise in communications. Suppose we have two parties, Alice and Bob, and say that Alice wants to send Bob some bit $b \in \B$. However, the channel they has at their disposal is \tbf{noisy}, meaning that with some probability $p$ the bit she sends will be flipped and Bob will receive the wrong information --- we will assume that each flip is independent of each other. How can Alice raise the odds of Bob getting the bit she originally sent? What she needs is some type of \tit{redundancy}, and the most straightforward and way to achieve it is clearly \tbf{repetition}.
+Before discussing error-correction in quantum contexts, let's present what how the classical world handles noise in communications. Suppose we have two parties, Alice and Bob, and say that Alice wants to send Bob some bit $b \in \B$. However, the channel they has at their disposal is \tbf{noisy}, meaning that with some probability $p$ the bit she sends will be flipped and Bob will receive the wrong information --- we will assume that each flip is independent of each other. How can Alice raise the odds of Bob getting the bit she originally sent? What she needs is some type of \tit{redundancy}, and the most straightforward and way to achieve it is clearly \tbf{repetition}.
 
 Therefore, suppose Alice now sends 2 bits to Bob instead of one, such that both bits are equal to the original $b$ she intended to sent $$b = b_0 = b_1$$ Her idea is to make Bob able to recover the original $b$ by looking at both $b_0$ and $b_1$. However, there is an issue with this idea: since both $b_0$ and $b_1$ could flip during the transmission, its easy to see that if $b_0 \neq b_1$ Bob has no way to determine what $b$ was. This suggests that what Alice needs to provide is \tit{more} information!
 
@@ -22,7 +22,7 @@ This idea is called \tit{majority voting}, as Bob decides how to recover the bit
 		                                     & = 3p^2 - 2p^3
 	\end{split}
 \end{equation*}
-This means that as long as $$3p^2 - 2p^3 < p \iff p < \dfrac{1}{2}$$ this error correction code improves reliability. The codes of these type are called \tbf{repetition codes}, as they rely on repeating the same information multiple times for increase the probability of transmitting the correct information.
+This means that as long as $$3p^2 - 2p^3 < p \iff p < \dfrac{1}{2}$$ this error-correction code improves reliability. The codes of these type are called \tbf{repetition codes}, as they rely on repeating the same information multiple times for increase the probability of transmitting the correct information.
 
 \subsection{Three qubits bit flip code}
 
@@ -31,7 +31,7 @@ Can we replicate the same idea in a quantum setting? More specifically, suppose 
 \begin{itemize}
 	\item first and foremost, the \nameref{nct} forbids the cloning of a quantum state multiple times, so it is not as straightforward as in the classical context to produce the needed redundancy
 	\item in the quantum context values are \tbf{continuous}, and errors are continuous as well, meaning that determining which error occurred would appear to require infinite precision --- more details about this will be discussed later
-	\item in classical error correction Bob can just check the values of the received bits and that's it, however upon receiving qubits Bob cannot simply \tbf{measure} them to \curlyquotes{look at their value}, otherwise he would destroy all the information making the recovery impossible
+	\item in classical error-correction Bob can just check the values of the received bits and that's it, however upon receiving qubits Bob cannot simply \tbf{measure} them to \curlyquotes{look at their value}, otherwise he would destroy all the information making the recovery impossible
 \end{itemize}
 
 Fortunately, we can circumvent all of these problems with some clever ideas. First, consider the following quantum circuit:
@@ -92,7 +92,7 @@ This table contains 4 projectors that Bob can apply to discover which qubit, if 
 		                                 & = 1                                                                                                  \\
 	\end{split}
 \end{equation*}
-This means that Bob is sure that the second bit flipped, hence the original message can be recovered flawlessly by flipping the second qubit received. Again, this error correction procedure works perfectly, provided that bit flips occur on at most one qubit per message, so reliability still requires that $p < 1/2$.
+This means that Bob is sure that the second bit flipped, hence the original message can be recovered flawlessly by flipping the second qubit received. Again, this error-correction procedure works perfectly, provided that bit flips occur on at most one qubit per message, so reliability still requires that $p < 1/2$.
 
 TODO \todo{add slide 14 and 15}
 
@@ -164,7 +164,7 @@ occurred on at most one transmitted qubit --- and it also works by switching the
 
 Therefore, we just need to apply the procedures for detecting bit and phase flips one after the other in order to retrieve the original message.
 
-We note that the fact that the Shor code actually enables the correction of combined bit and phase flip errors on a single qubit suggests that we could use the Shor code for more complicated type of errors. However, we might expect some additional work to be done in order to be protected against \tbf{arbitrary errors}, however quite suprisingly we can actually prove that this code detects any possible error with \tit{no additional work required}! At the beginning of our discussion we said that there is a \tit{continuum} of errors that may occur on a single qubit, which may seem to imply that we need much more sophisticated quantum error correction procedures, however such continuum can actually be handled by correcting only a \tit{discrete} subset of it. All the other possible errors are corrected automatically. The discretization of the errors is central to why quantum error-correction works, and should be regarded in contrast to classical error-correction for analog systems, where no such discretization of errors is possible.
+We note that the fact that the Shor code actually enables the correction of combined bit and phase flip errors on a single qubit suggests that we could use the Shor code for more complicated type of errors. However, we might expect some additional work to be done in order to be protected against \tbf{arbitrary errors}, however quite suprisingly we can actually prove that this code detects any possible error with \tit{no additional work required}! At the beginning of our discussion we said that there is a \tit{continuum} of errors that may occur on a single qubit, which may seem to imply that we need much more sophisticated quantum error-correction procedures, however such continuum can actually be handled by correcting only a \tit{discrete} subset of it. All the other possible errors are corrected automatically. The discretization of the errors is central to why quantum error-correction works, and should be regarded in contrast to classical error-correction for analog systems, where no such discretization of errors is possible.
 
 \begin{framedthm}{}
 	Any quantum error-correcting code that corrects at most $k$ Pauli errors on at most $k$ qubits will also correct an arbitrary quantum operation on thos qubits.
@@ -174,6 +174,101 @@ We note that the fact that the Shor code actually enables the correction of comb
 	TODO \todo{pag 434 of the book}
 \end{proof}
 
-% What about generic unitary transformations that
+\section{Linear codes}
 
+Let's go back to the classical scenario for a moment. So far we only discussed codes that involve repetition of the same information multiple times in order to recover the original message. However, we saw how the repetition codes we presented fail whenever the number of error is two or more. In particular, this occurs because the majority rule cannot be applied reliably anymore. Nevertheless, one might suggest that by simply sending \tit{even more} repetition of the same information we could increase the chances of recovering the original message, which is indeed true. However, a \curlyquotes{good} error-correcting code should also be able to provide a good balance between the transmitted bits and the redundancy bits.
+
+Let's give some terminology: each message sent through an error-correcting code is called \tbf{codeword}, and they are assumed to have always the same length --- for instance, in the repetition code we analyzed previously the length of each codeword was 3. Then, we have the following definition.
+
+\begin{frameddefn}{Code rate}
+	Given an error-correcting code that has codewords of length $n$, such that each codeword contains $k$ \tit{information symbols} and $n - k$ \tit{reduncancy symbols}, we define the \tbf{code rate} of the code as $$R = \dfrac{k}{n}$$
+\end{frameddefn}
+
+It's easy to see that a \curlyquotes{good} code is required to have $R$ as close to 1 as possible, in order to reduce the number of \tit{redundancy symbols}. However, any repetition-based error-correcting code has a rate significantly smaller than 1, in fact as the number of repetitions required to correct more errors increases, the rate approaches 0! In this section we present a more rubust type of error-correcting codes, called \tbf{linear codes}.
+
+\begin{frameddefn}{Linear code}
+	A \tbf{linear code} encoding $k$ bits of information into an $n$ bit code space --- written as $[n, k]$ --- is an error-correcting code specified by a matrix $G \in \Z_2^{n \times k}$ called \tbf{generator matrix}, such that each $k$ bit message $x$ is encoded as follows $$\funcmap{\mbox{Enc}}{\Z_2^{k \times 1}}{\Z_2^{n \times 1}}{x}{Gx}$$ where the columns of $G$ are linearly independent.
+\end{frameddefn}
+
+For instance, consider the following generator matrix: $$G = \smat{1 \\ 1 \\ 1}$$ This matrix has dimensions $3 \times 1$, so it expects inputs of size $1 \times 1$ and outputs codewords of size $3 \times 1$. In fact, a keen eye might have noticed that this matrix performs the three repetition code we saw earlier: $$\smat{1 \\ 1 \\ 1} \smat{b} = \smat{1 \cdot b \\ 1 \cdot b \\ 1 \cdot b} = \smat{b \\ b \\ b}$$ As said earlier, this is an example of a $[3, 1]$ code.
+
+We observe that in the definition we used $\Z_2$ instead of $\B$ in order to highlight the fact that all the operations are performed modulo 2. Moreover, the set of possible codewords for a code corresponds to the vector space spanned by the columns of its generator matrix $G$, so for all the messages to be uniquely encoded we require that the columnds of $G$ are linearly independent. Lastly, we will identify a linear code with the codewords that it can generate, so a code $C$ of type $[n, k]$ can be written as $$C := \{Gx \mid x \in \Z_2^k\}$$ where $G$ is the generator matrix of $C$.
+
+A great advantage of linear codes over more general error-correcting codes is their compact specification: a general code encoding $k$ information bits into $n$ bits requires $2^k$ codewords, each of length $n$, for a total of $n 2^k$ bits needed to provide a description of the entire code. With a linear code instead, we only need to specify the $nk$ bits of the generator matrix, and that's it. This is an exponential saving in the amount of memory required!
+
+Now that we know what linear codes are, we can proceed to describe how to perform error-correction with them. In fact, in the repetition codes we just had to use a majority rule and that was enough to retrieve the origianl message, however in this case the error-correction procedure is not as intuitive. But first, we need to provide a different definition of linear codes.
+
+\begin{framedthm}{Linear code (alt. def.)}
+	Given an $[n, k]$ generator code $C$ it holds that $$C = \ker H$$ where $H \in \Z_2^{(n - k) \times n}$ is the \tit{parity check matrix} of $C$.
+\end{framedthm}
+
+\begin{proof}
+	Let $G$ be the generator matrix of $C$; pick $n - k$ linearly independent vectors $y_1, \ldots, y_{n - k}$ that are orthogonal to the columns of $G$ --- where the scalar product must be equal to 0 modulo 2. Then, construct the parity check matrix $H$ of $C$ as follows: $$H := \smat{y_1^T \\ \vdots \\ y_{n - k}^T}$$
+
+	\claim[Claim 1]{
+		Given that $C = \{Gx \mid x \in \Z_2^k\}$, it holds that $C = \ker H$.
+	}{
+		First, we show that $C \subseteq \ker H$. Fix any $c \in C$, and consider the input $x \in \Z_2^k$ such that $c = Gx$. We observe that $$Hc = H(Gx) = (HG)x$$ and by construction each row $y_i^T$ is orthogonal to all columns of $G$, which implies that $$\forall i, j \quad y_i^Tg_j = 0 \implies Hc = (HG)x = 0 \cdot x = 0 \iff c \in \ker H$$
+
+		Now note that $H$ has $n - k$ linearly independent rows by construction, which implies that $\rk(H) = n - k$. Therefore, by the rank-nullity theorem $$\dim(\ker H) = n - \rk(H) = n - (n - k) = k$$ Then, since $C \subseteq \ker H$, and $C$ has dimension $k$, this must imply that $C = \ker H$.
+	}
+
+	Now we need to do the opposite in order to prove that the two definitions are actually equivalent. Let $H$ be the parity check matrix of $H$; pick $k$ linearly independent vectors $y_1, \ldots, y_k$ spanning the kernel of $H$. Then, construct the generator matrix $G$ of $C$ as follows: $$G := \smat{y_1 & \ldots & y_k}$$
+
+	\claim[Claim 2]{
+		Given that $C = \ker H$, it holds that $C = \{Gx \mid x \in \Z_2^k\}$.
+	}{
+		Fix any $c \in \{Gx \mid x \in \Z_2^k\}$ generated by some $x \in \Z_2^k$. Then, it holds that $c = Gx$ meaning that $$c = x_1 y_1 + \ldots + x_k y_k$$ Now, we compute $Hc$ by linearity, obtaining $$Hc = H(x_1 y_1 + \ldots + x_k y_k) = H(x_1 y_1) + \ldots + H(x_k y_k)$$ Observe that $x_1, \ldots, x_k$ are scalars, and each $y_i \in \ker H \implies Hy_i = 0$, therefore $$Hc = x_1 H y_1 + \ldots x_k H y_k = 0$$ This proves that $Hc \in \ker H = C$, therefore $\{Gx \mid x \in \Z_2^k\} \subseteq G$.
+
+		For the second inclusion, observe that $$\mbox{span}\{y_1, \ldots, y_k\} = \ker H = C$$ by construction of $G$. Therefore, for any fixed $c \in C = \ker H$ it must hold that $c$ can be written as a linear combination of $y_1, \ldots, y_k$, i.e. $$\exists x_1, \ldots, x_k \in \Z_2 \quad c = x_1 y_1 + \ldots + x_k y_k$$ which concludes that $c = Gx$ where $x$ is the vector composed of the coefficients of the linear combination.
+	}
+
+	This shows that the two definitions are equivalent.
+\end{proof}
+
+As an example of parity check matrix, consider the $[3,1]$ repetition code described by the generator matrix we saw earlier $$G = \smat{1 \\ 1 \\ 1}$$ To construct $H$, we pick $3 - 1 = 2$ linearly independent vectors orthogonal to the columns of $G$, say $$y_1 = \smat{1 \\ 1 \\ 0} \quad \quad y_2 = \smat{0 \\ 1 \\ 1}$$ and define the parity check matrix as $$H := \smat{1 & 1 & 0 \\ 0 & 1 & 1}$$
+
+Ok, how do we use this matrix now? Suppose that we have a linear code $C$ generated by a matrix $G$, and we encode a message $x$ as $y = Gx$, but an error $e$ due to noise corrupts $y$ giving the corrupted codeword $$y' = y + e$$ Because the parity check matrix $H$ is such that $C = \ker H$, it holds that $$Hy = 0 \implies Hy' = H(y + e) = Hy + He = He$$ We call $Hy' = He$ the \tbf{error syndrome} of $y'$, and it is the key component that enables error-correction in linear codes.
+
+To see how to perform error-correction, suppose that at most 1 error occurred. Then, the error syndrome $Hy'$ is equal to 0 in the no error case, and it is equal to $H e_j$ when an error occurs on the $j$-th bit (where $e_j$ is the $j$-th vector of the canonical basis). Then, under the assumption that errors occur on at most one bit, it is possible to perform error-correction by computing the error syndrome $Hy'$ and comparing it to the different possible values of $He_j$, to dermine which (if any) bit need to be corrected. This looks like an interesting strategy, but we would like to be even more general.
+
+\begin{frameddefn}{Hamming distance}
+	Given two words $x$ and $y$ each of $n$ bits, we define the \tbf{Hamming distance} of $x$ and $y$ as follows: $$d(x, y) := \abs{\{i \mid x_i \neq y_i\}}$$
+\end{frameddefn}
+
+In simpler terms, the Hamming distance between two bit strings is the number of places at which they differ, for instance $$d \rbk{\smat{1 & 1 & 0 & 0}, \smat{0 & 1 & 0 & 1}} = 2$$
+
+\begin{frameddefn}{Hamming weight}
+	Given a word $x$ of $n$ bits, we define the \tbf{Hamming weight} of $x$ as follows: $$w(x) := d(x, 0)$$
+\end{frameddefn}
+
+The weight of a word is the number of places at which $x$ is non-zero. It is easy to show that the following proposition holds.
+
+\begin{framedprop}{}
+	Given two words $x$ and $y$ each of $n$ bits, it holds that $$d(x, y) = w(x + y)$$ where \curlyquotes{$+$} is the addition modulo 2.
+\end{framedprop}
+
+These two definitions are crucial because global properties of a linear code can be understood using the Hamming distance.
+
+\begin{frameddefn}{Distance of a code}
+	The \tbf{distance} of a linear code $C$ of type $[n, k]$ is defined as the minimum distance between its codewords $$d(C) := \min_{\substack{x, y \in C \\ x \neq y}}{d(x, y)}$$ We usually refer to $C$ as a linear code of type $[n, k, d]$, where $d = d(C)$.
+\end{frameddefn}
+
+Note that for any codewords $x, y \in C$ it holds that $x + y \in C$ by linearity of the code $C$, therefore by the previous proposition we obtain that $$d(C) = \min_{\substack{x \in C \\ x \neq 0}}{w(x)}$$ which means that the minimum distance is actually also equal to the \tbf{minimum weight}.
+
+The importance of the distance of a code is highlighted in the following result.
+
+\begin{framedthm}[label={code thm}]{}
+	A linear code $C$ of type $[n, k, d]$ can correct $t = \floor{\tfrac{d - 1}{2}}$ errors, and can detect $d - 1$ errors.
+\end{framedthm}
+
+\begin{proof}
+	TODO \todo{da scrivere}
+\end{proof}
+
+TODO \todo{how does ts work}
+
+\subsection{The Hamming code}
+
+Let $r \ge 2$ be an integer, and consider the matrix $H$ whose columns are all the $2^r - 1$ bit strings of length $r$ different from the 0 bit string. This is a parity check matrix of dimensions $(2^r - 1) \times (2^r - r - 1)$ and it defines a linear code known as the \tbf{Hamming code}, named after Turing Prize winner \href{https://it.wikipedia.org/wiki/Richard_Hamming}{Richard Hamming}. A very famous special example of the Hamming code is obtained with $r = 3$, which defines the following parity check matrix $$H = \smat{0 & 0 & 0 & 1 & 1 & 1 & 1 \\ 0 & 1 & 1 & 0 & 0 & 1 & 1 \\ 1 & 0 & 1 & 0 & 1 & 0 & 1}$$ which describes a linear code of type $[7, 4, 3]$. By \cref{code thm}, we know that this code is able to correct $$t = \floor{\tfrac{3 - 1}{2}} = 1$$
 
