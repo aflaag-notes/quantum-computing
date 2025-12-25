@@ -1,245 +1,16 @@
-\chapter{Quantum algorithms}
+\chapter{Grover's algorithm}
 
-Now that we presented all the mathematical tools we need to perform quantum computations, we are ready to explore some of the most famous and most important quantum algorithm that have been developed in recent years. But before introducing any algorithm, let's discuss \tit{why} we are interested in quantum computing at all --- keep in mind that is just a brief overview of the general ideas and we will delve into the exact details as soon as we present some quantum algorithm more in depth.
+The algorithm that we are going to present in this chapter is, together with Shor's algorithm, one of the most famous quantum algorithms we currently know. In 1996, \textcite{grover} published a landmark paper called \curlyquotes{Quantum Mechanics Helps in Searching for a Needle in a Haystack}, which contains the algorithm that we will present in this chapter. In the same year, Grover famously noted:
 
-Consider some computable function $f(x)$ and some classical algorithm that is able to compute it for any valid input $x$. If we have an input $x_1$, and we want to compute its output we need to run the algorithm in order to compute $f(x_1)$. Analogously, if we have another input $x_2$ we need to run the algorithm again in order to compute $f(x_2)$. In general, if we want to know the outputs $f(x_1), \ldots, f(x_N)$ of $N$ inputs $x_1, \ldots, x_N$, with classical computing we must run the algorithm $N$ distinct times, because there is no way to compute more than one output at a time. With quantum computers, however, we will see that not only this is possible, but we can actually compute \tit{all} the possible outputs related to all the possible inputs \tbf{simultaneously}. To the best of our knowledge, through the laws of quantum mechanics we \tit{really} can compute all the possible outputs $f(x)$ for each $x \in \B^n$ --- for a fixed input length $n$.
+\begin{quote}
+It might be possible to combine the search scheme of this paper with \textcite{shor} and other quantum mechanical algorithms to design faster algorithms
+\end{quote}
 
-How does this work in practice? Recall that we \tit{seemingly arbitrarily} decided to denote the vectors of the canonical basis with binary strings, such as $\ket{000}$, $\ket{001}$, $\ket{010}$ and so on (we chose $n = 3$ for this example). This is no coincidence: since this vectors form a basis, we can write any quantum state $\ket \psi$ as a linear combination of them, and by doing so we obtain something like $$\ket \psi = \sum_{x \in \B^3}{\alpha_x \ket x}$$ Say that we want to compute $f(x)$ for all $x \in \B^3$. In practice, we construct a unitary operator $U_f$ that implements $f$ \tbf{reversibly} --- a property that we will shortly outline --- for example by acting on an auxiliary register $$U_f(\ket x \otimes \ket 0) = \ket x \otimes \ket{f(x)}$$ Now, by linearity of quantum operators when we apply $U$ to $\ket \psi \otimes \ket 0$ we get that $$U (\ket \psi \otimes \ket 0) = \sum_{x \in \B^3}{\alpha_x U \ket x \ket 0} = \sum_{x \in \B^3} {\alpha_x \ket x \ket{f(x)}}$$ Notice what happened here! By only applying $U$ to $\ket \psi \ket 0$ we actually applied $U$ on \tit{all the vectors of the basis} \tbf{simultaneously}. This explains the choice of the labeling of the vectors of the canonical basis.
+This statement led many to speculate that Grover may have drawn inspiration from Shor's algorithm, although the exact influence remains unclear. Nevertheless, we will see at the end of the chapter that it is indeed possible to apply the QPE technique to Grover's algorithm.
 
-So, what's the catch? Well, we also recall that superpositions of states must be measured at some point, and this is the problem: when we measure the result of $U \ket \psi \ket 0$ we will inevitably only get only \tit{one} single outcome. In particular, if we measure both registers, we obtain only one $(x, f(x))$ pair for some $x \in \B^3$ with probability $\abs{\alpha_x}^2$. This makes finding \tit{useful} quantum algorithm extremely difficult, because even if we are performing all the computations at once we can only see 1 possible output, \tit{at random}. Hence, not only quantum algorithms are hard to discover because of this inherent limitation of quantum mechanics, but they must also be more efficient than any classical alternative we currently know, otherwise there is really no point in using this very complicated computing framework (both in terms of hardware and software). The algorithms that we will see in this chapter --- and also in the next one --- are some of the most important quantum procedures that we know, and sparked a lot of interest in this area of research in recent years.
+\section{The search problem}
 
-But before starting our discussion about quantum algorithms, we need to discuss the \tit{reversibility} aspect previously mentioned. When we introduced quantum operators we underlined the fact that each quantum gate has to be a \tit{unitary} operator, and we now have the mathematical foundation to know that if a matrix is unitary, it is clearly also invertible --- indeed, its adjoint is its inverse. This directly implies a very important property of quantum computation: except for the measurement operation, every quantum computation operation is \tbf{reversible}.
-
-To be precise, classical computation \tit{admits} reversible computation. In fact, we observe that we do have examples of reversible classical computaion that does not lose efficiency in terms of time. In 1963 \textcite{lecerf} proposed a reversible Turing machine, and in 1973 a landmark result by \textcite{bennett} proved that any standard Turing machine can be actually simulated by a reversible one --- his construction involves augmenting the Turing machine with an auxiliary \tit{history tape}, which can potentially lead to a large space overhead.
-
-Consider the following bitwise operator $T$, that given three bits it works as follows: $$\funcmap{T}{\{0, 1\}^3}{\{0, 1\}^3}{(a, b, c)}{(a, b, c \oplus (a \land b))}$$ The corresponding classical gate of this bitwise operator is called \tbf{Toffoli gate}, and it has very special characteristics. First, observe how it computes: while $a$ and $b$ remains unchanged, $c$ is basically flipped if and only if both $a$ and $b$ are set to 1. In other words, both $a$ and $b$ act as \curlyquotes{control bits} over the \curlyquotes{target bit} $c$, indeed the Toffoli gate is sometimes called \tbf{Controlled Controlled NOT (CCNOT)}. As we pointed out for the CNOT, this operator is clearly invertible since we are passing the bits $a$ and $b$ to the output too --- also, the truth table of the Toffoli gate easily shows that it is indeed invertible. Moreover, we observe that by associativity of the XOR it holds that $$(c \oplus (a \land b)) \oplus (a \land b) = c \oplus (a \land b) \oplus (a \land b) = c$$ which directly implies that $$T^2 = I \implies T = T^{-1}$$ However, above all the most important property of the Toffoli gate is that it is \tbf{universal}. In fact, even though gates like NAND and NOR are universal too, they are \tit{irreversible}. This implies that with the $T$ operator we can build any reversible Boolean function, and since any ordinary Boolean function can be embedded into a reversible one --- by adding extra bits to make it invertible --- any classical computation can be simulated using Toffoli gates only.
-
-\section{Deutsch's algorithm}
-
-Even though quantum computation provides reversibility \curlyquotes{for free}, we saw that classical computation can still achieve invertibility of computation. However, the next characteristic that we are going to describe has no classical analogue.
-
-First, let's start with a problem seemingly unrelated to our discussion. Given a Boolean function $\func{f}{\{0, 1\}^n}{\{0, 1\}}$, we would like to embed $f$ inside a quantum computation. However, when $n \ge 3$ we are guaranteed that $f(x)$ is not reversible --- it cannot be injective. This is a problem, since in quantum coputing all gates must be reversible --- given that quantum evolution is unitary. Thus, how do we turn $f$ into a reversible computation?
-
-We define a map $U_f$ defined as follows: $$\funcmap{U_f}{\{0, 1\}^{n + 1}}{\{0, 1\}^{n + 1}}{(x, y)}{(x, y \oplus f(x))}$$ First, we observe that $$(y \oplus f(x)) \oplus f(x) = y \oplus (f(x) \oplus f(x)) = y$$ which trivially proves that $U_f$ is reversible. Moreover, we can actually prove that when applied to qubits the corresponding quantum operator $$\funcmap{U_f}{\mathcal H}{\mathcal H}{\ket x \ket y}{\ket x \ket{y \oplus f(x)}}$$ is indeed unitary --- we observe that we are omitting the tensor product symbol in the function definition, as usual in the literature.
-
-\begin{framedprop}{}
-    Given a Boolean function $\func{f}{\{0, 1\}^n}{\{0, 1\}}$, the operator $U_f$ is unitary.
-\end{framedprop}
-
-\begin{proof}
-    TODO \todo{TODO}
-\end{proof}
-
-This proves that the construction of $U_f$ is precisely the gate that allows us to embed $f$ into any quantum computation. Moreover, we observe that
-
-\begin{itemize}
-    \item $\ket y = \ket 0 \implies U_f \ket x \ket 0 = \ket x \ket{f(x)}$
-    \item $\ket y = \ket 1 \implies U_f \ket x \ket 1 = \ket x \ket{\lnot f(x)}$
-\end{itemize}
-
-However, until now we only considered already collapsed qubits, but what if we consider a quantum input that is in a superposition? For instance, let $$\ket x = \dfrac{1}{\sqrt 2}(\ket 0 + \ket 1)$$ and assume that $\ket y = \ket 0$ for simplicity; this implies that
-\begin{equation*}
-    \begin{alignedat}{2}
-        U_f \ket x \ket y & = U_f \dfrac{1}{\sqrt 2}(\ket 0 + \ket 1) \otimes \ket 0 & \\ 
-                          & = U_f \dfrac{1}{\sqrt 2}(\ket{00} + \ket{10}) & \\ 
-                          & = \dfrac{1}{\sqrt 2}(U_f \ket {00} + U_f \ket {10}) & \quad (\mbox{by linearity of $U_f$}) \\ 
-                          & = \dfrac{1}{\sqrt 2}(\ket 0 \ket{f(0)} + \ket{1} \ket{f(1)}) & \\ 
-    \end{alignedat}
-\end{equation*}
-But notice what just happened: both $f(0)$ and $f(1)$ have been computed \tbf{simultaneously}, in one gate application. This has no classical equivalent, we would have to evaluate $f(0)$ and $f(1)$ \tit{separately}. This phenomenon is called \tbf{quantum parallelism}, and it can be achieved only because:
-
-\begin{itemize}
-    \item qubits are in superpositions
-    \item quantum gates are linear
-\end{itemize}
-
-However, we observe that the result of our calculations is \tit{still a superposition}. In fact, if we measure the output of $U_f \ket x \ket y$ we would still get either $\ket 0 \ket{f(0)}$ or $\ket 1 \ket {f(1)}$, both with 50\% probability. This is a problem: the fact that we can compute $f(0)$ and $f(1)$ at the same time seems promising, but can we retrieve their actual values?
-
-Unfortunately, this is not possible. Indeed, quantum parallelism cannot help us with \tit{local} properties --- i.e. when we need all individual outputs --- it can only help when we need \tbf{global} properties. This limit derives from the fact that measurements prevent \curlyquotes{seeing} both outcomes, in fact if we were able to compute $f(0)$ and $f(1)$ simultaneously from this superposition we would be violating the laws of quantum mechanics themselves.
-
-Then, how do we extract useful \tit{global} information from the superposition output? In 1985 \textcite{deutsch} defined a quantum algorithm which is able to compute $f(0) \oplus f(1)$, which clearly tells us if $f(0)$ equals $f(1)$ or not.
-
-\begin{framedalgo}{Deutsch algorithm}
-    Given a Boolean function $f$ and 2 qubits, the algorithm returns $\ket 0$ if $f$ if $f(0) = f(1)$, $\ket 1$ otherwise. \\
-    \hrule
-
-    \quad
-    \begin{algorithmic}[1]
-        \Function{Deutsch}{$f$, $q_0$, $q_1$}
-            \State $q_1 \gets X(q_1)$
-            \State $q_0, q_1 \gets (H \otimes H)(q_0, q_1)$
-            \State $q_0, q_1 \gets U_f(q_0, q_1)$
-            \State $q_0 \gets H(q_0)$
-            \State \tbf{return} $\mbox{measure}(q_0)$
-        \EndFunction
-    \end{algorithmic}
-\end{framedalgo}
-
-\begin{figure}[H]
-	\[
-		\Qcircuit @C=3em @R=3em {
-                  & \lstick{q_0} & \gate H & \qw & \multigate{1}{U_f} & \gate{H} & \meter & \cw \\ 
-                  & \lstick{q_1} & \gate{X} & \gate H & \ghost{U_f} & \qw & \qw & \qw \\
-		}
-	\]
-	\caption{The quantum circuit for Deutsch's algorithm. The box labeled with $U_f$ represents a \curlyquotes{black-box} for whatever computation $U_f$ represents (which directly depends on the chioce of $f$).}
-\end{figure}
-
-Proving that this quantum circuit is correct, however, will be a little more involved than what we did for the quantum teleportation. First, we need a lemma that will simplify our calculations.
-
-\begin{framedlem}[label={U lemma}]{}
-    For any Boolean function $f$ defined on $n$ bits, and $a \in \{0, 1\}^n$, it holds that $$U_f \ket a \otimes \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1) = (-1)^{f(a)} \ket a \otimes \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1)$$
-\end{framedlem}
-
-\begin{proof}
-    First, by algebraic manipulation we see that
-    \begin{equation*}
-        \begin{split}
-            U_f \ket a \otimes \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1) & = U_f \dfrac{1}{\sqrt 2}(\ket{a0} - \ket{a1}) \\ 
-                                                                   & = \dfrac{1}{\sqrt 2}(U_f \ket{a0} - \ket{a1}) \\ 
-                                                                   & = \dfrac{1}{\sqrt 2}(\ket{a \ f(a)} - \ket{a \ \lnot f(a)}) \\ 
-        \end{split}
-    \end{equation*}
-    and now, we observe that
-
-    \begin{itemize}
-        \item if $f(a) = 0$, then $$\dfrac{1}{\sqrt 2}(\ket{a0} - \ket{a1}) = (-1)^0 \ket{a} \otimes \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1)$$
-        \item if $f(a) = 1$, then $$\dfrac{1}{\sqrt 2}(\ket{a1} - \ket{a0}) = (-1)^1 \ket{a} \otimes \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1)$$
-    \end{itemize}
-\end{proof}
-
-We are now ready to prove the correctness of Deutsch's algorithm. To make things less cluttered, we will use the following standard notation: $$\ket + := \dfrac{1}{\sqrt 2}(\ket 0 + \ket 1) \quad \quad \ket - := \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1)$$ In particular, we observe that $$H \ket 0 = \ket + \quad \quad H \ket 1 = \ket - $$ Moreover, we will omit the subscript of the corresponding qubit when the context is clear enough
-\begin{equation*}
-    \hspace{-0.7cm}
-    \begin{alignedat}{2}
-      & q_0 \otimes q_1 &  \\ 
-        = & \ket 0 \otimes \ket 0 & \\ 
-        \xrightarrow{X(q_1)} & \ket 0 \otimes \ket 1 & \\ 
-        \xrightarrow{(H \otimes H)(q_0, q_1)} & \ket + \otimes \ket - &  \\ 
-        = & \dfrac{1}{\sqrt 2}(\ket{00} - \ket{01} + \ket{10} - \ket{11}) & \\ 
-        = & \dfrac{1}{\sqrt 2} \ket 0_0 \ket -_1  + \dfrac{1}{\sqrt 2} \ket 1_0 \ket -_1 & \\ 
-        \xrightarrow{U_f(q_0, q_1)} & \dfrac{1}{\sqrt 2} (-1)^{f(0)} \ket 0_0 \ket -_1 + \dfrac{1}{\sqrt 2} (-1)^{f(1)} \ket 1_0 \ket -_1 & \quad (\mbox{by the lemma}) \\ 
-        = & \dfrac{1}{\sqrt 2}\rbk{(-1)^{f(0)} \ket 0_0 + (-1)^{f(1)} \ket 1_0} \otimes \ket -_1 & \\ 
-        \xrightarrow{H(q_0)} & \dfrac{1}{\sqrt 2}\rbk{(-1)^{f(0)} \ket +_0 + (-1)^{f(1)} \ket -_0} \otimes \sqrt 2 \ket -_1 & \\ 
-        = & \dfrac{1}{2} \rbk{(-1)^{f(0)}(\ket 0 + \ket 1) + (-1)^{f(1)}(\ket 0 - \ket 1)} \otimes \sqrt 2 \ket -_1 & \\ 
-        = & \dfrac{1}{2}\rbk{\rbk{(-1)^{f(0)} + (-1)^{f(1)}} \ket 0 + \rbk{(-1)^{f(0)} - (-1)^{f(1)}} \ket 1} \otimes \sqrt 2 \ket -_1 & \\ 
-    \end{alignedat}
-\end{equation*}
-Now, since the final operation of the circuit involves measuring $q_0 = \alpha \ket 0 + \beta \ket 1$, the only two things that we care about are its probability amplitudes, namely $$\alpha = \dfrac{1}{2}\rbk{(-1)^{f(0)} + (-1)^{f(1)}}$$ $$\beta = \dfrac{1}{2}\rbk{(-1)^{f(0)} + (-1)^{f(1)}}$$ and we see that
-
-\begin{itemize}
-    \item if $f(0) = f(1)$, then $$(-1)^{f(0)} = (-1)^{f(1)} \implies \soe{l}{\alpha = \tfrac{1}{2}\rbk{2(-1)^{f(0)}} = (-1)^{f(0)} \\ \beta = 0}$$ which implies that $$q_0 = (-1)^{f(0)} \ket 0 + 0 \cdot \ket 1 = (-1)^{f(0)} \ket 0$$ and we can ignore the $(-1)^{f(0)}$ factor since its a global phase
-    \item if $f(0) \neq f(1)$, then $$(-1)^{f(0)} = - (-1)^{f(1)} \implies \soe{l}{\alpha = 0 \\ \beta = \tfrac{1}{2}\rbk{2(-1)^{f(0)}} = (-1)^{f(0)}}$$ which implies that $$q_0 = 0 \cdot \ket 0 + (-1)^{f(0)} \ket 1 = (-1)^{f(0)} \ket 1$$ by the same reasoning as the other case
-\end{itemize}
-
-In the end, this proves that if $f(0) = f(1)$, $q_0$ will collapse to $\ket 0$, while if $f(0) \neq f(1)$ $q_1$ will colapse to $\ket 1$, proving that Deutsch's algorithm works correctly.
-
-\section{Deutsch-Josza algorithm}
-
-Even though Deutsch's algorithm is quite interesting and offers advantages that classical computation cannot achieve, still it seems like it wouldn't be very usefult in practice. In fact, usually we are interested in the \tit{values} of $f(0)$ and $f(1)$, and as we already mentioned quantum mechanics will not allow us to compute both the values at the same time --- meaning that even if we use Deutsch's algorithm to now whether $f(0)$ is equal to $f(1)$ or not, we would still need to compute at least one between $f(0)$ and $f(1)$ in order to know both values.
-
-This is because, in reality, the algorithm that we are using is only solving a particular case of a more complex problem. In fact, a couple of years later \textcite{dj} realized that if we use $q_1 = \ket 1$ and $q_0 = \ket{0}^{\otimes n}$ (i.e. we use $n$ qubits set to $\ket 0$) this algorithm is actually able to tell \tbf{constant} and \tbf{balanced} functions apart.
-
-\begin{frameddefn}{Constant function}
-    A Boolean function $\func{f}{\{0, 1\}^n}{\{0,1\}}$ is said to be \tbf{constant} if $$\exists b \in \{0, 1\} \quad \forall x \in \{0, 1\}^n \quad f(x) = b$$
-\end{frameddefn}
-
-The definition of constant Boolean function has nothing special, and balanced functions are exactly what the name suggests, i.e. half of the inputs output 0 and the other half output 1, which can be succintly expressed as follows.
-
-\begin{frameddefn}{Balanced function}
-    A Boolean function $\func{f}{\{0, 1\}^n}{\{0,1\}}$ is said to be \tbf{balanced} if it holds that $$\sum_{x \in \B^n}{f(x)} = 2^{n - 1}$$
-\end{frameddefn}
-
-We observe that a Boolean function can be neither constant nor balanced, so this decision problem is actually a \tbf{promise problem}: given a Boolean function $f$ that is either constant or balanced --- note that it cannot be both --- decide if the function is constant or balanced. Indeed, we see that Deutsch's algorithm solved the same exact problem for $n = 2$: in fact, if $f(0) = f(1)$ it means that $f$ is constant, otherwise the latter is balanced.
-
-Moreover, this problem actually shows the power of quantum parallelism more evidently: with a classical computation, to solve this decision problem we would need at most $$2^{n - 1} + 1 = O(2^n)$$ queries to $f$, instead our quantum computation still only requires \und{one} evaluation of $f$ to solve the problem.
-
-\begin{framedalgo}{Deutsch-Josza algorithm}
-    Given a Boolean function $f$ and $n + 1$ qubits, the algorithm returns $\ket{0}^{\otimes n}$ if $f$ is constant, $\ket 1$ otherwise. \\
-    \hrule
-
-    \quad
-    \begin{algorithmic}[1]
-        \Function{DeutschJosza}{$f$, $q_0$, $q_1$}
-            \State $q_1 \gets X(q_1)$
-            \State $q_0, q_1 \gets (H^{\otimes n} \otimes H)(q_0, q_1)$
-            \State $q_0, q_1 \gets U_f(q_0, q_1)$
-            \State $q_0 \gets H^{\otimes n}(q_0)$
-            \State \tbf{return} $\mbox{measure}(q_0)$
-        \EndFunction
-    \end{algorithmic}
-\end{framedalgo}
-
-Note that in this algorithm $q_0$ are actually $n$ qubits, thus $q_0$ is initially set to $\ket{0}^{\otimes n}$. Before proving the correctness of this general version of the algorithm, let us first take a look at the quantum circuit that defines it.
-
-\begin{figure}[H]
-	\[
-		\Qcircuit @C=3em @R=3em {
-                  & \lstick{q_0^{\otimes n}} & \gate{H^{\otimes n}} & \qw & \multigate{1}{U_f} & \gate{H^{\otimes n}} & \meter & \cw \\ 
-                  & \lstick{q_1} & \gate{X} & \gate H & \ghost{U_f} & \qw & \qw & \qw \\
-		}
-	\]
-	\caption{The quantum circuit for the Deutsch-Josza algorithm.}
-\end{figure}
-
-\begin{framedprop}[label={H prop}]{}
-    For any $x \in \B^n$ it holds that $$H^{\otimes n}\ket x = \dfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{(-1)^{x \cdot a} \ket a}$$
-\end{framedprop}
-
-\begin{proof}
-    First, consider the following claim.
-
-    \claim{
-        $\forall a \in \B \quad H \ket a = \tfrac{1}{\sqrt 2} \sum_{b \in \B}{(-1)^{a \cdot b} \ket b}$.
-    }{
-        We observe that $$H \ket 0 = \ket + = \dfrac{1}{\sqrt 2}(\ket 0 + \ket 1) = \dfrac{1}{\sqrt 2} \sum_{b \in \B}{(-1)^{0 \cdot b} \ket b}$$ and analogously $$H \ket 1 = \ket - = \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1) = \dfrac{1}{\sqrt 2} \sum_{b \in \B}{(-1)^{1 \cdot b} \ket b}$$
-    }
-
-    In the rest of the proof we will denote with the $\cdot$ symbol the \curlyquotes{canonical} scalar product, i.e. $$\forall x, y \in \B^n \quad x \cdot y := \sum_{i = 1}^n{x_i y_i}$$ Fix $x \in \B^n$; by the previous claim, we have that
-    \begin{equation*}
-        \begin{alignedat}{2}
-            H^{\otimes n} \ket x & = \bigotimes_{i = 1}^n{H \ket{x_i}} & \\ 
-                                 & = \bigotimes_{i = 1}^n{\rbk{\dfrac{1}{\sqrt 2} \sum_{b \in \B}{(-1)^{x_ib} \ket b}} \ket{x_i} }  & \quad (\mbox{by the claim}) & \\ 
-                                 & = \dfrac{1}{\sqrt 2^n} \bigotimes_{i = 1}^n{\rbk{\ket 0 + (-1)^{x_i} \ket 1}} & \\ 
-                                 & = \dfrac{1}{\sqrt 2^n} \sum_{a \in \B^n}{(-1)^{x \cdot a} \ket a } & \\ 
-        \end{alignedat}
-    \end{equation*}
-\end{proof}
-    
-Finally, we are ready to prove the correctness of the algorithm.
-
-\begin{equation*}
-    \begin{alignedat}{2}
-        & q_0 \otimes q_1 & \\ 
-        = & \ket{0}^{\otimes n} \otimes \ket 0 & \\ 
-        \xrightarrow{X(q_1)} & \ket{0}^{\otimes n} \otimes \ket 1 & \\ 
-        \xrightarrow{H^{\otimes n}(q_0, q_1)} & H^{\otimes n} \ket{0}^{\otimes n} \otimes H \ket 1 & \\ 
-        = & \dfrac{1}{\sqrt 2^n} \sum_{a \in \B^n}{(-1)^{0^n \cdot a} \ket a} \otimes \ket - & \quad (\mbox{by \cref{H prop}}) \\ 
-        = & \dfrac{1}{\sqrt 2^n} \sum_{a \in \B^n}{\ket a} \otimes \ket -  & \\ 
-        = & \dfrac{1}{\sqrt 2^n } \sum_{a \in \B^n}{(\ket a \otimes \ket - )} & \\ 
-        \xrightarrow{U_f(q_0, q_1)} & \dfrac{1}{\sqrt 2^n} \sum_{a \in \B^n}{\rbk{(-1)^{f(a)} \ket a \otimes \ket - }} & \quad (\mbox{by \cref{U lemma}}) \\ 
-        = & \dfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{(-1)^{f(a)} \ket a} \otimes \ket - & \\ 
-        \xrightarrow{H^{\otimes n}(q_0)} & H^{\otimes n} \rbk{\dfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{(-1)^{f(a)} \ket a }} \otimes \ket - & \\ 
-        = & \dfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{\rbk{(-1)^{f(a)} H^{\otimes n} \ket a }} \otimes \ket - & \\ 
-        = & \dfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{(-1)^{f(a)} \rbk{\dfrac{1}{\sqrt 2^n} \sum_{b \in \B^n} {(-1)^{a \cdot b} \ket b}}} \otimes \ket - & \quad (\mbox{by \cref{H prop}}) \\ 
-        = & \dfrac{1}{2^n} \sum_{a \in \B^n}{\sum_{b \in \B^n}{(-1)^{f(a) + a \cdot b}} \ket b } \otimes \ket - & \\ 
-        = & \dfrac{1}{2^n} \sum_{a \in \B^n}{\sum_{b \in \B^n}{(-1)^{f(a) + a \cdot b}} \ket b } \otimes \ket - & \\ 
-        = & \sum_{b \in \B^n}{\rbk{\dfrac{1}{2^n}\sum_{a \in \B^n}{(-1)^{f(a) + a \cdot b}}} \ket b_0} \otimes \ket -_1 & \\
-    \end{alignedat}
-\end{equation*}
-
-Now note that this state describes the superposition of the system, but the next step of the algorithm will only measure $q_0$, therefore we can ignore $\ket -_1$ and just focus on the amplitudes of $q_0$. Then, by calling $$\forall b \in \B^n \quad \alpha_b := \dfrac{1}{2^n} \sum_{a \in \B^n}{(-1)^{f(a) + a \cdot b}}$$ we can rewrite $q_0$ as follows $$q_0 = \sum_{b \in \B^n}{\alpha_b \ket b}$$ Finally, since we want to determine the probability that $q_0$ collapses into the state $\ket{0}^{\otimes n}$ specifically, we can easily evaluate the associated amplitude of the latter, i.e. $$\alpha_{0^n} = \dfrac{1}{2^n}\sum_{a \in \B^n}{(-1)^{f(a)+ a \cdot 0^n}} = \dfrac{1}{2^n} \sum_{a \in \B^n}{(-1)^{f(a)}}$$ From this, we can easily conclude that:
-
-\begin{itemize}
-    \item if $f$ is constant, then $$\alpha_{0^n} = \dfrac{1}{2^n} \sum_{a \in \B^n}{(-1)^{f(a)}} = \dfrac{1}{2^n} \cdot 2^n \cdot (-1)^{b} = (-1)^b$$ where $b \in \B$, meaning that it is guaranteed that $q_0$ will collapse to $0^n$
-    \item if $f$ is balanced, then $$\alpha_{0^n} = \dfrac{1}{2^n} \sum_{a \in \B}{(-1)^{f(a)}} = \dfrac{1}{2^n} \cdot 0 = 0$$ meaning that it is guaranteed that $q_0$ will \tit{not} collapse to $0^n$
-\end{itemize}
-
-\section{Grover's algorithm}
-
-Even though Deutsch-Josza algorithm is able to solve the decision problem we described through \tit{one} single evaluation of $f$, it is fairly apparent that the problem their algorithm solves is quite artificial. However the next algorithm that we are going to discuss solves a problem that is definitely more useful.
-
-In 1996, \textcite{grover} published a landmark paper called \curlyquotes{Quantum Mechanics Helps in Searching for a Needle in a Haystack}, and the name already suggests the problem his work tried to solve: the search problem. The setting is the following: we are given an array of $N$ elements --- we can assume that $N$ is always a power of 2 for some $n$, i.e. $N= 2^n$ --- that contains $M$ \curlyquotes{solution} elements. However, we do not know their positions, and the problem asks to find the index of any solution element.
+The name of Grover's work already suggests the problem his work tried to solve: the search problem. The setting is the following: we are given an array of $N$ elements --- we can assume that $N$ is always a power of 2 for some $n$, i.e. $N= 2^n$ --- that contains $M$ \curlyquotes{solution} elements. However, we do not know their positions, and the problem asks to find the index of any solution element.
 
 More formally, given a Boolean function $$\funcmap{f}{\{0, \ldots, N - 1\}}{\B}{x}{\soe{ll}{1 & A[x] \in S \\ 0 & \mbox{otherwise}}}$$ where $A$ is our array, and $S$ is the set of solution elements, the problem asks to return an $x$ such that $f(x) = 1$, i.e. such that $A[x]$ is a solution.
 
@@ -454,7 +225,7 @@ where $\overline{\alpha}_\psi$ is the average amplitude of $\ket \psi$. This imp
 \end{equation*}
 In other words, when we apply $W$ to a superposition of states, what happens is that each amplitude of the basis states is trasformed as follows: $$\func{W}{\alpha_x}{2 \overline{\alpha}_\psi - \alpha_x}$$ To understand why this is important, let's look at what happens in Grover's algorithm after the first Hadamard application. TODO \todo{da finire}
 
-\subsection{Fixed-Point Quantum Search}
+\section{Fixed-Point Quantum Search}
 
 As we saw in the previous sections, with Grover's algorithm we need to be careful on how many times we apply the $G$ operator, however we observe that the right value for $k$ --- i.e. the numeber of iterations --- strictly depends on both $N$ and $M$. Assuming that $N$, the length of the array, is known, it is not guaranteed that we know $M$ too (the number of solutions in the array). Therefore, if we want to apply Grover's algorithm we also need to be able to to a rough estimate on $M$, otherwise we might end up stopping either too early or too late. This makes Grover's algorithm fragile in some real-world scenarios.
 
@@ -573,3 +344,51 @@ TODO \todo{drawing of the vector that grows monotonically}
 Unfortunately, there already exists a classical probabilistic algorithm that the failure probability drops as $\varepsilon^{q + 1}$  after $q$ queries to $f$. Thus, the quantum advantage with this method is lost.
 
 So, what do we do now? In 2014 \textcite{yoder} proposed a fixed-point quantum serach algorithm that monotonically converges to the target state while still retaining the quadratic advantage of the original Grover's algorithm over classical algorithms. The algorithm involves phase-shift operators that are parametrized with angles different from $\theta = \tfrac{\pi}{3}$, and again involes building a sequence of operators using said phase shifts. However, the details of this result are way beyond the scope of our discussion, so we won't describe the details of their findings.
+
+\section{QPE on Grover's algorithm}
+
+At the end of the previous section we ended our discussion by noticing how the $G$ operator was actually performing a \tit{rotation} of an angle $2 \theta$, but there is still something left to be explained.
+
+Let's try to understand how we can actually employ some of the ideas used in Shor's algorithm for Grover's quantum search. Recall that in \cref{grover op} we proved that the Grover operator can be rewritten as follows: $$G = \rmat{\cos{2 \theta} & - \sin {2 \theta} \\ \sin{2 \theta} & \cos {2 \theta}}$$ We observe the following property.
+
+\begin{framedprop}{}
+    The eigenvalues of $G$ are $e^{\pm 2 \theta i}$.
+\end{framedprop}
+
+\begin{proof}
+    The characteristic polynomial of $G$ is given by
+    \begin{equation*}
+        \begin{split}
+            p(\lambda) & = \det (G - \lambda I) \\ 
+                       & = \det \rbk{\rmat{\cos{2 \theta} & - \sin {2 \theta} \\ \sin{2 \theta} & \cos {2 \theta}} - \rmat{\lambda & 0 \\ 0 & \lambda}} \\ 
+                       & = \det \rmat{\cos 2 \theta - \lambda & - \sin 2 \theta \\ \sin 2 \theta & \cos 2 \theta - \lambda} \\ 
+                       & = \lambda^2 - 2 \lambda \cos 2 \theta  + \cos^2 2 \theta + \sin ^2 2 \theta \\ 
+                       & = \lambda^2 - 2 \lambda \cos 2 \theta  + 1 \\ 
+        \end{split}
+    \end{equation*}
+    and solving for $p(\lambda) = 0$ yields the following two eigenvalues:
+    \begin{equation*}
+        \begin{split}
+            \lambda & = \dfrac{2 \cos 2 \theta \pm \sqrt{4 \cos^2 2 \theta - 4}}{2} \\ 
+                    & = \cos 2 \theta \pm \sqrt{\cos^2 2 \theta - 1} \\ 
+                    & = \cos 2 \theta \pm \sqrt{- \sin^2 2 \theta} \\ 
+                    & = \cos 2 \theta \pm i \sin 2 \theta \\ 
+                    & = e^{\pm 2 \theta i } \\
+        \end{split}
+    \end{equation*}
+\end{proof}
+
+This means that we can use the QPE algorithm with the matrix $G$ in order to obtain an estimate of $\theta$! In particular, with this information we can actually solve two problems at once:
+
+\begin{itemize}
+    \item we can determine an estimate how many iterations of Grover's algorithm we need to run, since $$k = \dfrac{\pi}{4 \theta} - \dfrac{1}{2}$$
+    \item we can also evaluate an estimate on $M$, the number of solutions, since $$\theta = \arcsin \sqrt{\dfrac{M}{N}} \iff M = N \sin^2 \theta$$
+\end{itemize}
+
+The problem of estimating $M$ is usually referred to as \tbf{quantum counting} in the literature, since the output is the number of solutions inside the given array.
+
+TODO \todo{drawing}
+
+It can be proven that the quantum counting circuit estimates $\pm 2\theta$ --- to be precise, it actually estimates $2 \theta$ or $2\pi - 2\theta$ since QPE does not return negative angles --- to a degree of accuracy up to a desired $2^-m$ with probability at least $1 - \varepsilon$. Moreover, it can be shown that $$\abs{\tilde M - M} < \rbk{2 \sqrt{MN} + \dfrac{N}{2^{m + 1}}} 2^{-m}$$ where $\tilde M$ is the estimated value of $M$ through the QPE algorithm. For instance, choosing $m = \ceil{\tfrac{n}{2}} + 1$ and $\varepsilon = \tfrac{1}{6}$, we get that $t = \ceil{\tfrac{n}{2}} + 3$ and an estimation of $M$ with an error of about $$\abs{\tilde M - M} < \sqrt{\dfrac{M}{2}} + \dfrac{1}{4} = O(\sqrt M)$$ with only $O(2^t) = O(\sqrt N)$ iterations of the Grover operator, i.e. array accesses. Classically, to know the value of $M$ with the same error in the estimate we would necessarily need $O(N)$ accesses.
+
+Lastly, another problem that quantum counting solves is knowing if $M$ is 0 or not. Indeed, Grover's algorithm relies on the assumpion that $M \neq 0$, i.e. there are solution elements, otherwise the procedure actually does nothing.

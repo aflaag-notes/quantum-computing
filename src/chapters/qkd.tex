@@ -1,10 +1,4 @@
-\chapter{Quantum Information Science}
-
-TODO \todo{consider changing name to the chapter}
-
-TODO \todo{write introduction}
-
-\section{Quantum Key Distribution}
+\chapter{Quantum Key Distribution}
 
 Why is Shor's algorithm so important? Most widely used \tbf{public-key cryptography} algorithms rely on the difficulty of one of the three following mathematical problems:
 
@@ -21,6 +15,8 @@ Nevertheless, at the time of writing quantum computers lack the processing power
 In this chapter we will cover \todo{vedi de che parla prima de parla a vuoto}
 
 is a \tbf{Quantum Key Distribution (QKD)} protocol. In particular, we are interested in finding secure protocols that able to allow two parties to share a \tit{private key} quantum-safely.
+
+\subsection{Background}
 
 \subsection{The No-cloning theorem} \label{no-cloning}
 
@@ -104,7 +100,7 @@ We can actually generalize this idea: if we have two bases $\{f_i\}_{i = 1}^n$ a
 \end{equation*}
 This should not come as a suprise, since we already knew that $$H \ket 0 = \ket + \quad \quad H \ket 1 = \ket -$$
 
-\subsection{The BB84 protocol}
+\section{The BB84 protocol}
 
 The key exchange procedure we will present is called \tbf{BB84 protocol}, and it was published in 1984 by \textcite{bb84}. The protocol works as follows: suppose that our two usual protagonists Alice and Bob need to share a key quantum-safely. At the beginning, Alice will choose two random binary strings $(4 + \delta)n$-long --- for some $\delta > 0$ sufficiently large --- which are usually referred to as $a$ and $b$. Then, depending on the bits of these two strings she will construct a superposition of states based on the following table:
 
@@ -223,7 +219,7 @@ To be precise, there are more subtle attacks that do employ \tit{quantum entagnl
 
 Lastly, we observe that BB84 requires Alice to wait before hearing back from Bob that he \tit{actually measured} $\ket \psi$. This is to prevent that Alice sends $b$ too early, so that Eve could use the latter to decode $\ket \psi$ into the original string $a$ without any issue. Therefore, we require Alice to wait for Bob's measurement so that there is no way for Eve to recover $a$ after looking at $b$ becasuse the original superposition is definitively destroyed --- unless she can go back in time!
 
-\subsection{Bell Inequalities}
+\section{The E91 protocol}
 
 Imagine we perform the following experiment: there are two parties involved, namely Alice and Bob, and a third party Charlie which prepares two particles. It does not matter how he prepares the particles, the only thing that matters is that he is capable of repeating the experimental procedure which he uses. Once he has completed the preparation procedure, he sends one particle to Alice, and one to Bob.
 
