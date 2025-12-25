@@ -49,4 +49,4 @@
 \contentsline {subsection}{\numberline {6.1.4}The Shor code}{113}{subsection.6.1.4}%
 \contentsline {section}{\numberline {6.2}Linear codes}{115}{section.6.2}%
 \contentsline {subsection}{\numberline {6.2.1}The Hamming code}{120}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}The Quantum Hamming code}{122}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.2}The Steane code}{122}{subsection.6.2.2}%

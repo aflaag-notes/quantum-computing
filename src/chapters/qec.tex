@@ -176,7 +176,11 @@ We note that the fact that the Shor code actually enables the correction of comb
 
 \section{Linear codes}
 
-Let's go back to the classical scenario for a moment. So far we only discussed codes that involve repetition of the same information multiple times in order to recover the original message. However, we saw how the repetition codes we presented fail whenever the number of error is two or more. In particular, this occurs because the majority rule cannot be applied reliably anymore. Nevertheless, one might suggest that by simply sending \tit{even more} repetition of the same information we could increase the chances of recovering the original message, which is indeed true. However, a \curlyquotes{good} error-correcting code should also be able to provide a good balance between the transmitted bits and the redundancy bits.
+Let's go back to the classical scenario for a moment. So far we only discussed codes that involve repetition of the same information multiple times in order to recover the original message. However, we saw how the repetition codes we presented fail whenever the number of error is two or more. In particular, this occurs because the majority rule cannot be applied reliably anymore. Nevertheless, one might suggest that by simply sending \tit{even more} repetition of the same information we could increase the chances of recovering the original message, which is indeed true. However, we see that
+\begin{itemize}
+	\item when the information to transfer is more than 1 bit the situation becomes much more chaotic
+	\item a \curlyquotes{good} error-correcting code should also be able to provide a good balance between the transmitted bits and the redundancy bits
+\end{itemize}
 
 Let's give some terminology: each message sent through an error-correcting code is called \tbf{codeword}, and they are assumed to have always the same length --- for instance, in the repetition code we analyzed previously the length of each codeword was 3. Then, we have the following definition.
 
@@ -193,6 +197,10 @@ It's easy to see that a \curlyquotes{good} code is required to have $R$ as close
 For instance, consider the following generator matrix: $$G = \smat{1 \\ 1 \\ 1}$$ This matrix has dimensions $3 \times 1$, so it expects inputs of size $1 \times 1$ and outputs codewords of size $3 \times 1$. In fact, a keen eye might have noticed that this matrix performs the three repetition code we saw earlier: $$\smat{1 \\ 1 \\ 1} \smat{b} = \smat{1 \cdot b \\ 1 \cdot b \\ 1 \cdot b} = \smat{b \\ b \\ b}$$ As said earlier, this is an example of a $[3, 1]$ code.
 
 We observe that in the definition we used $\Z_2$ instead of $\B$ in order to highlight the fact that all the operations are performed modulo 2. Moreover, the set of possible codewords for a code corresponds to the vector space spanned by the columns of its generator matrix $G$, so for all the messages to be uniquely encoded we require that the columns of $G$ are linearly independent. Lastly, we will identify a linear code with the codewords that it can generate, so a code $C$ of type $[n, k]$ can be written as $$C := \{Gx \mid x \in \Z_2^k\}$$ where $G$ is the generator matrix of $C$.
+
+\begin{framedprop}{}
+	If $C$ is a linear code, then $C^\bot$ is a linear code.
+\end{framedprop}
 
 A great advantage of linear codes over more general error-correcting codes is their compact specification: a general code encoding $k$ information bits into $n$ bits requires $2^k$ codewords, each of length $n$, for a total of $n 2^k$ bits needed to provide a description of the entire code. With a linear code instead, we only need to specify the $nk$ bits of the generator matrix, and that's it. This is an exponential saving in the amount of memory required!
 
@@ -272,6 +280,37 @@ TODO \todo{how does ts work}
 
 Let $r \ge 2$ be an integer, and consider the matrix $H$ whose columns are all the $2^r - 1$ bit strings of length $r$ different from the 0 bit string. This is a parity check matrix of dimensions $(2^r - 1) \times (2^r - r - 1)$ and it defines a linear code known as the \tbf{Hamming code}, named after Turing Prize winner \href{https://it.wikipedia.org/wiki/Richard_Hamming}{Richard Hamming}. A very famous special example of the Hamming code is obtained with $r = 3$, which defines the following parity check matrix $$H = \smat{0 & 0 & 0 & 1 & 1 & 1 & 1 \\ 0 & 1 & 1 & 0 & 0 & 1 & 1 \\ 1 & 0 & 1 & 0 & 1 & 0 & 1}$$ which describes a linear code of type $[7, 4, 3]$. By \cref{code thm}, we know that this code is able to correct $$t = \floor{\dfrac{3 - 1}{2}} = 1$$ Let's give an example of error-correction through the $r = 3$ case of the Hamming code in action: suppose that the received codeword is $$y' = \smat{1 \\ 0 \\ 1 \\ 1 \\ 1 \\ 1 \\ 0 }$$ Now, we have to compute the syndrome of $y'$, namely $$Hy' = \smat{0 & 0 & 0 & 1 & 1 & 1 & 1 \\ 0 & 1 & 1 & 0 & 0 & 1 & 1 \\ 1 & 0 & 1 & 0 & 1 & 0 & 1} \smat{1 \\ 0 \\ 1 \\ 1 \\ 1 \\ 1 \\ 0 } = \smat{1 \\ 0 \\ 1}$$ Then, since this is not the 0 vector some error must have occurred, and because we know that $Hy' = He_j$ where $e_j$ has 1 only in the $j$-th position we have that $$He_j = \smat{1 \\ 0 \\ 1} \implies e_j = \smat{0 \\ 0 \\ 0 \\ 0 \\ 1 \\ 0 \\ 0} \implies j = 5$$ which means that the error occured in the 5-th position of $y'$. This means that the original $y$ was $$y = \smat{1 \\ 0 \\ 1 \\ 1 \\ 0 \\ 1 \\ 0 }$$ Now, to retrieve the original message $x$ we need to construct a matrix that we did not discuss yet. First, we need the generator matrix $G$, and we can costruct it by following the construction in \cref{code thm}. For this example we will employ the most common generator matrix usually defined for the Hamming code $[7, 4, 3]$, which is the following $$G := \smat{0 & 0 & 1 & 1 \\ 0 & 1 & 0 & 1 \\ 0 & 1 & 1 & 1 \\ 1 & 0 & 0 & 1 \\ 1 & 0 & 1 & 1 \\ 1 & 1 & 0 & 1 \\ 1 & 1 & 1 & 1}$$ This matrix is not invertible because it is not a square matrix, however we can simply choose $k$ linearly indepentend rows from $G$ and construct the following matrix $$\hat G := \smat{0 & 0 & 1 & 1 \\ 0 & 1 & 0 & 1 \\ 0 & 1 & 1 & 1 \\ 1 & 0 & 0 & 1}$$ which is now guaranteed to be invertible. Most importantly, we observe that we chose the 4 rows of the matrix $G$, and we will use this information later. Now, it can be proven that the inverse (modulo 2) of $\hat G$ is the following matrix: $$\hat G^{-1} = \smat{1 & 1 & 1 & 1 \\  1 & 0 & 1 & 0 \\ 0 & 1 & 1 & 0 \\ 1 & 1 & 1 & 0}$$ Proving that $\hat G ^{-1} \hat G = I  \bmod 2 $ is left as exercise. Finally, to obtain the message $x$ that generated $y$ we must first truncate $y$ to the first 4 bits --- because of how we constructed $\hat G$ --- thus obtaining $$\hat y = \smat{1 \\ 0 \\ 1 \\ 1}$$ which ultimately allows us to retrieve the original message $$\hat G^{-1} \hat y = \smat{1 & 1 & 1 & 1 \\  1 & 0 & 1 & 0 \\ 0 & 1 & 1 & 0 \\ 1 & 1 & 1 & 0} \smat{1 \\ 0 \\ 1 \\ 1} = \smat{1 \\ 0 \\ 1 \\ 0} = x$$
 
-\subsection{The Quantum Hamming code}
+\subsection{The Steane code}
 
-TODO \todo{snapshot}
+So far we've only introduce linear codes in order to perform classical error-correction. Now we will see how linear codes are used to also correct errors in quantum communications. First, we need to provide the following definition.
+
+\begin{frameddefn}{Calderbank-Shor-Steane code}
+	Given two linear codes $C_1$ and $C_2$ of types $[n, k_1]$ and $[n, k_2]$ such that
+
+	\begin{itemize}
+		\item $C_2 \subset C_1$
+		\item both $C_1$ and $C_2^\bot$ correct $t$ errors
+	\end{itemize}
+
+	we define the \tbf{Calderbank-Shor-Steane (CSS) code} of $C_1$ over $C_2$ of type $[n, k_1 - k_2]$ as $$\mbox{CSS}(C_1, C_2) := \mbox{span}(\{\ket{x + C_2} \mid x \in C_1 / C_2\})$$ where we define that $$\ket{x + C_2} := \dfrac{1}{\sqrt{\abs{C_2}}} \sum_{y \in C_2}{\ket{x + y}}$$
+\end{frameddefn}
+
+We will not go into the details of this very dense definition, however what we really matter is a special case of if, usually referred to as \tbf{Steane code} --- named after its inventor \href{https://en.wikipedia.org/wiki/Andrew_Steane}{Andrew Steane}. It is derived by using the $[7, 4, 3]$ Hamming code we saw earlier, and it is capable of correcting errors on $t$ qubits. We can construct it as follows: let $H$ be this exact Hamming space, and set
+
+\begin{itemize}
+	\item $C_1 = H$
+	\item $C_2 = H^\bot$
+\end{itemize}
+
+Then, since $H^\bot \subset H$, and $\abs{H^\bot} = 2^{\dim\rbk{H^\bot}} = 2^3 = 8$ we have that
+\begin{equation*}
+	\begin{split}
+		x = \ket{0_L} = \ket{0000000} & \implies \ket{x + H^\bot} = \dfrac{1}{\sqrt 8} \sum_{y \in H^\bot}{\ket y}            \\
+		x = \ket{1_L} = \ket{1111111} & \implies \ket{x + H^\bot} = \dfrac{1}{\sqrt 8} \sum_{y \in H^\bot}\ket{{1111111 + y}} \\
+	\end{split}
+\end{equation*}
+where $\ket{0_L}$ and $\ket{1_L}$ indicate the \curlyquotes{logical} 0 and 1, respectively. Then, if we need to tranfer a qubit $$\ket \psi = \alpha \ket 0 + \beta \ket 1$$ we just need to encode it as $$\ket {\psi_L} = \alpha \ket{0_L} + \beta \ket{1_L} = \dfrac{\alpha}{\sqrt 8} \sum_{y \in H^\bot}{\ket y} + \dfrac{\beta}{\sqrt 8} \sum_{y \in H^\bot}{1111111 + y}$$ exactly as we saw in the previous section with the repetition codes.
+
+Additionally, from these equations we see that in the Steane code we are mapping the logical 0 to the superposition of all the codewords of $H^\bot$, while the logical 1 is mapped to the superposition of codewords that are in $H - H^\bot$ --- this is because $1111111 \in H - H^\bot$, but we will not prove this fact. Moreover, it can be shown that for any received codeword $b = \smat{b_1 & \ldots & b_7}^T$ the syndrome $Hb$ can be succintly computed as follows: $$Hb = \smat{b_4 \oplus b_5 \oplus b_6 \oplus b_7 \\ b_2 \oplus b_3 \oplus b_6 \oplus b_7 \\ b_1 \oplus b_3 \oplus b_5 \oplus b_7}$$ In particular, this formulation is useful because it can be translated into the following quantum circuit: TODO \todo{slide 13} After computing the syndrome, we can proceed as before with the error-correction and message-retrieval procedure.
+
+The last detail that we need to point out is the importance of the Steane code. The Shor code we saw earlier was able to retrieve any qubit sent with an arbitrary single-qubit error, so would we want to adopt the Steane code? TODO \todo{missing last 2 slides, i'm so bored}
