@@ -291,7 +291,29 @@ With this observation, we can finally define the projector operators.
 	Given a Hilbert space $\mathcal H$, and a closed subspace $V \subset \mathcal H$, the \tbf{projector} operator that projects any given vector $v \in \mathcal H$ onto $V$ is defined as follows: $$\funcmap{P_V}{\mathcal H}{V}{u}{u_V = \sum_{i = 1}^n{\braket{f_i|u} f_i}}$$ where $\{f_1, \ldots, f_n\}$ is an orthonormal basis of $V$.
 \end{frameddefn}
 
-In other words, the projector we have that $$P_V := \sum_{i = 1}^n{\ket{f_i} \bra{f_i}}$$ Clearly, by definition of $u_{V^\bot}$ it holds that $$\funcmap{P_{V^\bot}}{\mathcal H}{V^\bot}{u}{u_{V^\bot} := u - u_V}$$ Moreover, since $P_V$ performs a projection, we have that $$\forall u \in \mathcal H \quad u \in V \iff P_Vu = u$$ and that $$\forall u \in \mathcal H \quad u \in V^\bot \iff P_V u = 0$$ Additionally, for any projector $P_V$ it holds that $P_V^2 = P_V$, by idempotency, and $P_V^\dag = P_V$.
+Most importantly, given the map in the definition we have that the projector operator $P_V$ is defined as follows $$P_V := \sum_{i = 1}^n{\ket{f_i} \bra{f_i}}$$ Clearly, by definition of $u_{V^\bot}$ it holds that $$\funcmap{P_{V^\bot}}{\mathcal H}{V^\bot}{u}{u_{V^\bot} := u - u_V}$$ Moreover, since $P_V$ performs a projection, we have that $$\forall u \in \mathcal H \quad u \in V \iff P_Vu = u$$ and that $$\forall u \in \mathcal H \quad u \in V^\bot \iff P_V u = 0$$
+
+\begin{framedprop}{}
+	Given a Hilbert space $\mathcal H$, and a closed subspace $V \subset \mathcal H$, the projector $P_V$ is such that
+	\begin{enumerate}
+		\item $P_V^2 = P_V$, i.e. it is \tit{idempotent}
+		\item $P_V^\dag = P_V$, i.e it is Hermitian
+	\end{enumerate}
+\end{framedprop}
+
+\begin{proof}
+	TODO \todo{da fare idempotency}
+
+	For the second property, we observe that for any vector $\ket v$ it holds that $$(\ket v \bra v)^\dag = \ket v \bra v$$ that together with \cref{adj prop} it implies that
+	\begin{equation*}
+		\begin{split}
+			P_V^\dag & = \rbk{\sum_{i = 1}^n{\ket{f_i} \bra{f_i}}}^\dag \\
+			         & = \sum_{i = 1}^n{(\ket{f_i} \bra{f_i})^\dag}     \\
+			         & = \sum_{i = 1}^n{\ket{f_i} \bra{f_i}}            \\
+			         & = P_V
+		\end{split}
+	\end{equation*}
+\end{proof}
 
 \begin{framedprop}{}
 	Any projector operator only has 0 and 1 as possible eigenvalues.
@@ -324,144 +346,3 @@ The following is the last property of projectors that we will present, and it wi
 Finally, the last ingredient that we need to discuss is the \tbf{tensor product}
 
 TODO \todo{TODO}
-
-\section{Postulates of quantum mechanics}
-
-Now that we defined Hilbert spaces and their operators in great detail, we can finally present we needed this mathematical foundations in order to progress: quantum mechanics is developed over Hilbert spaces with \tit{countable} bases, and quantum computing works with finite-dimensional Hilbert spaces. In particular, these are the four fundamental \tbf{postulates of quantum mechanics}.
-
-\begin{framedpost}{State postulate}
-	The state of a quantum system is completely described by a vector $\ket \psi$ in a Hilbert space $\mathcal H$.
-\end{framedpost}
-
-As we saw at the beginning of the previous chapter, $\ket \psi$ is always considered to be normalized. We observe that different physical systems of different types live in different Hilbert spaces.
-
-\begin{framedpost}[label={meas post}]{Measurement postulate}
-	Every measurable (i.e. \tit{observable}) quantity corresponds to a self-adjoint operator on $\mathcal H$. In particular, given an observable $A$, and a state $v \in \mathcal H$, it holds that:
-	\begin{itemize}
-		\item the only possible results of measuring $A$ are one of its eigenvalues
-		\item the probability of measuring eigenvalue $\lambda$ in state $v$ is given by $$\Pr[A = \lambda \mid v] = \braket{v|P_\lambda v}$$ where $P_\lambda$ is the linear map that projects $v$ onto the $\lambda$-eigenspace.
-	\end{itemize}
-\end{framedpost}
-
-We can actually explain why we choose that particular scalar product to be the probability. Since by convention any quantum state is normalize, i.e. $\norm v = 1$, it holds that
-\begin{equation*}
-	\begin{split}
-		1 & = \norm{v}^2                                                                 \\
-		  & = \braket{v|v}                                                               \\
-		  & = \abk{\sum_{i = 1}^m{P_{\lambda_iv}}\middle|\sum_{j = 1}^m{P_{\lambda_jv}}} \\
-		  & = \sum_{i = 1}^m{\sum_{j = 1}^m{\braket{P_{\lambda_i}v|P_{\lambda_j}v}}}     \\
-	\end{split}
-\end{equation*}
-Now, since each $P_{\lambda_i}$ is a projector, we know that when $i \neq j$ it holds that $P_{\lambda_i}P_{\lambda_j} = \mathbf 0$, therefore by self-adjointness of projectors we have that
-
-\begin{itemize}
-	\item if $i \neq j$ then $$\braket{P_{\lambda_i}v|P_{\lambda_j}v} =\braket{v|P_{\lambda_i}P_{\lambda_j}v} = \braket{v| \mathbf 0 v} = 0$$
-	\item if $i = j$ then $$\braket{P_{\lambda_i}v|P_{\lambda_j}v} = \braket{P_{\lambda_i}v|P_{\lambda_i}v} = \norm{P_{\lambda_i}v}^2$$
-\end{itemize}
-
-Therefore, by adding only the non-zero terms we get that $$\sum_{i = 1}^m{\norm{P_{\lambda_i}v}^2} = 1$$ Hence, we define $$\Pr[A = \lambda_i \mid v] := \norm{P_{\lambda_i}v}^2$$ such that $$\Pr[A \mid v] = \sum_{i = 1}^m{\Pr[A = \lambda_i \mid v]} = \sum_{i = 1}^m{\norm{P_{\lambda_i}v}^2} = \norm{v}^2 = 1$$ which also means that our probabilities will add up to 1 automatically. Finally, we can rewrite this proability as follows (we will drop the index of the eigenvalue):
-\begin{equation*}
-	\begin{alignedat}{2}
-		\Pr[A = \lambda \mid v] & = \braket{P_\lambda v | P_\lambda v}      &                                    \\
-		                        & = \braket{v | P_\lambda^\dag P_\lambda v} &                                    \\
-		                        & = \braket{v | P_\lambda^2 v}              & \quad (\mbox{by self-adjointness}) \\
-		                        & = \braket{v | P_\lambda P_\lambda v}      &                                    \\
-		                        & = \braket{v | P_\lambda v}                &                                    \\
-	\end{alignedat}
-\end{equation*}
-
-This formulation was refined in 1926 by Max Born \cite{born}, when he derived the following property.
-
-\begin{framedthm}[label={born rule}]{Born rule}
-	The probability that a qubit $\ket \psi$ written in a basis $\{\lambda_i\}_{i = 1}^n$ collapses to a particular $\ket \lambda \in \{\lambda_i\}_{i = 1}^n$ when measured is $$\Pr[\mbox{measure}(\ket \psi = \ket \lambda)] = \abs{\braket{\psi|\lambda}}^2$$
-\end{framedthm}
-
-\begin{proof}
-	By the \cref{spectral thm 2} it holds that the set of all the eigenvectors $\ket \lambda$ of any operator always form an orthonormal basis of the complete Hilbert space. Hence, the idea is to implicitly construct a self-adjoint operator $A$ whose eigenvalues are precisely the possible values in which $\ket \psi$ might collapse into. In other words, we want to construct a self-adjoint operator whose \nameref{spectral decomp} is exactly defined by $\{\lambda_1, \ldots, \lambda_n\}$ Hence, if $\ket \psi$ is defined as $$\ket \psi = \sum_{i = 1}^n {\alpha_n \ket{\lambda_i}}$$ we define the operator $$A_{\psi} = \sum_{i = 1}^n {\lambda_i P_{\lambda_i} }= \sum_{ i= 1}^n{\lambda _i \ket {\lambda_i} \bra{\lambda_i}}$$ Thus, the probability that by $\ket \psi$ it collapses to some $\ket \lambda \in\{\lambda_1, \ldots, \lambda_n\}$ can be rewritten as follows:
-	\begin{equation*}
-		\begin{alignedat}{2}
-			\Pr[\mbox{measure}(\ket \psi = \ket \lambda)] & = \Pr[A_\psi = \lambda | \ket \psi]                &                                    \\
-			                                              & = \braket{\psi|P_\lambda \psi}                     & \quad (\mbox{by \cref{meas post}}) \\
-			                                              & = \braket{\psi|(\ket  \lambda \bra \lambda) \psi } &                                    \\
-			                                              & = \braket{\psi|\ket \lambda \bra \lambda \psi}     &                                    \\
-			                                              & = (\braket{\psi|\lambda})(\braket{\lambda|\psi})   &                                    \\
-			                                              & = \abs{\braket{\psi|\lambda}}^2                    &                                    \\
-		\end{alignedat}
-	\end{equation*}
-\end{proof}
-
-For instance, if we have a superposition $$\ket \psi = \alpha \ket 0 + \beta \ket 1$$ and we want to know what is the probability that $\ket \psi$ collapses to $\ket 0$ after a measurement, we simply have that
-\begin{equation*}
-	\begin{split}
-		\Pr[\mbox{measure}(\ket \psi = \ket 0)] & = \Pr[A_\psi = 0 | \ket \psi] \\
-		                                        & = \abs{\braket{\psi|0}}^2     \\
-	\end{split}
-\end{equation*}
-where the $A_\psi$ matrix is precisely: $$A_\psi = 0 \cdot P_0 + 1 \cdot P_1 = 0 \cdot \ket 0 \bra 0 + 1 \cdot \ket 1 \bra 1$$ This formulation of the probability of measurements will be used extensively for our purposes, and allows us to avoid the description of the matrix $A_\psi$ completely.
-
-Before presenting to the next postulate, another very important operator that is frequently utilized in quantum mechanics is the \tbf{expected value} of a matrix. Given an observable $A$, we define the expected value of $A$ as the average eigenvector we may obtain after a measurement $$\Exp[A | v] = \sum_{i = 1}^m{\lambda_i \Pr[A = \lambda_i \mid v]}$$ We usually denote the expected value of the operator $A$ as $\abk A$. Moreover, we have the following property.
-
-\begin{framedprop}[label={exp of an op}]{Expected value of an operator}
-	Given an Hermitian operator $A$, if the system is in state $\ket \psi$ it holds that $$\abk{A} = \braket{\psi|A \psi}$$
-\end{framedprop}
-
-\begin{proof}
-	By \cref{meas post}, it follows that
-	\begin{equation*}
-		\begin{split}
-			\abk{A} & = \Exp[A \mid \ket \psi]                                                                \\
-			        & = \sum_{i = 1}^m{\lambda_i \Pr[A = \lambda_i \mid \ket \psi]}                           \\
-			        & = \sum_{i = 1}^m{\lambda_i \braket{\psi|P_{\lambda_i} \psi}}                            \\
-			        & = \sum_{i = 1}^m{\lambda_i \bra \psi \ket {\lambda_i} \bra{\lambda_i} \ket \psi}        \\
-			        & = \rbk{\sum_{i = 1}^m{\lambda_i \bra \psi \ket {\lambda_i} \bra{\lambda_i} }} \ket \psi \\
-			        & = \rbk{\bra \psi \sum_{i = 1}^m{\lambda_i \ket {\lambda_i} \bra{\lambda_i} }} \ket \psi \\
-			        & = \bra \psi A \ket \psi                                                                 \\
-			        & = \braket{\psi| A \psi}                                                                 \\
-		\end{split}
-	\end{equation*}
-\end{proof}
-
-\begin{framedpost}[label={time post}]{Time evolution postulate}
-	A closed system evolves through time according to the \tbf{time-dependent Schrödinger equation (TDSE)}: $$i \hbar \dfrac{\diff}{\diff t} v(t) = Hv(t)$$
-\end{framedpost}
-
-We observe that the Schrödinger equation is a first-order linear differential equation, and it is composed by the following elements:
-
-\begin{itemize}
-	\item $v(t)$ which is the state vector at time $t$ (a vector in a Hilbert space)
-	\item $H$ which is the system \tit{Hamiltonian}, a self-adjoint operator that describes the total energy of the system
-\end{itemize}
-
-The solution of the Schrödinger equation is $$v(t_1) = U(t_2, t_1)v(t_1)$$ where $U(t_2, t_1)$ is called \tbf{time-evaluation operator}, and it is defined as follows: $$U(t_2, t_1) = e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}$$ (assuming $H$ does not depend on time). We recall that $H$ is a matrix, so we are raising $e$ to the power of a matrix, an operation that is defined by the power series of the exponential as follows: $$e^A = \sum_{n = 0}^\infty{\dfrac{A^n}{n!}}$$ What is interesting about this operator is that $U$ is \tbf{unitary}, and in order to show it is suffices to prove that $U^\dag = U^{-1}$. But how do we compute the adjoint of $U$? We observe that by the properties of the adjoint operation it holds that $$\rbk{e^A}^\dag = \rbk{\sum_{n = 0}^\infty{\dfrac{A^n}{n!}}}^\dag = \sum_{n = 0}^\infty{\dfrac{(A^n)^\dag}{n!}} = \sum_{n = 0}^\infty{\dfrac{(A^\dag)^n}{n!}} = e^{A^\dag}$$ which means that the adjoint of an exponential is the exponential of the adjoint. This suffices to prove that $$U^\dag = \rbk{e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}}^\dag = e^{\rbk{-\tfrac{i}{\hbar}H(t_2 - t_1)}^\dag} = e^{\tfrac{i}{\hbar}H(t_2 - t_1)} = \rbk{e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}}^{-1} = U^{-1}$$ This is a crucial characteristic for quantum mechanics: since $U$ is unitary, we know that it preserves the scalar product by \cref{unitary alt def}, therefore it also preserves \tbf{probabilities and norms}. This is why we say that evolution in quantum systems --- or \tit{quantum evolution}, for short --- is unitary.
-
-\begin{framedpost}{Composite systems postulate}
-	If system $A$ is defined over $\mathcal H_A$, and system $B$ is defined over $\mathcal H_B$, the total system lives in $$\mathcal H_{AB} = \mathcal H_A \otimes \mathcal H_B$$
-\end{framedpost}
-
-In other words, the last postulate states that the Hilbert space of a composite system is the tensor product of the Hilbert spaces of its subsystems.
-
-Speaking of tensor products, when operators can be factored out into smaller operators of smaller systems we obtain linearity of expectations w.r.t. the tensor product.
-
-\begin{framedprop}{}
-	Given an operator $O$ that can be factored out as $O = A \otimes B$, if the current state $\ket \psi$ is not entangled it holds that $$\abk{O} = \abk{A} \cdot \abk{B}$$
-\end{framedprop}
-
-\begin{proof}
-	We need to show that $$\braket{\psi|O\psi} = \braket{\psi_A| A\psi_A} \cdot \braket{\psi_B|B\psi_B}$$ where $\ket \psi = \ket{\psi_A} \otimes \ket{\psi_B}$ which we know they exist because we are assuming that $\ket \psi$ is not entangled. Let the following be the spectral decompositions of $A$ and $B$, respectively $$A = \sum_{i = 1}^m{\lambda_i^A \ket{\lambda_i^A} \bra{\lambda_i^A}} \quad \quad B = \sum_{j = 1}^m{\lambda_j^B \ket{\lambda_j^B} \bra{\lambda_j^B}}$$ Then, by computing the tensor product between $A$ and $B$ we immediately obtain the spectral decomposition of $O$: $$O = A \otimes B = \sum_{i, j \in [m]}{\lambda_i^A\lambda_j^B (\ket{\lambda_i^A} \otimes \ket{\lambda_j^B})(\bra{\lambda_i^A} \otimes \bra{\lambda_j^B})}$$ Hence, the possible values $O$ might be observed into are all the products $\lambda_i^A \lambda_j^B$ for $i, j \in [m]$. Lastly, if we define $$\forall i, j \in [m] \quad \lambda_k = \lambda_{(i - 1)m + j}$$ it suffices to consider the definition of expected value:
-
-	\begin{equation*}
-		\begin{split}
-			\braket{\psi|O\psi} & = \sum_{k = 1}^{m^2}{\lambda_k \Pr[O = \lambda_k \mid \ket \psi]}                                                                                            \\
-			                    & = \sum_{k = 1}^{m^2}{\lambda_k \Pr[A \otimes B = \lambda_k \mid \ket {\psi_A} \otimes \ket{\psi_B}]}                                                         \\
-			                    & = \sum_{k = 1}^{m^2}{\lambda_k \abs{\braket{\psi_A \otimes\psi_B | \lambda_k}}^2}                                                                            \\
-			                    & = \sum_{i = 1}^m{\sum_{j = 1}^m{\lambda_i^A \lambda_j^B \abs{\braket{\psi_A \otimes \psi_B|\lambda_i^A \otimes \lambda_j^B}}^2}}                             \\
-			                    & = \sum_{i = 1}^m{\sum_{j = 1}^m{\lambda_i^A \lambda_j^B \abs{\braket{\psi_A|\lambda_i^A} \cdot \braket{\psi_B|\lambda_j^B}}^2}}                              \\
-			                    & = \sum_{i = 1}^m{\sum_{j = 1}^m{\lambda_i^A \lambda_j^B \abs{\braket{\psi_A|\lambda_i^A}}^2 \cdot \abs{\braket{\psi_B|\lambda_j^B}}^2}}                      \\
-			                    & = \rbk{\sum_{i = 1}^m{\lambda_i^A \abs{\braket{\psi_A|\lambda_i^A}}^2}} \cdot \rbk{\sum_{j = 1}^m{\lambda_j^B \abs{\braket{\psi_B|\lambda_j^B}}^2}}          \\
-			                    & = \rbk{\sum_{i = 1}^m{\lambda_i^A \Pr\sbk{A = \lambda_i^A| \ket{\psi_A}}}} \cdot \rbk{\sum_{j = 1}^m{\lambda_j^B  \Pr\sbk{B = \lambda_j^B | \ket {\psi_B}}}} \\
-			                    & = \braket{\psi_A| A \psi_A} \cdot \braket{\psi_B|B \psi_B}                                                                                                   \\
-		\end{split}
-	\end{equation*}
-\end{proof}
-
-This result should not come as a surprise, since for any two distributions $X$ and $Y$ we know that $$\Exp[XY] = \Exp[X] \cdot \Exp[Y]$$ only if $X$ and $Y$ are \tbf{independent}. Indeed, by assuming that $O$ and $\ket \psi$ can be factorized, we are assuming that the two underlying subsystems $\mathcal H_A$ and $\mathcal H_B$ --- in which $\ket{\psi_A}$ and $A$,  and $\ket{\psi_B}$ and $B$ live, respectively --- are \curlyquotes{independent} in the sense that they are \tit{not entangled}!

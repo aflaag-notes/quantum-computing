@@ -770,6 +770,9 @@ INPUT ../assets/telep.png
 INPUT ./chapters/math.tex
 INPUT ./chapters/math.tex
 INPUT ./chapters/math.tex
+INPUT ./chapters/post.tex
+INPUT ./chapters/post.tex
+INPUT ./chapters/post.tex
 INPUT ./chapters/algos.tex
 INPUT ./chapters/algos.tex
 INPUT ./chapters/algos.tex

@@ -305,11 +305,11 @@ We will not go into the details of this very dense definition, however what we r
 Then, since $H^\bot \subset H$, and $\abs{H^\bot} = 2^{\dim\rbk{H^\bot}} = 2^3 = 8$ we have that
 \begin{equation*}
 	\begin{split}
-		x = \ket{0_L} = \ket{0000000} & \implies \ket{x + H^\bot} = \dfrac{1}{\sqrt 8} \sum_{y \in H^\bot}{\ket y}            \\
-		x = \ket{1_L} = \ket{1111111} & \implies \ket{x + H^\bot} = \dfrac{1}{\sqrt 8} \sum_{y \in H^\bot}\ket{{1111111 + y}} \\
+		x = \ket{0000000} & \implies \ket{0_L} := \ket{x + H^\bot} = \dfrac{1}{\sqrt 8} \sum_{y \in H^\bot}{\ket y}            \\
+		x = \ket{1111111} & \implies \ket{1_L} := \ket{x + H^\bot} = \dfrac{1}{\sqrt 8} \sum_{y \in H^\bot}\ket{{1111111 + y}} \\
 	\end{split}
 \end{equation*}
-where $\ket{0_L}$ and $\ket{1_L}$ indicate the \curlyquotes{logical} 0 and 1, respectively. Then, if we need to tranfer a qubit $$\ket \psi = \alpha \ket 0 + \beta \ket 1$$ we just need to encode it as $$\ket {\psi_L} = \alpha \ket{0_L} + \beta \ket{1_L} = \dfrac{\alpha}{\sqrt 8} \sum_{y \in H^\bot}{\ket y} + \dfrac{\beta}{\sqrt 8} \sum_{y \in H^\bot}{1111111 + y}$$ exactly as we saw in the previous section with the repetition codes.
+where $\ket{0_L}$ and $\ket{1_L}$ indicate the \curlyquotes{logical} 0 and 1, respectively. Then, if we need to tranfer a qubit $$\ket \psi = \alpha \ket 0 + \beta \ket 1$$ we just need to encode it as $$\ket {\psi_L} = \alpha \ket{0_L} + \beta \ket{1_L} = \dfrac{\alpha}{\sqrt 8} \sum_{y \in H^\bot}{\ket y} + \dfrac{\beta}{\sqrt 8} \sum_{y \in H^\bot}{\ket{1111111 + y}}$$ exactly as we saw in the previous section with the repetition codes.
 
 Additionally, from these equations we see that in the Steane code we are mapping the logical 0 to the superposition of all the codewords of $H^\bot$, while the logical 1 is mapped to the superposition of codewords that are in $H - H^\bot$ --- this is because $1111111 \in H - H^\bot$, but we will not prove this fact. Moreover, it can be shown that for any received codeword $b = \smat{b_1 & \ldots & b_7}^T$ the syndrome $Hb$ can be succintly computed as follows: $$Hb = \smat{b_4 \oplus b_5 \oplus b_6 \oplus b_7 \\ b_2 \oplus b_3 \oplus b_6 \oplus b_7 \\ b_1 \oplus b_3 \oplus b_5 \oplus b_7}$$ In particular, this formulation is useful because it can be translated into the following quantum circuit: TODO \todo{slide 13} After computing the syndrome, we can proceed as before with the error-correction and message-retrieval procedure.
 
