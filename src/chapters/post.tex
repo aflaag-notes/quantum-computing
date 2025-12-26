@@ -54,7 +54,7 @@ We can actually explain why we choose that particular scalar product to be the p
 		  & = \sum_{i = 1}^m{\sum_{j = 1}^m{\braket{P_{\lambda_i}v|P_{\lambda_j}v}}}     \\
 	\end{split}
 \end{equation*}
-Now, since each $P_{\lambda_i}$ is a projector, we know that when $i \neq j$ it holds that $P_{\lambda_i}P_{\lambda_j} = \mathbf 0$, therefore by self-adjointness of projectors we have that
+Now, since each $P_{\lambda_i}$ is a projector, we know that when $i \neq j$ it holds that $P_{\lambda_i}P_{\lambda_j} = \mathbf 0$, therefore by Hermiticity of projectors we have that
 
 \begin{itemize}
 	\item if $i \neq j$ then $$\braket{P_{\lambda_i}v|P_{\lambda_j}v} =\braket{v|P_{\lambda_i}P_{\lambda_j}v} = \braket{v| \mathbf 0 v} = 0$$
@@ -64,11 +64,11 @@ Now, since each $P_{\lambda_i}$ is a projector, we know that when $i \neq j$ it 
 Therefore, by adding only the non-zero terms we get that $$\sum_{i = 1}^m{\norm{P_{\lambda_i}v}^2} = 1$$ Hence, we define $$\Pr[A = \lambda_i \mid v] := \norm{P_{\lambda_i}v}^2$$ such that $$\Pr[A \mid v] = \sum_{i = 1}^m{\Pr[A = \lambda_i \mid v]} = \sum_{i = 1}^m{\norm{P_{\lambda_i}v}^2} = \norm{v}^2 = 1$$ which also means that our probabilities will add up to 1 automatically. Finally, we can rewrite this proability as follows (we will drop the index of the eigenvalue):
 \begin{equation*}
 	\begin{alignedat}{2}
-		\Pr[A = \lambda \mid v] & = \braket{P_\lambda v | P_\lambda v}      &                                    \\
-		                        & = \braket{v | P_\lambda^\dag P_\lambda v} &                                    \\
-		                        & = \braket{v | P_\lambda^2 v}              & \quad (\mbox{by self-adjointness}) \\
-		                        & = \braket{v | P_\lambda P_\lambda v}      &                                    \\
-		                        & = \braket{v | P_\lambda v}                &                                    \\
+		\Pr[A = \lambda \mid v] & = \braket{P_\lambda v | P_\lambda v}      &                               \\
+		                        & = \braket{v | P_\lambda^\dag P_\lambda v} &                               \\
+		                        & = \braket{v | P_\lambda^2 v}              & \quad (\mbox{by Hermiticity}) \\
+		                        & = \braket{v | P_\lambda P_\lambda v}      &                               \\
+		                        & = \braket{v | P_\lambda v}                &                               \\
 	\end{alignedat}
 \end{equation*}
 
@@ -79,7 +79,7 @@ This formulation was refined in 1926 by Max Born \cite{born}, when he derived th
 \end{framedthm}
 
 \begin{proof}
-	By the \cref{spectral thm 2} it holds that the set of all the eigenvectors $\ket \lambda$ of any operator always form an orthonormal basis of the complete Hilbert space. Hence, the idea is to implicitly construct a self-adjoint operator $A$ whose eigenvalues are precisely the possible values in which $\ket \psi$ might collapse into. In other words, we want to construct a self-adjoint operator whose \nameref{spectral decomp} is exactly defined by $\{\lambda_1, \ldots, \lambda_n\}$ Hence, if $\ket \psi$ is defined as $$\ket \psi = \sum_{i = 1}^n {\alpha_n \ket{\lambda_i}}$$ we define the operator $$A_{\psi} = \sum_{i = 1}^n {\lambda_i P_{\lambda_i} }= \sum_{ i= 1}^n{\lambda _i \ket {\lambda_i} \bra{\lambda_i}}$$ Thus, the probability that by $\ket \psi$ it collapses to some $\ket \lambda \in\{\lambda_1, \ldots, \lambda_n\}$ can be rewritten as follows:
+	By the \cref{spectral thm 2} it holds that the set of all the eigenvectors $\ket \lambda$ of any operator can be expanded to always form an orthonormal basis of the complete Hilbert space. Hence, the idea is to implicitly construct a self-adjoint operator $A$ whose eigenvalues are precisely the possible values in which $\ket \psi$ might collapse into. In other words, we want to construct a self-adjoint operator whose \nameref{spectral decomp} is exactly defined by $\{\lambda_1, \ldots, \lambda_n\}$ Hence, if $\ket \psi$ is defined as $$\ket \psi = \sum_{i = 1}^n {\alpha_n \ket{\lambda_i}}$$ we define the operator $$A_{\psi} = \sum_{i = 1}^n{\lambda_i \ket{\lambda_i} \bra{\lambda_i}}$$ Thus, the probability that by $\ket \psi$ it collapses to some $\ket \lambda \in\{\lambda_1, \ldots, \lambda_n\}$ can be rewritten as follows:
 	\begin{equation*}
 		\begin{alignedat}{2}
 			\Pr[\mbox{measure}(\ket \psi = \ket \lambda)] & = \Pr[A_\psi = \lambda | \ket \psi]                &                                    \\
@@ -101,29 +101,33 @@ For instance, if we have a superposition $$\ket \psi = \alpha \ket 0 + \beta \ke
 \end{equation*}
 where the $A_\psi$ matrix is precisely: $$A_\psi = 0 \cdot P_0 + 1 \cdot P_1 = 0 \cdot \ket 0 \bra 0 + 1 \cdot \ket 1 \bra 1$$ This formulation of the probability of measurements will be used extensively for our purposes, and allows us to avoid the description of the matrix $A_\psi$ completely.
 
-Before presenting to the next postulate, another very important operator that is frequently utilized in quantum mechanics is the \tbf{expected value} of a matrix. Given an observable $A$, we define the expected value of $A$ as the average eigenvector we may obtain after a measurement $$\Exp[A | v] = \sum_{i = 1}^m{\lambda_i \Pr[A = \lambda_i \mid v]}$$ We usually denote the expected value of the operator $A$ as $\abk A$. Moreover, we have the following property.
+Before presenting to the next postulate, another very important operator that is frequently utilized in quantum mechanics is the \tbf{expected value} of a matrix. Given an observable $A$, we define the expected value of $A$ as the average eigenvector we may obtain after a measurement $$\Exp[A | v] = \sum_{i = 1}^m{\lambda_i \Pr[A = \lambda_i \mid v]}$$ We usually denote the expected value of the operator $A$ given that we are in state $\ket \psi$ as $\abk A_\psi$ (or $\abk A$ if the context is clear enough). Moreover, we have the following property.
 
 \begin{framedprop}[label={exp of an op}]{Expected value of an operator}
-	Given an Hermitian operator $A$, if the system is in state $\ket \psi$ it holds that $$\abk{A} = \braket{\psi|A \psi}$$
+	Given an Hermitian operator $A$, if the system is in state $\ket \psi$ it holds that $$\abk{A}_\psi = \braket{\psi|A \psi}$$
 \end{framedprop}
 
 \begin{proof}
 	By \cref{meas post}, it follows that
 	\begin{equation*}
-		\begin{split}
-			\abk{A} & = \Exp[A \mid \ket \psi]                                                                \\
-			        & = \sum_{i = 1}^m{\lambda_i \Pr[A = \lambda_i \mid \ket \psi]}                           \\
-			        & = \sum_{i = 1}^m{\lambda_i \braket{\psi|P_{\lambda_i} \psi}}                            \\
-			        & = \sum_{i = 1}^m{\lambda_i \bra \psi \ket {\lambda_i} \bra{\lambda_i} \ket \psi}        \\
-			        & = \rbk{\sum_{i = 1}^m{\lambda_i \bra \psi \ket {\lambda_i} \bra{\lambda_i} }} \ket \psi \\
-			        & = \rbk{\bra \psi \sum_{i = 1}^m{\lambda_i \ket {\lambda_i} \bra{\lambda_i} }} \ket \psi \\
-			        & = \bra \psi A \ket \psi                                                                 \\
-			        & = \braket{\psi| A \psi}                                                                 \\
-		\end{split}
+		\begin{alignedat}{2}
+			\abk{A}_\psi & = \Exp[A \mid \ket \psi]                                                    &                                                              \\
+			             & = \sum_{i = 1}^m \lambda_i \Pr[A = \lambda_i \mid \ket \psi]                                                                               \\
+			             & = \sum_{i = 1}^m \lambda_i \braket{\psi|P_{\lambda_i}|\psi}                 &                                                              \\
+			             & = \bra \psi \left( \sum_{i = 1}^m \lambda_i P_{\lambda_i} \right) \ket \psi &                                                              \\
+			             & = \bra \psi A \ket \psi                                                     & \quad \quad (\mbox{this is $A$'s \nameref{spectral decomp}}) \\
+			             & = \braket{\psi| A \psi}                                                     &                                                              \\
+		\end{alignedat}
 	\end{equation*}
 \end{proof}
 
-\subsection{Foruth postulate}
+Notably, \cref{trace prop} directly implies the following observation.
+
+\begin{framedcor}{}
+	Given an Hermitian operator $A$, if the system is in state $\ket \psi$ it holds that $$\abk{A}_\psi = \tr(A \ket \psi \bra \psi)$$
+\end{framedcor}
+
+\subsection{Fourth postulate}
 
 \begin{framedpost}{Composite systems postulate}
 	If system $A$ is defined over $\mathcal H_A$, and system $B$ is defined over $\mathcal H_B$, the total system lives in $$\mathcal H_{AB} = \mathcal H_A \otimes \mathcal H_B$$
@@ -137,27 +141,62 @@ Speaking of tensor products, when operators can be factored out into smaller ope
 	Given an operator $O$ that can be factored out as $O = A \otimes B$, if the current state $\ket \psi$ is not entangled it holds that $$\abk{O} = \abk{A} \cdot \abk{B}$$
 \end{framedprop}
 
+% \begin{proof}
+% 	We need to show that $$\braket{\psi|O\psi} = \braket{\psi_A| A\psi_A} \cdot \braket{\psi_B|B\psi_B}$$ where $\ket \psi = \ket{\psi_A} \otimes \ket{\psi_B}$ which we know they exist because we are assuming that $\ket \psi$ is not entangled. Let the following be the spectral decompositions of $A$ and $B$, respectively $$A = \sum_{i = 1}^m{\lambda_i^A \ket{\lambda_i^A} \bra{\lambda_i^A}} \quad \quad B = \sum_{j = 1}^m{\lambda_j^B \ket{\lambda_j^B} \bra{\lambda_j^B}}$$ Then, by computing the tensor product between $A$ and $B$ we immediately obtain the spectral decomposition of $O$: $$O = A \otimes B = \sum_{i, j \in [m]}{\lambda_i^A\lambda_j^B (\ket{\lambda_i^A} \otimes \ket{\lambda_j^B})(\bra{\lambda_i^A} \otimes \bra{\lambda_j^B})}$$ Hence, the possible values $O$ might be observed into are all the products $\lambda_i^A \lambda_j^B$ for $i, j \in [m]$. Lastly, if we define $$\forall i, j \in [m] \quad \lambda_k = \lambda_{(i - 1)m + j}$$ it suffices to consider the definition of expected value:
+%
+% 	\begin{equation*}
+% 		\begin{split}
+% 			\braket{\psi|O\psi} & = \sum_{k = 1}^{m^2}{\lambda_k \Pr[O = \lambda_k \mid \ket \psi]}                                                                                            \\
+% 			                    & = \sum_{k = 1}^{m^2}{\lambda_k \Pr[A \otimes B = \lambda_k \mid \ket {\psi_A} \otimes \ket{\psi_B}]}                                                         \\
+% 			                    & = \sum_{k = 1}^{m^2}{\lambda_k \abs{\braket{\psi_A \otimes\psi_B | \lambda_k}}^2}                                                                            \\
+% 			                    & = \sum_{i = 1}^m{\sum_{j = 1}^m{\lambda_i^A \lambda_j^B \abs{\braket{\psi_A \otimes \psi_B|\lambda_i^A \otimes \lambda_j^B}}^2}}                             \\
+% 			                    & = \sum_{i = 1}^m{\sum_{j = 1}^m{\lambda_i^A \lambda_j^B \abs{\braket{\psi_A|\lambda_i^A} \cdot \braket{\psi_B|\lambda_j^B}}^2}}                              \\
+% 			                    & = \sum_{i = 1}^m{\sum_{j = 1}^m{\lambda_i^A \lambda_j^B \abs{\braket{\psi_A|\lambda_i^A}}^2 \cdot \abs{\braket{\psi_B|\lambda_j^B}}^2}}                      \\
+% 			                    & = \rbk{\sum_{i = 1}^m{\lambda_i^A \abs{\braket{\psi_A|\lambda_i^A}}^2}} \cdot \rbk{\sum_{j = 1}^m{\lambda_j^B \abs{\braket{\psi_B|\lambda_j^B}}^2}}          \\
+% 			                    & = \rbk{\sum_{i = 1}^m{\lambda_i^A \Pr\sbk{A = \lambda_i^A| \ket{\psi_A}}}} \cdot \rbk{\sum_{j = 1}^m{\lambda_j^B  \Pr\sbk{B = \lambda_j^B | \ket {\psi_B}}}} \\
+% 			                    & = \braket{\psi_A| A \psi_A} \cdot \braket{\psi_B|B \psi_B}                                                                                                   \\
+% 		\end{split}
+% 	\end{equation*}
+% \end{proof}
+
 \begin{proof}
-	We need to show that $$\braket{\psi|O\psi} = \braket{\psi_A| A\psi_A} \cdot \braket{\psi_B|B\psi_B}$$ where $\ket \psi = \ket{\psi_A} \otimes \ket{\psi_B}$ which we know they exist because we are assuming that $\ket \psi$ is not entangled. Let the following be the spectral decompositions of $A$ and $B$, respectively $$A = \sum_{i = 1}^m{\lambda_i^A \ket{\lambda_i^A} \bra{\lambda_i^A}} \quad \quad B = \sum_{j = 1}^m{\lambda_j^B \ket{\lambda_j^B} \bra{\lambda_j^B}}$$ Then, by computing the tensor product between $A$ and $B$ we immediately obtain the spectral decomposition of $O$: $$O = A \otimes B = \sum_{i, j \in [m]}{\lambda_i^A\lambda_j^B (\ket{\lambda_i^A} \otimes \ket{\lambda_j^B})(\bra{\lambda_i^A} \otimes \bra{\lambda_j^B})}$$ Hence, the possible values $O$ might be observed into are all the products $\lambda_i^A \lambda_j^B$ for $i, j \in [m]$. Lastly, if we define $$\forall i, j \in [m] \quad \lambda_k = \lambda_{(i - 1)m + j}$$ it suffices to consider the definition of expected value:
+	We need to show that
+	\[
+		\braket{\psi|O\psi} = \braket{\psi_A| A\psi_A} \cdot \braket{\psi_B|B\psi_B}
+	\]
+	where $\ket \psi = \ket{\psi_A} \otimes \ket{\psi_B}$, which we know exists because we are assuming that $\ket \psi$ is not entangled.
+
+	Let the following be the spectral decompositions of $A$ and $B$, respectively:
+	\[
+		A = \sum_{i = 1}^m{\lambda_i^A P_{\lambda_i^A}}, \quad\quad B = \sum_{j = 1}^m{\lambda_j^B P_{\lambda_j^B}}
+	\]
+	Then, by computing the tensor product between $A$ and $B$, we immediately obtain the spectral decomposition of $O$:
+	\[
+		O = A \otimes B = \sum_{i, j \in [m]}{\lambda_i^A\lambda_j^B (P_{\lambda_i^A} \otimes P_{\lambda_j^B})}
+	\]
+	Hence, the possible values $O$ might be observed into are all the products $\lambda_i^A \lambda_j^B$ for $i, j \in [m]$. Lastly, if we define
+	\[
+		\forall i, j \in [m] \quad \lambda_k = \lambda_{(i - 1)m + j}
+	\]
+	it suffices to consider the definition of expected value:
 
 	\begin{equation*}
 		\begin{split}
-			\braket{\psi|O\psi} & = \sum_{k = 1}^{m^2}{\lambda_k \Pr[O = \lambda_k \mid \ket \psi]}                                                                                            \\
-			                    & = \sum_{k = 1}^{m^2}{\lambda_k \Pr[A \otimes B = \lambda_k \mid \ket {\psi_A} \otimes \ket{\psi_B}]}                                                         \\
-			                    & = \sum_{k = 1}^{m^2}{\lambda_k \abs{\braket{\psi_A \otimes\psi_B | \lambda_k}}^2}                                                                            \\
-			                    & = \sum_{i = 1}^m{\sum_{j = 1}^m{\lambda_i^A \lambda_j^B \abs{\braket{\psi_A \otimes \psi_B|\lambda_i^A \otimes \lambda_j^B}}^2}}                             \\
-			                    & = \sum_{i = 1}^m{\sum_{j = 1}^m{\lambda_i^A \lambda_j^B \abs{\braket{\psi_A|\lambda_i^A} \cdot \braket{\psi_B|\lambda_j^B}}^2}}                              \\
-			                    & = \sum_{i = 1}^m{\sum_{j = 1}^m{\lambda_i^A \lambda_j^B \abs{\braket{\psi_A|\lambda_i^A}}^2 \cdot \abs{\braket{\psi_B|\lambda_j^B}}^2}}                      \\
-			                    & = \rbk{\sum_{i = 1}^m{\lambda_i^A \abs{\braket{\psi_A|\lambda_i^A}}^2}} \cdot \rbk{\sum_{j = 1}^m{\lambda_j^B \abs{\braket{\psi_B|\lambda_j^B}}^2}}          \\
-			                    & = \rbk{\sum_{i = 1}^m{\lambda_i^A \Pr\sbk{A = \lambda_i^A| \ket{\psi_A}}}} \cdot \rbk{\sum_{j = 1}^m{\lambda_j^B  \Pr\sbk{B = \lambda_j^B | \ket {\psi_B}}}} \\
-			                    & = \braket{\psi_A| A \psi_A} \cdot \braket{\psi_B|B \psi_B}                                                                                                   \\
+			\braket{\psi|O\psi}
+			 & = \sum_{k = 1}^{m^2} \lambda_k \Pr[O = \lambda_k \mid \ket \psi]                                                                                                                  \\
+			 & = \sum_{i = 1}^m \sum_{j = 1}^m \lambda_i^A \lambda_j^B \Pr[A \otimes B = \lambda_i^A \lambda_j^B \mid \ket{\psi_A} \otimes \ket{\psi_B}]                                         \\
+			 & = \sum_{i = 1}^m \sum_{j = 1}^m \lambda_i^A \lambda_j^B \braket{\psi_A \otimes \psi_B | P_{\lambda_i^A} \otimes P_{\lambda_j^B} | \psi_A \otimes \psi_B}                          \\
+			 & = \sum_{i = 1}^m \sum_{j = 1}^m \lambda_i^A \lambda_j^B \left( \braket{\psi_A | P_{\lambda_i^A} | \psi_A} \cdot \braket{\psi_B | P_{\lambda_j^B} | \psi_B} \right)                \\
+			 & = \sum_{i = 1}^m \left( \lambda_i^A \braket{\psi_A | P_{\lambda_i^A} | \psi_A} \sum_{j = 1}^m \lambda_j^B \braket{\psi_B | P_{\lambda_j^B} | \psi_B} \right)                      \\
+			 & = \left( \sum_{i = 1}^m \lambda_i^A \braket{\psi_A | P_{\lambda_i^A} | \psi_A} \right) \cdot \left( \sum_{j = 1}^m \lambda_j^B \braket{\psi_B | P_{\lambda_j^B} | \psi_B} \right) \\
+			 & = \braket{\psi_A| A \psi_A} \cdot \braket{\psi_B| B \psi_B}
 		\end{split}
 	\end{equation*}
 \end{proof}
 
 This result should not come as a surprise, since for any two distributions $X$ and $Y$ we know that $$\Exp[XY] = \Exp[X] \cdot \Exp[Y]$$ only if $X$ and $Y$ are \tbf{independent}. Indeed, by assuming that $O$ and $\ket \psi$ can be factorized, we are assuming that the two underlying subsystems $\mathcal H_A$ and $\mathcal H_B$ --- in which $\ket{\psi_A}$ and $A$,  and $\ket{\psi_B}$ and $B$ live, respectively --- are \curlyquotes{independent} in the sense that they are \tit{not entangled}!
 
-\section{The density operator}
+\section{Density operators}
 
 We have formulated quantum mechanics using state vectors and the four postulates described in the previous section. However an alternate formulation is possible using a tool known as the \tbf{density operator}, or \tit{density matrix}. This formulation will be mathematically equivalent to the state vector approach. However, before proceeding we need to revise some definitions we provided in the previous section.
 
@@ -165,17 +204,18 @@ We have formulated quantum mechanics using state vectors and the four postulates
 
 The postulates we have just presented are internally consistent, however, to proceed further we require additional clarification regarding the \nameref{meas post}. In particular, in the statement of this postulate we required that measurables are self-adjoint (i.e. Hermitian) operators. To be precise, this is a special case of a more general formalization of the Measurement postulate which we need to discuss.
 
-\begin{framedpost}{General measurement postulate}
+\begin{framedpost}[label={gen meas post}]{General measurement postulate}
 	Quantum measurements are described by a collection $\{M_m\}$ of \tit{measurement operators} acting on the state space of the system being measured --- the index $m$ refers to the measurement outcomes that may occur in the experiment. If the state of the quantum system is $\ket \psi$ immediately before the measurement, then the probability that result $m$ occurs is given by $$\Pr[m \mid \ket \psi] = \bra \psi M_m^\dag M_m \ket \psi$$ and the measurement operators satisfy the \tbf{completeness equation} $$\sum_{m}{M_m^\dag M_m} = I$$
 \end{framedpost}
 
 We observe that the completeness equation expresses the fact that probabilities of the outcomes sum to one:
 \begin{equation*}
 	\begin{split}
-		\sum_{m}{\Pr[m \mid \ket \psi]} & = \sum_{m} {\bra \psi M_m^\dag M_m \ket \psi}              \\
-		                                & = \abk{\psi \middle| \sum_{m}{M_m^\dag M_m} \middle| \psi} \\
-		                                & = \braket{\psi|I\psi}                                      \\
-		                                & = \braket{\psi|\psi}                                       \\
+		\sum_{m}{\Pr[m \mid \ket \psi]} & = \sum_{m} {\bra \psi M_m^\dag M_m \ket \psi}     \\
+		% & = \abk{\psi \middle| \sum_{m}{M_m^\dag M_m} \middle| \psi} \\
+		                                & = \bra \psi \rbk{\sum_m {M_m^\dag M_m}} \ket \psi \\
+		                                & = \braket{\psi|I|\psi}                            \\
+		                                & = \braket{\psi|\psi}                              \\
 		                                & = 1
 	\end{split}
 \end{equation*}
@@ -183,21 +223,121 @@ We observe that the completeness equation expresses the fact that probabilities 
 For instance, consider a single qubit $$\ket \psi = \alpha \ket 0 + \beta \ket 1$$ and suppose we want to measure it in the computational basis. The two measurement operators we require are precisely $$M_0 := \ket 0 \bra 0 \quad \quad M_1 := \ket 1 \bra 1$$ We observe that these two operators are \tit{projectors}, so they trivially satisfy the completeness equation
 \begin{equation*}
 	\begin{alignedat}{2}
-		M_0^\dag M_0 + M_1^\dag M_1 & = M_0^2 + M_1^2                                          \\
+		M_0^\dag M_0 + M_1^\dag M_1 & = M_0^2 + M_1^2 &                                        \\
 		                            & = M_0 + M_1     & \quad \quad (\mbox{resolution of $I$}) \\
-		                            & = I                                                      \\
+		                            & = I             &                                        \\
 	\end{alignedat}
 \end{equation*}
 Then, the probability of obtaining 0 from measuring $\ket \psi$ is $$\Pr[0 \mid \ket \psi] = \braket{\psi|M_0^\dag M_0|\psi} = \braket{\psi|M_0|\psi} = \abs{\alpha}^2$$ and similarly we ge that $\Pr[1 \mid \ket \psi] = \abs{\beta}^2$, as we would expect.
 
 So, what is the connection with the initial version of the third postulate we originally provided? A special case of the General measurement postulate when the measurements are \tit{projective measurements}, i.e. measurements described by Hermitian operators. Indeed, for many applications of quantum computation and quantum information in general we are concerned primarily with projective measurements. By requiring that observables are Hermitian operators the third postulate reduces to the formulation we provided in the previous section, because any observable $M$ would have a spectral decomposition of $$M = \sum_{m}{m P_m}$$ which immediately implies that $$\Pr[m \mid \ket \psi] = \braket{\psi|P_m \psi}$$ as defined earlier.
 
-\subsection{Ensambles of quantum states}
+\subsection{Postulates through density operators}
 
-We can now introduce the \tbf{density operator} discussed at the beginning of the section. First, we describe the context. Any \curlyquotes{ket} vector $\ket v$ is called \tbf{pure state}. Consider a quantum system, and suppose that it is in one of a number of pure states $\ket{\psi_1}, \ldots, \ket{\psi_N}$. Each $\ket{\psi_i}$ is associated with a probability $p_i$ that the system is in the $i$-th state. We call $$\{p_i, \ket {\psi_i}\}_{i = 1}^N$$ an \tbf{ensable of pure states}. Then, we the following definition.
+We can now introduce the \tbf{density operator} discussed at the beginning of the section. First, we describe the context. Consider a quantum system, and suppose that it is in one of a number of states $\ket{\psi_1}, \ldots, \ket{\psi_N}$. Each $\ket{\psi_i}$ is associated with a probability $p_i$ that the system is in the $i$-th state. We call $$\{p_i, \ket {\psi_i}\}_{i = 1}^N$$ an \tbf{ensable of states}. Then, we the following definition.
 
 \begin{frameddefn}{Density operator}
-	Given a quantum system described by the ensamble $\{p_i, \ket{\psi_i}\}_{i = 1}^N$, the \tbf{density operator} of the system is defined as follows $$\rho := \sum_{i = 1}^n{p_i \ket{\psi_i} \bra{\psi_i}}$$
+	Given a quantum system described by the ensamble $\{p_i, \ket{\psi_i}\}_{i = 1}^N$, the \tbf{density operator} of the system is defined as follows $$\rho := \sum_{i = 1}^N{p_i \ket{\psi_i} \bra{\psi_i}}$$
 \end{frameddefn}
 
-TODO \todo{da continuare}
+We observe that $\rho$ is a matrix, and this is the reason why it is interchangeably called \tit{density matrix}. Nevertheless, this matrix is important because it turns out that all the postulates of quantum mechanics we presented so far can be reformulated equivalently in terms of the density operator.
+
+Suppose that we have closed quantum system described by some ensamble $\{p_i, \ket{\psi_i}\}_{i = 1}^N$ that unitarily evolves following the unitary operator $U$ described earlier $$U(t_2, t_1) = e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}$$ This means that the system is in state $\ket{\psi_i}$ with probability $p_i$, and after the evolution has occurred the system will be in the state $U \ket{\psi_i}$ still with probability $p_i$. More specifically, we have that $$\ket{\psi_i} \xlongrightarrow{U} U \ket{\psi_i}$$ which also directly implies that $$(\ket{\psi_i})^\dag = \bra{\psi_i} \xlongrightarrow{U} (U \ket{\psi_i})^\dag = \bra{\psi_i} U^\dag$$ Therefore, after the system has evolved we must \tit{update} its density operator by applying $U$ to each $\ket{\psi_i}$ --- we don't know in which state the system is in with certainty by the rules of quantum mechanics, so we take into account all of the possible \todo{this explaination sucks find a better reason tbh} $\ket{\psi_i}$ $$\rho = \sum_{i = 1}^N{p_i \ket{\psi_i} \bra{\psi_i}} \xlongrightarrow{U} \sum_{i = 1}^N{p_i U \ket{\psi_i} \bra{\psi_i} U^\dag} = U \rho U^\dag$$ Not surprisingly, this shows that by linearity we just need to apply $U$ (and $U^\dag$) to the matrix directly in order to consider all the evolutions. The function that maps $$\rho \mapsto U \rho U^\dag$$ is called \tbf{superoperator}.
+
+Measurements can be also easily described through the density operator. Consider the \nameref{gen meas post}, and suppose we perform a measurement described by measurement operators $M_m$. If the initial state was $\ket{\psi_i}$, then we have that
+\begin{equation*}
+	\begin{alignedat}{2}
+		\Pr[m|\ket{\psi_i}] & = \braket{\psi_i|M_m^\dag M_m|\psi_i}         &                                           \\
+		                    & = \tr(M_m^\dag M_m \ket{\psi_i} \bra{\psi_i}) & \quad \quad (\mbox{by \cref{trace prop}}) \\
+	\end{alignedat}
+\end{equation*}
+Then, thanks to \cref{trace tricks}, by computing the total probability we obtain that
+\begin{equation*}
+	\begin{split}
+		\Pr[m] & = \sum_{i = 1}^N{p_i\Pr[m\mid \ket{\psi_i}]}                           \\
+		       & = \sum_{i = 1}^N{p_i \tr(M_m^\dag M_m \ket{\psi_i} \bra{\psi_i})}      \\
+		       & = \sum_{i = 1}^N{\tr(p_i M_m^\dag M_m \ket{\psi_i} \bra{\psi_i})}      \\
+		       & = \tr \rbk{\sum_{i = 1}^N{p_i M_m^\dag M_m \ket{\psi_i} \bra{\psi_i}}} \\
+		       & = \tr \rbk{M_m^\dag M_m \sum_{i = 1}^N{p_i \ket{\psi_i} \bra{\psi_i}}} \\
+		       & = \tr(M_m^\dag M_m \rho)                                               \\
+	\end{split}
+\end{equation*}
+
+TODO \todo{skipping rho m, if needed put it here and add what it is needed in the general meas post}
+
+This shows that the basic postulates of quantum mechanics related to unitary evolution and measurement can be rephrased in terms of density operators. However, we can do better: we will proivde a characterization of the density operator that does not rely on the idea of state vectors \tit{at all}. But first, as usual, we need some definitions. When a quantum system is an a known exact state $\ket \psi$, the system is said to be in a \tbf{pure state}, and in this case its density matrix operator is simply $$\rho = \ket \psi \bra \psi$$ Otherwise, if the state is now known and the system is described by an ensamble of states, we say that $\rho$ is in a \tbf{mixed state}. More specifically, we can distinguish between pure and mixed states as follows.
+
+\begin{framedprop}{}
+	If a system is in a pure state it holds that $\tr(\rho^2) = 1$, otherwise if it is in a mixed state it holds that $\tr(\rho^2) < 1$.
+\end{framedprop}
+
+\begin{proof}
+	TODO \todo{da fare}
+\end{proof}
+
+We can finally present the characterization of density operators we anticipated.
+
+\begin{framedthm}{Density operators characterization}
+	Given a system described by the ensamble $\{p_i, \ket{\psi_i}\}_{i = 1}^N$, an operator $\rho$ is the density operator of the system if and only if
+
+	\begin{itemize}
+		\item $\rho$ is positive
+		\item $\tr(\rho) = 1$
+	\end{itemize}
+\end{framedthm}
+
+\begin{proof}
+	We first prove the first implication. Consider the density operator $$\rho = \sum_{i = 1}^N{p_i \ket{\psi_i} \bra{\psi_i}}$$ Fix an arbitrary $\ket v \in \mathcal H$; then, we get that:
+	\begin{equation*}
+		\begin{split}
+			\braket{v|\rho v} & = \braket{v|\rho|v}                                                 \\
+			                  & = \bra v \rbk{\sum_{i = 1}^N{p_i \ket{\psi_i} \bra{\psi_i}}} \ket v \\
+			                  & = \sum_{i = 1}^N{p_i \braket{v|\psi_i} \braket{\psi_i| v}}          \\
+			                  & = \sum_{i = 1}^N{p_i \abs{\braket{v|\psi_i}}^2}                     \\
+			                  & \ge 0
+		\end{split}
+	\end{equation*}
+	This proves that $\rho$ is positive. For the second statement, by the property of the trace proved in \cref{trace tricks} and \cref{trace prop}, we obtain that
+	\begin{equation*}
+		\begin{split}
+			\tr(\rho) & = \tr \rbk{\sum_{i = 1}^N{p_i \ket{\psi_i} \bra{\psi_i}}} \\
+			          & = \sum_{i = 1}^N{p_i \tr(\ket{\psi_i} \bra{\psi_i})}      \\
+			          & = \sum_{i = 1}^N{p_i \braket{\psi_i|I\psi_i}}             \\
+			          & = \sum_{i = 1}^N{p_i \braket{\psi_i|\psi_i}}              \\
+			          & = \sum_{i = 1}^n{p_i}                                     \\
+			          & = 1
+		\end{split}
+	\end{equation*}
+
+	Now we can proceed to prove the converse implication. Suppose that $\rho$ is any operator that satisfies the conditions of the statement. In particular, since $\rho$ is positive by \cref{positive prop} we know that $\rho$ is Hermitian, which implies that it admits a spectral decomposition TODO \todo{da finire, troppo noioso}
+\end{proof}
+
+\begin{framedprop}{Convexity of density matrices}
+	Given density matrices $\rho_1, \ldots, \rho_n$ and probabilities $p_1, \ldots, p_n$ it holds that $\sum_{i = 1}^N{p_i \rho_i}$ is a density matrix.
+\end{framedprop}
+
+\begin{proof}
+	TODO \todo{da fare}
+\end{proof}
+
+Given all we just discussed, we can finally rephrase the postulates through the density operator.
+
+\begin{framedpost}{State postulate (density operator)}
+	Associated to any isolated physical system is a Hilbert space known as the \tit{state space} of the system, and the system is completely described by its \tit{density operator}, i.e. any positive operator $\rho$ with trace one acting on the state space of the system.
+\end{framedpost}
+
+\begin{framedpost}{Time evolution postulate (density op.)}
+	The evolution of a \tit{closed} quantum system is described by a \tit{unitary transformation}, i.e. the state $\rho$ of the system at time $t_1$ is related to the state $\rho'$ of the system at time $t_2$ as follows $$\rho' = U \rho U^\dag$$ where $U(t_2, t_1) = e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}$.
+\end{framedpost}
+
+\begin{framedpost}{General measurement postulate (dens. op.)}
+	Quantum measurements are described by a collection $\{M_m\}$ of \tit{measurement operators} acting on the state space of the system being measured --- the index $m$ refers to the measurement outcomes that may occur in the experiment. If the state of the quantum system is $\rho$ immediately before the measurement, then the probability that result $m$ occurs is given by $$\Pr[m \mid \ket \psi] = \tr(M_m^\dag M_m \rho)$$ and the measurement operators satisfy the \tbf{completeness equation} $$\sum_{m}{M_m^\dag M_m} = I$$
+\end{framedpost}
+
+TODO \todo{ex: do the projection one}
+
+\begin{framedpost}{Composite system postulate (dens. op.)}
+	The sate space of a composite physical system is the tensor product of the state spaces of the component physical systems. That is, given $n$ systems such that the $i$-th system is in state $\rho_i$, the joint state of the total system is $$\rho = \bigotimes_{i = 1}^n{\rho_i}$$
+\end{framedpost}
+
+As a final note, observe that knowing the density matrix of a system tells us \tit{nothing} about the ensamble of states of the systems, because different ensambles can generate the same density matrix. For instance, the matrix $$\rho = \dfrac{1}{2} \rmat{1 & 0 \\ 0 & 1}$$ which can be generated as follows $$\rho = \dfrac{1}{2} \ket 0 \bra 0 + \dfrac{1}{2} \ket 1 \bra 1$$ This \tit{might} suggest that the ensamble of states of our system is $$\cbk{\rbk{\dfrac{1}{2}, \ket 0 \bra 0}, \rbk{\dfrac{1}{2}, \ket 1 \bra 1}}$$ but it would be a mistake to make this conclusion because $\rho$ can be also written for examòle as follows $$\rho = \dfrac{1}{4} \rmat{1 & 1 \\ 1 & 1} + \dfrac{1}{4} \rmat{1 & -1 \\ -1 & 1}$$ which describes a completely different ensamble!

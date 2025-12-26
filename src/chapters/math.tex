@@ -159,6 +159,18 @@ This property is incredibly useful, because it implies that the adjoint operator
 	TODO \todo{TODO}
 \end{proof}
 
+\begin{frameddefn}{Positive operator}
+	An operator $A$ defined over a scalar product vector space $\mathcal H$ is said to be \tbf{positive} if it holds that $$\forall v \in \mathcal H \quad \braket{v|Av} \ge 0$$
+\end{frameddefn}
+
+\begin{framedprop}[label={positive prop}]{}
+	If an operator $A$ is positive, then it is Hermitian.
+\end{framedprop}
+
+\begin{proof}
+	TODO \todo{pag 8}
+\end{proof}
+
 At the beginning of the previous chapter we said that all quantum gates are \tit{unitary transformations}, but we did now provide a definition of unitary. Now we are ready to introduce it, and start to grasp why we are discussing Hilbert spaces.
 
 \begin{frameddefn}{Unitary operators}
@@ -215,6 +227,48 @@ Lastly, say that we know that how an operator $U$ acts on some input $\ket x$, a
 
 Therefore, if we know how $U$ acts component-wise, we can reconstruct the operator acting on the whole space as such.
 
+To conclude this section, we introduce a definition that will be very useful in the next chapter.
+
+\begin{frameddefn}{Trace}
+	Given a matrix $A \in \C^{n \times n}$, its \tbf{trace} is defined as follows: $$\tr(A) := \sum_{i = 1}^n{a_{ii}}$$
+\end{frameddefn}
+
+In other words, the trace of a matrix is the sum of the elements on its diagonal.
+
+\begin{framedprop}[label={trace tricks}]{}
+	Given two matrices $A, B \in \C^{n \times n}$, it holds that
+
+	\begin{enumerate}
+		\item $\tr(AB) = \tr(BA)$, meaning that the trace is \tit{cyclic}
+		\item $\tr(A + B) = \tr(A) + \tr(B)$, meaning that the trace is \tit{linear}
+		\item $\forall z \in \C \quad \tr(zA) = z \tr(A)$
+		\item $\tr(A) = \tr(UAU^\dag)$ if $U$ is unitary, meaning that the trace is \tit{invariant under unitary similarity transformation}
+	\end{enumerate}
+\end{framedprop}
+
+In particular, we observe that the last property follow trivially from the cyclic property: $$\tr(UAU^\dag) = \tr(UU^\dag A) = \tr(I A) = \tr(A)$$ But perhaps most importantly, the following property holds.
+
+\begin{framedprop}[label={trace prop}]{}
+	Given a matrix $A \in \C^{n \times n}$, and a vector $\ket v$, it holds that $$\tr(A \ket v \bra v) = \braket{v|Av}$$
+\end{framedprop}
+
+\begin{proof}
+	First, we observe that the definition of the trace can be rewritten in terms of the Dirac notation $$\tr(X) = \sum_{i = 1}^n{x_{ii}} = \sum_{i = 1}^n{\braket{e_i|X|e_i}}$$ From this equality, we conclude that
+	\begin{equation*}
+		\begin{split}
+			\tr(A \ket v \bra v) & = \sum_{i = 1}^n{\braket{e_i|A|v} \braket{v|e_i}}             \\
+			                     & = \sum_{i = 1}^n{\braket{\psi|e_i} \braket{e_i|A|v}}          \\
+			                     & = \bra{v} \rbk{\sum_{i = 1}^n{\ket {e_i} \bra{e_i}}} A \ket v \\
+			                     & = \braket{v|A|v}                                              \\
+			                     & = \braket{v|Av}
+		\end{split}
+	\end{equation*}
+\end{proof}
+
+We will discuss the importance of this equality in later sections.
+
+TODO \todo{show that the trace is indep of the chosen basis}
+
 \section{Spectral theory}
 
 Since unitary operators are linear maps, we are interested in their eigenvectors and eigenvalues --- which are defined as usual. First, let us recall some preliminary definitions.
@@ -252,10 +306,12 @@ The following theorem provides a characterization of the eigenvalues and eigenve
 Moreover, for finite-dimensional Hilbert spaces the following holds.
 
 \begin{framedthm}[label={spectral thm 2}]{Spectral theorem for fin. Hilbert spaces}
-	Given a finite-dimensional Hilbert space $\mathcal H$, and a normal operator $A$ defined over $\mathcal H$, the set of all eigenvectors of $A$ is an orthonormal basis for $\mathcal H$.
+	Given a finite-dimensional Hilbert space $\mathcal H$, and a normal operator $A$ defined over $\mathcal H$, the set of all eigenvectors of $A$ can be expanded to form an orthonormal basis for $\mathcal H$.
 \end{framedthm}
 
-We can rewrite this thorem as follows: if we denote with $u_{ij}$ the $j$-th eigenvector associated to the $i$-th eigenvalue of $A$, it holds that $$\forall v \in \mathcal H \quad v = \sum_{i = 1}^m{\sum_{j = 1}^{d_i}{\alpha_{ij} u_{ij}}}$$ where $d_i$ is the geometric multiplicity of the $i$-th eigenvalue of $A$. Indeed, we observe that $\dim \mathcal H = \sum_{i = 1}^m{d_i}$. Lastly, through the Dirac notation we can rewrite the formula as follows $$\forall v \in \mathcal H \quad \ket v = \sum_{i = 1}^m{\sum_{j = 1}^{d_i}{\braket{\lambda_{ij}|v} \ket{\lambda_{ij}}}}$$
+In particular, to basis expansion can be achieve through the \tbf{Gram-Shmidt} in the each degenerate eigenspace of $A$ in order to produce an orthonormal set.
+
+% We can rewrite this thorem as follows: if we denote with $u_{ij}$ the $j$-th eigenvector associated to the $i$-th eigenvalue of $A$, it holds that $$\forall v \in \mathcal H \quad v = \sum_{i = 1}^m{\sum_{j = 1}^{d_i}{\alpha_{ij} u_{ij}}}$$ where $d_i$ is the geometric multiplicity of the $i$-th eigenvalue of $A$. Indeed, we observe that $\dim \mathcal H = \sum_{i = 1}^m{d_i}$. Lastly, through the Dirac notation we can rewrite the formula as follows $$\forall v \in \mathcal H \quad \ket v = \sum_{i = 1}^m{\sum_{j = 1}^{d_i}{\braket{\lambda_{ij}|v} \ket{\lambda_{ij}}}}$$
 
 \section{Projectors}
 
@@ -340,6 +396,8 @@ The following is the last property of projectors that we will present, and it wi
 \begin{framedthm}[label={spectral decomp}]{Spectral decomposition}
 	Given a Hilbert space $\mathcal H$, and a normal operator $A$ defined on $\mathcal H$ whose eigenvalues are $\lambda_1, \ldots, \lambda_n$, the matrix $A$ can be rewritten as follows: $$A = \sum_{i = 1}^n{\lambda_i P_{\lambda_i}}$$
 \end{framedthm}
+
+Note that when $\lambda_i$ is non-degenerate it holds that $$P_{\lambda_i} = \ket{\lambda_i} \bra{\lambda_i}$$
 
 \section{Tensor product}
 

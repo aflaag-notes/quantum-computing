@@ -16,7 +16,7 @@ In this chapter we will cover \todo{vedi de che parla prima de parla a vuoto}
 
 is a \tbf{Quantum Key Distribution (QKD)} protocol. In particular, we are interested in finding secure protocols that able to allow two parties to share a \tit{private key} quantum-safely.
 
-\subsection{Background}
+\section{Background}
 
 \subsection{The No-cloning theorem} \label{no-cloning}
 
@@ -219,7 +219,7 @@ To be precise, there are more subtle attacks that do employ \tit{quantum entagnl
 
 Lastly, we observe that BB84 requires Alice to wait before hearing back from Bob that he \tit{actually measured} $\ket \psi$. This is to prevent that Alice sends $b$ too early, so that Eve could use the latter to decode $\ket \psi$ into the original string $a$ without any issue. Therefore, we require Alice to wait for Bob's measurement so that there is no way for Eve to recover $a$ after looking at $b$ becasuse the original superposition is definitively destroyed --- unless she can go back in time!
 
-\section{The E91 protocol}
+\section{Bell's inequalities}
 
 Imagine we perform the following experiment: there are two parties involved, namely Alice and Bob, and a third party Charlie which prepares two particles. It does not matter how he prepares the particles, the only thing that matters is that he is capable of repeating the experimental procedure which he uses. Once he has completed the preparation procedure, he sends one particle to Alice, and one to Bob.
 
@@ -230,7 +230,7 @@ After Alice receives her particle, she performs a measurement on it. In particul
 \end{framedprop}
 
 \begin{proof}
-	Let $q$ and $r$ be two outcomes of the random variables $Q$ and $R$, respectively. Since $q, r, \in \{+1, - 1\}$, either $q = r$ or $q = -r$, therefore either $q - r = 0$ or $q + r = 0$. For simplicity, let $$p(q, r, s, t) := \Pr[Q = q, R = r, S = s, T = t]$$ Then, we have that
+	Let $q$ and $r$ be two outcomes of the random variables $Q$ and $R$, respectively. Since $q, r, \in \{+1, - 1\}$, either $q = r$ or $q = -r$, therefore either $q - r = 0$ or $q + r = 0$. Define $$p(q, r, s, t) := \Pr[Q = q, R = r, S = s, T = t]$$ Then, we have that
 	\begin{equation*}
 		\begin{split}
 			\Exp[QS] + \Exp[RS] + \Exp[RT] - \Exp[QT] & = \Exp[QS + RS + RT - QT]                                                         \\
