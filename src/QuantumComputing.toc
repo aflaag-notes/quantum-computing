@@ -61,4 +61,6 @@
 \contentsline {section}{\numberline {9.2}Linear codes}{130}{section.9.2}%
 \contentsline {subsection}{\numberline {9.2.1}The Hamming code}{135}{subsection.9.2.1}%
 \contentsline {subsection}{\numberline {9.2.2}The Steane code}{137}{subsection.9.2.2}%
-\contentsline {chapter}{\numberline {10}Universal gates}{139}{chapter.10}%
+\contentsline {chapter}{\numberline {10}Quantum circuits}{139}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Pauli gates}{140}{section.10.1}%
+\contentsline {section}{\numberline {10.2}Controlled operators}{141}{section.10.2}%

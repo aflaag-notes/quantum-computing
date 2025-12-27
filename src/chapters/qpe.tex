@@ -163,7 +163,7 @@ If we look closely, this sum of products as an interesting property:
 
 implying that it can be rewritten as follows $$\dfrac{1}{\sqrt N}\sum_{k = 0}^{N - 1}{\rbk{e^{2 \pi i k_n \cdot 0.x_1 \ldots x_n} \cdot \ldots \cdot e^{2 \pi i k_1 \cdot 0.x_n}}}$$ In other words the bits of $k$ are \tit{indexing} which exponentials to use in the $k$-th coefficient of the sum. This means that we can rewrite the last step as follows: $$\mbox{QFT} \ket x =  \dfrac{1}{\sqrt N} \bigotimes_{m = 1}^n{\rbk{\ket 0 + e^{2\pi i 0.x_m \ldots x_n} \ket 1}}$$ Finally, the QFT written in this form can be actually implemented in a quantum circuit. \todo{da finire sonostufo}
 
-\section{Quantum Phase Estimation}
+\section{Quantum Phase Estimation} \label{qpe section}
 
 Let's see a very useful application of the QFT introduced by \textcite{qpe} in 1995. By \cref{spectral thm} we know that the eigenvalues of a unitary operator are complex values of modulus 1. This means that any eigenvalue of a unitary operator can be ewritten as $e^{2 \pi i \varphi}$ for some real value $\varphi \in [0, 1]$ --- $\varphi$ being the \tit{phase} of the complex value, i.e. the angle w.r.t. the unitary circumference.
 

@@ -1,17 +1,26 @@
-\chapter{Universal gates}
+\chapter{Quantum circuits}
 
-TODO \todo{intro idk}
+So far, we have treated quantum gates primarily as \curlyquotes{abstract} unitary operators acting on quantum states. While this perspective is sufficient to define quantum algorithms and reason about their correctness, it leaves an important question unanswered: how are these gates \tit{actually} constructed? In other words, given a desired unitary transformation, how can it be realized using a finite set of elementary operations that a quantum computer can physically implement? The central result of this chapter shows that any controlled single-qubit unitary can be constructed using only a restricted set of \tit{single-qubit gates}, and a small number of CNOT gate.
 
-
-
-
-Together with the Pauli matrices and the Hadamard gate, we shall introduce 2 additional quantum gates that will play a large part in this chapter, namely the \tbf{S gate} and the \tbf{T gate}: $$S := \rmat{1 & 0 \\ 0 & i} \quad \quad T := \rmat{1 & 0 \\ 0 & \exp(i \pi/4)}$$ The T gate is sometimes called the \curlyquotes{$\pi/8$ gate} for historical reasons, even if $\pi/4$ is the fraction that appears in its definition.
+Together with the Pauli matrices and the Hadamard gate, we shall introduce 2 additional quantum gates that will play a large part in this chapter, namely the \tbf{S gate} and the \tbf{T gate}: $$S := \rmat{1 & 0 \\ 0 & i} \quad \quad T := \rmat{1 & 0 \\ 0 & \exp(i \pi/4)}$$ The $S$ gate is usually called \tbf{phase gate}, while the $T$ gate is sometimes called the \tbf{$\pi/8$ gate} for historical reasons (even if $\pi/4$ is the fraction that appears in its definition).
 
 \begin{framedprop}{}
 	It holds that $S = T^2$.
 \end{framedprop}
 
-Additionally, another type of matrices we need to present are the \tbf{rotation operators} about the $x$, $y$ and $z$ axes.
+In this chapter, we will see \tit{any} arbitrary quantum computation can be reduced to a combination of
+
+\begin{itemize}
+	\item the Pauli gates $X$, $Y$ and $Z$
+	\item the Hadamard $H$, $S$ and $T$ gates
+	\item the CNOT gate
+\end{itemize}
+
+The importance of this result stems from the fact that these gates can be physically realized, and can therefore be treated as the \tit{building blocks} of any other unitary transformation. We will discuss we this set of gates is both \tit{necessary} and \tit{sufficient} to achieve \tbf{universality}.
+
+\section{Pauli gates}
+
+In the first section of this chapter we will discuss the necessity of Pauli matrices. But first, we need to present a new type of matrices, the \tbf{rotation operators} which apply rotations on the $x$, $y$ and $z$ axes.
 
 \begin{frameddefn}{Rotation operators}
 	The \tbf{rotation operators} $R_i(\theta)$ that apply a rotation of an angle $\theta$ on the $i$-th axis (for $i \in \{x, y, z\}$) are defined as follows:
@@ -28,6 +37,10 @@ Additionally, another type of matrices we need to present are the \tbf{rotation 
 	For any real nubmer $k \in \R$ and matrix $A$ such that $A^2 = I$, it holds that $$e^{i Ak} = \cos(k) I + i \sin(k) A$$
 \end{framedlem}
 
+\begin{proof}
+	TODO \todo{TODO?}
+\end{proof}
+
 \begin{framedcor}{}
 	The rotation operators can be rewritten through the Pauli gates as follows:
 	\begin{equation*}
@@ -39,17 +52,23 @@ Additionally, another type of matrices we need to present are the \tbf{rotation 
 	\end{equation*}
 \end{framedcor}
 
-The corollary above impies that any type of rotation can be expressed in terms of only \tbf{linear combinations of Pauli matrices}. This result, together with the next theorem, allows us to express \tit{any} arbitrary single qubit operation in terms of Pauli matrices only.
+Most importantly, the corollary above already implies that any type of rotation can be expressed in terms of only \tbf{linear combinations of Pauli matrices}. This result, together with the next theorem, allows us to express \tit{any} arbitrary single qubit operation in terms of Pauli matrices only.
 
-\begin{framedthm}{$Z$-$Y$ single qubit decomposition}
+\begin{framedthm}[label={zy}]{$Z$-$Y$ single qubit decomposition}
 	If $U$ is a unitary operation on a single qubit, there exist $\alpha, \beta, \gamma, \delta \in \R$ such that $$U = e^{i \alpha} R_z(\beta) R_y(\gamma)R_z(\delta)$$
 \end{framedthm}
 
 \begin{proof}[Proof sketch.]
-	Since $U$ is unitary, by \cref{rows cols unit} we know that its rows and columns must be orthonormal. The latter property implies the existence of real numbers $$\alpha, \beta, \gamma, \delta \in \R$$ such that$$U= \rmat{e^{i (\alpha - \beta /2 - \delta/2)} \cos \tfrac{\gamma}{2} & - e^{i (\alpha - \beta/2 + \delta/2)} \sin \tfrac{\gamma}{2} \\ e^{i (\alpha + \beta / 2 - \delta / 2)} \sin \tfrac{\gamma}{2} & e^{i (\alpha + \beta / 2 + \delta/2)} \cos \tfrac{\gamma}{2}}$$ Lastly, this formulation can be rewritten as the statement describes.
+	Since $U$ is unitary, by \cref{rows cols unit} we know that its rows and columns must be orthonormal. This property implies the existence of real numbers $\alpha, \beta, \gamma, \delta \in \R$ such that \todo{HOW????} $$U= \rmat{e^{i (\alpha - \beta /2 - \delta/2)} \cos \tfrac{\gamma}{2} & - e^{i (\alpha - \beta/2 + \delta/2)} \sin \tfrac{\gamma}{2} \\ e^{i (\alpha + \beta / 2 - \delta / 2)} \sin \tfrac{\gamma}{2} & e^{i (\alpha + \beta / 2 + \delta/2)} \cos \tfrac{\gamma}{2}}$$ Lastly, this formulation can be rewritten as the statement describes.
 \end{proof}
 
-The utility of this theorem lies in the following corollary, the importance of which will be outlined in the next sections.
+This theorem already shows how much we can achieve through Pauli matrices alone. However, as we already encountered multiple times throughout our discussion, we know that this is not general enough. Indeed, what we are still missing is \tbf{controlled operations}. For instance, consider the controlled NOT, the CNOT operator; even if the CNOT is a \tit{unitary transformation}, it acts on 2 qubits, which means that we cannot apply the theorem above. We observe that this problem already hints at reason why we included the CNOT in the discussion at the beginning of this chapter. We will see how to solve this problem in the next section.
+
+\section{Controlled operators}
+
+In \cref{qpe section} we showed how any operator $U$ can be turned into a controlled operator for a single qubit as follows: $$\mbox{C-}U = \ket 0 \bra 0 \otimes I + \ket 1 \bra 1 \otimes U$$ However, we cannot turn this controlled operator directly into a quantum gate. This formulation tells us how C-$U$ \tit{looks like} in a matrix form, but what does the actual gate look like?
+
+Before we progress, we must first prove a corollary of \nameref{zy}.
 
 \begin{framedcor}{}
 	If $U$ is a unitary operation on a single qubit, there exist unitary operators $A$, $B$ and $C$ on a single qubit such that $ABC = I$ and $$U = e^{i \alpha} AXBXC$$ where $\alpha$ is some overall phase factor.
@@ -100,3 +119,7 @@ The utility of this theorem lies in the following corollary, the importance of w
 	\end{equation*}
 	which concludes the proof.
 \end{proof}
+
+Now, given any unitary transformation $U$, our next goal is to understand how to implement C-$U$ using only single qubit operations and the CNOT gate, leveraging the seemingly unrelated result above.
+
+Another reason why we need the CNOT gate is that \todo{talk about epr and decide where to put this paragraph idk :|}
