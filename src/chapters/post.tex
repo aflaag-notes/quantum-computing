@@ -133,7 +133,7 @@ Notably, \cref{trace prop} directly implies the following observation.
 	If system $A$ is defined over $\mathcal H_A$, and system $B$ is defined over $\mathcal H_B$, the total system lives in $$\mathcal H_{AB} = \mathcal H_A \otimes \mathcal H_B$$
 \end{framedpost}
 
-In other words, the last postulate states that the Hilbert space of a composite system is the tensor product of the Hilbert spaces of its subsystems.
+In other words, the last postulate states that the Hilbert space of a composite system is the tensor product of the Hilbert spaces of its subsystems. This postulate immediately tells us something important about \tbf{entangled} quantum systems: if a system $C$ defined over a Hilbert space $\mathcal H_C$ represents a quantum state, there is no pair of systems $A$ and $B$ defined over $\mathcal H_A$ and $\mathcal H_B$ such that $\mathcal H_C = \mathcal H_A \otimes \mathcal H_B$.
 
 Speaking of tensor products, when operators can be factored out into smaller operators of smaller systems we obtain linearity of expectations w.r.t. the tensor product.
 
@@ -196,7 +196,7 @@ Speaking of tensor products, when operators can be factored out into smaller ope
 
 This result should not come as a surprise, since for any two distributions $X$ and $Y$ we know that $$\Exp[XY] = \Exp[X] \cdot \Exp[Y]$$ only if $X$ and $Y$ are \tbf{independent}. Indeed, by assuming that $O$ and $\ket \psi$ can be factorized, we are assuming that the two underlying subsystems $\mathcal H_A$ and $\mathcal H_B$ --- in which $\ket{\psi_A}$ and $A$,  and $\ket{\psi_B}$ and $B$ live, respectively --- are \curlyquotes{independent} in the sense that they are \tit{not entangled}!
 
-\section{Density operators}
+\section{The density operator}
 
 We have formulated quantum mechanics using state vectors and the four postulates described in the previous section. However an alternate formulation is possible using a tool known as the \tbf{density operator}, or \tit{density matrix}. This formulation will be mathematically equivalent to the state vector approach. However, before proceeding we need to revise some definitions we provided in the previous section.
 
@@ -267,7 +267,7 @@ TODO \todo{skipping rho m, if needed put it here and add what it is needed in th
 
 This shows that the basic postulates of quantum mechanics related to unitary evolution and measurement can be rephrased in terms of density operators. However, we can do better: we will proivde a characterization of the density operator that does not rely on the idea of state vectors \tit{at all}. But first, as usual, we need some definitions. When a quantum system is an a known exact state $\ket \psi$, the system is said to be in a \tbf{pure state}, and in this case its density matrix operator is simply $$\rho = \ket \psi \bra \psi$$ Otherwise, if the state is now known and the system is described by an ensamble of states, we say that $\rho$ is in a \tbf{mixed state}. More specifically, we can distinguish between pure and mixed states as follows.
 
-\begin{framedprop}{}
+\begin{framedprop}[label={mixed prop}]{}
 	If a system is in a pure state it holds that $\tr(\rho^2) = 1$, otherwise if it is in a mixed state it holds that $\tr(\rho^2) < 1$.
 \end{framedprop}
 
@@ -277,7 +277,7 @@ This shows that the basic postulates of quantum mechanics related to unitary evo
 
 We can finally present the characterization of density operators we anticipated.
 
-\begin{framedthm}{Density operators characterization}
+\begin{framedthm}[label={density op thm}]{Density operators characterization}
 	Given a system described by the ensamble $\{p_i, \ket{\psi_i}\}_{i = 1}^N$, an operator $\rho$ is the density operator of the system if and only if
 
 	\begin{itemize}
@@ -341,3 +341,52 @@ TODO \todo{ex: do the projection one}
 \end{framedpost}
 
 As a final note, observe that knowing the density matrix of a system tells us \tit{nothing} about the ensamble of states of the systems, because different ensambles can generate the same density matrix. For instance, the matrix $$\rho = \dfrac{1}{2} \rmat{1 & 0 \\ 0 & 1}$$ which can be generated as follows $$\rho = \dfrac{1}{2} \ket 0 \bra 0 + \dfrac{1}{2} \ket 1 \bra 1$$ This \tit{might} suggest that the ensamble of states of our system is $$\cbk{\rbk{\dfrac{1}{2}, \ket 0 \bra 0}, \rbk{\dfrac{1}{2}, \ket 1 \bra 1}}$$ but it would be a mistake to make this conclusion because $\rho$ can be also written for examòle as follows $$\rho = \dfrac{1}{4} \rmat{1 & 1 \\ 1 & 1} + \dfrac{1}{4} \rmat{1 & -1 \\ -1 & 1}$$ which describes a completely different ensamble!
+
+\subsection{Entangled systems}
+
+So far we only dealt with one single system, and its associated density operator, but perhaps the deepst application of the latter is as a descriptive tool for \tit{composite} quantum systems. Suppose we have two physical systems $A$ and $B$, whose composite state is described by a density operator $\rho^{AB}$. What can we say about $\rho^A$ and $\rho^B$?
+
+\begin{frameddefn}{Partial trace}
+	Given two quantum systems $A$ and $B$ defined over Hilbert spaces $\mathcal H_A$ and $\mathcal H_B$ respectively, we define the \tbf{partial trace} of $B$ as follows: $$\tr_B(\ket {a_1} \bra{a_2} \otimes \ket{b_1} \bra{b_2}) := \ket{a_1} \bra{a_2} \tr(\ket{b_1} \bra{b_2})$$
+	for any $\ket{a_1}, \ket{a_2} \in \mathcal H_A$ and $\ket{b_1}, \ket{b_2} \in \mathcal H_B$.
+\end{frameddefn}
+
+The partial trace of $A$ is defined analogously. We observe that, by \cref{trace prop} if follows that $$\tr(\ket{b_1} \bra{b_2}) = \braket{b_2|b_1}$$ which means that $$\tr_B(\ket {a_1} \bra{a_2} \otimes \ket{b_1} \bra{b_2}) := \ket{a_1} \bra{a_2} \braket{b_2|b_1}$$ From this operator --- which can be proved to be \tbf{linear} --- we define the \tbf{reduced density operator}.
+
+\begin{frameddefn}{Reduced density operator}
+	Given two quantum systems $A$ and $B$ whose composite system is described by $\rho^{AB}$, we define the \tbf{reduced density operator} of $A$ as follows $$\rho^A := \tr_B(\rho^{AB})$$
+\end{frameddefn}
+
+The reduced density operator of $B$ is defined analogously.
+
+Firstly, it is not obvious that $\rho^A$ is in any sense a description for the state of system $A$, so we shall discuss the definition. For instance, suppose that the composite quantum system of $A$ and $B$ is described by $\rho^{AB}$ that can itself be written as follows: $$\rho^{AB} = \tau \otimes \sigma$$ where $\tau$ is a density operator for $A$, and $\sigma$ is a density operator for $B$. The connection with the reduced density operator is evident by computing $\rho^A$:
+\begin{equation*}
+	\begin{alignedat}{2}
+		\rho^A & = \tr_B(\rho)                &                                                 \\
+		       & = \tr_B(\tau \otimes \sigma) &                                                 \\
+		       & = \tau \tr(\sigma)           &                                                 \\
+		       & = \tau                       & \quad \quad (\mbox{by \cref{density op thm}}) & \\
+	\end{alignedat}
+\end{equation*}
+Similarly, we get that $\rho^B = \sigma$.
+
+A more interesing example, however, is an \tbf{entangled system}. For instance, let's consider the bell state $$\ket{\Phi^+} := \dfrac{\ket{00} + \ket{11}}{\sqrt 2}$$ We can compute the density operator of this system by following the definition
+\begin{equation*}
+	\begin{split}
+		\rho & = \ket{\Phi^+} \bra{\Phi^+}                                                                \\
+		     & = \rbk{\dfrac{\ket{00} + \bra{11}}{\sqrt 2}} \rbk{\dfrac{\ket{00} + \bra{11}}{\sqrt 2}}    \\
+		     & = \dfrac{\ket{00} \bra{00} + \ket{11} \bra{00} + \ket{00} \bra{11} + \ket{11} \bra{00}}{2} \\
+	\end{split}
+\end{equation*}
+As we already know, since this system is entangled there is no pair of subsystems $A$ and $B$ that can produce it as a composite tensor product. Nevertherless, let's see what happens when we try to compute $\rho^A$
+\begin{equation*}
+	\begin{split}
+		\rho^A & = \tr_B(\rho)                                                                                                                  \\
+		       & = \tr_B \rbk{\dfrac{\ket{00} \bra{00} + \ket{11} \bra{00} + \ket{00} \bra{11} + \ket{11} \bra{00}}{2}}                         \\
+		       & = \dfrac{\tr_B(\ket{00} \bra{00}) + \tr_B(\ket{11} \bra{00}) + \tr_B(\ket{00} \bra{11} )+ \tr_B( \ket{11} \bra{00})}{2}        \\
+		       & = \dfrac{\ket 0 \bra 0 \braket{0|0} + \ket 1 \bra 0 \braket{0|1} + \ket 0 \bra 1 \braket{1|0} + \ket 1 \bra 1 \braket{1|1}}{2} \\
+		       & = \dfrac{\ket0 \bra 0 + \ket 1 \bra 1}{2}                                                                                      \\
+		       & = \dfrac{I}{2}                                                                                                                 \\
+	\end{split}
+\end{equation*}
+Now, we observe that $$\tr \rbk{\rbk{\dfrac{I}{2}}^2} = \dfrac{1}{2} < 1$$ and by \cref{mixed prop} this immediately implies that the system is in a \tbf{mixed state}! Observe what just happened: the entangled system is in a \tit{pure state}, because $$\rho = \ket{\Phi^+} \bra{\Phi^+}$$ however, $\rho^A$ (and $\rho^B$ analogously) is mixed! This means that the state of the joint system is known \tit{exactly}, however the state of the first qubit is not maximally known. This strange property is another hallmark of quantum entanglement.
