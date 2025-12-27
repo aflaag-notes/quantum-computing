@@ -869,6 +869,9 @@ INPUT ./svg-inkscape/faraday_svg-tex.pdf
 INPUT ./chapters/qec.tex
 INPUT ./chapters/qec.tex
 INPUT ./chapters/qec.tex
+INPUT ./chapters/univ.tex
+INPUT ./chapters/univ.tex
+INPUT ./chapters/univ.tex
 INPUT QuantumComputing.aux
 INPUT ./QuantumComputing.out
 INPUT ./QuantumComputing.out

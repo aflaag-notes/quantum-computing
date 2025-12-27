@@ -145,8 +145,8 @@ For instance, the following matrix $S = \rmat{1 & 0 \\ 0 & i}$ is a linear opera
 
 How do we evaluate the adjoint of a given operator?
 
-\begin{framedprop}{}
-	Given an operator $A$ defined over a scalar product vector space, it holds that $$A_{ij}^\dag = \overline{A_{ji}}$$
+\begin{framedprop}[label={conj transp}]{}
+	Given an operator $A$ defined over a scalar product vector space, it holds that $$a_{ij}^\dag = \overline{a_{ji}}$$
 \end{framedprop}
 
 This property is incredibly useful, because it implies that the adjoint operator of $A$ is its transposed conjugate matrix. Most notably, due to the way we defined our scalar product, it holds that for any column vector $\ket x$ we have that $$\bra x = \ket x^\dag$$ which gives an intuition of the reason why we defined our scalar product as such.
@@ -192,7 +192,33 @@ In other words, $U$ is unitary if and only if its adjoint operator is also its i
 	TODO \todo{TODO}
 \end{proof}
 
-In particular, we observe that the second property of this proposition is very interesting: the \tit{preservation of scalar product}, i.e. the property for which $$\forall x, y \in \mathcal H \quad \braket{Ux|Uy} = \braket{x|y}$$ means that the operator $U$ does not change the geometric relationships between vectors --- i.e. their lengths and angles remain the same.
+In particular, we observe that the second property of this proposition is very interesting: the \tit{preservation of the scalar product}, i.e. the property for which $$\forall x, y \in \mathcal H \quad \braket{Ux|Uy} = \braket{x|y}$$ means that the operator $U$ does not change the geometric relationships between vectors --- i.e. their lengths and angles remain the same.
+
+\begin{framedprop}[label={rows cols unit}]{}
+	If $U$ is a unitary operator, then the rows and the columns of $U$ are orthonormal.
+\end{framedprop}
+
+\begin{proof}
+	First, we prove that the rows and columns of $U$ are normalized.
+
+	\claim[Claim 1]{
+		The norm of the rows and the columns of $U$ is 1.
+	}{
+		By the previous proposition, we know that $$\forall x \in \mathcal H \quad \norm{Ux} = \norm x$$ and in particular, this must hold for the canonical basis as well. This means that $$\norm{Ue_i} = \norm{e_i} = 1$$ for any vector of the canonical basis $e_i$. Then, since $Ue_i$ is just the $i$-th column of $U$, this proves that each column of $U$ has norm1.
+
+		To prove the same result for the rows, observe that by \cref{conj transp} it holds that $$U^\dag = \overline U ^T$$ and \todo{da finire boh come??}
+	}
+
+	Next, we show orthogonality of rows and columns.
+
+	\claim[Claim 2]{
+		The rows and columns of $U$ are orthogonal.
+	}{
+		By the preservation of the scalar product, we know that $$\forall x, y \in \mathcal H \quad \braket{Ux|Uy} = \braket{x|y}$$ and in particular, this must also hold for the canonical basis. This means that for any pair of vectors of the canonical basis we have that $$\forall i, j \quad \braket{Ue_i|Ue_j} = \braket{e_i|e_j} = \delta{ij}$$ which means that the rows and columnds of $U$ must be orthogonal. \todo{does it?}
+	}
+
+	The two claims together conclude the proof.
+\end{proof}
 
 \begin{framedprop}[label={unitary prod}]{}
 	If $A$ and $B$ are two unitary operators, then $AB$ is a unitary operator.

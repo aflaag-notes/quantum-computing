@@ -1,0 +1,102 @@
+\chapter{Universal gates}
+
+TODO \todo{intro idk}
+
+
+
+
+Together with the Pauli matrices and the Hadamard gate, we shall introduce 2 additional quantum gates that will play a large part in this chapter, namely the \tbf{S gate} and the \tbf{T gate}: $$S := \rmat{1 & 0 \\ 0 & i} \quad \quad T := \rmat{1 & 0 \\ 0 & \exp(i \pi/4)}$$ The T gate is sometimes called the \curlyquotes{$\pi/8$ gate} for historical reasons, even if $\pi/4$ is the fraction that appears in its definition.
+
+\begin{framedprop}{}
+	It holds that $S = T^2$.
+\end{framedprop}
+
+Additionally, another type of matrices we need to present are the \tbf{rotation operators} about the $x$, $y$ and $z$ axes.
+
+\begin{frameddefn}{Rotation operators}
+	The \tbf{rotation operators} $R_i(\theta)$ that apply a rotation of an angle $\theta$ on the $i$-th axis (for $i \in \{x, y, z\}$) are defined as follows:
+	\begin{equation*}
+		\begin{alignedat}{2}
+			R_x(\theta) & := \rmat{\cos \tfrac{\theta}{2} & -i \sin \tfrac{\theta}{2} \\ -i \sin \tfrac{\theta}{2} & \cos \tfrac{\theta}{2}} & \equiv e^{-i \theta X/2} \\
+			R_y(\theta) & := \rmat{\cos \tfrac{\theta}{2} & - \sin \tfrac{\theta}{2}  \\ \sin \tfrac{\theta}{2} & \cos \tfrac{\theta}{2}} & \equiv e^{-i \theta Y /2} \\
+			R_z(\theta) & := \rmat{e^{-i \theta / 2}      & 0                         \\ 0 & e^{i \theta / 2}} & \equiv e^{-i \theta Z/2}
+		\end{alignedat}
+	\end{equation*}
+\end{frameddefn}
+
+\begin{framedlem}[label={e lemma}]{}
+	For any real nubmer $k \in \R$ and matrix $A$ such that $A^2 = I$, it holds that $$e^{i Ak} = \cos(k) I + i \sin(k) A$$
+\end{framedlem}
+
+\begin{framedcor}{}
+	The rotation operators can be rewritten through the Pauli gates as follows:
+	\begin{equation*}
+		\begin{split}
+			R_x(\theta) & = \cos \dfrac{\theta}{2} I - i \sin \dfrac{\theta}{2} X \\
+			R_y(\theta) & = \cos \dfrac{\theta}{2} I - i \sin \dfrac{\theta}{2} Y \\
+			R_z(\theta) & = \cos \dfrac{\theta}{2} I - i \sin \dfrac{\theta}{2} Z \\
+		\end{split}
+	\end{equation*}
+\end{framedcor}
+
+The corollary above impies that any type of rotation can be expressed in terms of only \tbf{linear combinations of Pauli matrices}. This result, together with the next theorem, allows us to express \tit{any} arbitrary single qubit operation in terms of Pauli matrices only.
+
+\begin{framedthm}{$Z$-$Y$ single qubit decomposition}
+	If $U$ is a unitary operation on a single qubit, there exist $\alpha, \beta, \gamma, \delta \in \R$ such that $$U = e^{i \alpha} R_z(\beta) R_y(\gamma)R_z(\delta)$$
+\end{framedthm}
+
+\begin{proof}[Proof sketch.]
+	Since $U$ is unitary, by \cref{rows cols unit} we know that its rows and columns must be orthonormal. The latter property implies the existence of real numbers $$\alpha, \beta, \gamma, \delta \in \R$$ such that$$U= \rmat{e^{i (\alpha - \beta /2 - \delta/2)} \cos \tfrac{\gamma}{2} & - e^{i (\alpha - \beta/2 + \delta/2)} \sin \tfrac{\gamma}{2} \\ e^{i (\alpha + \beta / 2 - \delta / 2)} \sin \tfrac{\gamma}{2} & e^{i (\alpha + \beta / 2 + \delta/2)} \cos \tfrac{\gamma}{2}}$$ Lastly, this formulation can be rewritten as the statement describes.
+\end{proof}
+
+The utility of this theorem lies in the following corollary, the importance of which will be outlined in the next sections.
+
+\begin{framedcor}{}
+	If $U$ is a unitary operation on a single qubit, there exist unitary operators $A$, $B$ and $C$ on a single qubit such that $ABC = I$ and $$U = e^{i \alpha} AXBXC$$ where $\alpha$ is some overall phase factor.
+\end{framedcor}
+
+\begin{proof}
+	Consider the real values $\alpha, \beta, \gamma$ and $\delta$ obtained from the previous theorem, and define the following operators
+
+	\begin{itemize}
+		\item $A := R_z(\beta) R_y \rbk{\tfrac{\gamma}{2}}$
+		\item $B := R_y \rbk{-\tfrac{\gamma}{2}} R_z \rbk{-\tfrac{\delta + \beta}{2}}$
+		\item $C := R_z \rbk{\tfrac{\delta - \beta}{2}}$
+	\end{itemize}
+
+	Proving that $ABC = I$ is left as an exercise.
+
+	\claim{
+		$XBX = R_y(\tfrac{\gamma}{2}) R_z(\tfrac{\delta + \beta}{2})$.
+	}{
+		By the properties of Pauli matrices, we know that
+
+		\begin{itemize}
+			\item $X^2 = I$
+			\item $XYX = -Y$
+			\item $XZX = -Z$
+		\end{itemize}
+
+		from which it follows that
+		\begin{equation*}
+			\begin{alignedat}{2}
+				X B X & = X \Big( R_y(-\tfrac{\gamma}{2}) R_z(-\tfrac{\delta - \beta}{2}) \Big) X                                                                                                                                 \\
+				      & = X R_y(-\tfrac{\gamma}{2}) X \, X R_z(-\tfrac{\delta - \beta}{2}) X                                                                                             & \quad \quad (X^2 = I )                 \\
+				      & = \big( \cos(\tfrac{\gamma}{2}) I + i \sin(\tfrac{\gamma}{2}) X Y X \big)\big( \cos(\tfrac{\delta - \beta}{2}) I + i \sin(\tfrac{\delta - \beta}{2}) X Z X \big) & \quad \quad (\mbox{by \cref{e lemma}}) \\
+				      & = \big( \cos(\tfrac{\gamma}{2}) I + i \sin(\tfrac{\gamma}{2}) (-Y) \big) \big( \cos(\tfrac{\delta - \beta}{2}) I + i \sin(\tfrac{\delta - \beta}{2}) (-Z) \big)  &                                        \\
+				      & = \big( \cos(\tfrac{\gamma}{2}) I - i \sin(\tfrac{\gamma}{2}) Y \big) \big( \cos(\tfrac{\delta - \beta}{2}) I - i \sin(\tfrac{\delta - \beta}{2}) Z \big)        &                                        \\
+				      & = R_y(\tfrac{\gamma}{2}) R_z(\tfrac{\delta + \beta}{2})                                                                                                          & \quad \quad (\mbox{by \cref{e lemma}}) \\
+			\end{alignedat}
+		\end{equation*}
+	}
+
+	From this claim, it immediately follows that
+	\begin{equation*}
+		\begin{split}
+			e^{i \alpha}AXBXC & = e^{i \alpha} \cdot R_z (\beta) R_y \rbk{\tfrac{\gamma}{2}} R_z \rbk{\tfrac{\delta + \beta}{2}} R_z \rbk{\tfrac{\delta - \beta}{2}} \\
+			                  & = e^{i \alpha} R_z(\beta) R_y(\gamma) R_z (\delta)                                                                                   \\
+			                  & = U
+		\end{split}
+	\end{equation*}
+	which concludes the proof.
+\end{proof}
