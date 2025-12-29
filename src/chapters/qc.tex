@@ -2,6 +2,8 @@
 
 So far, we have treated quantum gates primarily as \curlyquotes{abstract} unitary operators acting on quantum states. While this perspective is sufficient to define quantum algorithms and reason about their correctness, it leaves an important question unanswered: how are these gates \tit{actually} constructed? In other words, given a desired unitary transformation, how can it be realized using a finite set of elementary operations that a quantum computer can physically implement? The central result of this chapter shows that any controlled single-qubit unitary can be constructed using only a restricted set of \tit{single-qubit gates}, and a small number of CNOT gate.
 
+\section{Rotation operators}
+
 Together with the Pauli matrices and the Hadamard gate, we shall introduce 2 additional quantum gates that will play a large part in this chapter, namely the \tbf{S gate} and the \tbf{T gate}: $$S := \rmat{1 & 0 \\ 0 & i} \quad \quad T := \rmat{1 & 0 \\ 0 & \exp(i \pi/4)}$$ The $S$ gate is usually called \tbf{phase gate}, while the $T$ gate is sometimes called the \tbf{$\pi/8$ gate} for historical reasons (even if $\pi/4$ is the fraction that appears in its definition).
 
 \begin{framedprop}{}
@@ -16,8 +18,6 @@ In this chapter, we will see \tit{any} arbitrary quantum computation can be redu
 \end{itemize}
 
 The importance of this result stems from the fact that these gates can be physically realized, and can therefore be treated as the \tit{building blocks} of any other unitary transformation. We will discuss we this set of gates is both \tit{necessary} and \tit{sufficient} to achieve \tbf{quantum approximate universality} to arbitrary accuracy --- unfortunately, it is not known if we can achieve exact universality avoiding an exponential number of gates in the general case.
-
-\section{Pauli gates}
 
 In the first section of this chapter we will discuss the necessity of Pauli matrices. But first, we need to present a new type of matrices, the \tbf{rotation operators} which apply rotations on the $x$, $y$ and $z$ axes.
 

@@ -46,7 +46,7 @@
 \contentsline {section}{\numberline {7.2}Fixed-Point Quantum Search}{103}{section.7.2}%
 \contentsline {section}{\numberline {7.3}Quantum counting}{108}{section.7.3}%
 \contentsline {chapter}{\numberline {8}Quantum circuits}{110}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Pauli gates}{111}{section.8.1}%
+\contentsline {section}{\numberline {8.1}Rotation operators}{110}{section.8.1}%
 \contentsline {section}{\numberline {8.2}Controlled operators}{112}{section.8.2}%
 \contentsline {subsection}{\numberline {8.2.1}Single-qubit conditioning}{112}{subsection.8.2.1}%
 \contentsline {subsection}{\numberline {8.2.2}Multi-qubit conditioning}{115}{subsection.8.2.2}%
