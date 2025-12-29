@@ -54,7 +54,7 @@ In the first section of this chapter we will discuss the necessity of Pauli matr
 Most importantly, the corollary above already implies that any type of rotation can be expressed in terms of only \tbf{linear combinations of Pauli matrices}.
 However, there is a catch: the rotation matrices written in these form are \tit{not} constructible in practice. In the first part of this chapter we will not address this issue, and we will assume that we can construct rotation matrices of arbitrary angles. Then, in the second part of of our discussion we will discuss physical realizability of the ideas we will present.
 
-Nevertheless, the above result together with the next theorem allow us to express \tit{any} arbitrary single-qubit operation in terms of rotation matrices only.
+Nevertheless, the above result together with the next theorem allow us to express \tit{any} arbitrary single-qubit operation in terms of Pauli matrices only.
 
 \begin{framedthm}[label={zy}]{$Z$-$Y$ single-qubit decomposition}
 	If $U$ is a unitary operation on a single-qubit, there exist $\alpha, \beta, \gamma, \delta \in \R$ such that $$U = e^{i \alpha} R_z(\beta) R_y(\gamma)R_z(\delta)$$
@@ -64,7 +64,7 @@ Nevertheless, the above result together with the next theorem allow us to expres
 	Since $U$ is unitary, by \cref{rows cols unit} we know that its rows and columns must be orthonormal. This property implies the existence of real numbers $\alpha, \beta, \gamma, \delta \in \R$ such that \todo{HOW????} $$U= \rmat{e^{i (\alpha - \beta /2 - \delta/2)} \cos \tfrac{\gamma}{2} & - e^{i (\alpha - \beta/2 + \delta/2)} \sin \tfrac{\gamma}{2} \\ e^{i (\alpha + \beta / 2 - \delta / 2)} \sin \tfrac{\gamma}{2} & e^{i (\alpha + \beta / 2 + \delta/2)} \cos \tfrac{\gamma}{2}}$$ Lastly, this formulation can be rewritten as the statement describes.
 \end{proof}
 
-This theorem already shows how much we can achieve through rotation matrices alone. However, as we already encountered multiple times throughout our discussion, we know that this is not general enough. Indeed, what we are still missing is \tbf{controlled operations}. For instance, consider the controlled NOT, the CNOT operator; even if the CNOT is a \tit{unitary transformation}, it acts on 2 qubits, which means that we cannot apply the theorem above. We observe that this problem already hints at reason why we included the CNOT in the discussion at the beginning of this chapter --- akeen eye might have also noticed that without the CNOT we don't know how to create EPR pairs! We will see how to solve these problems in the next section.
+This theorem already shows how much we can achieve through Pauli matrices alone. However, as we already encountered multiple times throughout our discussion, we know that this is not general enough. Indeed, what we are still missing is \tbf{controlled operations}. For instance, consider the controlled NOT, the CNOT operator; even if the CNOT is a \tit{unitary transformation}, it acts on 2 qubits, which means that we cannot apply the theorem above. We observe that this problem already hints at reason why we included the CNOT in the discussion at the beginning of this chapter --- akeen eye might have also noticed that without the CNOT we don't know how to create EPR pairs! We will see how to solve these problems in the next section.
 
 \section{Controlled operators}
 
@@ -170,7 +170,7 @@ which means that the circuit can be rewritten as follows:
 	\caption{The circuit for the controlled-$U$ operator.}
 \end{figure}
 
-Finally, the matrix obtained as a transformation for $q_0$ can be rewritten as $$\rmat{1 & 0 \\ 0 & e^{i\alpha}} = e^{i \alpha/2} R_z(\alpha)$$ meaning it is just a $z$-axis rotation up to a global phase --- which can be usually dropped.
+Finally, the matrix obtained as a transformation for $q_0$ can be rewritten as $$\rmat{1 & 0 \\ 0 & e^{i\alpha}} = e^{i \alpha/2} R_z(\alpha$$
 
 \subsection{Multi-qubit conditioning} \label{toffoli section}
 
