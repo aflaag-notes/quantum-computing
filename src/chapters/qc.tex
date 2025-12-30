@@ -37,7 +37,13 @@ In the first section of this chapter we will discuss the necessity of Pauli matr
 \end{framedlem}
 
 \begin{proof}
-	TODO \todo{TODO?}
+	From the Taylor expansions of $e^x$, $\sin x$ and $\cos x$ we get the following
+	\begin{equation*}
+		\begin{alignedat}{2}
+			\cos(k) I + i \sin(k) A & = \sum_{n = 0}^{\infty}{\dfrac{(-1)^n}{(2n)!} k^{2n}} + i \sum_{n = 0}^{\infty}{\dfrac{(-1)^n}{(2n + 1)!}k^{2n + 1} A} & \\
+			% &
+		\end{alignedat}
+	\end{equation*}
 \end{proof}
 
 \begin{framedcor}{}
@@ -170,7 +176,7 @@ which means that the circuit can be rewritten as follows:
 	\caption{The circuit for the controlled-$U$ operator.}
 \end{figure}
 
-Finally, the matrix obtained as a transformation for $q_0$ can be rewritten as $$\rmat{1 & 0 \\ 0 & e^{i\alpha}} = e^{i \alpha/2} R_z(\alpha)$$ meaning it is just a $z$-axis rotation up to a global phase --- which can be usually dropped.
+Finally, the matrix obtained as a transformation for $q_0$ can be rewritten as $$\rmat{1 & 0 \\ 0 & e^{i\alpha}} = e^{i \alpha/2} R_z(\alpha)$$ meaning it is just a $z$-axis rotation up to a global phase.
 
 \subsection{Multi-qubit conditioning} \label{toffoli section}
 
@@ -318,7 +324,105 @@ But we do we need 3 inputs? It is easy to see that a 1-bit gate is definitely no
 
 This result concludes that the Toffoli gate cannot be improved any further. Therefore, from a classical viewpoint the construction presented in \cref{quantum toffoli} is remarkable: in quantum computing we can construct the Toffoli gate from one and two qubit gates, and since reversibility is an intrinsic property of quantum operators, the following holds.
 
-Thus, in the end, is the set of quantum gates composed of $\{X, Y, Z, H, S, T, \mbox{CNOT}\}$ universal? Well, we recall that we initially pretended that the Pauli matrices allowed us to construct any rotation matrix, however unfortunately \underline{this is not true}.
+\subsection{Exact quantum universality}
 
-TODO \todo{exact universality}
-TODO \todo{approx universality}
+Thus, in the end, is the set of quantum gates composed of $$\{X, Y, Z, H, S, T, \mbox{CNOT}\}$$ truly universal? Well, we recall that we initially pretended Pauli matrices allowed us to construct any rotation matrix, however unfortunately \underline{this is not true}. The problem is that there it is not possible to construct exact rotation matrices of arbitrary angles. Interestingly enough, if we were able to actually construct rotation matrices, most of the quantum gates in the set we chose would even be redundant:
+
+\begin{itemize}
+	\item $X = H R_z(\pi) H$
+	\item $Y = S H R_z(\pi) H S^\dag$
+	\item $Z = R_z(\pi)$
+	\item $S = R_z\rbk{\pi / 2}$
+	\item $T = R_z\rbk{\pi /4}$
+	\item $R_x(\theta) = H R_z(\theta)$
+	\item $R_y(\theta) = S H R_z(\theta) H S^\dag$
+\end{itemize}
+
+We see that with rotation matrices of arbitrary angles we only need the $H$ gate and the CNOT gate to achieve universality!
+
+This means that we cannot actually achieve \tbf{exact quantum universality} with the strategies we proposed. Unfortunately, while they are useful and can be utilized in practice for a wide range of unitrary transformations that have \curlyquotes{nice} angle values, the ideas we laid down don't guarantee realizable exact quantum universality.
+
+Each time we have discussed quantum universality, we have been careful to state that it was \tit{exact}. Let's see how we can achieve it, and which issues arise. First, consider the following definition.
+
+\begin{frameddefn}{Two-level unitary matrix}
+	A unitary matrix $U \in \C^{d \times d}$ is said to be \tbf{two-level} if it acts non-trivially on at most components.
+\end{frameddefn}
+
+An example of a $3 \times 3$ two-level unitary matrix is the following: $$U := \rmat{e^{i \alpha} & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1}$$ Indeed, we observe that $$Ux = \rmat{e^{i \alpha} & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1} \rmat{x_1 \\ x_2 \\ x_3} = \rmat{x_1 e^{i \alpha} \\ x_2 \\ x_3}$$ so only the first component of $x$ was non-trivially transformed.
+
+The following result shows what we can achieve with two-level unitary matrices.
+
+\begin{framedthm}{Two-level unitary decomposition}
+	Any unitary transformation $U \in \C^{d \times d}$ can be written as the product of $$U = V_1 \ldots V_k$$ where each matrix $V_i$ is a two-level unitary matrix, and $k \le \tfrac{d(d - 1)}{2}$.
+\end{framedthm}
+
+We will not present the construction that allows such decomposition, but this theorem has an important consequence. Indeed, if we have a unitary operator $U$ acting on an $n$ qubit system, we have that $d = 2^n$, therefore the bound on $k$ becomes $$k  \le 2^{n - 1}(2^n - 1) = O(4^n)$$ This bound is definitely \tit{not} practical, and it already shows how difficult it is to construct arbitrary unitrary transformation exactly! However, we can go a step further.
+
+\begin{framedthm}{}
+	Any two-level unitary operator acting on the state space of $n$ qubits can be constructed through $O(n^2)$ single-qubit and CNOT gates.
+\end{framedthm}
+
+This result together with the previous theorem, provide the following corollary which states that single-qubit unitaries, together with CNOT gates, achieve \tbf{exact quantum universality}. However, there is a catch.
+
+\begin{framedcor}{Single-qubit and CNOT gates universality}
+	Any unitary transformation acting on the state space of $n$ qubits can be constructed through $O(n^24^n)$ single-qubit and CNOT gates.
+\end{framedcor}
+
+This construction does not provide very efficient quantum circuits! However, it can be actually proven that this result is \tit{close to optimal} if we demand exact quantum universality. \todo{write thm section 4.5.4?}
+
+In the end, to find \tit{reasonably fast} quantum algorithms we will clearly need a totally different approach.
+
+\subsection{Approximate universality}
+
+Now that we know exact quantum universality is not reasonably achievable, instead of continuing to chase it, we should focus on reaching an \tit{approximate} form of universality. In particular, when we talk about \tbf{approximate quantum universality} we require that it is possible to simulate an arbitrary unitary transformation \tit{to arbitrary accuracy}. In this section, we will find a \tit{discrete} set of gates which can be used to achieve it. First, we shall describe what it means to approximate a unitary transformation.
+
+\begin{frameddefn}{Approximation error}
+	Given a \tit{target} unitary transformation $U$, and an \tit{actually implementable} unitary operator $V$, we define the \tbf{error} when $V$ is implemented instead of $U$ as $$E(U, V) := \max_{\ket \psi}{\norm{(U - V) \ket \psi}}$$
+\end{frameddefn}
+
+This measure of error has the interpretation that if $E(U, V)$ is small,, then anymeasurement performed on the state $V \ket \psi$ will give approximately the same measurement statistics as a measurement of $U \ket \psi$, for any initial state $\ket \psi$. Amazingly, the following results shows that with multiple unitaries the errors add at most linearly.
+
+\begin{framedprop}{Chaining inequality}
+	If a sequence of unitaries $V_1, \ldots, V_m$ intends to approximate a sequence of unitaries $U_1, \ldots, U_m$, then $$E(U_m U_{m - 1} \ldots U_1, V_m V_{m - 1} \ldots V_1) \le \sum_{j = 1}^m{E(U_j, V_j)}$$
+\end{framedprop}
+
+Consider the following set of quantum gates, called the \tbf{standard set} $$\{H, S, T, \mbox{CNOT}\}$$ Our final goal for this chapter will be to show that this set can achieve approximate quantum universality.
+
+\begin{framedlem}{}
+	Given any angle $\alpha$, it holds that $$\forall \varepsilon > 0 \quad \exists k \quad E(R_{\hat n}(\alpha), R_{\hat n}(\theta)^k) < \dfrac{\varepsilon}{3}$$ where $\vec n = \rbk{\cos(\pi/8), \sin(\pi/8), \cos(\pi/8)}$ and $\theta$ is such that $\cos(\theta/2) = \cos^2(\pi/8)$.
+\end{framedlem}
+
+\begin{proof}[Proof sketch.]
+	Since it holds that
+
+	\begin{itemize}
+		\item the $T$ gate is a rotation by $\pi/4$ radians on the $\hat z$ axis on the Bloch sphere (up to an unimportant global phase)
+		\item the transformation $HTH$ is a rotation by $\pi/4$ radians around the $\hat x$ axis on the Bloch sphere
+	\end{itemize}
+
+	through \cref{e lemma} it can be showed that $THTH$ computes precisely $R_{\hat n}(\theta)$. Proving the repeated application of $R_{\hat n}(\theta)$ can be used to approximate to arbitrary accuracy any rotation $R_{\hat n}(\alpha)$ is outside the scope of our discussion.
+\end{proof}
+
+In particular, this lemma implies that $H$ and $T$ gates can be used to approximate any single-qubit unitary operation to arbitrary accuracy.
+
+\begin{framedthm}{}
+	Any single-qubit unitary operator $U$, there exists a unitary tranformation $V$ composed of only $H$ and $T$ gates such that $$\forall \varepsilon > 0 \quad E(U, V) < \varepsilon$$
+\end{framedthm}
+
+Since $H$ and $T$ gates allow us to approximate, any single qubit unitary operator, we can leverage known constructions in order to approximate any $m$ gate quantum circuit.
+
+\begin{framedcor}{}
+	Any $m$ gate quantum circuit can be approximated to an accuracy $\varepsilon$ with $\Theta(m^2/ \varepsilon)$ gates of the standard set.
+\end{framedcor}
+
+Even if this is a \tbf{quadratic} increase of the original size, it is already good enough for many applications. Rather remarkably, however, the following result is much more efficient.
+
+\begin{framedthm}{Solovay-Kitaev theorem}
+	Any single-qubit unitary transformation $U$ can be approximated to an accuracy $\varepsilon$ using $O(\log^c(1/\varepsilon))$ gates of the standard set.
+\end{framedthm}
+
+From this well-known result, it follows a \tbf{polylogarithmic} increase over the size of the original circuit, instead of the previous \tit{quadratic}.
+
+\begin{framedcor}{}
+	Any $m$ gate quantum circuit can be approximated to an accuracy $\varepsilon$ using $O(m \log^c(m/\varepsilon))$ gates of the standard set.
+\end{framedcor}
