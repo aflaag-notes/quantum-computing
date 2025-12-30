@@ -33,15 +33,21 @@ In the first section of this chapter we will discuss the necessity of Pauli matr
 \end{frameddefn}
 
 \begin{framedlem}[label={e lemma}]{}
-	For any real nubmer $k \in \R$ and matrix $A$ such that $A^2 = I$, it holds that $$e^{i Ak} = \cos(k) I + i \sin(k) A$$
+	For any real nubmer $x \in \R$ and matrix $A$ such that $A^2 = I$, it holds that $$e^{i Ax} = I \cos(x) + i A \sin(x)$$
 \end{framedlem}
 
 \begin{proof}
 	From the Taylor expansions of $e^x$, $\sin x$ and $\cos x$ we get the following
+
 	\begin{equation*}
 		\begin{alignedat}{2}
-			\cos(k) I + i \sin(k) A & = \sum_{n = 0}^{\infty}{\dfrac{(-1)^n}{(2n)!} k^{2n}} + i \sum_{n = 0}^{\infty}{\dfrac{(-1)^n}{(2n + 1)!}k^{2n + 1} A} & \\
-			% &
+			e^{iAx} & = \sum_{n = 0}^{+ \infty}{\dfrac{(iAx)^n}{n!}}                                                                                                                &                             \\
+			        & = \sum_{n \ \mathrm{even}}^{+ \infty}{\dfrac{(iAx)^n}{n!}} + \sum_{n \ \mathrm{odd}}^{+ \infty}{\dfrac{(iAx)^n}{n!}}                                          &                             \\
+			        & = \sum_{k = 0}^{+ \infty}{\dfrac{(iAx)^{2k}}{(2k)!}} + \sum_{k = 0}^{+ \infty}{\dfrac{(iAx)^{2k + 1}}{(2k + 1)!}}                                             &                             \\
+			        & = \sum_{k = 0}^{+ \infty}{\dfrac{i^{2k} A^{2k}}{(2k)!}x^{2k}} + \sum_{k = 0}^{+ \infty}{\dfrac{i^{2k + 1} A^{2k + 1}}{(2k + 1)!} x^{2k}}                      &                             \\
+			        & = \sum_{k = 0}^{+ \infty}{\dfrac{(i^2)^k (A^2)^k}{(2k)!}x^{2k}} + \sum_{k = 0}^{+ \infty}{\dfrac{i \cdot (i^2)^k \cdot A \cdot (A^2)^k}{(2k +1)!} x^{2k + 1}} &                             \\
+			        & = I \sum_{k = 0}^{+ \infty}{\dfrac{(-1)^k}{(2k)!}x^{2k}} + i A\sum_{k = 0 }^{+ \infty}{\dfrac{(-1)^k}{(2k +1)!}x^{2k +1}}                                     & \quad \quad (A^2 = I = I^k) \\
+			        & = I \cos(x) + i A \sin(x)
 		\end{alignedat}
 	\end{equation*}
 \end{proof}
