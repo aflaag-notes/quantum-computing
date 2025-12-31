@@ -5,7 +5,7 @@ Now that we have introduced some preliminary concepts in quantum mechanics and q
 We will start our mathematical discussion with the definition of \tbf{scalar product} --- we will assume the definitions of vector space, basis and linear independence are already known by the reader.
 
 \begin{frameddefn}{Scalar product}
-	Given a scalar product vector space $V$, a \tbf{scalar product} $\funcmap{\braket{\cdot , \cdot }}{V \times V}{\C}{(v, w)}{\braket{v,w}}$ is a function that satisfies the following properties:
+	Given a scalar product vector space $V$, a \tbf{scalar product} $\funcmap{\braket{\cdot , \cdot }}{V \times V}{\C}{(v, w)}{\braket{v,w}}$ is a linear function that satisfies the following properties:
 
 	\begin{itemize}
 		\item $\forall u, v, w \in V, \alpha, \beta \in \C \quad \braket{u,\alpha v + \beta w} = \alpha \braket{u|v} + \beta \braket{u| w}$
@@ -423,10 +423,72 @@ The following is the last property of projectors that we will present, and it wi
 	Given a Hilbert space $\mathcal H$, and a normal operator $A$ defined on $\mathcal H$ whose eigenvalues are $\lambda_1, \ldots, \lambda_n$, the matrix $A$ can be rewritten as follows: $$A = \sum_{i = 1}^n{\lambda_i P_{\lambda_i}}$$
 \end{framedthm}
 
-Note that when $\lambda_i$ is non-degenerate it holds that $$P_{\lambda_i} = \ket{\lambda_i} \bra{\lambda_i}$$
+The theorem above is sometimes written in the following different form $$A = \sum_{i = 1}^n{\lambda_i \ket{\lambda_i} \bra{\lambda_i}}$$ which \tit{seems} to imply that $P_{\lambda_i} = \ket{\lambda_i} \bra{\lambda_i}$, i.e. the projector onto the $i$-th eigenspace of $M$ is $\ket{\lambda_i} \bra{\lambda_i}$. This is a \tit{slight} notation abuse, and an example will make it clear. Consider the following matrix: $$A = \rmat{2 & 0 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 5}$$ It is easy to see that the eigenvalues of $A$ are only 2 and 5, however 2 is $2$-fold degenerate! Indeed, by solving $$M \ket v = 2 \ket v$$ we get an eigenspace of dimension 2, and we can choose $\{\ket {e_1}, \ket {e_2}\}$ as orthonormal eigenbasis; similarly, we find that $\{\ket {e_3}\}$ is an eigenbasis of the second eigenspace of dimension 1. In the end, this means that
+\begin{equation*}
+	\begin{split}
+		M & = 2 \ket 1 \bra 1 + 2 \ket 2 \bra 2 + 5 \ket 3 \bra 3 \\
+		  & = 2 (\ket 1 \bra 1 + \ket 2 \bra 2) + 5 \ket 3 \bra 3 \\
+		  & = 2 P_2 + 5 P_5                                       \\
+	\end{split}
+\end{equation*}
+which clearly shows that, in general, $P_{\lambda_i} \neq \ket{\lambda_i} \bra{\lambda_i}$! We observe that this also matches the definition of projector provided at the beginning of the section $$P_V := \sum_{i = 1}^n{\ket{f_i} \bra{f_i}}$$ for some orthonormal basis $\{f_1, \ldots, f_n\}$ of $V$. In general, the notation $$A = \sum_{i = 1}^n{\lambda_i \ket{\lambda_i} \bra{\lambda_i}}$$ implies that if $\lambda$ is $d$-fold degenerate, then $\lambda$ is repeated $d$ times inside the sum.
 
 \section{Tensor product}
 
-Finally, the last ingredient that we need to discuss is the \tbf{tensor product}
+The last operator that we need to add into our mathematical background is the \tbf{tensor product}. There are multiple ways to define the tensor product.
 
-TODO \todo{TODO}
+\begin{frameddefn}{Tensor product}
+	Given two vector spaces $V$ and $W$ defined over the same field, described by two bases $\mathcal B_V$ and $\mathcal B_W$, a \tbf{tensor product} $$\funcmap{\otimes}{V \times W}{V \otimes W}{(v, w)}{v \otimes w}$$ between $V$ and $W$ is a linear function that satisfies the following properties:
+
+	\begin{itemize}
+		\item $(v + v') \otimes w = v \otimes w + v' \otimes w$
+		\item $v \otimes(w + w') = v \otimes w + v \otimes w'$
+		\item $(\alpha v) \otimes w = v \otimes (\alpha w)$
+	\end{itemize}
+
+	The output space $V \otimes W$ is a vector space that has $$\mathcal B_{V \otimes W} := \{f_i  \otimes g_j \mid f_i \in \mathcal B_V, g_j \in \mathcal B_W\}$$ as a basis.
+\end{frameddefn}
+
+Consider any two vectors $v \in V$ and $w \in W$; we can describe them in terms of $\mathcal B_V$ and $\mathcal B_W$, respectively, as follows: $$v = \sum_i {\alpha_i f_i} \quad \quad w = \sum_j{\beta_j g_j}$$ Then, by the definition above the distributive properies imply that
+\begin{equation*}
+	\begin{split}
+		v \otimes w & = \rbk{\sum_i{\alpha_i f_i}} \otimes \rbk{\sum_j {\beta_j g_j}} \\
+		            & = \sum_i {\sum_j {\alpha_i \beta_j (f_i \otimes g_j)}}
+	\end{split}
+\end{equation*}
+which correctly lies inside $V \otimes W$ since $(f_i \otimes g_j) \in \mathcal B_{V \otimes W}$
+
+
+
+
+But first, we need to take a step back.
+
+Consider an operator that we are more accustomed to, the \tbf{cartesian product}. Given two sets $$A = \{a, b, c\}$$ $$B = \{1, 2, 3\}$$ the cartesian product computes all the possible combinations of the elements between $A$ and $B$:
+
+\begin{center}
+	\begin{tabular}{c|ccc}
+		\hline
+		    & 1        & 2        & 3        \\
+		\hline
+		$x$ & $(x, 1)$ & $(x, 2)$ & $(x, 3)$ \\
+		$y$ & $(y, 1)$ & $(y, 2)$ & $(y, 3)$ \\
+		$z$ & $(z, 1)$ & $(z, 2)$ & $(z, 3)$ \\
+	\end{tabular}
+\end{center}
+
+% In particular, we use the tensor product when we need to describe functions that take more than 1 input on some domain. For instance, a 2-input function on the real number has the following signature $$\func{\R \times \R}{\R}$$ which means that the input of $f$ can be any pair $(x, y) \in \R^2$.
+%
+% When we introduced the tensor product in the first chapter, used to describe the first 2-input operator we encountered, i.e. the CNOT, and we stated that the tensor product was the correct operator to use instead of the usual cartesian product. There are two reasons why this is the case:
+%
+% \begin{itemize}
+%     \item the tensor product \tit{combines} multiple vectors into one, so we essentialy send \tit{just one} input to the CNOT
+%     \item the tensor product merges all the \tbf{multilinear interactions}
+% \end{itemize}
+%
+% To illustrate the second point, consider theree vector spaces $V$, $W$ and $Y$; any function $$\func{V \times W}{Y}$$ takes 2 inputs, however this is not enough for vector spaces. In fact, must of the functions we deal with in vector spaces are \tit{linear}, and most importantly we often require functions to be linear in \tit{all its inputs}. The tensor product $V \otimes W$ 
+%
+% In fact, if $f$ is \tbf{bilinear}, w
+
+
+
+TODO \todo{TODO pag 71 book}
