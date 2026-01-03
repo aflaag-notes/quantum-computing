@@ -525,10 +525,10 @@ To conclude this chapter, let's look at the tensor product from the point of vie
 We are finally ready to provide the formulation of the tensor product we will adopt for our purposes.
 
 \begin{frameddefn}{Kronecker product}
-	Given two matrice $A \in \mathbb F^{m \times n}$ and $B \in \mathbb F^{p \times q}$ defined over some field $\mathbb F$, it holds that $$A \otimes B = \rmat{a_{11} B & \ldots & a_{1n}B \\ \vdots & \ddots & \vdots \\ a_{m1} B & \ldots & a_{mn} B} \in \F^{mp \times nq}$$
+	Given two matrices $A \in \mathbb F^{m \times n}$ and $B \in \mathbb F^{p \times q}$ defined over some field $\mathbb F$, the \tbf{Kronecker product} between $A$ and $B$ defines $A \otimes B$ as follows $$A \otimes B = \rmat{a_{11} B & \ldots & a_{1n}B \\ \vdots & \ddots & \vdots \\ a_{m1} B & \ldots & a_{mn} B} \in \F^{mp \times nq}$$
 \end{frameddefn}
 
-From now on, we will assume that the output of any tensor product is in this form. Most importantly, through the Kronecker product the following property holds, which will be used extensively through these notes.
+Proving that this product corretly yields the tensor product between $A$ and $B$ is outside our discussion. As an example, we observe that $$\rmat{a \\ b} \otimes \rmat{c \\ d} = \rmat{a \rmat{c \\ d} \\ b \rmat{c \\ d}} = \rmat{ac \\ ad \\ bc \\ bd}$$ which matches our previous results. From now on, we will assume that the output of any tensor product is in this form. Most importantly, through the Kronecker product the following property holds, which will be used extensively through these notes.
 
 \begin{framedprop}{}
 	For any field $\mathbb F$, given two matrices $A$ and $B$ and two vectors $v$ and $w$ such that $$A \in \mathbb F ^{m \times n} \quad B \in \mathbb F^{p \times q} \quad v \in \mathbb F^n \quad w \in \mathbb F^q$$ it holds that $$(A \otimes B)(v \otimes w) = Av \otimes Bw$$
