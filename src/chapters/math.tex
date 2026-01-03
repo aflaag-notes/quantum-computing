@@ -508,7 +508,7 @@ which indeed is a vector that lies inside $V \otimes W$ since $(f_i \otimes g_j)
 	\begin{split}
 		\varphi(v \otimes w) & = \varphi \rbk{ \sum_{i = 1}^n{\sum_{j = 1}^m{\alpha_i \beta_j (f_i \otimes g_j)}}} \\
 		                     & =  \sum_{i = 1}^n{\sum_{j = 1}^m{\alpha_i \beta_j \varphi(f_i \otimes g_j)}}        \\
-		                     & =  \sum_{i = 1}^n{\sum_{j = 1}^m{\alpha_i \beta_j e_{i + j}}}                       \\
+		                     & =  \sum_{i = 1}^n{\sum_{j = 1}^m{\alpha_i \beta_j e_{(i - 1)m + j}}}                \\
 		                     & = \rmat{\alpha_1 \beta_1                                                            \\ \alpha_1 \beta_2 \\ \vdots \\ \alpha_1 \beta_m \\ \alpha_2 \beta_1 \\ \vdots \\ \alpha_n \beta_m} \in \R^{n \cdot m} \\
 	\end{split}
 \end{equation*}
