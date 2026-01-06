@@ -53,7 +53,7 @@
 \contentsline {subsection}{\numberline {8.2.1}Single-qubit conditioning}{119}{subsection.8.2.1}%
 \contentsline {subsection}{\numberline {8.2.2}Multi-qubit conditioning}{121}{subsection.8.2.2}%
 \contentsline {section}{\numberline {8.3}Universality}{124}{section.8.3}%
-\contentsline {subsection}{\numberline {8.3.1}Exact quantum universality}{126}{subsection.8.3.1}%
+\contentsline {subsection}{\numberline {8.3.1}Exact quantum universality}{125}{subsection.8.3.1}%
 \contentsline {subsection}{\numberline {8.3.2}Approximate universality}{127}{subsection.8.3.2}%
 \contentsline {chapter}{\numberline {9}Quantum Key Distribution}{130}{chapter.9}%
 \contentsline {section}{\numberline {9.1}Background}{131}{section.9.1}%

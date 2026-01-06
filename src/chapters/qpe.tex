@@ -161,11 +161,25 @@ If we look closely, this sum of products as an interesting property:
     \item $m = n \implies k_{n - m + 1} = k_{n -n +1} = k_1$
 \end{itemize}
 
-implying that it can be rewritten as follows $$\dfrac{1}{\sqrt N}\sum_{k = 0}^{N - 1}{\rbk{e^{2 \pi i k_n \cdot 0.x_1 \ldots x_n} \cdot \ldots \cdot e^{2 \pi i k_1 \cdot 0.x_n}}}$$ In other words the bits of $k$ are \tit{indexing} which exponentials to use in the $k$-th coefficient of the sum. This means that we can rewrite the last step as follows: $$\mbox{QFT} \ket x =  \dfrac{1}{\sqrt N} \bigotimes_{m = 1}^n{\rbk{\ket 0 + e^{2\pi i 0.x_m \ldots x_n} \ket 1}}$$ Finally, the QFT written in this form can be actually implemented in a quantum circuit. \todo{da finire sonostufo}
+implying that it can be rewritten as follows $$\dfrac{1}{\sqrt N}\sum_{k = 0}^{N - 1}{\rbk{e^{2 \pi i k_n \cdot 0.x_1 \ldots x_n} \cdot \ldots \cdot e^{2 \pi i k_1 \cdot 0.x_n}}}$$ In other words the bits of $k$ are \tit{indexing} which exponentials to use in the $k$-th coefficient of the sum. This means that we can rewrite the last step as follows: $$\mbox{QFT} \ket x =  \dfrac{1}{\sqrt N} \bigotimes_{m = 1}^n{\rbk{\ket 0 + e^{2\pi i 0.x_m \ldots x_n} \ket 1}}$$ Finally, the QFT written in this form can be actually implemented in a quantum circuit. Consider the following operator: $$R_k := \rmat{1 & 0 \\ 0 & e^{2 \pi i /2^k}}$$ It can be easily proven that it is unitary, so we can use it as a quantum gate. Hence, we construct the following quantum circuit:
+
+\begin{figure}[H]
+	\[
+		\Qcircuit @C=1em @R=1.5em {
+                & \lstick{\ket{x_1}} & \gate H & \gate{R_2} & \qw \push{\cdots} \qw  & \gate{R_{n - 1}} & \gate{R_n} & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw \\ 
+                % & \lstick{\ket{x_2}} & \qw & \ctrl{-1} & \gate \ldots & \qw & \qw & \gate H & \gate \ldots & \gate{R_{n - 2}} & \gate{R_{n - 1}} & \qw & \qw & \qw & \qw& \qw \\ 
+                % & \lstick{\vdots} & \vdots & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw \\ 
+                % & \lstick{\ket{x_{n - 1}}} & \qw & \qw & \qw & \ctrl{-3} & \qw & \qw & \qw & \ctrl{-2} & \qw & \gate \ldots & \gate H & \gate{R_2} & \qw & \qw \\ 
+		}
+	\]
+	% \caption{The circuit.}
+\end{figure}
 
 \section{Quantum Phase Estimation} \label{qpe section}
 
-Let's see a very useful application of the QFT introduced by \textcite{qpe} in 1995. By \cref{spectral thm} we know that the eigenvalues of a unitary operator are complex values of modulus 1. This means that any eigenvalue of a unitary operator can be ewritten as $e^{2 \pi i \varphi}$ for some real value $\varphi \in [0, 1]$ --- $\varphi$ being the \tit{phase} of the complex value, i.e. the angle w.r.t. the unitary circumference.
+The application of the QFT we are going to present in this section was introduced by \textcite{qpe} in 1995, and it is the most important quantum algorithm \tit{to date}. As we will see, it will be used for multiple algorithms in the next chapters.
+
+By \cref{spectral thm} we know that the eigenvalues of a unitary operator are complex values of modulus 1. This means that any eigenvalue of a unitary operator can be ewritten as $e^{2 \pi i \varphi}$ for some real value $\varphi \in [0, 1]$ --- $\varphi$ being the \tit{phase} of the complex value, i.e. the angle w.r.t. the unitary circumference.
 
 Given a unitary operator $U$, and an eigenvalue $\lambda = e^{2 \pi i \varphi}$, can we determine $\varphi$? Let $u$ be an eigenvector associated to the unknown eigenvalue $\lambda$, i.e. $$U \ket u  = \lambda \ket u = e^{2 \pi i \varphi} \ket u$$ Now, let $U^{2^k}$ be the quantum gate that applies the $U$ operator $2^k$ times repeatedly, and define the following operator $$\mbox{C-} U^{2^k} = \ket 0 \bra 0 \otimes I + \ket 1 \bra 1 \otimes U^{2^k}$$ This operator is the \tbf{controlled} version of $U^{2^k}$, and it can easily be showed by plugging $\ket 0$ and $\ket 1$ as first argument --- alongside with some other quantum state $\ket \psi$
 \begin{equation*}
