@@ -165,15 +165,18 @@ implying that it can be rewritten as follows $$\dfrac{1}{\sqrt N}\sum_{k = 0}^{N
 
 \begin{figure}[H]
 	\[
-		\Qcircuit @C=1em @R=1.5em {
-                & \lstick{\ket{x_1}} & \gate H & \gate{R_2} & \qw \push{\cdots} \qw  & \gate{R_{n - 1}} & \gate{R_n} & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw \\ 
-                % & \lstick{\ket{x_2}} & \qw & \ctrl{-1} & \gate \ldots & \qw & \qw & \gate H & \gate \ldots & \gate{R_{n - 2}} & \gate{R_{n - 1}} & \qw & \qw & \qw & \qw& \qw \\ 
-                % & \lstick{\vdots} & \vdots & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw \\ 
-                % & \lstick{\ket{x_{n - 1}}} & \qw & \qw & \qw & \ctrl{-3} & \qw & \qw & \qw & \ctrl{-2} & \qw & \gate \ldots & \gate H & \gate{R_2} & \qw & \qw \\ 
+		\Qcircuit @C=0.8em @R=1.3em {
+                & \lstick{\ket{x_1}} & \gate H & \gate{R_2} & \gate \ldots & \gate{R_{n - 1}} & \gate{R_n} & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw & \qw \\ 
+                & \lstick{\ket{x_2}} & \qw & \ctrl{-1} & \gate \ldots & \qw & \qw & \gate H & \gate{R_2} & \gate \ldots & \gate{R_{n - 2}} & \gate{R_{n - 1}} & \gate \ldots & \qw & \qw & \qw& \qw \\ 
+                & \lstick{\vdots} & & & \vdots & & & & & & & & \ldots \\
+                & \lstick{\ket{x_{n - 1}}} & \qw & \qw & \qw & \ctrl{-3} & \qw & \qw & \qw & \qw & \ctrl{-2} & \qw & \gate \ldots & \gate H & \gate{R_2} & \qw & \qw \\ 
+                & \lstick{\ket{x_n}} & \qw & \qw & \qw & \qw & \ctrl{-4} & \qw & \qw & \qw & \qw & \ctrl{-3} & \gate \ldots & \qw & \ctrl{-1} & \gate H & \qw \\ 
 		}
 	\]
-	% \caption{The circuit.}
+	\caption{The circuit of the Quantum Fourier Transform.}
 \end{figure}
+
+TODO \todo{explain what is ts}
 
 \section{Quantum Phase Estimation} \label{qpe section}
 
@@ -272,7 +275,7 @@ Furthermore, we obseve that $\varphi \in [0, 1)$, because as we already metioned
                                 & = \varphi_1 \ldots \varphi_{m - 1}. \varphi_m \ldots \varphi_t \\ 
     \end{split}
 \end{equation*}
-Thus, since this is the exponent of $e^{2 \pi i}$, we already know that $$\exp(2 \pi i \varphi_1 \ldots \varphi_{m - 1} . \varphi_m \ldots \varphi_t) = \exp(2 \pi i 0. \varphi_m \ldots \varphi_t)$$ therefore the ternsor product can be rewritten as $$\dfrac{1}{\sqrt{2^t}} \bigotimes_{m = 1}^{t}{(\ket 0 + e^{2 \pi i 0.\varphi_m \ldots \varphi_t} \ket 1)}$$ Very elegantly, this is exactly $\mbox{QFT}_t \ket \varphi$ we computed in the previous section (only applied in a $t$-dimensional space). Finally, if we place the inverse QFT --- namely $\mbox{QFT}_t^\dag$ --- at the end of the circuit we retrieve $\ket x$ itself, which is also the entire state of the system at this point (without considering $\ket u$). This means that if we measure each register at the end of the circuit we retrieve the bits of $\varphi_i \in \B^t$ --- i.e. the bits that describe $\varphi$ --- with probability 1. In the end, we recovered the phase $\varphi$ of the eigenvalue associated to $\ket u$ with probability 1. \todo{scrivere QPE come alg}
+Thus, since this is the exponent of $e^{2 \pi i}$, we already know that $$\exp(2 \pi i \varphi_1 \ldots \varphi_{m - 1} . \varphi_m \ldots \varphi_t) = \exp(2 \pi i 0. \varphi_m \ldots \varphi_t)$$ therefore the ternsor product can be rewritten as $$\dfrac{1}{\sqrt{2^t}} \bigotimes_{m = 1}^{t}{(\ket 0 + e^{2 \pi i 0.\varphi_m \ldots \varphi_t} \ket 1)}$$ Very elegantly, this is exactly $\mbox{QFT}_t \ket \varphi$ we computed in the previous section (only applied in a $t$-dimensional space). Finally, if we place the inverse QFT --- namely $\mbox{QFT}_t^\dag$ --- at the end of the circuit we retrieve $\ket x$ itself, which is also the entire state of the system at this point (without considering $\ket u$). This means that if we measure each register at the end of the circuit we retrieve the bits of $\varphi_i \in \B^t$ --- i.e. the bits that describe $\varphi$ --- with probability 1. In the end, we recovered the phase $\varphi$ of the eigenvalue associated to $\ket u$ with probability 1.
 
 As a final note, what if $\varphi$ cannot be expressed in exactly $t$ bits? It can be shown that $\varphi$ can be estimated with $n$ bits of precision through a QPE circuit composed of $n + \ceil{\log(2 + \tfrac{1}{2 \varepsilon})}$ qubits with a success probability at least $1 - \varepsilon$, for some $\varepsilon > 0$.
 
