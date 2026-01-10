@@ -161,7 +161,14 @@ If we look closely, this sum of products as an interesting property:
     \item $m = n \implies k_{n - m + 1} = k_{n -n +1} = k_1$
 \end{itemize}
 
-implying that it can be rewritten as follows $$\dfrac{1}{\sqrt N}\sum_{k = 0}^{N - 1}{\rbk{e^{2 \pi i k_n \cdot 0.x_1 \ldots x_n} \cdot \ldots \cdot e^{2 \pi i k_1 \cdot 0.x_n}}}$$ In other words the bits of $k$ are \tit{indexing} which exponentials to use in the $k$-th coefficient of the sum. This means that we can rewrite the last step as follows: $$\mbox{QFT} \ket x =  \dfrac{1}{\sqrt N} \bigotimes_{m = 1}^n{\rbk{\ket 0 + e^{2\pi i 0.x_m \ldots x_n} \ket 1}}$$ Finally, the QFT written in this form can be actually implemented in a quantum circuit. Consider the following operator: $$R_k := \rmat{1 & 0 \\ 0 & e^{2 \pi i /2^k}}$$ It can be easily proven that it is unitary, so we can use it as a quantum gate. Hence, we construct the following quantum circuit:
+implying that it can be rewritten as follows $$\dfrac{1}{\sqrt N}\sum_{k = 0}^{N - 1}{\rbk{e^{2 \pi i k_n \cdot 0.x_1 \ldots x_n} \cdot \ldots \cdot e^{2 \pi i k_1 \cdot 0.x_n}}}$$ In other words the bits of $k$ are \tit{indexing} which exponentials to use in the $k$-th coefficient of the sum. This means that we can rewrite the last step as follows: $$\mbox{QFT} \ket x =  \dfrac{1}{\sqrt N} \bigotimes_{m = 1}^n{\rbk{\ket 0 + e^{2\pi i 0.x_m \ldots x_n} \ket 1}}$$ This formulation of the QFT is remarkable, because
+
+\begin{itemize}
+    \item it highlights exactly the goal of the Fourier transform: we encoded the information of $\ket x$ inside the \tit{phase} of the output
+    \item the QFT written in this form can be actually implemented in a quantum circuit
+\end{itemize}
+
+We will now construct the QFT circuit. Consider the following operator: $$R_k := \rmat{1 & 0 \\ 0 & e^{2 \pi i /2^k}}$$ It can be easily proven that it is unitary, so we can use it as a quantum gate. Hence, we construct the following quantum circuit:
 
 \begin{figure}[H]
 	\[
@@ -176,7 +183,7 @@ implying that it can be rewritten as follows $$\dfrac{1}{\sqrt N}\sum_{k = 0}^{N
 	\caption{The circuit of the Quantum Fourier Transform.}
 \end{figure}
 
-TODO \todo{explain what is ts}
+TODO \todo{explain what is ts, non manca lo swap alla fine tipo?}
 
 \section{Quantum Phase Estimation} \label{qpe section}
 
