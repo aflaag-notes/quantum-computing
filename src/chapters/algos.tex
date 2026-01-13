@@ -19,34 +19,34 @@ First, let's start with a problem seemingly unrelated to our discussion. Given a
 We define a map $U_f$ defined as follows: $$\funcmap{U_f}{\{0, 1\}^{n + 1}}{\{0, 1\}^{n + 1}}{(x, y)}{(x, y \oplus f(x))}$$ First, we observe that $$(y \oplus f(x)) \oplus f(x) = y \oplus (f(x) \oplus f(x)) = y$$ which trivially proves that $U_f$ is reversible. Moreover, we can actually prove that when applied to qubits the corresponding quantum operator $$\funcmap{U_f}{\mathcal H}{\mathcal H}{\ket x \ket y}{\ket x \ket{y \oplus f(x)}}$$ is indeed unitary --- we observe that we are omitting the tensor product symbol in the function definition, as usual in the literature.
 
 \begin{framedprop}{}
-    Given a Boolean function $\func{f}{\{0, 1\}^n}{\{0, 1\}}$, the operator $U_f$ is unitary.
+	Given a Boolean function $\func{f}{\{0, 1\}^n}{\{0, 1\}}$, the operator $U_f$ is unitary.
 \end{framedprop}
 
 \begin{proof}
-    TODO \todo{TODO}
+	TODO \todo{TODO}
 \end{proof}
 
 This proves that the construction of $U_f$ is precisely the gate that allows us to embed $f$ into any quantum computation. Moreover, we observe that
 
 \begin{itemize}
-    \item $\ket y = \ket 0 \implies U_f \ket x \ket 0 = \ket x \ket{f(x)}$
-    \item $\ket y = \ket 1 \implies U_f \ket x \ket 1 = \ket x \ket{\lnot f(x)}$
+	\item $\ket y = \ket 0 \implies U_f \ket x \ket 0 = \ket x \ket{f(x)}$
+	\item $\ket y = \ket 1 \implies U_f \ket x \ket 1 = \ket x \ket{\lnot f(x)}$
 \end{itemize}
 
 However, until now we only considered already collapsed qubits, but what if we consider a quantum input that is in a superposition? For instance, let $$\ket x = \dfrac{1}{\sqrt 2}(\ket 0 + \ket 1)$$ and assume that $\ket y = \ket 0$ for simplicity; this implies that
 \begin{equation*}
-    \begin{alignedat}{2}
-        U_f \ket x \ket y & = U_f \dfrac{1}{\sqrt 2}(\ket 0 + \ket 1) \otimes \ket 0 & \\ 
-                          & = U_f \dfrac{1}{\sqrt 2}(\ket{00} + \ket{10}) & \\ 
-                          & = \dfrac{1}{\sqrt 2}(U_f \ket {00} + U_f \ket {10}) & \quad (\mbox{by linearity of $U_f$}) \\ 
-                          & = \dfrac{1}{\sqrt 2}(\ket 0 \ket{f(0)} + \ket{1} \ket{f(1)}) & \\ 
-    \end{alignedat}
+	\begin{alignedat}{2}
+		U_f \ket x \ket y & = U_f \dfrac{1}{\sqrt 2}(\ket 0 + \ket 1) \otimes \ket 0     &                                      \\
+		                  & = U_f \dfrac{1}{\sqrt 2}(\ket{00} + \ket{10})                &                                      \\
+		                  & = \dfrac{1}{\sqrt 2}(U_f \ket {00} + U_f \ket {10})          & \quad (\mbox{by linearity of $U_f$}) \\
+		                  & = \dfrac{1}{\sqrt 2}(\ket 0 \ket{f(0)} + \ket{1} \ket{f(1)}) &                                      \\
+	\end{alignedat}
 \end{equation*}
 But notice what just happened: both $f(0)$ and $f(1)$ have been computed \tbf{simultaneously}, in one gate application. This has no classical equivalent, we would have to evaluate $f(0)$ and $f(1)$ \tit{separately}. This phenomenon is called \tbf{quantum parallelism}, and it can be achieved only because:
 
 \begin{itemize}
-    \item qubits are in superpositions
-    \item quantum gates are linear
+	\item qubits are in superpositions
+	\item quantum gates are linear
 \end{itemize}
 
 However, we observe that the result of our calculations is \tit{still a superposition}. In fact, if we measure the output of $U_f \ket x \ket y$ we would still get either $\ket 0 \ket{f(0)}$ or $\ket 1 \ket {f(1)}$, both with 50\% probability. This is a problem: the fact that we can compute $f(0)$ and $f(1)$ at the same time seems promising, but can we retrieve their actual values?
@@ -56,26 +56,26 @@ Unfortunately, this is not possible. Indeed, quantum parallelism cannot help us 
 Then, how do we extract useful \tit{global} information from the superposition output? In 1985 \textcite{deutsch} defined a quantum algorithm which is able to compute $f(0) \oplus f(1)$, which clearly tells us if $f(0)$ equals $f(1)$ or not.
 
 \begin{framedalgo}{Deutsch algorithm}
-    Given a Boolean function $f$ and 2 qubits, the algorithm returns $\ket 0$ if $f$ if $f(0) = f(1)$, $\ket 1$ otherwise. \\
-    \hrule
+	Given a Boolean function $f$ and 2 qubits, the algorithm returns $\ket 0$ if $f$ if $f(0) = f(1)$, $\ket 1$ otherwise. \\
+	\hrule
 
-    \quad
-    \begin{algorithmic}[1]
-        \Function{Deutsch}{$f$, $q_0$, $q_1$}
-            \State $q_1 \gets X(q_1)$
-            \State $q_0, q_1 \gets (H \otimes H)(q_0, q_1)$
-            \State $q_0, q_1 \gets U_f(q_0, q_1)$
-            \State $q_0 \gets H(q_0)$
-            \State \tbf{return} $\mbox{measure}(q_0)$
-        \EndFunction
-    \end{algorithmic}
+	\quad
+	\begin{algorithmic}[1]
+		\Function{Deutsch}{$f$, $q_0$, $q_1$}
+		\State $q_1 \gets X(q_1)$
+		\State $q_0, q_1 \gets (H \otimes H)(q_0, q_1)$
+		\State $q_0, q_1 \gets U_f(q_0, q_1)$
+		\State $q_0 \gets H(q_0)$
+		\State \tbf{return} $\mbox{measure}(q_0)$
+		\EndFunction
+	\end{algorithmic}
 \end{framedalgo}
 
 \begin{figure}[H]
 	\[
 		\Qcircuit @C=3em @R=3em {
-                  & \lstick{q_0} & \gate H & \qw & \multigate{1}{U_f} & \gate{H} & \meter & \cw \\ 
-                  & \lstick{q_1} & \gate{X} & \gate H & \ghost{U_f} & \qw & \qw & \qw \\
+		& \lstick{q_0} & \gate H & \qw & \multigate{1}{U_f} & \gate{H} & \meter & \cw \\
+		& \lstick{q_1} & \gate{X} & \gate H & \ghost{U_f} & \qw & \qw & \qw \\
 		}
 	\]
 	\caption{The quantum circuit for Deutsch's algorithm. The box labeled with $U_f$ represents a \curlyquotes{black-box} for whatever computation $U_f$ represents (which directly depends on the chioce of $f$).}
@@ -84,48 +84,48 @@ Then, how do we extract useful \tit{global} information from the superposition o
 Proving that this quantum circuit is correct, however, will be a little more involved than what we did for the quantum teleportation. First, we need a lemma that will simplify our calculations.
 
 \begin{framedlem}[label={U lemma}]{}
-    For any Boolean function $f$ defined on $n$ bits, and $a \in \{0, 1\}^n$, it holds that $$U_f \ket a \otimes \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1) = (-1)^{f(a)} \ket a \otimes \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1)$$
+	For any Boolean function $f$ defined on $n$ bits, and $a \in \{0, 1\}^n$, it holds that $$U_f \ket a \otimes \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1) = (-1)^{f(a)} \ket a \otimes \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1)$$
 \end{framedlem}
 
 \begin{proof}
-    First, by algebraic manipulation we see that
-    \begin{equation*}
-        \begin{split}
-            U_f \ket a \otimes \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1) & = U_f \dfrac{1}{\sqrt 2}(\ket{a0} - \ket{a1}) \\ 
-                                                                   & = \dfrac{1}{\sqrt 2}(U_f \ket{a0} - \ket{a1}) \\ 
-                                                                   & = \dfrac{1}{\sqrt 2}(\ket{a \ f(a)} - \ket{a \ \lnot f(a)}) \\ 
-        \end{split}
-    \end{equation*}
-    and now, we observe that
+	First, by algebraic manipulation we see that
+	\begin{equation*}
+		\begin{split}
+			U_f \ket a \otimes \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1) & = U_f \dfrac{1}{\sqrt 2}(\ket{a0} - \ket{a1})               \\
+			                                                       & = \dfrac{1}{\sqrt 2}(U_f \ket{a0} - \ket{a1})               \\
+			                                                       & = \dfrac{1}{\sqrt 2}(\ket{a \ f(a)} - \ket{a \ \lnot f(a)}) \\
+		\end{split}
+	\end{equation*}
+	and now, we observe that
 
-    \begin{itemize}
-        \item if $f(a) = 0$, then $$\dfrac{1}{\sqrt 2}(\ket{a0} - \ket{a1}) = (-1)^0 \ket{a} \otimes \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1)$$
-        \item if $f(a) = 1$, then $$\dfrac{1}{\sqrt 2}(\ket{a1} - \ket{a0}) = (-1)^1 \ket{a} \otimes \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1)$$
-    \end{itemize}
+	\begin{itemize}
+		\item if $f(a) = 0$, then $$\dfrac{1}{\sqrt 2}(\ket{a0} - \ket{a1}) = (-1)^0 \ket{a} \otimes \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1)$$
+		\item if $f(a) = 1$, then $$\dfrac{1}{\sqrt 2}(\ket{a1} - \ket{a0}) = (-1)^1 \ket{a} \otimes \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1)$$
+	\end{itemize}
 \end{proof}
 
 We are now ready to prove the correctness of Deutsch's algorithm. To make things less cluttered, we will use the following standard notation: $$\ket + := \dfrac{1}{\sqrt 2}(\ket 0 + \ket 1) \quad \quad \ket - := \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1)$$ In particular, we observe that $$H \ket 0 = \ket + \quad \quad H \ket 1 = \ket - $$ Moreover, we will omit the subscript of the corresponding qubit when the context is clear enough
 \begin{equation*}
-    \hspace{-0.7cm}
-    \begin{alignedat}{2}
-      & q_0 \otimes q_1 &  \\ 
-        = & \ket 0 \otimes \ket 0 & \\ 
-        \xrightarrow{X(q_1)} & \ket 0 \otimes \ket 1 & \\ 
-        \xrightarrow{(H \otimes H)(q_0, q_1)} & \ket + \otimes \ket - &  \\ 
-        % = & \dfrac{1}{\sqrt 2}(\ket{00} - \ket{01} + \ket{10} - \ket{11}) & \\ 
-        = & \dfrac{1}{\sqrt 2} \ket 0_0 \ket -_1  + \dfrac{1}{\sqrt 2} \ket 1_0 \ket -_1 & \\ 
-        \xrightarrow{U_f(q_0, q_1)} & \dfrac{1}{\sqrt 2} (-1)^{f(0)} \ket 0_0 \ket -_1 + \dfrac{1}{\sqrt 2} (-1)^{f(1)} \ket 1_0 \ket -_1 & \quad (\mbox{by the lemma}) \\ 
-        = & \dfrac{1}{\sqrt 2}\rbk{(-1)^{f(0)} \ket 0_0 + (-1)^{f(1)} \ket 1_0} \otimes \ket -_1 & \\ 
-        \xrightarrow{H(q_0)} & \dfrac{1}{\sqrt 2}\rbk{(-1)^{f(0)} \ket +_0 + (-1)^{f(1)} \ket -_0} \otimes \ket -_1 & \\ 
-        = & \dfrac{1}{2} \rbk{(-1)^{f(0)}(\ket 0 + \ket 1) + (-1)^{f(1)}(\ket 0 - \ket 1)} \otimes  \ket -_1 & \\ 
-        = & \dfrac{1}{2}\rbk{\rbk{(-1)^{f(0)} + (-1)^{f(1)}} \ket 0 + \rbk{(-1)^{f(0)} - (-1)^{f(1)}} \ket 1} \otimes \ket -_1 & \\ 
-    \end{alignedat}
+	\hspace{-0.7cm}
+	\begin{alignedat}{2}
+		                                      & q_0 \otimes q_1                                                                                                    &                             \\
+		=                                     & \ket 0 \otimes \ket 0                                                                                              &                             \\
+		\xrightarrow{X(q_1)}                  & \ket 0 \otimes \ket 1                                                                                              &                             \\
+		\xrightarrow{(H \otimes H)(q_0, q_1)} & \ket + \otimes \ket -                                                                                              &                             \\
+		% = & \dfrac{1}{\sqrt 2}(\ket{00} - \ket{01} + \ket{10} - \ket{11}) & \\ 
+		=                                     & \dfrac{1}{\sqrt 2} \ket 0_0 \ket -_1  + \dfrac{1}{\sqrt 2} \ket 1_0 \ket -_1                                       &                             \\
+		\xrightarrow{U_f(q_0, q_1)}           & \dfrac{1}{\sqrt 2} (-1)^{f(0)} \ket 0_0 \ket -_1 + \dfrac{1}{\sqrt 2} (-1)^{f(1)} \ket 1_0 \ket -_1                & \quad (\mbox{by the lemma}) \\
+		=                                     & \dfrac{1}{\sqrt 2}\rbk{(-1)^{f(0)} \ket 0_0 + (-1)^{f(1)} \ket 1_0} \otimes \ket -_1                               &                             \\
+		\xrightarrow{H(q_0)}                  & \dfrac{1}{\sqrt 2}\rbk{(-1)^{f(0)} \ket +_0 + (-1)^{f(1)} \ket -_0} \otimes \ket -_1                               &                             \\
+		=                                     & \dfrac{1}{2} \rbk{(-1)^{f(0)}(\ket 0 + \ket 1) + (-1)^{f(1)}(\ket 0 - \ket 1)} \otimes  \ket -_1                   &                             \\
+		=                                     & \dfrac{1}{2}\rbk{\rbk{(-1)^{f(0)} + (-1)^{f(1)}} \ket 0 + \rbk{(-1)^{f(0)} - (-1)^{f(1)}} \ket 1} \otimes \ket -_1 &                             \\
+	\end{alignedat}
 \end{equation*}
 Now, since the final operation of the circuit involves measuring $q_0 = \alpha \ket 0 + \beta \ket 1$, the only two things that we care about are its probability amplitudes, namely $$\alpha = \dfrac{1}{2}\rbk{(-1)^{f(0)} + (-1)^{f(1)}}$$ $$\beta = \dfrac{1}{2}\rbk{(-1)^{f(0)} + (-1)^{f(1)}}$$ and we see that
 
 \begin{itemize}
-    \item if $f(0) = f(1)$, then $$(-1)^{f(0)} = (-1)^{f(1)} \implies \soe{l}{\alpha = \tfrac{1}{2}\rbk{2(-1)^{f(0)}} = (-1)^{f(0)} \\ \beta = 0}$$ which implies that $$q_0 = (-1)^{f(0)} \ket 0 + 0 \cdot \ket 1 = (-1)^{f(0)} \ket 0$$ and we can ignore the $(-1)^{f(0)}$ factor since its a global phase
-    \item if $f(0) \neq f(1)$, then $$(-1)^{f(0)} = - (-1)^{f(1)} \implies \soe{l}{\alpha = 0 \\ \beta = \tfrac{1}{2}\rbk{2(-1)^{f(0)}} = (-1)^{f(0)}}$$ which implies that $$q_0 = 0 \cdot \ket 0 + (-1)^{f(0)} \ket 1 = (-1)^{f(0)} \ket 1$$ by the same reasoning as the other case
+	\item if $f(0) = f(1)$, then $$(-1)^{f(0)} = (-1)^{f(1)} \implies \soe{l}{\alpha = \tfrac{1}{2}\rbk{2(-1)^{f(0)}} = (-1)^{f(0)} \\ \beta = 0}$$ which implies that $$q_0 = (-1)^{f(0)} \ket 0 + 0 \cdot \ket 1 = (-1)^{f(0)} \ket 0$$ and we can ignore the $(-1)^{f(0)}$ factor since its a global phase
+	\item if $f(0) \neq f(1)$, then $$(-1)^{f(0)} = - (-1)^{f(1)} \implies \soe{l}{\alpha = 0 \\ \beta = \tfrac{1}{2}\rbk{2(-1)^{f(0)}} = (-1)^{f(0)}}$$ which implies that $$q_0 = 0 \cdot \ket 0 + (-1)^{f(0)} \ket 1 = (-1)^{f(0)} \ket 1$$ by the same reasoning as the other case
 \end{itemize}
 
 In the end, this proves that if $f(0) = f(1)$, $q_0$ will collapse to $\ket 0$, while if $f(0) \neq f(1)$ $q_1$ will colapse to $\ket 1$, proving that Deutsch's algorithm works correctly.
@@ -137,13 +137,13 @@ Even though Deutsch's algorithm is quite interesting and offers advantages that 
 This is because, in reality, the algorithm that we are using is only solving a particular case of a more complex problem. In fact, a couple of years later \textcite{dj} realized that if we use $q_1 = \ket 1$ and $q_0 = \ket{0}^{\otimes n}$ (i.e. we use $n$ qubits set to $\ket 0$) this algorithm is actually able to tell \tbf{constant} and \tbf{balanced} functions apart.
 
 \begin{frameddefn}{Constant function}
-    A Boolean function $\func{f}{\{0, 1\}^n}{\{0,1\}}$ is said to be \tbf{constant} if $$\exists b \in \{0, 1\} \quad \forall x \in \{0, 1\}^n \quad f(x) = b$$
+	A Boolean function $\func{f}{\{0, 1\}^n}{\{0,1\}}$ is said to be \tbf{constant} if $$\exists b \in \{0, 1\} \quad \forall x \in \{0, 1\}^n \quad f(x) = b$$
 \end{frameddefn}
 
 The definition of constant Boolean function has nothing special, and balanced functions are exactly what the name suggests, i.e. half of the inputs output 0 and the other half output 1, which can be succintly expressed as follows.
 
 \begin{frameddefn}{Balanced function}
-    A Boolean function $\func{f}{\{0, 1\}^n}{\{0,1\}}$ is said to be \tbf{balanced} if it holds that $$\sum_{x \in \B^n}{f(x)} = 2^{n - 1}$$
+	A Boolean function $\func{f}{\{0, 1\}^n}{\{0,1\}}$ is said to be \tbf{balanced} if it holds that $$\sum_{x \in \B^n}{f(x)} = 2^{n - 1}$$
 \end{frameddefn}
 
 We observe that a Boolean function can be neither constant nor balanced, so this decision problem is actually a \tbf{promise problem}: given a Boolean function $f$ that is either constant or balanced --- note that it cannot be both --- decide if the function is constant or balanced. Indeed, we see that Deutsch's algorithm solved the same exact problem for $n = 2$: in fact, if $f(0) = f(1)$ it means that $f$ is constant, otherwise the latter is balanced.
@@ -151,19 +151,19 @@ We observe that a Boolean function can be neither constant nor balanced, so this
 Moreover, this problem actually shows the power of quantum parallelism more evidently: with a classical computation, to solve this decision problem we would need at most $$2^{n - 1} + 1 = O(2^n)$$ queries to $f$, instead our quantum computation still only requires \und{one} evaluation of $f$ to solve the problem.
 
 \begin{framedalgo}{Deutsch-Josza algorithm}
-    Given a Boolean function $f$ and $n + 1$ qubits, the algorithm returns $\ket{0}^{\otimes n}$ if $f$ is constant, $\ket 1$ otherwise. \\
-    \hrule
+	Given a Boolean function $f$ and $n + 1$ qubits, the algorithm returns $\ket{0}^{\otimes n}$ if $f$ is constant, $\ket 1$ otherwise. \\
+	\hrule
 
-    \quad
-    \begin{algorithmic}[1]
-        \Function{DeutschJosza}{$f$, $q_0$, $q_1$}
-            \State $q_1 \gets X(q_1)$
-            \State $q_0, q_1 \gets (H^{\otimes n} \otimes H)(q_0, q_1)$
-            \State $q_0, q_1 \gets U_f(q_0, q_1)$
-            \State $q_0 \gets H^{\otimes n}(q_0)$
-            \State \tbf{return} $\mbox{measure}(q_0)$
-        \EndFunction
-    \end{algorithmic}
+	\quad
+	\begin{algorithmic}[1]
+		\Function{DeutschJosza}{$f$, $q_0$, $q_1$}
+		\State $q_1 \gets X(q_1)$
+		\State $q_0, q_1 \gets (H^{\otimes n} \otimes H)(q_0, q_1)$
+		\State $q_0, q_1 \gets U_f(q_0, q_1)$
+		\State $q_0 \gets H^{\otimes n}(q_0)$
+		\State \tbf{return} $\mbox{measure}(q_0)$
+		\EndFunction
+	\end{algorithmic}
 \end{framedalgo}
 
 Note that in this algorithm $q_0$ are actually $n$ qubits, thus $q_0$ is initially set to $\ket{0}^{\otimes n}$. Before proving the correctness of this general version of the algorithm, let us first take a look at the quantum circuit that defines it.
@@ -171,62 +171,62 @@ Note that in this algorithm $q_0$ are actually $n$ qubits, thus $q_0$ is initial
 \begin{figure}[H]
 	\[
 		\Qcircuit @C=3em @R=3em {
-                  & \lstick{q_0^{\otimes n}} & \gate{H^{\otimes n}} & \qw & \multigate{1}{U_f} & \gate{H^{\otimes n}} & \meter & \cw \\ 
-                  & \lstick{q_1} & \gate{X} & \gate H & \ghost{U_f} & \qw & \qw & \qw \\
+		& \lstick{q_0^{\otimes n}} & \gate{H^{\otimes n}} & \qw & \multigate{1}{U_f} & \gate{H^{\otimes n}} & \meter & \cw \\
+		& \lstick{q_1} & \gate{X} & \gate H & \ghost{U_f} & \qw & \qw & \qw \\
 		}
 	\]
 	\caption{The quantum circuit for the Deutsch-Josza algorithm.}
 \end{figure}
 
 \begin{framedprop}[label={H prop}]{}
-    For any $x \in \B^n$ it holds that $$H^{\otimes n}\ket x = \dfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{(-1)^{x \cdot a} \ket a}$$
+	For any $x \in \B^n$ it holds that $$H^{\otimes n}\ket x = \dfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{(-1)^{x \cdot a} \ket a}$$
 \end{framedprop}
 
 \begin{proof}
-    First, consider the following claim.
+	First, consider the following claim.
 
-    \claim{
-        $\forall a \in \B \quad H \ket a = \tfrac{1}{\sqrt 2} \sum_{b \in \B}{(-1)^{a \cdot b} \ket b}$.
-    }{
-        We observe that $$H \ket 0 = \ket + = \dfrac{1}{\sqrt 2}(\ket 0 + \ket 1) = \dfrac{1}{\sqrt 2} \sum_{b \in \B}{(-1)^{0 \cdot b} \ket b}$$ and analogously $$H \ket 1 = \ket - = \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1) = \dfrac{1}{\sqrt 2} \sum_{b \in \B}{(-1)^{1 \cdot b} \ket b}$$
-    }
+	\claim{
+		$\forall a \in \B \quad H \ket a = \tfrac{1}{\sqrt 2} \sum_{b \in \B}{(-1)^{a \cdot b} \ket b}$.
+	}{
+		We observe that $$H \ket 0 = \ket + = \dfrac{1}{\sqrt 2}(\ket 0 + \ket 1) = \dfrac{1}{\sqrt 2} \sum_{b \in \B}{(-1)^{0 \cdot b} \ket b}$$ and analogously $$H \ket 1 = \ket - = \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1) = \dfrac{1}{\sqrt 2} \sum_{b \in \B}{(-1)^{1 \cdot b} \ket b}$$
+	}
 
-    In the rest of the proof we will denote with the $\cdot$ symbol the \curlyquotes{canonical} scalar product, i.e. $$\forall x, y \in \B^n \quad x \cdot y := \sum_{i = 1}^n{x_i y_i}$$ Fix $x \in \B^n$; by the previous claim, we have that
-    \begin{equation*}
-        \begin{alignedat}{2}
-            H^{\otimes n} \ket x & = \bigotimes_{i = 1}^n{H \ket{x_i}} & \\ 
-                                 & = \bigotimes_{i = 1}^n{\rbk{\dfrac{1}{\sqrt 2} \sum_{b \in \B}{(-1)^{x_ib} \ket b}} \ket{x_i} }  & \quad (\mbox{by the claim}) & \\ 
-                                 & = \dfrac{1}{\sqrt 2^n} \bigotimes_{i = 1}^n{\rbk{\ket 0 + (-1)^{x_i} \ket 1}} & \\ 
-                                 & = \dfrac{1}{\sqrt 2^n} \sum_{a \in \B^n}{(-1)^{x \cdot a} \ket a } & \\ 
-        \end{alignedat}
-    \end{equation*}
+	In the rest of the proof we will denote with the $\cdot$ symbol the \curlyquotes{canonical} scalar product, i.e. $$\forall x, y \in \B^n \quad x \cdot y := \sum_{i = 1}^n{x_i y_i}$$ Fix $x \in \B^n$; by the previous claim, we have that
+	\begin{equation*}
+		\begin{alignedat}{2}
+			H^{\otimes n} \ket x & = \bigotimes_{i = 1}^n{H \ket{x_i}}                                                             &                               \\
+			                     & = \bigotimes_{i = 1}^n{\rbk{\dfrac{1}{\sqrt 2} \sum_{b \in \B}{(-1)^{x_ib} \ket b}} \ket{x_i} } & \quad (\mbox{by the claim}) & \\
+			                     & = \dfrac{1}{\sqrt 2^n} \bigotimes_{i = 1}^n{\rbk{\ket 0 + (-1)^{x_i} \ket 1}}                   &                               \\
+			                     & = \dfrac{1}{\sqrt 2^n} \sum_{a \in \B^n}{(-1)^{x \cdot a} \ket a }                              &                               \\
+		\end{alignedat}
+	\end{equation*}
 \end{proof}
-    
+
 Finally, we are ready to prove the correctness of the algorithm.
 
 \begin{equation*}
-    \begin{alignedat}{2}
-        & q_0 \otimes q_1 & \\ 
-        = & \ket{0}^{\otimes n} \otimes \ket 0 & \\ 
-        \xrightarrow{X(q_1)} & \ket{0}^{\otimes n} \otimes \ket 1 & \\ 
-        \xrightarrow{H^{\otimes n}(q_0, q_1)} & H^{\otimes n} \ket{0}^{\otimes n} \otimes H \ket 1 & \\ 
-        = & \dfrac{1}{\sqrt 2^n} \sum_{a \in \B^n}{(-1)^{0^n \cdot a} \ket a} \otimes \ket - & \quad (\mbox{by \cref{H prop}}) \\ 
-        = & \dfrac{1}{\sqrt 2^n} \sum_{a \in \B^n}{\ket a} \otimes \ket -  & \\ 
-        = & \dfrac{1}{\sqrt 2^n } \sum_{a \in \B^n}{(\ket a \otimes \ket - )} & \\ 
-        \xrightarrow{U_f(q_0, q_1)} & \dfrac{1}{\sqrt 2^n} \sum_{a \in \B^n}{\rbk{(-1)^{f(a)} \ket a \otimes \ket - }} & \quad (\mbox{by \cref{U lemma}}) \\ 
-        = & \dfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{(-1)^{f(a)} \ket a} \otimes \ket - & \\ 
-        \xrightarrow{H^{\otimes n}(q_0)} & H^{\otimes n} \rbk{\dfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{(-1)^{f(a)} \ket a }} \otimes \ket - & \\ 
-        = & \dfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{\rbk{(-1)^{f(a)} H^{\otimes n} \ket a }} \otimes \ket - & \\ 
-        = & \dfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{(-1)^{f(a)} \rbk{\dfrac{1}{\sqrt 2^n} \sum_{b \in \B^n} {(-1)^{a \cdot b} \ket b}}} \otimes \ket - & \quad (\mbox{by \cref{H prop}}) \\ 
-        = & \dfrac{1}{2^n} \sum_{a \in \B^n}{\sum_{b \in \B^n}{(-1)^{f(a) + a \cdot b}} \ket b } \otimes \ket - & \\ 
-        = & \dfrac{1}{2^n} \sum_{b \in \B^n}{\sum_{a \in \B^n}{(-1)^{f(a) + a \cdot b}} \ket b } \otimes \ket - & \\ 
-        = & \sum_{b \in \B^n}{\rbk{\dfrac{1}{2^n}\sum_{a \in \B^n}{(-1)^{f(a) + a \cdot b}}} \ket b_0} \otimes \ket -_1 & \\
-    \end{alignedat}
+	\begin{alignedat}{2}
+		                                      & q_0 \otimes q_1                                                                                                                            &                                  \\
+		=                                     & \ket{0}^{\otimes n} \otimes \ket 0                                                                                                         &                                  \\
+		\xrightarrow{X(q_1)}                  & \ket{0}^{\otimes n} \otimes \ket 1                                                                                                         &                                  \\
+		\xrightarrow{H^{\otimes n}(q_0, q_1)} & H^{\otimes n} \ket{0}^{\otimes n} \otimes H \ket 1                                                                                         &                                  \\
+		=                                     & \dfrac{1}{\sqrt 2^n} \sum_{a \in \B^n}{(-1)^{0^n \cdot a} \ket a} \otimes \ket -                                                           & \quad (\mbox{by \cref{H prop}})  \\
+		=                                     & \dfrac{1}{\sqrt 2^n} \sum_{a \in \B^n}{\ket a} \otimes \ket -                                                                              &                                  \\
+		=                                     & \dfrac{1}{\sqrt 2^n } \sum_{a \in \B^n}{(\ket a \otimes \ket - )}                                                                          &                                  \\
+		\xrightarrow{U_f(q_0, q_1)}           & \dfrac{1}{\sqrt 2^n} \sum_{a \in \B^n}{\rbk{(-1)^{f(a)} \ket a \otimes \ket - }}                                                           & \quad (\mbox{by \cref{U lemma}}) \\
+		=                                     & \dfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{(-1)^{f(a)} \ket a} \otimes \ket -                                                                 &                                  \\
+		\xrightarrow{H^{\otimes n}(q_0)}      & H^{\otimes n} \rbk{\dfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{(-1)^{f(a)} \ket a }} \otimes \ket -                                            &                                  \\
+		=                                     & \dfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{\rbk{(-1)^{f(a)} H^{\otimes n} \ket a }} \otimes \ket -                                            &                                  \\
+		=                                     & \dfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{(-1)^{f(a)} \rbk{\dfrac{1}{\sqrt 2^n} \sum_{b \in \B^n} {(-1)^{a \cdot b} \ket b}}} \otimes \ket - & \quad (\mbox{by \cref{H prop}})  \\
+		=                                     & \dfrac{1}{2^n} \sum_{a \in \B^n}{\sum_{b \in \B^n}{(-1)^{f(a) + a \cdot b}} \ket b } \otimes \ket -                                        &                                  \\
+		=                                     & \dfrac{1}{2^n} \sum_{b \in \B^n}{\sum_{a \in \B^n}{(-1)^{f(a) + a \cdot b}} \ket b } \otimes \ket -                                        &                                  \\
+		=                                     & \sum_{b \in \B^n}{\rbk{\dfrac{1}{2^n}\sum_{a \in \B^n}{(-1)^{f(a) + a \cdot b}}} \ket b_0} \otimes \ket -_1                                &                                  \\
+	\end{alignedat}
 \end{equation*}
 
 Now note that this state describes the superposition of the system, but the next step of the algorithm will only measure $q_0$, therefore we can ignore $\ket -_1$ and just focus on the amplitudes of $q_0$. Then, by calling $$\forall b \in \B^n \quad \alpha_b := \dfrac{1}{2^n} \sum_{a \in \B^n}{(-1)^{f(a) + a \cdot b}}$$ we can rewrite $q_0$ as follows $$q_0 = \sum_{b \in \B^n}{\alpha_b \ket b}$$ Finally, since we want to determine the probability that $q_0$ collapses into the state $\ket{0}^{\otimes n}$ specifically, we can easily evaluate the associated amplitude of the latter, i.e. $$\alpha_{0^n} = \dfrac{1}{2^n}\sum_{a \in \B^n}{(-1)^{f(a)+ a \cdot 0^n}} = \dfrac{1}{2^n} \sum_{a \in \B^n}{(-1)^{f(a)}}$$ From this, we can easily conclude that:
 
 \begin{itemize}
-    \item if $f$ is constant, then $$\alpha_{0^n} = \dfrac{1}{2^n} \sum_{a \in \B^n}{(-1)^{f(a)}} = \dfrac{1}{2^n} \cdot 2^n \cdot (-1)^{b} = (-1)^b$$ where $b \in \B$, meaning that it is guaranteed that $q_0$ will collapse to $0^n$
-    \item if $f$ is balanced, then $$\alpha_{0^n} = \dfrac{1}{2^n} \sum_{a \in \B}{(-1)^{f(a)}} = \dfrac{1}{2^n} \cdot 0 = 0$$ meaning that it is guaranteed that $q_0$ will \tit{not} collapse to $0^n$
+	\item if $f$ is constant, then $$\alpha_{0^n} = \dfrac{1}{2^n} \sum_{a \in \B^n}{(-1)^{f(a)}} = \dfrac{1}{2^n} \cdot 2^n \cdot (-1)^{b} = (-1)^b$$ where $b \in \B$, meaning that it is guaranteed that $q_0$ will collapse to $0^n$
+	\item if $f$ is balanced, then $$\alpha_{0^n} = \dfrac{1}{2^n} \sum_{a \in \B}{(-1)^{f(a)}} = \dfrac{1}{2^n} \cdot 0 = 0$$ meaning that it is guaranteed that $q_0$ will \tit{not} collapse to $0^n$
 \end{itemize}
