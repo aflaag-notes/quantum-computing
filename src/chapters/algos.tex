@@ -112,13 +112,13 @@ We are now ready to prove the correctness of Deutsch's algorithm. To make things
         = & \ket 0 \otimes \ket 0 & \\ 
         \xrightarrow{X(q_1)} & \ket 0 \otimes \ket 1 & \\ 
         \xrightarrow{(H \otimes H)(q_0, q_1)} & \ket + \otimes \ket - &  \\ 
-        = & \dfrac{1}{\sqrt 2}(\ket{00} - \ket{01} + \ket{10} - \ket{11}) & \\ 
+        % = & \dfrac{1}{\sqrt 2}(\ket{00} - \ket{01} + \ket{10} - \ket{11}) & \\ 
         = & \dfrac{1}{\sqrt 2} \ket 0_0 \ket -_1  + \dfrac{1}{\sqrt 2} \ket 1_0 \ket -_1 & \\ 
         \xrightarrow{U_f(q_0, q_1)} & \dfrac{1}{\sqrt 2} (-1)^{f(0)} \ket 0_0 \ket -_1 + \dfrac{1}{\sqrt 2} (-1)^{f(1)} \ket 1_0 \ket -_1 & \quad (\mbox{by the lemma}) \\ 
         = & \dfrac{1}{\sqrt 2}\rbk{(-1)^{f(0)} \ket 0_0 + (-1)^{f(1)} \ket 1_0} \otimes \ket -_1 & \\ 
-        \xrightarrow{H(q_0)} & \dfrac{1}{\sqrt 2}\rbk{(-1)^{f(0)} \ket +_0 + (-1)^{f(1)} \ket -_0} \otimes \sqrt 2 \ket -_1 & \\ 
-        = & \dfrac{1}{2} \rbk{(-1)^{f(0)}(\ket 0 + \ket 1) + (-1)^{f(1)}(\ket 0 - \ket 1)} \otimes \sqrt 2 \ket -_1 & \\ 
-        = & \dfrac{1}{2}\rbk{\rbk{(-1)^{f(0)} + (-1)^{f(1)}} \ket 0 + \rbk{(-1)^{f(0)} - (-1)^{f(1)}} \ket 1} \otimes \sqrt 2 \ket -_1 & \\ 
+        \xrightarrow{H(q_0)} & \dfrac{1}{\sqrt 2}\rbk{(-1)^{f(0)} \ket +_0 + (-1)^{f(1)} \ket -_0} \otimes \ket -_1 & \\ 
+        = & \dfrac{1}{2} \rbk{(-1)^{f(0)}(\ket 0 + \ket 1) + (-1)^{f(1)}(\ket 0 - \ket 1)} \otimes  \ket -_1 & \\ 
+        = & \dfrac{1}{2}\rbk{\rbk{(-1)^{f(0)} + (-1)^{f(1)}} \ket 0 + \rbk{(-1)^{f(0)} - (-1)^{f(1)}} \ket 1} \otimes \ket -_1 & \\ 
     \end{alignedat}
 \end{equation*}
 Now, since the final operation of the circuit involves measuring $q_0 = \alpha \ket 0 + \beta \ket 1$, the only two things that we care about are its probability amplitudes, namely $$\alpha = \dfrac{1}{2}\rbk{(-1)^{f(0)} + (-1)^{f(1)}}$$ $$\beta = \dfrac{1}{2}\rbk{(-1)^{f(0)} + (-1)^{f(1)}}$$ and we see that
@@ -219,7 +219,7 @@ Finally, we are ready to prove the correctness of the algorithm.
         = & \dfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{\rbk{(-1)^{f(a)} H^{\otimes n} \ket a }} \otimes \ket - & \\ 
         = & \dfrac{1}{\sqrt 2 ^n} \sum_{a \in \B^n}{(-1)^{f(a)} \rbk{\dfrac{1}{\sqrt 2^n} \sum_{b \in \B^n} {(-1)^{a \cdot b} \ket b}}} \otimes \ket - & \quad (\mbox{by \cref{H prop}}) \\ 
         = & \dfrac{1}{2^n} \sum_{a \in \B^n}{\sum_{b \in \B^n}{(-1)^{f(a) + a \cdot b}} \ket b } \otimes \ket - & \\ 
-        = & \dfrac{1}{2^n} \sum_{a \in \B^n}{\sum_{b \in \B^n}{(-1)^{f(a) + a \cdot b}} \ket b } \otimes \ket - & \\ 
+        = & \dfrac{1}{2^n} \sum_{b \in \B^n}{\sum_{a \in \B^n}{(-1)^{f(a) + a \cdot b}} \ket b } \otimes \ket - & \\ 
         = & \sum_{b \in \B^n}{\rbk{\dfrac{1}{2^n}\sum_{a \in \B^n}{(-1)^{f(a) + a \cdot b}}} \ket b_0} \otimes \ket -_1 & \\
     \end{alignedat}
 \end{equation*}

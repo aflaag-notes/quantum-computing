@@ -96,7 +96,7 @@ We observe that the QFT matrix has positive exponents, which is just a conventio
                                        & = \dfrac{1}{N} \sum_{j, k = 0}^{N - 1}{\ket j \rbk{\sum_{r, s = 0}^{ N - 1}{e^{2 \pi i (-jr+ks)/ N} \braket{r|s}}}\bra k} & \\ 
                                        & = \dfrac{1}{N} \sum_{j, k = 0}^{N - 1}{\ket j \rbk{\sum_{r = 0}^{ N - 1}{e^{2 \pi i r(k - j)/ N}}}\bra k} & \quad (\braket{r|s} = \delta_{rs}) \\ 
                                        & = \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j = k}}^{N - 1}{\ket j \rbk{\sum_{r = 0}^{N - 1}{1}} \bra k} + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\sum_{r = 0}^{N - 1}{e^{2 \pi i r(k - j)/ N}}}\bra k} & \\ 
-                                       & = \dfrac{1}{N} \sum_{j = 0}^{N - 1}{\ket j \bra j} + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\sum_{r = 0}^{N - 1}{e^{2 \pi i r(k - j)/ N}}}\bra k} & \\ 
+                                       & = \sum_{j = 0}^{N - 1}{\ket j \bra j} + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\sum_{r = 0}^{N - 1}{e^{2 \pi i r(k - j)/ N}}}\bra k} & \\ 
                                        & = I + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\sum_{r = 0}^{N - 1}{e^{2 \pi i r(k - j)/ N}}}\bra k} & \quad (\mbox{resolution of $I$}) \\ 
                                        & = I + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\sum_{r = 0}^{N - 1}{\rbk{e^{2 \pi i (k - j)/ N}}^r}}\bra k} & \quad (\mbox{resolution of $I$}) \\ 
         \end{alignedat}
@@ -109,7 +109,7 @@ We observe that the QFT matrix has positive exponents, which is just a conventio
                                        & = I + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\dfrac{1 - e^{2 \pi i(k - j)}}{1 - e^{2\pi i (k - j)/ N}}}\bra k} & \\ 
         \end{alignedat}
     \end{equation*}
-    Lastly, since $k - j$ is an integer for any $j, k \in [0, N - 1]$ --- and in particular whenever $j \neq k$ --- it holds that $$e^{2 \pi i (k - j )} = \cos(2 \pi i (k - j)) + i \sin(2 \pi i (k - j)) = 1$$ Therefore, the numerator is always equal to $1 - 1 = 0$, so the sum vanishes. Finally, we can conclude that $$\mbox{QFT}^\dag \ \mbox{QFT} = I + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\dfrac{1 - 1}{1 - e^{2\pi i (k - j)/ N}}}\bra k} = I$$
+    Lastly, since $k - j$ is an integer for any $j, k \in [0, N - 1]$, therefore, the numerator is always equal to $1 - 1 = 0$, so the sum vanishes. Finally, we can conclude that $$\mbox{QFT}^\dag \ \mbox{QFT} = I + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\dfrac{1 - 1}{1 - e^{2\pi i (k - j)/ N}}}\bra k} = I$$
 
     TODO \todo{prove the second product}
 \end{proof}
