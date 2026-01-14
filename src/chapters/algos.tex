@@ -23,10 +23,66 @@ We define a map $U_f$ defined as follows: $$\funcmap{U_f}{\{0, 1\}^{n + 1}}{\{0,
 \end{framedprop}
 
 \begin{proof}
-	TODO \todo{TODO}
+    The definition we provided of $U_f$ is component-wise, therefore to reconstruct the complete operator we can use the \tit{resolution of the identity}:
+    \begin{equation*}
+        \begin{split}
+            U_f & = U_f \cdot I \\ 
+                & = U_f \sum_{b}{\ket b \bra b}  \\
+                & = \sum_{b}{U_f \ket b \bra b}
+        \end{split}
+    \end{equation*}
+    We will omit the dimensions of the Hilbert spaces for brevity, as they are are not relevant. What we are really interested in is that $\ket b$ can surely be written as tensor product of some $\ket x \otimes \ket y$ for $b \in \B^{n + 1}$, $x \in \B^n$ and $y \in \B$. Therefore, the operator above can be rewritten as
+    \begin{equation*}
+        \begin{split}
+            U_f & = \sum_{b}{U_f \ket b \bra b} \\ 
+                & = \sum_{x}{\sum_{y}{U_f \ket x \ket y \bra x \bra y}} \\ 
+                & = \sum_{x}{\sum_{y}{\ket x \ket {y \oplus f(x)} \bra x \bra y}}
+        \end{split}
+    \end{equation*}
+    From now on, we will extensively utilize \cref{broken tensor}. First, we prove that $U_f$ is actually Hermitian.
+
+    \claim{
+        The operator $U_f$ is Hermitian.
+    }{
+        We compute $U_f^\dag$ as follows
+        \begin{equation*}
+            \begin{split}
+                U_f^\dag & = \sum_{x}{\sum_{y}{ \rbk{\ket x \ket {y \oplus f(x)} \bra x \bra y}^\dag}} \\ 
+                         & = \sum_{x}{\sum_{y}{\rbk{\ket x \bra x \otimes \ket {y \oplus f(x)} \bra y}^\dag}} \\
+                         & = \sum_{x}{\sum_{y}{\rbk{\ket x \bra x}^\dag \otimes \rbk{\ket {y \oplus f(x)} \bra y}^\dag}} \\
+                         & = \sum_{x}{\sum_{y}{\ket x \bra x \otimes \ket y \bra {y \oplus f(x)} }} \\ 
+                         & = \sum_{x}{\sum_{y}{\ket x \ket y \bra x \bra{y \oplus f(x)}}} \\ 
+            \end{split}
+        \end{equation*}
+        Now, let $y' := y \oplus f(x)$; then, by the properties of the XOR it follows that $$y = y' \oplus f(x)$$ which means that 
+        \begin{equation*}
+            \begin{split}
+                U_f & = \sum_{x}{\sum_{y}{\ket x \ket y \bra x \bra{y \oplus f(x)}}} \\ 
+                    & = \sum_{x}{\sum_{y'}{\ket x \ket{y' \oplus f(x)} \bra x \bra {y'}}} \\ 
+                    & = U_f 
+            \end{split}
+        \end{equation*}
+        proving that $U_f$ is indeed self-adjoint.
+    }
+
+    Hence, to conclude the proposition it suffices to show that $U_fU_f = I$ because $$U_f U_f^\dag = U_fU_f = U_f^\dag U_f$$ by Hermiticity. Therefore, we have that
+    \begin{equation*}
+        \begin{alignedat}{2}
+            U_f U_f & = \rbk{\sum_{x,y} \ket x \ket{y \oplus f(x)} \bra x \bra y} \rbk{\sum_{x',y'} \ket {x'} \ket{y' \oplus f(x')} \bra{x'} \bra{y'}} & \\   
+                    & = \sum_{x,y} \sum_{x'y'} \rbk{\ket x \ket {y \oplus f(x)} \bra x \bra y} \rbk{\ket {x'} \ket{y' \oplus f(x')} \bra {x'} \bra{y'}} & \\ 
+                    & = \sum_{x,y} \sum_{x',y'} \rbk{\ket x \bra x \otimes \ket{y \oplus f(x)} \bra y} \rbk{\ket {x'} \bra{x'} \otimes \ket{y' \oplus f(x')} \bra {y'}} & \\ 
+                    & = \sum_{x,y} \sum_{x', y'} \rbk{\ket x \braket{x|x'} \bra{x'} \otimes \ket{y \oplus f(x)} \braket{y|z} \ket{z \oplus f(x')}} & \quad \quad (z := y' \oplus f(x')) \\ 
+                    & = \sum_{x,y} \sum_{x', y'} \rbk{\ket x \delta_{x,x'} \bra{x'} \otimes \ket{y \oplus f(x)} \delta_{y,z} \bra{z \oplus f(x')}} & \\ 
+                    & = \sum_{x,y} \ket x \bra{x} \otimes \ket{y \oplus f(x)} \bra{y \oplus f(x)} & \\ 
+                    & = \sum_{x} \sum_{w} \ket x \bra{x} \otimes \ket{w} \bra{w} & \quad \quad (w := y \oplus f(x)) \\ 
+                    & = \rbk{\sum_{x} \ket x \bra x} \otimes \rbk{\sum_{w} \ket w \bra w} & \\ 
+                    & = I \otimes I & \\
+                    & = I & \\
+        \end{alignedat}
+    \end{equation*}
 \end{proof}
 
-This proves that the construction of $U_f$ is precisely the gate that allows us to embed $f$ into any quantum computation. Moreover, we observe that
+In the end, we have that the operator $U_f$ is precisely the quantum gate that allows us to embed $f$ into any quantum computation. Moreover, we observe that
 
 \begin{itemize}
 	\item $\ket y = \ket 0 \implies U_f \ket x \ket 0 = \ket x \ket{f(x)}$

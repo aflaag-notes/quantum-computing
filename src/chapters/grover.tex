@@ -57,11 +57,57 @@ Indeed, we can see that the real quantum circuit takes $n + 1$ inputs, and the a
 
 Furthermore, before proceeding, let us prove that $G$ is actually a unitary operator, i.e. that this is a valid quantum computation.
 
-\claim[Claim]{
-    The operator $G$ is unitary.
-}{
-    By \cref{unitary prod} we know that proving that $W$ and $O_f$ are unitary is sufficient to prove the claim. \todo{todo da finire}
-}
+\begin{framedprop}{}
+    The $O_f$, $W$ and $G$ operators are unitary.
+\end{framedprop}
+
+\begin{proof}
+    By \cref{unitary prod}, it suffices to prove that both $O_f$ and $W$ are unitary operators.
+
+    \claim{
+        The $O_f$ operator is unitary
+    }{
+        First, we notice that the $O_f$ operator computes as follows:
+        \begin{equation}
+            \begin{split}
+                O_f & = O_f \cdot I \\ 
+                    & = O_f \sum_{x} \ket x \bra x \\ 
+                    & = \sum_{x} O_f \ket x \bra x \\ 
+                    & = \sum_{x} (-1)^{f(x)} \ket x \bra x \\
+            \end{split}
+        \end{equation}
+        This implies that $$O_f^\dag = \sum_x \rbk{(-1)^{f(x)} \ket x \bra x}^\dag = \sum_x (-1)^{f(x)} \ket x \bra x$$ so the operator is Hermitian. Hence, we have that
+        \begin{equation*}
+            \begin{split}
+                O_f O_f & = \rbk{\sum_x (-1)^{f(x)} \ket x \bra x} \rbk{\sum_y (-1)^{f(y)} \ket y \bra y} \\ 
+                        & = \sum_{x} \sum_y (-1)^{f(x) + f(y)} \ket x \braket{x|y} \bra y \\ 
+                        & = \sum_x (-1)^{2f(x)} \ket x \bra x \\ 
+                        & = \sum_x \ket x \bra x \\ 
+                        & = I
+            \end{split}
+        \end{equation*}
+        which suffices to prove the claim by Hermiticity.
+    }
+
+    Next, we show the $W$ operator.
+
+    \claim{
+        The $W$ operator is unitary.
+    }{
+        Again, since $$(\ket s \bra s)^\dag = \ket s \bra s$$ it immediately follows that $W$ is also Hermitian. Then, we see that
+        \begin{equation*}
+            \begin{split}
+                WW & = (2 \ket s \bra s - I)(2 \ket s \bra s - I) \\ 
+                   & = 4 \ket s \braket{s|s} \bra s - 2 \ket s \bra s - 2 \ket s \bra s - I^2 \\ 
+                   & = 4 \ket s \bra s - 4 \ket s \bra s + I \\ 
+                   & = I
+            \end{split}
+        \end{equation*}
+        which proves that $W$ is unitary by Hermiticity.
+    }
+
+    The two claims above conclude the proof.
+\end{proof}
 
 Now that we know this operator is unitary, we can delve into the details of the algorithm. To see what happens at each iteration, we will describe the complete state of the system in a rather unusual way. Let $\ket a$ and $\ket b$ be the following superpositions: $$\ket a := \dfrac{1}{\sqrt{N - M}} \sum_{x \in \overline S}{\ket x} \quad \quad \ket b := \dfrac{1}{\sqrt M}\sum_{x \in S}{\ket x}$$ In other words, $\ket a$ is the uniform superposition of non-solution indices, and $\ket b$ is the superposition of solution ones. To explain the $\tfrac{1}{\sqrt M}$ factor in front of $\ket b$, we recall that in quantum mechanics all state vectors must be normalized, and since the squared norm of $\ket {\tilde b}$ (which will denote $\ket b$ without the multiplicative factor in front) is equal to
 \begin{equation*}

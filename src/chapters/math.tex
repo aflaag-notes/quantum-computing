@@ -530,8 +530,12 @@ We are finally ready to provide the formulation of the tensor product we will ad
 
 As an example, we observe that $$\rmat{a \\ b} \otimes \rmat{c \\ d} = \rmat{a \rmat{c \\ d} \\ b \rmat{c \\ d}} = \rmat{ac \\ ad \\ bc \\ bd}$$ which matches our previous results. From now on, we will assume that the output of any tensor product is in this form. Most importantly, through the Kronecker product the following property holds, which will be used extensively through these notes.
 
-\begin{framedprop}{}
+\begin{framedprop}[label={broken tensor}]{}
 	For any field $\mathbb F$, given two matrices $A$ and $B$ and two vectors $v$ and $w$ such that $$A \in \mathbb F ^{m \times n} \quad B \in \mathbb F^{p \times q} \quad v \in \mathbb F^n \quad w \in \mathbb F^q$$ it holds that $$(A \otimes B)(v \otimes w) = Av \otimes Bw$$
+\end{framedprop}
+
+\begin{framedprop}{}
+	For any two matrices $A$ and $B$ defined over a Hilbert space, it holds that $$(A \otimes B)^\dag = A^\dag \otimes B^\dag$$
 \end{framedprop}
 
 As a final note, if $U$ is a matrix (or a vector), we will write $$U^{\otimes n} = \underbrace{U \otimes \ldots \otimes U}_{n \ \mathrm{times}}$$ similar to the usual product $$U^{n} = \underbrace{U \cdot \ldots \cdot U}_{n \ \mathrm{times}}$$

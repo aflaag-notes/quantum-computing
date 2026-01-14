@@ -87,7 +87,7 @@ We observe that the QFT matrix has positive exponents, which is just a conventio
 \end{framedprop}
 
 \begin{proof}
-    We will leave the proof of correctness of $\mbox{QFT}^\dag$ as an exercise, and we will focus on proving that the QFT operator is indeed unitary. To prove it, is satisfies to show that $$\mbox{QFT} ^\dag \ \mbox{QFT}  = \mbox{QFT} \ \mbox{QFT}^\dag  = I$$ We are going to prove the leftmost product first.
+    It satisfies to show that $$\mbox{QFT} ^\dag \ \mbox{QFT}  = \mbox{QFT} \ \mbox{QFT}^\dag  = I$$ We are going to prove the leftmost product first.
     \begin{equation*}
         % \hspace{-1.5cm}
         \begin{alignedat}{2}
@@ -109,9 +109,7 @@ We observe that the QFT matrix has positive exponents, which is just a conventio
                                        & = I + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\dfrac{1 - e^{2 \pi i(k - j)}}{1 - e^{2\pi i (k - j)/ N}}}\bra k} & \\ 
         \end{alignedat}
     \end{equation*}
-    Lastly, since $k - j$ is an integer for any $j, k \in [0, N - 1]$, therefore, the numerator is always equal to $1 - 1 = 0$, so the sum vanishes. Finally, we can conclude that $$\mbox{QFT}^\dag \ \mbox{QFT} = I + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\dfrac{1 - 1}{1 - e^{2\pi i (k - j)/ N}}}\bra k} = I$$
-
-    TODO \todo{prove the second product}
+    Lastly, since $k - j$ is an integer for any $j, k \in [0, N - 1]$, therefore, the numerator is always equal to $1 - 1 = 0$, so the sum vanishes. Finally, we can conclude that $$\mbox{QFT}^\dag \ \mbox{QFT} = I + \dfrac{1}{N} \sum_{\substack{j, k = 0 : \\ j \neq k }}^{N - 1}{\ket j \rbk{\dfrac{1 - 1}{1 - e^{2\pi i (k - j)/ N}}}\bra k} = I$$ We will leave the second product as exercise.
 \end{proof}
 
 \subsection{The quantum circuit}
@@ -336,7 +334,7 @@ The last thing that we are going to mention about the VQE is its versatility. We
 \begin{equation*}
     \begin{split}
         \braket{\psi|H_S \psi} & = \abk{H_S} \\ 
-                               & = \Exp{H_S \mid \ket \psi} \\ 
+                               & = \Exp[H_S \mid \ket \psi] \\ 
                                & = \sum_{y \in Y}{S(y) \Pr[H_S = S(y) \mid \ket \psi]} \\ 
                                & \ge \min_{y \in Y}{S(y)} \\ 
     \end{split}
