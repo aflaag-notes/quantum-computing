@@ -14,25 +14,45 @@ We will start our mathematical discussion with the definition of \tbf{scalar pro
 	\end{itemize}
 \end{frameddefn}
 
-Scalar products are also called \tit{inner product}, and are used to define many other tools on top of the vector space considered.
+We see that the first property is the \tit{linearity} of the scalar product, while the second property is usually referred to as \tit{conjugate-symmetry}. Scalar products are also called \tit{inner product}, and are used to define many other tools on top of the vector space considered.
 
 \begin{framedprop}{}
 	For any scalar product vector space $V$, any scalar product satisfies the following property: $$\forall u, v, w \in V, \alpha, \beta \in \C \quad \braket{\alpha u + \beta v, w} = \overline \alpha \braket{u, w} + \overline \beta \braket{v, w}$$
 \end{framedprop}
 
 \begin{proof}
-	TODO \todo{TODO}
+	By the properties of scalar product, the following holds
+	\begin{equation*}
+		\begin{split}
+			\braket{\alpha u + \beta v, w} & = \overline{w, \alpha u + \beta v}                                                     \\
+			                               & = \overline{\alpha \braket{w, u} + \beta \braket{w, v}}                                \\
+			                               & = \overline \alpha \overline{\braket{w, u}} + \overline \beta \overline{\braket{w, v}} \\
+			                               & = \overline \alpha \braket{u, w} + \overline \beta \braket{v, w}
+		\end{split}
+	\end{equation*}
 \end{proof}
 
-In particular, the scalar product that we are going to use for our purposes is defined as follows: $$\forall u, v \in \C^n \quad \braket{u, v} = \sum_{i = 1}^n{\overline{u_i} v_i}$$ In fact, we can prove that this is indeed a scalar product as follows:
+In particular, the scalar product that we are going to use for our purposes is defined as shown below.
 
-\begin{itemize}
-	\item TODO \todo{TODO}
-	\item TODO \todo{TODO}
-	\item TODO \todo{TODO}
-\end{itemize}
+\begin{frameddefn}{Hermitian product}
+	Given a vector space $V$ defined over $\C$, the \tbf{Hermitian product} is defined as follows: $$\forall u, v \in \C^n \quad \braket{u, v} = \sum_{i = 1}^n{\overline{u_i} v_i}$$
+\end{frameddefn}
 
-From now on, when we refer to a \curlyquotes{scalar product} we will refer to this particular definition.
+\begin{framedprop}{}
+	The Hermitian product is a scalar product.
+\end{framedprop}
+
+\begin{proof}
+	It suffices to prove all the properties of scalar products provided in the definition. Then, we see that
+
+	\begin{itemize}
+		\item linearity can be proved as follows $$\braket{u, \alpha v + \beta w} = \sum_{i = 1}^n{\overline{u_i} (\alpha v_i + \beta w_i)} = \alpha\sum_{i = 1}^n{\overline{u_i} v_i} + \beta \sum_{i = 1}^n{\overline{u_i} v_i} = \alpha \braket{u, v} + \beta \braket{u, w}$$
+		\item conjugate-symmetry can be shown as follows $$\overline{\braket{v, u}} = \overline{\sum_{i = 1}^n{\overline{v_i} u_i}} = \sum_{i = 1}^n{\overline{\overline{v_i} u_i}}= \sum_{i = 1}^n{v_i \overline{u_i}} = \braket{u, v}$$
+		\item lastly, we have that $$\braket{u, u} = \sum_{ i= 1}^n{\overline{u_i}u_i} = \sum_{i = 1}^n{\abs{u_i}^2} \ge 0$$ and clearly it is equal to 0 if and only if $u = 0$
+	\end{itemize}
+\end{proof}
+
+From now on, when we refer to a \curlyquotes{scalar product} we will refer to the Hermitian product.
 
 We are finally ready to explain the \curlyquotes{braket} that we used from the beginning of the previous chapter. This notation was invented by the Nobel Prize in Physics \href{https://it.wikipedia.org/wiki/Paul_Dirac}{Paul Dirac}, and it works as follows: first, observe that our scalar product can be rewritten as follows $$\braket{u, v} = \rmat{\overline{u_1} \cdots \overline{u_n}} \rmat{v_1 \\ \vdots \\ v_n}$$ To be precise, this product would yield a $1 \times 1$ matrix, which can be interpreted as a scalar. Through Dirac notation, we will write $$\braket{u, v} = \braket{u | v}$$ where $\bra u$ is called \tbf{bra}, and $\ket v$ is called \tbf{ket} (as in \curlyquotes{bra-ket}). In other words, we have that $\ket v$ is just a regular column vector $v \in V$ $$\ket v = \rmat{v_1 \\ \vdots \\ v_n}$$ defined over some scalar product vector space $V$, while $\bra u$ is a \tit{linear map} that acts as follows: $$\funcmap{\bra \cdot}{V}{\overline V}{\rmat{u_1 \cdots u_n}}{\rmat{\overline{u_1} \cdots \overline{u_n}}}$$
 
@@ -64,15 +84,11 @@ Let's see the Dirac notation in action. Consider an orthonormal basis $\{e_1, \l
 		               & = \alpha_i                                                       & \\
 	\end{alignedat}
 \end{equation*}
-Indeed, with the scalar product we can compute the projection of $u$ onto the $i$-th vector of the basis. Hence, we can rewrite the first equation as follows: $$\ket u = \sum_{i = 1}^n{\alpha_i \ket{e_i}} = \sum_{i = 1}^n{\braket{e_i|u} \ket{e_i}}$$ In particular, we observe that $$\ket u = \sum_{i = 1}^n{\ket{e_i} \braket{e_i|u}} \implies I = \sum_{i = 1}^n{\ket{e_i} \bra{e_i}}$$ which is a famous identity in quantum mechanics called \tbf{resolution of the identity}. In particular, this identity directly implies the following useful property. As a final note, by the properties of scalar products we also have that $$\braket{v|u} = \abk{v \middle| \sum_{i = 1}^n{\braket{e_i|u} \ket{e_i}}} = \sum_{i = 1}^n {\braket{v|e_i} \braket{e_i|u}}$$
+Indeed, with the scalar product we can compute the projection of $u$ onto the $i$-th vector of the basis. Hence, we can rewrite the first equation as follows: $$\ket u = \sum_{i = 1}^n{\alpha_i \ket{e_i}} = \sum_{i = 1}^n{\braket{e_i|u} \ket{e_i}}$$ In particular, we observe that $$\ket u = \sum_{i = 1}^n{\ket{e_i} \braket{e_i|u}} \implies I = \sum_{i = 1}^n{\ket{e_i} \bra{e_i}}$$ which is a famous identity in quantum mechanics called \tbf{resolution of the identity}. In particular, this identity directly implies the following useful property. As a final note, by the properties of scalar products we also have that $$\braket{v|u} = \bra{v} \sum_{i = 1}^n{\ket{e_i} \braket{e_i|u}} = \sum_{i= 1}^n{\braket{v|e_i} \braket{e_i|u}}$$
 
 \begin{framedprop}{}
 	Given a scalar product vector space $V$, it holds that $$\forall u, v, w \in V \quad \braket{u|v} \ket w = (\ket w \bra u) \ket v$$
 \end{framedprop}
-
-\begin{proof}
-	TODO \todo{TODO}
-\end{proof}
 
 \section{Hilbert spaces}
 
@@ -168,7 +184,32 @@ This property is incredibly useful, because it implies that the adjoint operator
 \end{framedprop}
 
 \begin{proof}
-	TODO \todo{pag 8}
+	Let $A$ be a positive operator, therefore $$\forall v \in \mathcal H \quad \braket{v|Av} \ge 0$$ We observe that if $\braket{v|Av} \ge 0$, this implicitly means that $\braket{v|Av}$ is a real value. This is important because then $$\forall v \in \mathcal H \quad \braket{v|Av} = \overline{\braket{v|Av}}$$ From this, we derive the following
+	\begin{equation*}
+		\begin{split}
+			\forall v \in \mathcal H \quad \overline{\braket{v|Av}} & = \braket{v|Av}                  \\
+			                                                        & = \braket{A^\dag v|v}            \\
+			                                                        & = \overline{\braket{v|A^\dag v}}
+		\end{split}
+	\end{equation*}
+	which implies that $$\forall v \in \mathcal H \quad \braket{v|Av} = \braket{v|A^\dag v}$$ Now, consider the following claim.
+
+	\claim{
+		If $\braket{x|z} = \braket{y|z}$ for all $z \in \mathcal H$, then $x = y$.
+	}{
+		Fix a vector $z \in \mathcal H$; we observe that
+		\begin{equation*}
+			\begin{split}
+				     & \braket{x|z} = \braket{y|z}     \\
+				\iff & \braket{x|z} - \braket{y|z} = 0 \\
+				\iff & (\bra x - \bra y) \ket z = 0    \\
+				\iff & \braket{x - y|z} = 0
+			\end{split}
+		\end{equation*}
+		However, if this is true for every vector $z \in \mathcal H$ it means that the vector $x - y$ is orthogonal to every vector in $\mathcal H$, which must imply that $x - y$ is the 0 vector, thus $$x - y = 0 \iff x = y$$
+	}
+
+	From this claim, we have that $$\forall v \in \mathcal H \quad \braket{v|Av} = \braket{v|A^\dag v} \iff \braket{A^\dag v|v} = \braket{Av|v} \implies A^\dag v = Av$$ which implies that $A$ must be Hermitian.
 \end{proof}
 
 At the beginning of the previous chapter we said that all quantum gates are \tit{unitary transformations}, but we did now provide a definition of unitary. Now we are ready to introduce it, and start to grasp why we are discussing Hilbert spaces.

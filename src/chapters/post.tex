@@ -75,7 +75,7 @@ Therefore, by adding only the non-zero terms we get that $$\sum_{i = 1}^m{\norm{
 This formulation was refined in 1926 by Max Born \cite{born}, when he derived the following property.
 
 \begin{framedthm}[label={born rule}]{Born rule}
-	The probability that a qubit $\ket \psi$ written in a basis $\{\lambda_i\}_{i = 1}^n$ collapses to a particular $\ket \lambda \in \{\lambda_i\}_{i = 1}^n$ when measured is $$\Pr[\mbox{measure}(\ket \psi = \ket \lambda)] = \abs{\braket{\psi|\lambda}}^2$$
+	The probability that a qubit $\ket \psi$ written in a basis $\{\lambda_i\}_{i = 1}^n$ collapses to a particular $\ket \lambda \in \{\lambda_i\}_{i = 1}^n$ when measured is $$\Pr[\mbox{measure}(\ket \psi) = \ket \lambda] = \abs{\braket{\psi|\lambda}}^2$$
 \end{framedthm}
 
 \begin{proof}
@@ -278,7 +278,7 @@ This shows that the basic postulates of quantum mechanics related to unitary evo
 We can finally present the characterization of density operators we anticipated.
 
 \begin{framedthm}[label={density op thm}]{Density operators characterization}
-	Given a system described by the ensamble $\{p_i, \ket{\psi_i}\}_{i = 1}^N$, an operator $\rho$ is the density operator of the system if and only if
+	An operator $\rho$ is the density operator of some system described by an ensamble $\{p_i, \ket{\psi_i}\}_{i = 1}^N$ if and only if
 
 	\begin{itemize}
 		\item $\rho$ is positive
