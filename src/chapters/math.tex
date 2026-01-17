@@ -5,12 +5,12 @@ Now that we have introduced some preliminary concepts in quantum mechanics and q
 We will start our mathematical discussion with the definition of \tbf{scalar product} --- we will assume the definitions of vector space, basis and linear independence are already known by the reader.
 
 \begin{frameddefn}{Scalar product}
-	Given a scalar product vector space $V$, a \tbf{scalar product} $\funcmap{\braket{\cdot , \cdot }}{V \times V}{\C}{(v, w)}{\braket{v,w}}$ is a linear function that satisfies the following properties:
+	Given a scalar product vector space $V$, a \tbf{scalar product} $$\funcmap{\braket{\cdot , \cdot }}{V \times V}{\C}{(v, w)}{\braket{v,w}}$$ is a linear function that satisfies the following properties:
 
 	\begin{itemize}
-		\item $\forall u, v, w \in V, \alpha, \beta \in \C \quad \braket{u,\alpha v + \beta w} = \alpha \braket{u|v} + \beta \braket{u| w}$
+		\item $\forall u, v, w \in V, \alpha, \beta \in \C \quad \braket{u,\alpha v + \beta w} = \alpha \abk{u,v} + \beta \abk{u,w}$
 		\item $\forall u, v \in V \quad \overline{\braket{u,v}} = \braket{v, u}$ --- where $\overline z$ is the conjugate of $z \in \C$
-		\item $\forall u \in U \quad \braket{u, u} \ge 0$ and $\braket{u, u} = 0$ if and only if $u = 0$
+		\item $\forall u \in V \quad \braket{u, u} \ge 0$ and $\braket{u, u} = 0$ if and only if $u = 0$
 	\end{itemize}
 \end{frameddefn}
 
@@ -536,6 +536,12 @@ As an example, we observe that $$\rmat{a \\ b} \otimes \rmat{c \\ d} = \rmat{a \
 
 \begin{framedprop}{}
 	For any two matrices $A$ and $B$ defined over a Hilbert space, it holds that $$(A \otimes B)^\dag = A^\dag \otimes B^\dag$$
+\end{framedprop}
+
+Another very important property of the tensor product is the way it behaves together with our scalar product.
+
+\begin{framedprop}[label={tensor scalar}]{}
+	For any four vectors $\ket a, \ket c \in \mathcal H_1$ and $\ket b, \ket d \in \mathcal H_2$ of two Hilbert spaces $\mathcal H_1$ and $\mathcal H_2$, it holds that $$\braket{a \otimes b| c \otimes d} = \braket{a|c} \braket{b|d}$$
 \end{framedprop}
 
 As a final note, if $U$ is a matrix (or a vector), we will write $$U^{\otimes n} = \underbrace{U \otimes \ldots \otimes U}_{n \ \mathrm{times}}$$ similar to the usual product $$U^{n} = \underbrace{U \cdot \ldots \cdot U}_{n \ \mathrm{times}}$$

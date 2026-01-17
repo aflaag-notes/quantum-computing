@@ -66,17 +66,8 @@ Before describing the next step of the protocol, we need to do a step back and t
 This is important because it means that when we talk about measurement we need to define the \curlyquotes{angle} at which we perform it. Mathematically speaking, this is equivalent to defining the \tbf{basis of choice} for the measurement --- we always consider orthonormal bases only, so all the possible bases of a space are identical up to a rotation. Indeed, the importance of the choice of the basis can be illustrated through the BB84 protocol itself.
 
 \begin{itemize}
-	\item If we have a qubit in the state $\ket \phi = \ket +$, we know that the probability of getting either $\ket 0$ or $\ket 1$ when measured in the Z basis is precisely 50\% for both outcomes because $$\Pr[\mbox{measure$(\ket \phi = \ket 0)$}] = \abs{\braket{0|+}}^2 = \dfrac{1}{2}$$
-	\item Now, consider the orthonormal basis formed by the vector $\ket +$ and $\ket - $ --- which is usually called \tbf{X basis}; we observe that this space is just a rotation of 45° clockwise of the Z basis. This space is interesting: when we measure a qubit $\ket \phi $ set to the state $\ket 0$ in the Z basis we get $\ket 0$ with 100\% certainty, but in this space we have that
-	      \begin{equation*}
-		      \begin{split}
-			      \Pr[\mbox{measure($\ket \phi = \ket +)$}] & = \abs{\braket{0|+}}^2                              \\
-			                                                & = \abs{\dfrac{1}{\sqrt 2}\bra 0(\ket 0 + \ket 1)}^2 \\
-			                                                & = \abs{\dfrac{1}{\sqrt 2}(1 + 0)}^2                 \\
-			                                                & = \dfrac{1}{2}                                      \\
-		      \end{split}
-	      \end{equation*}
-	      Indeed, as we would expect $\ket 0$ and $\ket 1$ in the X basis behave exactly as $\ket +$ and $\ket - $ do in the Z one.
+	\item If we have a qubit in the state $\ket \phi = \ket +$, we know that the probability of getting either $\ket 0$ or $\ket 1$ when measured in the Z basis is precisely 50\% for both outcomes because $$\Pr[\mbox{measure$(\ket \phi) = \ket 0$}] = \abs{\braket{+|0}}^2 = \dfrac{1}{2}$$
+	\item Now, consider the orthonormal basis formed by the vector $\ket +$ and $\ket - $ --- which is usually called \tbf{X basis}; we observe that this space is just a rotation of 45° clockwise of the Z basis. This space is interesting: when we measure a qubit $\ket \phi$ set to the state $\ket 0$ in the Z basis we get $\ket 0$ with 100\% certainty, however in the X basis we have that $$\Pr[\mbox{measure$(\ket \phi) = \ket 0$}] = \abs{\braket{0|+}}^2 = \dfrac{1}{2}$$ Indeed, as we would expect $\ket 0$ and $\ket 1$ in the X basis behave exactly as $\ket +$ and $\ket - $ do in the Z one.
 \end{itemize}
 
 We will see how the BB84 protocol takes advantage of this fact later in our discussion. The last detail that we want to mention about measurements in non-diagonal bases is that we can actually define unitary operators that allow us to perform measurements in the Z basis no matter the basis of choice, by first applying some particular unitary operator that creates a \curlyquotes{map} between the two bases. For instance, say that we have some vector $$\ket v = \alpha \ket + + \beta \ket -$$ defined in the X basis, and we want to measure this vector in the Z basis. This can be done by first applying the following operator: $$U = \ket 0 \bra + + \ket 1 \bra -$$ In fact, it holds that
@@ -263,18 +254,131 @@ This matrix seems to have everything we need for our purposes, so let's set the 
 	\item it can be easily shown that $$ZX = - XZ$$
 \end{itemize}
 
-The only thing left to define are $S$ and $T$. For now, we will set them as follows $$S = \dfrac{Z - X}{\sqrt 2} \quad \quad T = \dfrac{Z - X}{\sqrt 2}$$ without justifying our choice --- we will provide a reason later in our discussion. Most importantly, it can be proven that the eigenvalues of two matrices are still $\pm 1$.
+The only thing left to define are $S$ and $T$. We will set them as follows $$S = \dfrac{- Z - X}{\sqrt 2} \quad \quad T = \dfrac{Z - X}{\sqrt 2}$$ and we will justify this choice later in our discussion. Most importantly, not only their eigenvalues can be proven to be still $\pm 1$, but the following property allows us to rewrite them nicely.
 
-Our goal now will be to evaluate all the terms of the Bell inequality, and check what quantum mechanics expects as outcome. We are not going into the details of all the calculations --- its a quite tedious task and definitely outside our interests. We will only outline the general idea: for example, to evaluate $\Exp[Q \otimes S \mid \ket{\Psi^-}]$ we just need to follow what we described in \cref{exp of an op} \todo{da copiare}
+\begin{framedprop}{}
+	It holds that $$S = \dfrac{- Z - X}{\sqrt 2} = - H \quad \quad T = \dfrac{Z - X}{\sqrt 2} = -iHY$$
+\end{framedprop}
 
-% \begin{equation*}
-% 	\begin{split}
-%             TODO 
-% 	\end{split}
-% \end{equation*}
-% where $\ket q$ and $\ket s$ are the eigenvectors associated to the eigenvalues $q, s \in \{+1, -1\}$ of the matrices $Z$ and $X$, respectively. \todo{lui ha fatto i calcoli :(}
+\begin{proof}
+	From trivial calculations it follows that
+	\begin{equation*}
+		\begin{split}
+			S & = \dfrac{1}{\sqrt 2} ( - Z - X)         \\
+			  & = - \dfrac{1}{\sqrt 2} ( Z + X)         \\
+			  & = - \dfrac{1}{\sqrt 2} \rbk{\rmat{1 & 0 \\ 0 & -1} + \rmat{0 & 1 \\ 1 & 0}} \\
+			  & = - \dfrac{1}{\sqrt 2} \rmat{1      & 1 \\ 1 & -1} \\
+			  & = - H
+		\end{split}
+	\end{equation*}
+	Less trivially, we observe that
+	\begin{equation*}
+		\begin{split}
+			T & = \dfrac{1}{\sqrt 2}(Z - X)            \\
+			  & = \dfrac{1}{\sqrt 2} \rbk{\rmat{1 & 0  \\ 0 & -1} - \rmat{0 & 1 \\ 1 & 0}} \\
+			  & = \dfrac{1}{\sqrt 2} \rmat{1      & -1 \\ -1 & -1} \\
+			  & = - \dfrac{1}{\sqrt 2} \rmat{-1   & 1  \\ 1 & 1} \\
+			  & = - \dfrac{1}{\sqrt 2} \rmat{1    & 1  \\ 1 & -1} \rmat{0 & 1 \\ -1 & 0} \\
+			  & = - \dfrac{1}{\sqrt 2} \rmat{1    & 1  \\ 1 & -1} \rmat{0 & -i^2 \\ i^2 & 0} \\
+			  & = -i \dfrac{1}{\sqrt 2} \rmat{1   & 1  \\ 1 & -1} \rmat{0 & -i \\ i & 0} \\
+			  & = -i H Y                               \\
+		\end{split}
+	\end{equation*}
+\end{proof}
 
-Finally, after calculating all 4 terms we end up with the following results: $$\abk{QS} = \dfrac{1}{\sqrt 2} \quad \abk{RS} = \dfrac{1}{\sqrt 2} \quad \abk{RT} = \dfrac{1}{\sqrt 2} \quad \abk{QT} = - \dfrac{1}{\sqrt 2}$$ which ultimately yield that $$\abk{QS} + \abk{RS} + \abk{RT} - \abk{QT} = 2 \sqrt 2$$ What? The Bell inequality told us that the LHS could not ever exceed 2, however quantum mechanics predicts that this sum is equal to $2 \sqrt 2$! What is going on?
+Our next goal is to evaluate the same quantity calculated in the Bell inequality, and check what value quantum mechanics predicts. The Bell inequality tells us that its LHS cannot exceed 2, and our reasoning seemed to be pretty sound. Hence, it would be \tit{very} strange if quantum mechanics predicted otherwise. However, observe the following result.
+
+\begin{framedprop}{}
+	It holds that $$\Exp[Q \otimes S \mid \ket{\Psi^-}] + \Exp[R \otimes S \mid \ket{\Psi^-}] + \Exp[R \otimes T \mid \ket{\Psi^-}] - \Exp[Q \otimes T \mid \ket{\Psi^-}] = 2 \sqrt 2$$
+\end{framedprop}
+
+\begin{proof}
+	We will show this result by evaluating each expected value separately. We will use the \cref{tensor scalar} extensively.
+
+	\claim[Claim 1]{
+		$\Exp[Q \otimes S \mid \ket{\Psi^-}] = \tfrac{1}{\sqrt 2}$.
+	}{
+		By \cref{exp of an op} we have that
+		\begin{equation*}
+			\begin{split}
+				\Exp[Q \otimes S \mid \ket {\Psi^-}] & = \Exp[Z \otimes (-H) \mid \ket {\Psi^-}]                                                                                        \\
+				                                     & = \braket{\Psi^-|Z \otimes (- H)| \Psi^-}                                                                                        \\
+				                                     & = - \braket{\Psi^-|Z \otimes H| \Psi^-}                                                                                          \\
+				                                     & = - \bra{\Psi^-} \dfrac{1}{\sqrt 2}\sbk{(Z \otimes H)\ket{01} - (Z \otimes H) \ket {10}}                                         \\
+				                                     & = - \bra{\Psi^-} \dfrac{1}{\sqrt 2} (\ket{0-} + \ket{1+})                                                                        \\
+				                                     & = - \dfrac{1}{2}(\bra{10} - \bra{01})(\ket{0-} + \ket{1+})                                                                       \\
+				                                     & = - \dfrac{1}{2} (\braket{01|0-} + \braket{01|1+} - \braket{10|0-} - \braket{10|1+})                                             \\
+				                                     & = - \dfrac{1}{2} (\braket{0|0} \braket{1|-} + \braket{0|1} \braket{1|+} - \braket{1|0} \braket{0|-} - \braket{1|1} \braket{0|+}) \\
+				                                     & = - \dfrac{1}{2} (\braket{1|-} - \braket{0|+})                                                                                   \\
+				                                     & = - \dfrac{1}{2} \rbk{- \dfrac{1}{\sqrt 2} - \dfrac{1}{\sqrt 2}}                                                                 \\
+				                                     & = \dfrac{1}{\sqrt 2}
+			\end{split}
+		\end{equation*}
+	}
+
+	In the following claims we will skip some obvious steps for brevity.
+
+	\claim[Claim 2]{
+		$\Exp[R \otimes S \mid \ket{\Psi^-}] = \tfrac{1}{\sqrt 2}$.
+	}{
+		By \cref{exp of an op} we have that
+		\begin{equation*}
+			\begin{split}
+				\Exp[R \otimes S \mid \ket{\Psi^-}] & = \Exp[X \otimes (-H) \mid \ket{\Psi^-}]                                                  \\
+				                                    & = \braket{\Psi^-|X \otimes (-H)| \Psi^-}                                                  \\
+				                                    & = - \braket{\Psi^-|X \otimes H | \Psi^-}                                                  \\
+				                                    & = - \bra{\Psi^-} \dfrac{1}{\sqrt 2} \sbk{(X \otimes H) \ket{01} - (X \otimes H) \ket{10}} \\
+				                                    & = - \bra{\Psi^-} \dfrac{1}{\sqrt 2} (\ket{1-} - \ket{0+})                                 \\
+				                                    & = - \dfrac{1}{2} (- \braket{1|+} - \braket{0|-})                                          \\
+				                                    & = \dfrac{1}{\sqrt 2}
+			\end{split}
+		\end{equation*}
+	}
+
+	\claim[Claim 3]{
+		$\Exp[R \otimes T \mid \ket{\Psi^-}] = \tfrac{1}{\sqrt 2}$.
+	}{
+		\begin{equation*}
+			\begin{split}
+				\Exp[R \otimes T \mid \ket{\Psi^-}] & = \Exp[X \otimes (-iHY) \mid \ket{\Psi^-}]                                                   \\
+				                                    & = - \braket{\Psi^-|X \otimes iHY| \Psi^-}                                                    \\
+				                                    & = -\bra{\Psi^-} \dfrac{1}{\sqrt 2} \sbk{(X \otimes iHY) \ket{01} - (X \otimes iHY) \ket{10}} \\
+				                                    & = -\bra{\Psi^-} \dfrac{1}{\sqrt 2} (\ket{1+} + \ket{0-})                                     \\
+				                                    & = - \dfrac{1}{2} (\braket{1|-} - \braket{0|+})                                               \\
+				                                    & = \dfrac{1}{\sqrt 2}
+			\end{split}
+		\end{equation*}
+	}
+
+	\claim[Claim 4]{
+		$\Exp[Q \otimes T \mid \ket{\Psi^-}] = -\tfrac{1}{\sqrt 2}$.
+	}{
+		By \cref{exp of an op} we have that
+		\begin{equation*}
+			\begin{split}
+				\Exp[Q \otimes T \mid \ket{\Psi^-}] & = \Exp[Z \otimes (-iHY) \mid \ket{\Psi^-}]                                                     \\
+				                                    & = \braket{\Psi^-|Z \otimes (-iHY)|\Psi^-}                                                      \\
+				                                    & = - \braket{\Psi^-|Z \otimes iHY|\Psi^-}                                                       \\
+				                                    & = - \bra{\Psi^-} \dfrac{1}{\sqrt 2}  \sbk{(Z \otimes iHY) \ket{01} - (Z \otimes iHY) \ket{10}} \\
+				                                    & = - \bra{\Psi^-} \dfrac{1}{\sqrt 2} (\ket{0+} - \ket{1-})                                      \\
+				                                    & = - \dfrac{1}{2}(\braket{1|+} + \braket{0|-})                                                  \\
+				                                    & = - \dfrac{1}{\sqrt 2}
+			\end{split}
+		\end{equation*}
+	}
+
+	From the claims above, we conclude that
+	\begin{equation*}
+		\begin{split}
+			  & \Exp[Q \otimes S \mid \ket{\Psi^-}] + \Exp[R \otimes S \mid \ket{\Psi^-}] + \Exp[R \otimes T \mid \ket{\Psi^-}] - \Exp[Q \otimes T \mid \ket{\Psi^-}] \\
+			= & \dfrac{1}{\sqrt 2} + \dfrac{1}{\sqrt 2} + \dfrac{1}{\sqrt 2} - \left(- \dfrac{1}{\sqrt 2} \right)                                                     \\
+			= & 4 \cdot \dfrac{1}{\sqrt 2}                                                                                                                            \\
+			= & 2 \sqrt 2                                                                                                                                             \\
+		\end{split}
+	\end{equation*}
+\end{proof}
+
+What? The Bell inequality told us that the LHS could not ever exceed 2, however quantum mechanics predicts that this sum is equal to $2 \sqrt 2$! What is going on?
 
 Short answer: we are not sure. Over the years, multiple experiments have been done to check the prediction of quantum mechanics versus the Bell inequality, and the results are resoundingly in favor of the quantum mechanical outcome. Most notably, in 2022 the Nobel Prize in Physics was awarded to Aspect, Clauser and Zeilinger for having established experimentally the violation of Bell inequalities. In simpler terms, the Bell inequality it \tit{not} obeyed by Nature.
 
