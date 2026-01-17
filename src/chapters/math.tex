@@ -167,14 +167,6 @@ How do we evaluate the adjoint of a given operator?
 
 This property is incredibly useful, because it implies that the adjoint operator of $A$ is its transposed conjugate matrix. Most notably, due to the way we defined our scalar product, it holds that for any column vector $\ket x$ we have that $$\bra x = \ket x^\dag$$ which gives an intuition of the reason why we defined our scalar product as such.
 
-\begin{framedprop}{}
-	If an operator $A$ is self-adjoint, it holds that $$\braket{u|Av} = \braket{Au|v} = \overline{\braket{v|Au}}$$
-\end{framedprop}
-
-\begin{proof}
-	TODO \todo{TODO}
-\end{proof}
-
 \begin{frameddefn}{Positive operator}
 	An operator $A$ defined over a scalar product vector space $\mathcal H$ is said to be \tbf{positive} if it holds that $$\forall v \in \mathcal H \quad \braket{v|Av} \ge 0$$
 \end{frameddefn}
@@ -184,33 +176,37 @@ This property is incredibly useful, because it implies that the adjoint operator
 \end{framedprop}
 
 \begin{proof}
-	Let $A$ be a positive operator, therefore $$\forall v \in \mathcal H \quad \braket{v|Av} \ge 0$$ We observe that if $\braket{v|Av} \ge 0$, this implicitly means that $\braket{v|Av}$ is a real value. This is important because then $$\forall v \in \mathcal H \quad \braket{v|Av} = \overline{\braket{v|Av}}$$ From this, we derive the following
-	\begin{equation*}
-		\begin{split}
-			\forall v \in \mathcal H \quad \overline{\braket{v|Av}} & = \braket{v|Av}                  \\
-			                                                        & = \braket{A^\dag v|v}            \\
-			                                                        & = \overline{\braket{v|A^\dag v}}
-		\end{split}
-	\end{equation*}
-	which implies that $$\forall v \in \mathcal H \quad \braket{v|Av} = \braket{v|A^\dag v}$$ Now, consider the following claim.
-
-	\claim{
-		If $\braket{x|z} = \braket{y|z}$ for all $z \in \mathcal H$, then $x = y$.
-	}{
-		Fix a vector $z \in \mathcal H$; we observe that
-		\begin{equation*}
-			\begin{split}
-				     & \braket{x|z} = \braket{y|z}     \\
-				\iff & \braket{x|z} - \braket{y|z} = 0 \\
-				\iff & (\bra x - \bra y) \ket z = 0    \\
-				\iff & \braket{x - y|z} = 0
-			\end{split}
-		\end{equation*}
-		However, if this is true for every vector $z \in \mathcal H$ it means that the vector $x - y$ is orthogonal to every vector in $\mathcal H$, which must imply that $x - y$ is the 0 vector, thus $$x - y = 0 \iff x = y$$
-	}
-
-	From this claim, we have that $$\forall v \in \mathcal H \quad \braket{v|Av} = \braket{v|A^\dag v} \iff \braket{A^\dag v|v} = \braket{Av|v} \implies A^\dag v = Av$$ which implies that $A$ must be Hermitian.
+	TODO \todo{la dimostrazione che ha scritto lui è sbagliata}
 \end{proof}
+
+% \begin{proof}
+% 	Let $A$ be a positive operator, therefore $$\forall v \in \mathcal H \quad \braket{v|Av} \ge 0$$ We observe that if $\braket{v|Av} \ge 0$, this implicitly means that $\braket{v|Av}$ is a real value. This is important because then $$\forall v \in \mathcal H \quad \braket{v|Av} = \overline{\braket{v|Av}}$$ From this, we derive the following
+% 	\begin{equation*}
+% 		\begin{split}
+% 			\forall v \in \mathcal H \quad \overline{\braket{v|Av}} & = \braket{v|Av}                  \\
+% 			                                                        & = \braket{A^\dag v|v}            \\
+% 			                                                        & = \overline{\braket{v|A^\dag v}}
+% 		\end{split}
+% 	\end{equation*}
+% 	which implies that $$\forall v \in \mathcal H \quad \braket{v|Av} = \braket{v|A^\dag v}$$ Now, consider the following claim.
+%
+% 	\claim{
+% 		If $\braket{x|z} = \braket{y|z}$ for all $z \in \mathcal H$, then $x = y$.
+% 	}{
+% 		Fix a vector $z \in \mathcal H$; we observe that
+% 		\begin{equation*}
+% 			\begin{split}
+% 				     & \braket{x|z} = \braket{y|z}     \\
+% 				\iff & \braket{x|z} - \braket{y|z} = 0 \\
+% 				\iff & (\bra x - \bra y) \ket z = 0    \\
+% 				\iff & \braket{x - y|z} = 0
+% 			\end{split}
+% 		\end{equation*}
+% 		However, if this is true for every vector $z \in \mathcal H$ it means that the vector $x - y$ is orthogonal to every vector in $\mathcal H$, which must imply that $x - y$ is the 0 vector, thus $$x - y = 0 \iff x = y$$
+% 	}
+%
+% 	From this claim, we have that $$\forall v \in \mathcal H \quad \braket{v|Av} = \braket{v|A^\dag v} \iff \braket{A^\dag v|v} = \braket{Av|v} \implies A^\dag v = Av$$ which implies that $A$ must be Hermitian.
+% \end{proof}
 
 At the beginning of the previous chapter we said that all quantum gates are \tit{unitary transformations}, but we did now provide a definition of unitary. Now we are ready to introduce it, and start to grasp why we are discussing Hilbert spaces.
 
@@ -332,7 +328,7 @@ In particular, we observe that the last property follow trivially from the cycli
 	\end{equation*}
 \end{proof}
 
-We will discuss the importance of this equality in later sections.
+Most importantly, if we set $A$ to be the identity matrix, we obtain an interesting identity: $$\tr( \ket v \bra v) = \braket{v|v}$$ which should not come as a surprise anyway, since the elements on the diagonal of $\ket v \bra v$ as exactly the elements of the sum in the scalar product of $\braket{v|v}$. We will discuss the importance of this equality in later sections.
 
 TODO \todo{show that the trace is indep of the chosen basis}
 
@@ -348,15 +344,7 @@ Since unitary operators are linear maps, we are interested in their eigenvectors
 	Given a matrix $A$, and an eigenvalue $\lambda$ of $A$, we say that $\lambda$ is $d$-fold degenerate if there are $d$ linearly independent eigenvectors $u_1, \ldots, u_d$ associated to $\lambda$.
 \end{frameddefn}
 
-In Dirac notation, if $\lambda$ is non-degenerate, we refer to the only eigenvector associated to $\lambda$ as $\ket \lambda$, indeed it holds that $$A \ket \lambda = \lambda \ket \lambda$$
-
-\begin{framedprop}{}
-	Given a matrix $A$ defined over a Hilbert space $\mathcal H$, and an eigenvalue $\lambda$ associated to $A$, it holds that $$\bra \lambda A^\dag = \overline \lambda \bra \lambda$$
-\end{framedprop}
-
-\begin{proof}
-	TODO \todo{TODO}
-\end{proof}
+In Dirac notation, if $\lambda$ is non-degenerate, we refer to the only eigenvector associated to $\lambda$ as $\ket \lambda$, indeed it holds that $$A \ket \lambda = \lambda \ket \lambda$$ Interestingly enough from this equation we can immediately derive the following equality as well $$\bra \lambda A^\dag = \overline \lambda \bra \lambda$$
 
 The following theorem provides a characterization of the eigenvalues and eigenvectors of self-adjoint and unitary operators, which have surprisingly nice properties.
 
@@ -427,7 +415,7 @@ Most importantly, given the map in the definition we have that the projector ope
 \begin{proof}
 	TODO \todo{da fare idempotency}
 
-	For the second property, we observe that for any vector $\ket v$ it holds that $$(\ket v \bra v)^\dag = \ket v \bra v$$ that together with \cref{adj prop} it implies that
+	To prove Hermiticity, we observe that for any vector $\ket v$ it holds that $$(\ket v \bra v)^\dag = \ket v \bra v$$ that together with \cref{adj prop} it implies that
 	\begin{equation*}
 		\begin{split}
 			P_V^\dag & = \rbk{\sum_{i = 1}^n{\ket{f_i} \bra{f_i}}}^\dag \\

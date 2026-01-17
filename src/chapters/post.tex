@@ -297,7 +297,7 @@ We can finally present the characterization of density operators we anticipated.
 			                  & \ge 0
 		\end{split}
 	\end{equation*}
-	This proves that $\rho$ is positive. For the second statement, by the property of the trace proved in \cref{trace tricks} and \cref{trace prop}, we obtain that
+	This proves that $\rho$ is positive. For the second statement, by the properties of the trace proved in \cref{trace tricks} and \cref{trace prop}, we obtain that
 	\begin{equation*}
 		\begin{split}
 			\tr(\rho) & = \tr \rbk{\sum_{i = 1}^N{p_i \ket{\psi_i} \bra{\psi_i}}} \\
@@ -309,7 +309,17 @@ We can finally present the characterization of density operators we anticipated.
 		\end{split}
 	\end{equation*}
 
-	Now we can proceed to prove the converse implication. Suppose that $\rho$ is any operator that satisfies the conditions of the statement. In particular, since $\rho$ is positive by \cref{positive prop} we know that $\rho$ is Hermitian, which implies that it admits a spectral decomposition TODO \todo{da finire, troppo noioso}
+	Now we can proceed to prove the converse implication. Suppose that $\rho$ is any operator that satisfies the conditions of the statement. In particular, since $\rho$ is positive by \cref{positive prop} we know that $\rho$ is Hermitian, which implies that it admits a spectral decomposition $$\rho = \sum_{j}{\lambda_j \ket{\lambda_j} \bra{\lambda_j}}$$ We can write its spectral decomposition in this fashion by repeating the degenerate eigenvalues multiple times as discussed under \cref{spectral decomp}. Let $P$ and $D$ such that $\rho$ is diagonalizable, i.e. $$\rho = PDP^{-1}$$ and in particular $D$ has the eigenvalues of $\rho$ on its diagonal. Then, we can use the assumption that $\tr(\rho) = 1$ to conclude that
+	\begin{equation*}
+		\begin{split}
+			1 & = \tr(\rho)           \\
+			  & = \tr(PDP^{-1})       \\
+			  & = \tr(P^{-1} PD)      \\
+			  & = \tr(D)              \\
+			  & = \sum_{j}{\lambda_j} \\
+		\end{split}
+	\end{equation*}
+	which means that the sum of the eigenvalues of $\rho$ adds up to 1. This proves that $\rho$ is the density matrix of the system described by the ensamble $$\{\lambda_j, \ket{\lambda_j} \bra{\lambda_j}\}_j$$
 \end{proof}
 
 \begin{framedprop}{Convexity of density matrices}
@@ -317,7 +327,7 @@ We can finally present the characterization of density operators we anticipated.
 \end{framedprop}
 
 \begin{proof}
-	TODO \todo{da fare}
+	The proof follows immediately from the previous theorem. In fact, since each $\rho_i$ is a density matrix, by the previous theorem they must be positive, therefore for any $\ket v \in \mathcal H$ it holds that $$\bra v \rbk{\sum_{i = 1}^N{p_i \rho_i}} \ket v = \sum_{i = 1}^N{p_i\braket{v|\rho_iv}} \ge 0$$ Moreover, the previous theorem also states that $\tr(\rho_i) =1$ for each density matrix, which shows that $$\tr \rbk{\sum_{i = 1}^N{p_i \rho_i}} = \sum_{i = 1}^n{p_i \tr(\rho_i)} = \sum_{i=1}^N{p_i} = 1$$ Therefore, since the weighted sum is positive and its trace is equal to 1, the previous theorem implies that it is also a density matrix.
 \end{proof}
 
 Given all we just discussed, we can finally rephrase the postulates through the density operator.
