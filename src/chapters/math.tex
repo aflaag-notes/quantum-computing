@@ -54,10 +54,10 @@ In particular, the scalar product that we are going to use for our purposes is d
 
 From now on, when we refer to a \curlyquotes{scalar product} we will refer to the Hermitian product.
 
-We are finally ready to explain the \curlyquotes{braket} that we used from the beginning of the previous chapter. This notation was invented by the Nobel Prize in Physics \href{https://it.wikipedia.org/wiki/Paul_Dirac}{Paul Dirac}, and it works as follows: first, observe that our scalar product can be rewritten as follows $$\braket{u, v} = \rmat{\overline{u_1} \cdots \overline{u_n}} \rmat{v_1 \\ \vdots \\ v_n}$$ To be precise, this product would yield a $1 \times 1$ matrix, which can be interpreted as a scalar. Through Dirac notation, we will write $$\braket{u, v} = \braket{u | v}$$ where $\bra u$ is called \tbf{bra}, and $\ket v$ is called \tbf{ket} (as in \curlyquotes{bra-ket}). In other words, we have that $\ket v$ is just a regular column vector $v \in V$ $$\ket v = \rmat{v_1 \\ \vdots \\ v_n}$$ defined over some scalar product vector space $V$, while $\bra u$ is a \tit{linear map} that acts as follows: $$\funcmap{\bra \cdot}{V}{\overline V}{\rmat{u_1 \cdots u_n}}{\rmat{\overline{u_1} \cdots \overline{u_n}}}$$
+We are finally ready to explain the \curlyquotes{braket} that we used from the beginning of the previous chapter. This notation was invented by the Nobel Prize in Physics \href{https://it.wikipedia.org/wiki/Paul_Dirac}{Paul Dirac}, and it works as follows: first, observe that our scalar product can be rewritten as follows $$\braket{u, v} = \rmat{\overline{u_1} \cdots \overline{u_n}} \rmat{v_1 \\ \vdots \\ v_n}$$ To be precise, this product would yield a $1 \times 1$ matrix, which can be interpreted as a scalar. Through Dirac notation, we will write $$\braket{u, v} = \braket{u | v}$$ where $\bra u$ is called \tbf{bra}, and $\ket v$ is called \tbf{ket} (as in \curlyquotes{bra-ket}). In other words, we have that $\ket v$ is just a regular column vector $v \in V$ $$\ket v = \rmat{v_1 \\ \vdots \\ v_n}$$ defined over some scalar product vector space $V$, while $\bra u$ is a \tit{linear map} that acts as follows: $$\funcmap{\bra \cdot}{V}{\overline V}{\rmat{u_1 \cdots u_n}}{\rmat{\overline{u_1} \cdots \overline{u_n}}}$$ We observe that from this very definition we can already see the power of the Dirac notation: by writing $$\bra u \cdot \ket v$$ we are writing the product between a row conjugated vector $u$ and a column vector $v$, which will ultimately yield $1 \times 1$ vector containing exatcly $\braket{u, v}$! Therefore, this allows us to write that $$\bra u \cdot \ket v = \braket{u|v}$$
 
-\begin{framedthm}{Cauchy-Schwarz inequality}
-	Given a scalar product vector space $V$, it holds that $$\forall u, v \in V \quad \abs{\braket{u|v}} \le \sqrt{\braket{u|v} \braket{u|v}}$$ where the equality holds if and only if $u$ and $v$ are linearly independent.
+\begin{framedthm}[label={cs ineq}]{Cauchy-Schwarz inequality}
+	Given a scalar product vector space $V$, it holds that $$\forall u, v \in V \quad \abs{\braket{u|v}} \le \sqrt{\braket{u|u} \braket{v|v}}$$ where the equality holds if and only if $u$ and $v$ are linearly independent.
 \end{framedthm}
 
 Moreover, our scalar product induces a \tbf{norm}, which is defined as follows.
@@ -76,7 +76,7 @@ As usual, two vectors $u, v \in V$ are said to be \tbf{orthogonal} if $\braket{u
 Let's see the Dirac notation in action. Consider an orthonormal basis $\{e_1, \ldots, e_n\}$ for some scalar product vector space $V$; by definition, we know that we can write any vector $u \in V$ as follows $$u = \sum_{i = 1}^n{\alpha_i e_i}$$ for some coefficients $\alpha_1, \ldots, \alpha_n \in \C$. Now, we observe that for all $i \in [n]$
 \begin{equation*}
 	\begin{alignedat}{2}
-		\braket{e_i|u} & = \braket{e_i|\sum_{j = 1}^n{\alpha_j e_j}}                      & \\
+		\braket{e_i|u} & = \abk{e_i\middle|\sum_{j = 1}^n{\alpha_j e_j}}                      & \\
 		               & = \abk{e_i \middle|\alpha_1e_1 + \ldots + \alpha_n e_n}          & \\
 		               & = \alpha_1 \braket{e_i|e_1} + \ldots + \alpha_n \braket{e_i|e_n} & \\
 		               & = \sum_{j = 1}^n{\alpha_j\braket{e_i | e_j}}                     & \\
@@ -450,12 +450,12 @@ As a final note, if $A$ is an linear operator, and $\lambda$ is an eigenvalue of
         \begin{alignedat}{2}
             (P + Q)^2 & =  \rbk{\sum_{i = 1}^n \ket{f_i} \bra{f_i} + \sum_{i = 1}^n \ket{g_i} \bra{g_i }} \rbk{ \sum_{j = 1}^n \ket{f_j} \bra{f_j} + \sum_{j = 1}^n \ket{g_j} \bra {g_j}} & \\ 
                       & = \sum_{i, j}\ket{f_i } \braket{f_i|f_j} \bra{f_j} + \sum_{i, j} \braket{f_i} \braket{f_i|g_j} \bra{g_j} + \sum_{i, j} \ket{g_i} \braket{g_i|f_j} \bra{f_j} + \sum_{i, j} \ket{g_i } \braket{g_i|g_j} \bra{g_j} & \\ 
-                      & = \sum_{i, j}\ket{f_i } \delta_{i, j} \bra{f_j} + \sum_{i, j} \ket{g_i } \delta_{i, j } \ket{g_j} & \quad \quad \rbk{\braket{f_i|g_j} = 0}\\ 
+                      & = \sum_{i, j}\ket{f_i } \delta_{i, j} \bra{f_j} + \sum_{i, j} \ket{g_i } \delta_{i, j } \bra{g_j} & \\ 
                       & = \sum_{i = 1}^n \ket{f_i} \bra{f_i} + \sum_{j = 1}^n \ket{g_j} \bra{g_j} & \\ 
                       & = P + Q
         \end{alignedat}
     \end{equation*}
-    Moreover, Hermiticity can be easily proven by linearity of the adjoint:
+    We observe that we used orthogonality to remove the inner sums in the third step. Moreover, Hermiticity can be easily proven by linearity of the adjoint:
     \begin{equation*}
         \begin{split}
             (P + Q)^\dag & = \rbk{\sum_{i = 1}^n \ket{f_i} \bra{f_i } + \sum_{i = 1}^n \ket{g_i} \bra{g_i } }^\dag\\ 
@@ -466,7 +466,7 @@ As a final note, if $A$ is an linear operator, and $\lambda$ is an eigenvalue of
     \end{equation*}
 \end{proof}
 
-The following is the last property of projectors that we will present, and it will be very useful when we will introduce the postulates of quantum mechanics in the next section.
+The importance of the next theorem cannot be understated, and it will be used extensively throughout the notes to prove various results.
 
 \begin{framedthm}[label={spectral decomp}]{Spectral decomposition}
 	Given a Hilbert space $\mathcal H$, and a normal operator $A$ defined on $\mathcal H$ whose eigenvalues are $\lambda_1, \ldots, \lambda_n$, the matrix $A$ can be rewritten as follows: $$A = \sum_{i = 1}^n{\lambda_i P_{\lambda_i}}$$
@@ -565,7 +565,7 @@ which indeed is a vector that lies inside $V \otimes W$ since $(f_i \otimes g_j)
 		                     & = \rmat{\alpha_1 \beta_1                                                            \\ \alpha_1 \beta_2 \\ \vdots \\ \alpha_1 \beta_m \\ \alpha_2 \beta_1 \\ \vdots \\ \alpha_n \beta_m} \in \R^{n \cdot m} \\
 	\end{split}
 \end{equation*}
-where the last column vector contains \tit{all} the pairs $(\alpha_i, \beta_j)$ --- note that $\R^{n \cdot m} \neq \R^{n \times m}$, as the latter denotes the space of real-valued matrices of dimension $n \times m$. Again, we underline that we arbitrarily chose the space $\R^{n \cdot m}$, but we could have chosen \tit{any} space of dimension $n \cdot m$ as output --- even $\R^{n \times m}$! A concrete example will clarify: consider two spaces $V = \R^2$ and $W = \R^{2 \times 2}$. Then, any element $v \in \R^2$ has the form $v = \rmat{a \\ b}$ while any matrix of $A \in \R^{2 \times 2}$ looks like $A = \rmat{c & d \\ e & f}$. If we want to compute $v \otimes A$, we can project it onto any space that has dimension $$\dim(\R^2 \otimes \R^{2 \times 2}) = \dim \R^2 \cdot \dim \R^{2 \times 2} = 2 \cdot 4 = 8$$ Here are some examples of the possible outputs of $v \otimes A$ depending on the choice of the output space: $$\rmat{ac \\ ad \\ ae \\ af \\ bc \\ bd \\ be \\ bf} \in \R^6 \quad \quad \rmat{ac & ad & ae & af \\ bc & bd & be & bf} \in \R^{2 \times 4} \quad \quad \rmat{ac & bc \\  ad & bd \\  ae & be \\ af & bf} \in \R^{4 \times 2}$$
+where the last column vector contains \tit{all} the pairs $(\alpha_i, \beta_j)$ --- note that $\R^{n \cdot m} \neq \R^{n \times m}$, as the latter denotes the space of real-valued matrices of dimension $n \times m$. Again, we underline that we arbitrarily chose the space $\R^{n \cdot m}$, but we could have chosen \tit{any} space of dimension $n \cdot m$ as output --- even $\R^{n \times m}$! A concrete example will clarify: consider two spaces $V = \R^2$ and $W = \R^{2 \times 2}$. Then, any element $v \in \R^2$ has the form $v = \rmat{a \\ b}$ while any matrix of $A \in \R^{2 \times 2}$ looks like $A = \rmat{c & d \\ e & f}$. If we want to compute $v \otimes A$, we can project it onto any space that has dimension $$\dim(\R^2 \otimes \R^{2 \times 2}) = \dim \R^2 \cdot \dim \R^{2 \times 2} = 2 \cdot 4 = 8$$ Here are some examples of the possible outputs of $v \otimes A$ depending on the choice of the output space: $$\rmat{ac \\ ad \\ ae \\ af \\ bc \\ bd \\ be \\ bf} \in \R^8 \quad \quad \rmat{ac & ad & ae & af \\ bc & bd & be & bf} \in \R^{2 \times 4} \quad \quad \rmat{ac & bc \\  ad & bd \\  ae & be \\ af & bf} \in \R^{4 \times 2}$$
 
 \subsection{Kronecker product}
 
@@ -668,4 +668,91 @@ which is clearly a contradiction $\lightning$.
         \end{split}
     \end{equation*}
     The product $(U^{\otimes n})^\dag U^{\otimes n}$ can be proved analogously.
+}
+
+\begin{framedprob}{}
+    Prove the triangular inequality.
+\end{framedprob}
+
+\solution{
+    Consider two vectors $u$ and $v$ in some scalar product vector space; we must show that $$\norm{u + v} \le \norm u + \norm v$$ First, we observe that
+    \begin{equation*}
+        \begin{split}
+            \norm{u + v}^2 & = \braket{u + v|u + v} \\ 
+                           & = \braket{u + v|u} + \braket{u + v|v} \\ 
+                           & = \braket{u|u} + \braket{v|u} + \braket{u|v} + \braket{v|v} \\ 
+                           & = \norm u^2 + \braket{u|v} + \overline{\braket{u|v}} + \norm v^2
+        \end{split}
+    \end{equation*}
+    Now, consider the following claim.
+
+    \claim{
+        For any complex number $z \in \C$ it holds that $z + \overline z = 2 \Re(z)$.
+    }{
+        The statement can be easily proven as follows: $$z + \overline z = \Re(z) + \Im(z) + \Re(z) - \Im(z) = 2 \Re(z)$$
+    }
+
+    From this claim, we can proceed as follows:
+    \begin{equation*}
+        \begin{alignedat}{2}
+            \norm{u + v}^2 & = \norm u^2 + \braket{u|v} + \overline{\braket{u|v}} + \norm v^2 & \\ 
+                           & = \norm u^2 + 2 \Re(\braket{u|v}) + \norm v^2 & \\ 
+                           & \le \norm u^2 + 2 \abs{\braket{u|v}} + \norm v^2 & \\ 
+                           & \le \norm u^2 + 2 \sqrt{\braket{u|u} \cdot \braket{v|v}} + \norm v^2 & \quad \quad (\mbox{by the \nameref{cs ineq}}) \\ 
+                           & = \norm u^2 + 2 \sqrt{\braket{u|u}} \cdot \sqrt{\braket{v|v}} + \norm v^2 &  \\ 
+                           & = \norm u^2 + 2 \norm u \norm v + \norm v^2 & \\ 
+                            & = (\norm u + \norm v ) ^2 & \\ 
+        \end{alignedat}
+    \end{equation*}
+    Then, since the vector norm is defined positive we ultimately conclude that $$\norm{u + v}^2 \le (\norm u + \norm v)^2 \implies \norm{u + v} \le \norm u + \norm v$$
+}
+
+\begin{framedprob}{}
+    Prove the second property of the \nameref{spectral thm}, i.e. that the eigenvalues of a unitary operator are complex values of modulus 1.
+\end{framedprob}
+
+\solution{
+    Let $U$ be a unitary transformation defined over some Hilbert space $\mathcal H$; by \cref{unitary alt def} we know that $$\forall x, y \in \mathcal H \quad \braket{Ux|Uy} = \braket{x|y}$$ Let $v \in \mathcal H$ be an eigenvector of $U$, i.e. there exists $\lambda \in \mbox{sp}(U)$ such that $$U \ket v = \lambda v$$ Then, we have that
+    \begin{equation*}
+        \begin{split}
+            \braket{v|v} & = \braket{Uv|Uv} \\ 
+                         & = \braket{\lambda v|\lambda v} \\
+                            & = \overline \lambda \bra v \cdot \lambda \ket v \\ 
+                            & = \abs{\lambda}^2 \braket{v|v}
+        \end{split}
+    \end{equation*}
+    and since $v \neq 0$ because it is an eigenvector of $U$ we have that $$\braket{v|v} = \abs{\lambda}^2 \braket{v|v} \iff 1 = \abs{\lambda}^2 \implies \abs{\lambda} = 1$$
+}
+
+\begin{framedprob}{}
+    Show that if an operator is unitary, it must be linear.
+\end{framedprob}
+
+\solution{
+    Let $U$ be a unitary transformation defined over some Hilbert space $\mathcal H$; by \cref{unitary alt def} we know that $$\forall x, y \in \mathcal H \quad \braket{Ux|Uy} = \braket{x|y}$$ Fix three vectors $x, y, z \in \mathcal H$ and two complex values $\alpha, \beta \in \C$; then, by definition of scalar product we have that
+    \begin{equation*}
+        \begin{split}
+            \braket{U(\alpha x + \beta y)|z} & = \braket{\alpha x + \beta y|U^\dag z} \\  
+                                             & = \overline \alpha \braket{x|U^\dag z} + \overline \beta \braket{y| U^\dag z} \\ 
+                                             & = \braket{\alpha Ux|z}  + \braket{\beta Uy|z} \\ 
+                                              & = \braket{\alpha U x + \beta U y|z} \\
+        \end{split}
+    \end{equation*}
+    Now, consider the following property of the scalar product.
+
+	\claim{
+		Given $x, y \in \mathcal H$, if  $\braket{x|z} = \braket{y|z}$ for all $z \in \mathcal H$, then $x = y$.
+	}{
+		Fix a vector $z \in \mathcal H$; we observe that
+		\begin{equation*}
+			\begin{split}
+				     & \braket{x|z} = \braket{y|z}     \\
+				\iff & \braket{x|z} - \braket{y|z} = 0 \\
+				\iff & \braket{x - y|z} = 0
+			\end{split}
+		\end{equation*}
+		However, if this is true for every vector $z \in \mathcal H$ it means that the vector $x - y$ is orthogonal to every vector in $\mathcal H$, which must imply that $x - y$ is the 0 vector, thus $$x - y = 0 \iff x = y$$
+	}
+        
+        Then, from the previous observation we have $$\forall x, y, z \in \mathcal H , \alpha, \beta \in \C \quad \braket{U(\alpha x + \beta y)|z} = \braket{\alpha Ux + \beta Uy|z}$$ and this last claim concludes that $$U(\alpha x + \beta y) = \alpha U x + \beta U y$$ meaning that $U$ is indeed linear.
 }
