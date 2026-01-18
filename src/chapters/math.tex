@@ -404,18 +404,26 @@ With this observation, we can finally define the projector operators.
 
 Most importantly, given the map in the definition we have that the projector operator $P_V$ is defined as follows $$P_V := \sum_{i = 1}^n{\ket{f_i} \bra{f_i}}$$ Clearly, by definition of $u_{V^\bot}$ it holds that $$\funcmap{P_{V^\bot}}{\mathcal H}{V^\bot}{u}{u_{V^\bot} := u - u_V}$$ Moreover, since $P_V$ performs a projection, we have that $$\forall u \in \mathcal H \quad u \in V \iff P_Vu = u$$ and that $$\forall u \in \mathcal H \quad u \in V^\bot \iff P_V u = 0$$
 
-\begin{framedprop}{}
-	Given a Hilbert space $\mathcal H$, and a closed subspace $V \subset \mathcal H$, the projector $P_V$ is such that
+\begin{framedthm}{characterization of projectors}
+	Given a Hilbert space $\mathcal H$, an operator $P_V$ is the projector on some closed subspace $V \subset \mathcal H$ if and only if
 	\begin{enumerate}
 		\item $P_V^2 = P_V$, i.e. it is \tit{idempotent}
 		\item $P_V^\dag = P_V$, i.e it is Hermitian
 	\end{enumerate}
-\end{framedprop}
+\end{framedthm}
 
 \begin{proof}
-	TODO \todo{da fare idempotency}
-
-	To prove Hermiticity, we observe that for any vector $\ket v$ it holds that $$(\ket v \bra v)^\dag = \ket v \bra v$$ that together with \cref{adj prop} it implies that
+	We first prove the direct implication. Suppose that $P_V$ is the projector of a vector space $V \subset \mathcal H$, meaning that $P_V$ can be written as $$P_V = \sum_{i = 1}^n \ket {f_i} \bra{f_i}$$ for some orthonormal basis $\{f_i\}_{i = 1}^n$ of $V$. Then, we observe that
+	\begin{equation*}
+		\begin{split}
+			P_V^2 & = \rbk{\sum_{i = 1}^n \ket{f_i} \bra{f_i}} \rbk{\sum_{j = 1}^n \ket{f_j} \bra{f_j}} \\
+			      & = \sum_{i = 1} ^n \sum_{j = n} \ket{f_i} \braket{f_i|f_j} \bra{f_j}                 \\
+			      & = \sum_{i = 1}^n \sum_{j = n} \ket{f_i} \delta_{i, j} \bra{f_j}                     \\
+			      & = \sum_{i = 1}^n \ket{f_i} \bra{f_i} \\ 
+			      & = P_V
+		\end{split}
+	\end{equation*}
+	which immediately proves the idempotency of $P_V$. To prove Hermiticity, we observe that for any vector $\ket v$ it holds that $$(\ket v \bra v)^\dag = \ket v \bra v$$ that together with \cref{adj prop} it implies that
 	\begin{equation*}
 		\begin{split}
 			P_V^\dag & = \rbk{\sum_{i = 1}^n{\ket{f_i} \bra{f_i}}}^\dag \\
@@ -424,14 +432,7 @@ Most importantly, given the map in the definition we have that the projector ope
 			         & = P_V
 		\end{split}
 	\end{equation*}
-\end{proof}
-
-\begin{framedprop}{}
-	Any projector operator only has 0 and 1 as possible eigenvalues.
-\end{framedprop}
-
-\begin{proof}
-	Consider a projector operator $P_V$; by definition $v$ is an eigenvalue of $P_V$ associated to the eigenvalue $\lambda$ if it holds that $$P_Vv = \lambda v$$ Hence, we observe that $$P_V^2 v = P_V (P_V v) = P_V(\lambda v) = \lambda P_Vv = \lambda(\lambda v) = \lambda^2 v$$ and by idempotency of $P_V$ it holds that $$\lambda^2 v = P_V^2 = P_Vv = \lambda v$$ which implies that $$\lambda^2v - \lambda v = 0 \iff (\lambda^2 - \lambda)v = 0$$ Finally, since $v$ is an eigenvector it holds that $v \neq 0$, therefore it must be that the last equation is true only if $$\lambda^2 - \lambda = 0 \iff \lambda = 0 \lor \lambda = 1$$
+	We prove the converse implication in \cref{converse proj}.
 \end{proof}
 
 Given a Hilbert space $\mathcal H$, and two topologically closed subspaces $V, W \subset \mathcal H$, we say that $P_V$ and $P_W$ are \tbf{orthogonal} if it holds that $V \bot W$. Now, fix a vector $u \in \mathcal H$; by definition $P_Vu$ is a vector that lies inside $V$, therefore it holds that $$P_W(P_Vu) = 0$$ since $V \bot W$, and by the same reasoning applied on $W$ first we conclude that $$P_WP_V = P_VP_W = \mathbf 0$$ where $\mathbf 0$ is the \tbf{zero operator} --- indeed, it is a zero matrix.
@@ -439,11 +440,30 @@ Given a Hilbert space $\mathcal H$, and two topologically closed subspaces $V, W
 As a final note, if $A$ is an linear operator, and $\lambda$ is an eigenvalue of $A$, we denote with $P_\lambda$ the projector that projects vectors onto the eigenspace associated to $\lambda$.
 
 \begin{framedprop}[label={projector sum}]{}
-	If $P$ and $Q$ are two orthogonal projectors, then $P + Q$ is still a projector.
+	If $P$ and $Q$ are two orthogonal projectors, then $P + Q$ is a projector.
 \end{framedprop}
 
 \begin{proof}
-	TODO \todo{TODO}
+    Let $\{f_i\}_{i = 1}^n$ and $\{g_i\}_{i = 1}^n$ be the bases that define $$P := \sum_{i = 1}^n \ket{f_i}\bra{f_i} \quad \quad Q := \sum_{i = 1}^n \ket{g_i} \bra{g_i}$$ We observe that $P \bot Q$, which means that $$\forall i, j \in [1, n] \quad \braket{f_i|g_j} = 0$$ Then, we have that $$P + Q = \sum_{i = 1} ^n \ket{f_i} \bra{f_i} + \sum_{i = 1}^n \ket{g_i} \bra{g_i}$$ Then, by the previous theorem it suffices to show that $P + Q$ is both idempotent and Hermitian. To prove idempotency we see that
+    \begin{equation*}
+	\hspace{-0.3cm}
+        \begin{alignedat}{2}
+            (P + Q)^2 & =  \rbk{\sum_{i = 1}^n \ket{f_i} \bra{f_i} + \sum_{i = 1}^n \ket{g_i} \bra{g_i }} \rbk{ \sum_{j = 1}^n \ket{f_j} \bra{f_j} + \sum_{j = 1}^n \ket{g_j} \bra {g_j}} & \\ 
+                      & = \sum_{i, j}\ket{f_i } \braket{f_i|f_j} \bra{f_j} + \sum_{i, j} \braket{f_i} \braket{f_i|g_j} \bra{g_j} + \sum_{i, j} \ket{g_i} \braket{g_i|f_j} \bra{f_j} + \sum_{i, j} \ket{g_i } \braket{g_i|g_j} \bra{g_j} & \\ 
+                      & = \sum_{i, j}\ket{f_i } \delta_{i, j} \bra{f_j} + \sum_{i, j} \ket{g_i } \delta_{i, j } \ket{g_j} & \quad \quad \rbk{\braket{f_i|g_j} = 0}\\ 
+                      & = \sum_{i = 1}^n \ket{f_i} \bra{f_i} + \sum_{j = 1}^n \ket{g_j} \bra{g_j} & \\ 
+                      & = P + Q
+        \end{alignedat}
+    \end{equation*}
+    Moreover, Hermiticity can be easily proven by linearity of the adjoint:
+    \begin{equation*}
+        \begin{split}
+            (P + Q)^\dag & = \rbk{\sum_{i = 1}^n \ket{f_i} \bra{f_i } + \sum_{i = 1}^n \ket{g_i} \bra{g_i } }^\dag\\ 
+                         & = \sum_{i = 1}^n (\ket {f_i} \bra{f_i})^\dag + \sum_{i = 1}^n (\ket{g_i} \bra{g_i})^\dag \\
+                         & = \sum_{i = 1}^n \ket {f_i} \bra{f_i}+ \sum_{i = 1}^n \ket{g_i} \bra{g_i} \\ 
+                          & = P + Q
+        \end{split}
+    \end{equation*}
 \end{proof}
 
 The following is the last property of projectors that we will present, and it will be very useful when we will introduce the postulates of quantum mechanics in the next section.
@@ -563,7 +583,7 @@ As an example, we observe that $$\rmat{a \\ b} \otimes \rmat{c \\ d} = \rmat{a \
 	For any field $\mathbb F$, given two matrices $A$ and $B$ and two vectors $v$ and $w$ such that $$A \in \mathbb F ^{m \times n} \quad B \in \mathbb F^{p \times q} \quad v \in \mathbb F^n \quad w \in \mathbb F^q$$ it holds that $$(A \otimes B)(v \otimes w) = Av \otimes Bw$$
 \end{framedprop}
 
-\begin{framedprop}{}
+\begin{framedprop}[label={tensor adj}]{}
 	For any two matrices $A$ and $B$ defined over a Hilbert space, it holds that $$(A \otimes B)^\dag = A^\dag \otimes B^\dag$$
 \end{framedprop}
 
@@ -574,3 +594,78 @@ Another very important property of the tensor product is the way it behaves toge
 \end{framedprop}
 
 As a final note, if $U$ is a matrix (or a vector), we will write $$U^{\otimes n} = \underbrace{U \otimes \ldots \otimes U}_{n \ \mathrm{times}}$$ similar to the usual product $$U^{n} = \underbrace{U \cdot \ldots \cdot U}_{n \ \mathrm{times}}$$
+
+\section{Exercises}
+
+\begin{framedprob}{}
+	Given $n$ qubits $\{q_i\}_{i = 1}^n$, show that $$\norm{\bigotimes_{i = 1}^n q_i} = 1$$
+\end{framedprob}
+
+\solution{
+First, we observe that by \cref{tensor scalar} it immediately follows that for any set of vectors ${\{x_i\}^n}_{i = 1}$ and ${\{y_i\}^n}_{i = 1}$ it holds that $$\braket{a|b} = \prod_{i = 1}^n \braket{x_i|y_i}$$ From this observation, we conclude that it holds that $$\abk{ \bigotimes_{i = 1}^n x_i\middle|\bigotimes_{i = 1}^n y_i} = \prod_{i = 1}^n{\braket{x_i|y_i}}$$ From this observation, we conclude that
+
+\begin{equation}
+	\begin{alignedat}{2}
+		\norm{\bigotimes_{i = 1}^n q_i}^2 & = \abk{\bigotimes_{i = 1}^n q_i \middle| \bigotimes_{i = 1}^n q_i} &                                            \\
+		                                  & = \prod_{i = 1}^n \braket{q_i |q_i}                                                                             \\
+		                                  & = \prod_{i = 1}^n \norm{q_i}^2                                     &                                            \\
+		                                  & = \prod_{i = 1}^n 1                                                & \quad \quad (\mbox{since they are qubits}) \\
+		                                  & = 1
+	\end{alignedat}
+\end{equation}
+which ultimately concludes that $$\norm{\bigotimes_{i = 1}^n q_i} = 1$$
+}
+
+\begin{framedprob}{}
+	Let $\{f_i\}_{i = 1}^n$ be an orthonormal basis of a vector space $V$, and fix a vector $u \in V$; then, consider $$u_V := \sum_{i = 1}^n{\braket{f_i|u} f_i}$$ Prove that the definition of $u_V$ does not depend on the choice of $\{f_i\}_{i = 1}^n$
+\end{framedprob}
+
+\solution{
+By way of contradiction, suppose that there is an orthonormal basis $\{g_i\}_{i = 1}^n$ of $V$ such that $$\sum_{i = 1}^n \braket{f_i|u} \ket {f_i} \neq \sum_{i = 1}^n \braket{g_i|u} \ket{g_i}$$ Then, we have that
+\begin{equation*}
+	\begin{split}
+		     & \sum_{i = 1}^n \braket{f_i|u} \ket {f_i} \neq \sum_{i = 1}^n \braket{g_i|u} \ket{g_i}        \\
+		\iff & \sum_{i = 1}^n \ket {f_i}\braket{f_i|u}  \neq \sum_{i = 1}^n \ket{g_i}\braket{g_i|u}         \\
+		\iff & \sum_{i = 1}^n \rbk{\ket{f_i} \braket{f_i|u} - \ket{g_i} \braket{g_i|u}} \neq 0              \\
+		\iff & \sum_{i = 1}^n  \rbk {\ket{f_i} \bra{f_i} - \ket{g_i} \bra{g_i}} \ket u \neq 0               \\
+		\iff & \rbk{\sum_{ i = 1}^n \ket{f_i} \bra{f_i} - \sum_{i = 1}^n \ket{g_i} \bra{g_i}} \ket u \neq 0 \\
+		\iff & (P_V - P_V) \ket u  \neq 0                                                                   \\
+		\iff & 0 \neq 0
+	\end{split}
+\end{equation*}
+which is clearly a contradiction $\lightning$.
+}
+
+\begin{framedprob}[label={converse proj}]{}
+	Show that if a matrix $P$ is both idempotent and Hermitian, it must be a projector.
+\end{framedprob}
+
+\solution{
+    By Hermiticity, we know that $P$ admit a \nameref{spectral decomp}, i.e. $$P = \sum_{i = 1}^n{\lambda_i \ket{\lambda_i} \bra{\lambda_i}}$$ Now consider the following claim.
+
+    \claim{
+        If $P$ is an idempotent operator, its only possible eigenvalues are 0 and 1.
+    }{
+        By definition $v$ is an eigenvalue of $P$ associated to the eigenvector $\lambda$ if it holds that $$Pv = \lambda v$$ Hence, we observe that $$P^2 v = P (P v) = P (\lambda v) = \lambda Pv = \lambda(\lambda v) = \lambda^2 v$$ and therefore we have that $$\lambda^2 v = P^2 = Pv = \lambda v$$ which implies that $$\lambda^2v - \lambda v = 0 \iff (\lambda^2 - \lambda)v = 0$$ Finally, since $v$ is an eigenvector it holds that $v \neq 0$, therefore it must be that the last equation is true only if $$\lambda^2 - \lambda = 0 \iff \lambda = 0 \lor \lambda = 1$$
+    }
+
+    From this claim, we immediately obtain that each $\lambda_i$ is either 0 or 1, which means that its spectral decomposition can be written as $$P = \sum_j \ket{\lambda_j} \bra{\lambda_j}$$ for some non-zero eigenvalues $\lambda_j$ of $P$. This formulation concludes that $P$ is indeed a projector.
+}
+
+\begin{framedprob}{}
+    Given a unitary matrix $U$, show that $U^{\otimes n}$ is still unitary.
+\end{framedprob}
+
+\solution{
+    The property follows immediately from \cref{broken tensor} and \cref{tensor adj}, since
+    \begin{equation*}
+        \begin{split}
+            U^{\otimes n} (U^{\otimes n})^\dag & = \rbk{ \bigotimes_{i = 1}^n U } \rbk{\bigotimes_{i = 1}^n U}^\dag \\ 
+                                               & = \rbk{\bigotimes_{i = 1}^n U} \rbk{\bigotimes_{i = 1}^n U^\dag} \\ 
+                                            & = \bigotimes_{i = 1}^n U U^\dag \\ 
+                                            & = \bigotimes_{i = 1}^n I \\ 
+                                             & = I
+        \end{split}
+    \end{equation*}
+    The product $(U^{\otimes n})^\dag U^{\otimes n}$ can be proved analogously.
+}
