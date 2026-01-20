@@ -27,7 +27,7 @@ We observe that the Schrödinger equation is a first-order linear differential e
 	\item $H$ which is the system \tit{Hamiltonian}, a self-adjoint operator that describes the total energy of the system
 \end{itemize}
 
-The solution of the Schrödinger equation is $$v(t_1) = U(t_2, t_1)v(t_1)$$ where $U(t_2, t_1)$ is called \tbf{time-evaluation operator}, and it is defined as follows: $$U(t_2, t_1) = e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}$$ (assuming $H$ does not depend on time). We recall that $H$ is a matrix, so we are raising $e$ to the power of a matrix, an operation that is defined by the power series of the exponential as follows: $$e^A = \sum_{n = 0}^\infty{\dfrac{A^n}{n!}}$$ What is interesting about this operator is that $U$ is \tbf{unitary}, and in order to show it is suffices to prove that $U^\dag = U^{-1}$. But how do we compute the adjoint of $U$? We observe that by the properties of the adjoint operation it holds that $$\rbk{e^A}^\dag = \rbk{\sum_{n = 0}^\infty{\dfrac{A^n}{n!}}}^\dag = \sum_{n = 0}^\infty{\dfrac{(A^n)^\dag}{n!}} = \sum_{n = 0}^\infty{\dfrac{(A^\dag)^n}{n!}} = e^{A^\dag}$$ which means that the adjoint of an exponential is the exponential of the adjoint. This suffices to prove that $$U^\dag = \rbk{e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}}^\dag = e^{\rbk{-\tfrac{i}{\hbar}H(t_2 - t_1)}^\dag} = e^{\tfrac{i}{\hbar}H(t_2 - t_1)} = \rbk{e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}}^{-1} = U^{-1}$$
+The solution of the Schrödinger equation is $$v(t_1) = U(t_2, t_1)v(t_1)$$ where $U(t_2, t_1)$ is called \tbf{time-evaluation operator}, and it is defined as follows: $$U(t_2, t_1) = e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}$$ (assuming $H$ does not depend on time). We recall that $H$ is a matrix, so we are raising $e$ to the power of a matrix, an operation that is defined by the power series of the exponential as follows: $$e^A = \sum_{n = 0}^\infty{\dfrac{A^n}{n!}}$$ What is interesting about this operator is that $U$ is \tbf{unitary}, and in order to show it is suffices to prove that $U^\dag = U^{-1}$. But how do we compute the adjoint of $U$? We observe that by the properties of the adjoint operation it holds that $$\rbk{e^A}^\dag = \rbk{\sum_{n = 0}^\infty{\dfrac{A^n}{n!}}}^\dag = \sum_{n = 0}^\infty{\dfrac{(A^n)^\dag}{n!}} = \sum_{n = 0}^\infty{\dfrac{(A^\dag)^n}{n!}} = e^{A^\dag}$$ which means that the adjoint of an exponential is the exponential of the adjoint --- to be precise, we implicitly used the fact that the adjoint operation is \tit{continuous}. This suffices to prove that $$U^\dag = \rbk{e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}}^\dag = e^{\rbk{-\tfrac{i}{\hbar}H(t_2 - t_1)}^\dag} = e^{\tfrac{i}{\hbar}H(t_2 - t_1)} = \rbk{e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}}^{-1} = U^{-1}$$
 
 This is a crucial characteristic for quantum mechanics: since $U$ is unitary, we know that it preserves the scalar product by \cref{unitary alt def}, therefore it also preserves \tbf{probabilities and norms}. This is why we say that evolution in quantum systems --- or \tit{quantum evolution}, for short --- is unitary. Indeed, the second postulate is sometimes formulated equivalently as follows.
 
@@ -82,12 +82,10 @@ This formulation was refined in 1926 by Max Born \cite{born}, when he derived th
 	By the \cref{spectral thm 2} it holds that the set of all the eigenvectors $\ket \lambda$ of any operator can be expanded to always form an orthonormal basis of the complete Hilbert space. Hence, the idea is to implicitly construct a self-adjoint operator $A$ whose eigenvalues are precisely the possible values in which $\ket \psi$ might collapse into. In other words, we want to construct a self-adjoint operator whose \nameref{spectral decomp} is exactly defined by $\{\lambda_1, \ldots, \lambda_n\}$ Hence, if $\ket \psi$ is defined as $$\ket \psi = \sum_{i = 1}^n {\alpha_n \ket{\lambda_i}}$$ we define the operator $$A_{\psi} = \sum_{i = 1}^n{\lambda_i \ket{\lambda_i} \bra{\lambda_i}}$$ Thus, the probability that by $\ket \psi$ it collapses to some $\ket \lambda \in\{\lambda_1, \ldots, \lambda_n\}$ can be rewritten as follows:
 	\begin{equation*}
 		\begin{alignedat}{2}
-			\Pr[\mbox{measure}(\ket \psi = \ket \lambda)] & = \Pr[A_\psi = \lambda | \ket \psi]                &                                    \\
-			                                              & = \braket{\psi|P_\lambda \psi}                     & \quad (\mbox{by \cref{meas post}}) \\
-			                                              & = \braket{\psi|(\ket  \lambda \bra \lambda) \psi } &                                    \\
-			                                              & = \braket{\psi|\ket \lambda \bra \lambda \psi}     &                                    \\
-			                                              & = (\braket{\psi|\lambda})(\braket{\lambda|\psi})   &                                    \\
-			                                              & = \abs{\braket{\psi|\lambda}}^2                    &                                    \\
+			\Pr[\mbox{measure}(\ket \psi = \ket \lambda)] & = \Pr[A_\psi = \lambda | \ket \psi]            &                                    \\
+			                                              & = \braket{\psi|P_\lambda \psi}                 & \quad (\mbox{by \cref{meas post}}) \\
+			                                              & = \braket{\psi|\lambda} \braket{\lambda| \psi}
+			                                              & = \abs{\braket{\psi|\lambda}}^2                &                                    \\
 		\end{alignedat}
 	\end{equation*}
 \end{proof}
@@ -234,7 +232,7 @@ So, what is the connection with the initial version of the third postulate we or
 
 \subsection{Postulates through density operators}
 
-We can now introduce the \tbf{density operator} discussed at the beginning of the section. First, we describe the context. Consider a quantum system, and suppose that it is in one of a number of states $\ket{\psi_1}, \ldots, \ket{\psi_N}$. Each $\ket{\psi_i}$ is associated with a probability $p_i$ that the system is in the $i$-th state. We call $$\{p_i, \ket {\psi_i}\}_{i = 1}^N$$ an \tbf{ensable of states}. Then, we the following definition.
+We can now introduce the \tbf{density operator} discussed at the beginning of the section. First, we describe the context. Consider a quantum system, and suppose that it is in one of a number of states $\ket{\psi_1}, \ldots, \ket{\psi_N}$. Each $\ket{\psi_i}$ is associated with a probability $p_i$ that the system is in the $i$-th state. We call $$\{p_i, \ket {\psi_i}\}_{i = 1}^N$$ an \tbf{ensamble of states}. Then, we the following definition.
 
 \begin{frameddefn}{Density operator}
 	Given a quantum system described by the ensamble $\{p_i, \ket{\psi_i}\}_{i = 1}^N$, the \tbf{density operator} of the system is defined as follows $$\rho := \sum_{i = 1}^N{p_i \ket{\psi_i} \bra{\psi_i}}$$
@@ -272,7 +270,44 @@ This shows that the basic postulates of quantum mechanics related to unitary evo
 \end{framedprop}
 
 \begin{proof}
-	TODO \todo{da fare}
+	Consider a density matrix describing a pure state $\rho = \ket \psi \bra \psi$; by the properties of the trace it holds thta
+	\begin{equation*}
+		\begin{split}
+			\tr(\rho^2) & = \tr (\rho \ket \psi \bra \psi)        \\
+			            & = \braket{\psi|\rho \psi}               \\
+			            & = \braket{\psi|\psi} \braket{\psi|\psi} \\
+			            & = \abs{\braket{\psi|\psi}}^2            \\
+			            & = 1                                     \\
+		\end{split}
+	\end{equation*}
+	Differently, consider a density matrix $$\rho = \sum_{i = 1}^N{p_i \ket {\psi_i} \bra{\psi_i}}$$ describing a mixed state of some ensamble $\{p_i, \ket{\psi_i}\}_{i = 1}^N$. Then, through algebraic manipulation we obtain that
+	\begin{equation*}
+		\begin{alignedat}{2}
+			\tr(\rho^2) & = \tr \rbk{\rbk{\sum_{i = 1}^N p_i\ket{\psi_i} \bra{\psi_i}} \rbk{\sum_{j = 1}^N p_j\ket{\psi_j} \bra{\psi_j}}} &                                             \\
+			            & = \tr \rbk{\sum_{i = 1}^N  \sum_{j = 1}^N p_i p_j \ket{\psi_i} \braket{\psi_i|\psi_j} \bra{\psi_j}}             &                                             \\
+			            & = \sum_{i = 1}^N \sum_{j = 1}^N p_i p_j \braket{\psi_i|\psi_j}\tr(\ket{\psi_i} \bra{\psi_j})                    &                                             \\
+			            & = \sum_{i = 1}^N \sum_{j = 1}^N p_i p_j \braket{\psi_i|\psi_j} \braket{\psi_j|\psi_i}                           & \quad \quad (\mbox{by \cref{broken trace}}) \\
+			            & = \sum_{i = 1}^N \sum_{j = 1}^N p_i p_j \braket{\psi_i|\psi_j} \overline{\braket{\psi_i|\psi_j}}                &                                             \\
+			            & = \sum_{i = 1}^N \sum_{j = 1}^N p_i p_j \abs{\braket{\psi_i|\psi_j} }^2                                         &                                             \\
+		\end{alignedat}
+	\end{equation*}
+	Without loss of generality, we observe that we can assume all the $\ket{\psi_i}$'s in the ensamble that $\rho$ describes are distinct --- up to changing the probabilities accordingly. Then, this means that for any $i, j \in [N]$ $$\abs{\braket{\psi_i|\psi_j}}^2 = 1\iff \ket{\psi_i} = e^{i \theta} \ket{\psi_j}$$ for some phase $\theta$. In other words, the norm of the projection of $\psi_j$ onto $\psi_i$ is equal to 1 if and only if $\ket{\psi_i}$ and $\ket{\psi_j}$ are the same state up to a global phase. However, since qubits cannot be distinguished up to a global phase, we can assume that the ensamble $\rho$ describes does not contain such pair of states. This implies that
+	\begin{equation*}
+		\begin{split}
+			 & i = j \implies \abs{\braket{\psi_i|\psi_j}}^2  = 1   \\
+			 & i \neq j \implies \abs{\braket{\psi_i|\psi_j}}^2 < 1 \\
+		\end{split}
+	\end{equation*}
+	Moreover, since the state is mixed, we can also assume without loss of generality that for all $i \in [N]$ it holds that $p_i \neq 0, 1$. From these observations, we conclude that
+	\begin{equation*}
+		\begin{alignedat}{2}
+			\tr(\rho^2) & = \sum_{i = 1}^N \sum_{j = 1}^N p_i p_j \abs{\braket{\psi_i|\psi_j} }^2 & \\
+			            & < \sum_{i = 1}^N \sum_{j = 1}^N p_i p_j                                 & \\
+			            & = \rbk{\sum_{i = 1}^N p_i} \rbk{\sum_{i = 1}^N p_j}                     & \\
+			            & = \rbk{\sum_{i = 1}^N p_i}^2                                              \\
+			            & = 1
+		\end{alignedat}
+	\end{equation*}
 \end{proof}
 
 We can finally present the characterization of density operators we anticipated.
@@ -302,7 +337,6 @@ We can finally present the characterization of density operators we anticipated.
 		\begin{split}
 			\tr(\rho) & = \tr \rbk{\sum_{i = 1}^N{p_i \ket{\psi_i} \bra{\psi_i}}} \\
 			          & = \sum_{i = 1}^N{p_i \tr(\ket{\psi_i} \bra{\psi_i})}      \\
-			          & = \sum_{i = 1}^N{p_i \braket{\psi_i|I\psi_i}}             \\
 			          & = \sum_{i = 1}^N{p_i \braket{\psi_i|\psi_i}}              \\
 			          & = \sum_{i = 1}^n{p_i}                                     \\
 			          & = 1

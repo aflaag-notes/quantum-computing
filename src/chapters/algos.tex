@@ -251,7 +251,7 @@ Note that in this algorithm $q_0$ are actually $n$ qubits, thus $q_0$ is initial
 	\begin{equation*}
 		\begin{alignedat}{2}
 			H^{\otimes n} \ket x & = \bigotimes_{i = 1}^n{H \ket{x_i}}                                                             &                               \\
-			                     & = \bigotimes_{i = 1}^n{\rbk{\dfrac{1}{\sqrt 2} \sum_{b \in \B}{(-1)^{x_ib} \ket b}} \ket{x_i} } & \quad (\mbox{by the claim}) & \\
+			                     & = \bigotimes_{i = 1}^n{\rbk{\dfrac{1}{\sqrt 2} \sum_{b \in \B}{(-1)^{x_ib} \ket b}} } & \quad (\mbox{by the claim}) & \\
 			                     & = \dfrac{1}{\sqrt 2^n} \bigotimes_{i = 1}^n{\rbk{\ket 0 + (-1)^{x_i} \ket 1}}                   &                               \\
 			                     & = \dfrac{1}{\sqrt 2^n} \sum_{a \in \B^n}{(-1)^{x \cdot a} \ket a }                              &                               \\
 		\end{alignedat}

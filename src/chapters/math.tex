@@ -320,7 +320,7 @@ In particular, we observe that the last property follow trivially from the cycli
 	\begin{equation*}
 		\begin{split}
 			\tr(A \ket v \bra v) & = \sum_{i = 1}^n{\braket{e_i|A|v} \braket{v|e_i}}             \\
-			                     & = \sum_{i = 1}^n{\braket{\psi|e_i} \braket{e_i|A|v}}          \\
+			                     & = \sum_{i = 1}^n{\braket{v|e_i} \braket{e_i|A|v}}          \\
 			                     & = \bra{v} \rbk{\sum_{i = 1}^n{\ket {e_i} \bra{e_i}}} A \ket v \\
 			                     & = \braket{v|A|v}                                              \\
 			                     & = \braket{v|Av}
@@ -328,7 +328,24 @@ In particular, we observe that the last property follow trivially from the cycli
 	\end{equation*}
 \end{proof}
 
-Most importantly, if we set $A$ to be the identity matrix, we obtain an interesting identity: $$\tr( \ket v \bra v) = \braket{v|v}$$ which should not come as a surprise anyway, since the elements on the diagonal of $\ket v \bra v$ as exactly the elements of the sum in the scalar product of $\braket{v|v}$. We will discuss the importance of this equality in later sections.
+\begin{framedprop}[label={broken trace}]{}
+    Given a Hilbert space $\mathcal H$, for any two vectors $v, w \in \mathcal H$ it holds that $$\tr(\ket v \bra w) = \braket{w|v}$$
+\end{framedprop}
+
+\begin{proof}
+    From the same observation pointed out in the previous proof we see that
+    \begin{equation*}
+        \begin{split}
+            \tr(\ket v \bra v) & = \sum_{i = 1}^n \braket{e_i|v} \braket{w|e_i} \\ 
+                               & = \sum_{i = 1}^n \braket{w|e_i} \braket{e_i|v} \\ 
+                               & = \bra w \rbk{\sum_{i = 1}^n \ket{e_i} \bra{e_i}} \ket v \\ 
+                               & = \braket{w|I|v} \\ 
+                                & = \braket{w|v}
+        \end{split}
+    \end{equation*}
+\end{proof}
+
+Interestingly enough, from this property we immediately derive that $$\tr( \ket v \bra v) = \braket{v|v}$$ which should not come as a surprise anyway, since the elements on the diagonal of $\ket v \bra v$ as exactly the elements of the sum in the scalar product of $\braket{v|v}$. We will discuss the importance of these equalities in later sections.
 
 TODO \todo{show that the trace is indep of the chosen basis}
 
@@ -351,12 +368,50 @@ The following theorem provides a characterization of the eigenvalues and eigenve
 \begin{framedthm}[label={spectral thm}]{Spectral theorem}
 	The following propositions hold:
 
-	\begin{itemize}
+	\begin{enumerate}
 		\item The eigenvalues of a self-adjoint operator are real values.
 		\item The eigenvalues of a unitary operator are complex values of modulus 1.
 		\item Eigenvectors of self-adjoint and unitary operators associated to different eigenvalues are orthogonal to each other.
-	\end{itemize}
+	\end{enumerate}
 \end{framedthm}
+
+\begin{proof}
+    We will prove the statements one by one.
+
+    \begin{enumerate}
+        \item Let $A$ be a Hermitian operator, and let $v$ be an eigenvector of $A$ associated to an eigenvalue $\lambda$; then, we have that
+            \begin{equation*}
+                \begin{alignedat}{2}
+                    & \braket{v|Av}  = \braket{Av|v} & \quad \quad (\mbox{by Hermiticity}) \\ 
+                     \iff & \bra v \lambda \ket v = \bra v \overline \lambda \ket v \\ 
+                     \iff & \lambda \braket{v|v} = \overline \lambda \braket{v|v} \\ 
+                \end{alignedat}
+            \end{equation*}
+            Now, since $v$ is an eigenvector we know that $v \neq 0$, this implies that $\braket{v|v} \neq 0$, hence we conclude that $$\lambda \braket{v|v} = \overline \lambda \braket{v|v} \iff \lambda = \overline \lambda$$
+        \item Let $U$ be a unitary operator, and let $v$ be an eigenvector of $U$ associated to an eigenvalue $\lambda$; then, it holds that
+            \begin{equation*}
+                \begin{alignedat}{2}
+                    \braket{v|v} & = \braket{Uv|Uv} & \quad \quad (\mbox{by \cref{unitary alt def}}) \\ 
+                                 & = \bra{Uv} \lambda \ket v & \\ 
+                                 & = \overline \lambda \bra v \lambda \ket v & \\ 
+                                 & = \overline \lambda \lambda \braket{v|v} & \\ 
+                                 & = \abs \lambda^2 \braket{v|v} & \\ 
+                \end{alignedat}
+            \end{equation*}
+            Now, since $v$ is an eigenvector it must be that $v \neq 0$, therefore $\braket{v|v} \neq 0$ which means that $$\braket{v|v} = \abs \lambda^2 \braket{v|v} \iff \abs \lambda^ 2 = 1 \implies \abs \lambda = 1$$
+        \item Let $A$ be a Hermitian operator, and let $v$ and $w$ be two eigenvectors associated to two distinct eigenvalues $\lambda \neq \mu$ of $A$; then, it holds that
+            \begin{equation*}
+                \begin{alignedat}{2}
+                    \lambda \braket{v|w} & = \bra v \overline \lambda \ket w & \quad \quad (\mbox{by the first proposition}) \\ 
+                                         & = \braket{Av|w} & \\ 
+                                         & = \braket{v|Aw} & \quad \quad (\mbox{by Hermiticity}) &\\ 
+                                         & =\bra v \mu \ket w & \\ 
+                                         & = \mu \braket{v|w} & \\ 
+                \end{alignedat}
+            \end{equation*}
+            Hence, we conclude that $$\lambda \braket{v|w} = \mu \braket{v|w} \iff (\lambda - \mu) \braket{v|w} = 0$$ and since $\lambda \neq \mu$ it must be that $\braket{v|w} = 0$.
+    \end{enumerate}
+\end{proof}
 
 Moreover, for finite-dimensional Hilbert spaces the following holds.
 
