@@ -36,12 +36,25 @@ We will not replace $U_x$ inside the first sum for now in order to prove that $U
     If $x$ and $N$ are coprime, it holds that $$\forall y, z \in \Z \quad xy \equiv xz \bmod N \iff y \equiv z \bmod N$$
 \end{framedthm}
 
+\begin{proof}
+    Since the multiplication modulo $N$ is well-defined, the converse implication is trivial. Moreover, we observe that the direct implication reduces to proving that $x$ is invertible modulo $N$, because if $x^{-1}$ exists modulo $N$ then $$x^{-1} \cdot xy \equiv x^{-1} \cdot xz \bmod N \implies y \equiv z \bmod N$$ Therefore, let $x$ be a number coprime with $N$, i.e. $\gcd(x, N) = 1$. Then, by Bézout's identity it follows that $$\exists a, b \in \Z \quad xa + Nb = 1$$ but this immediately implies that
+    \begin{equation*}
+        \begin{split}
+            & xa + Nb = 1 \\ 
+            \iff & xa - 1 = -N b \\ 
+            \iff & xa - 1 \equiv 0 \bmod N \\ 
+            \iff & xa \equiv 1 \bmod N \\ 
+        \end{split}
+    \end{equation*}
+    which indeed proves that $a$ is the inverse of $x$ modulo $N$.
+\end{proof}
+
 \begin{framedprop}{}
     The operator $U_x$ is unitary, and in particular $$U_x^\dag = \sum_{y < N}{\ket y (U_x \ket y)^\dag} + \sum_{y \ge N}{\ket y \bra y}$$
 \end{framedprop}
 
 \begin{proof}
-    It is easy to prove the correctness of $U_x^\dag$, so we are going to prove that $U_x$ is unitary directly.
+    It is easy to prove the correctness of $U_x^\dag$, so we are going to prove that $U_x$ is unitary directly. \todo{this proof is to be rewritten}
     \begin{equation*}
         \begin{split}
             U_x^\dag U_x & = \rbk{\sum_{y < N}{\ket y (U_x \ket y)^\dag} + \sum_{y \ge N}{\ket y \bra y}}\rbk{\sum_{z < N}{U_x \ket z \bra z} + \sum_{z \ge N}{\ket z  \bra z}} \\ 

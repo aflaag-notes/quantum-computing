@@ -657,9 +657,8 @@ As a final note, if $U$ is a matrix (or a vector), we will write $$U^{\otimes n}
 \end{framedprob}
 
 \solution{
-First, we observe that by \cref{tensor scalar} it immediately follows that for any set of vectors ${\{x_i\}^n}_{i = 1}$ and ${\{y_i\}^n}_{i = 1}$ it holds that $$\braket{a|b} = \prod_{i = 1}^n \braket{x_i|y_i}$$ From this observation, we conclude that it holds that $$\abk{ \bigotimes_{i = 1}^n x_i\middle|\bigotimes_{i = 1}^n y_i} = \prod_{i = 1}^n{\braket{x_i|y_i}}$$ From this observation, we conclude that
-
-\begin{equation}
+First, we observe that by \cref{tensor scalar} it immediately follows that for any set of vectors $\{x_i\}^n_{i = 1}$ and $\{y_i\}^n_{i = 1}$ it holds that $$\braket{a|b} = \prod_{i = 1}^n \braket{x_i|y_i}$$ From this observation, we conclude that it holds that $$\abk{ \bigotimes_{i = 1}^n x_i\middle|\bigotimes_{i = 1}^n y_i} = \prod_{i = 1}^n{\braket{x_i|y_i}}$$ Therefore, we have that
+\begin{equation*}
 	\begin{alignedat}{2}
 		\norm{\bigotimes_{i = 1}^n q_i}^2 & = \abk{\bigotimes_{i = 1}^n q_i \middle| \bigotimes_{i = 1}^n q_i} &                                            \\
 		                                  & = \prod_{i = 1}^n \braket{q_i |q_i}                                                                             \\
@@ -667,7 +666,7 @@ First, we observe that by \cref{tensor scalar} it immediately follows that for a
 		                                  & = \prod_{i = 1}^n 1                                                & \quad \quad (\mbox{since they are qubits}) \\
 		                                  & = 1
 	\end{alignedat}
-\end{equation}
+\end{equation*}
 which ultimately concludes that $$\norm{\bigotimes_{i = 1}^n q_i} = 1$$
 }
 
@@ -696,7 +695,7 @@ which is clearly a contradiction $\lightning$.
 \end{framedprob}
 
 \solution{
-    By Hermiticity, we know that $P$ admit a \nameref{spectral decomp}, i.e. $$P = \sum_{i = 1}^n{\lambda_i \ket{\lambda_i} \bra{\lambda_i}}$$ Now consider the following claim.
+    By Hermiticity, we know that $P$ admits a \nameref{spectral decomp}, i.e. $$P = \sum_{i = 1}^n{\lambda_i P_{\lambda_i}}$$ Now consider the following claim.
 
     \claim{
         If $P$ is an idempotent operator, its only possible eigenvalues are 0 and 1.
@@ -704,7 +703,7 @@ which is clearly a contradiction $\lightning$.
         By definition $v$ is an eigenvalue of $P$ associated to the eigenvector $\lambda$ if it holds that $$Pv = \lambda v$$ Hence, we observe that $$P^2 v = P (P v) = P (\lambda v) = \lambda Pv = \lambda(\lambda v) = \lambda^2 v$$ and therefore we have that $$\lambda^2 v = P^2 = Pv = \lambda v$$ which implies that $$\lambda^2v - \lambda v = 0 \iff (\lambda^2 - \lambda)v = 0$$ Finally, since $v$ is an eigenvector it holds that $v \neq 0$, therefore it must be that the last equation is true only if $$\lambda^2 - \lambda = 0 \iff \lambda = 0 \lor \lambda = 1$$
     }
 
-    From this claim, we immediately obtain that each $\lambda_i$ is either 0 or 1, which means that its spectral decomposition can be written as $$P = \sum_j \ket{\lambda_j} \bra{\lambda_j}$$ for some non-zero eigenvalues $\lambda_j$ of $P$. This formulation concludes that $P$ is indeed a projector.
+    From this claim, we immediately obtain that each $\lambda_i$ is either 0 or 1, which means that its spectral decomposition can be written as $$P = \sum_j P_{\lambda_j}$$ for some non-zero eigenvalues $\lambda_j$ of $P$. Finally, since $P_{\lambda_j}$ are projectors onto different eigenspaces they are orthogonal between each other, which means that the statements follows immediately from \cref{projector sum}.
 }
 
 \begin{framedprob}{}

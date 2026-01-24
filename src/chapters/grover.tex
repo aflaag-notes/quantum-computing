@@ -418,3 +418,26 @@ TODO \todo{drawing}
 It can be proven that the quantum counting circuit estimates $\pm 2\theta$ --- to be precise, it actually estimates $2 \theta$ or $2\pi - 2\theta$ since QPE does not return negative angles --- to a degree of accuracy up to a desired $2^-m$ with probability at least $1 - \varepsilon$. Moreover, it can be shown that $$\abs{\tilde M - M} < \rbk{2 \sqrt{MN} + \dfrac{N}{2^{m + 1}}} 2^{-m}$$ where $\tilde M$ is the estimated value of $M$ through the QPE algorithm. For instance, choosing $m = \ceil{\tfrac{n}{2}} + 1$ and $\varepsilon = \tfrac{1}{6}$, we get that $t = \ceil{\tfrac{n}{2}} + 3$ and an estimation of $M$ with an error of about $$\abs{\tilde M - M} < \sqrt{\dfrac{M}{2}} + \dfrac{1}{4} = O(\sqrt M)$$ with only $O(2^t) = O(\sqrt N)$ iterations of the Grover operator, i.e. array accesses. Classically, to know the value of $M$ with the same error in the estimate we would necessarily need $O(N)$ accesses.
 
 Lastly, another problem that quantum counting solves is knowing if $M$ is 0 or not. Indeed, Grover's algorithm relies on the assumpion that $M \neq 0$, i.e. there are solution elements, otherwise the procedure actually does nothing.
+
+\section{Exercises}
+
+\begin{framedprob}{}
+    Starting from the fact that $W$ is the operator that computes the inversion about the mean of the coefficients of its inputs, show that $$W = 2 \ket s \bra s - I$$ where $\ket s = \tfrac{1}{\sqrt N} \sum_x \ket x$.
+\end{framedprob}
+
+\solution{
+    Let $\ket \psi$ be a qubit, i.e. $$\ket \psi = \sum_x \alpha_x \ket x$$ for some coefficients $\alpha_x$, and assume that $W$ computes the inversion about the mean of each $\alpha_x$. This means that $$\func{W}{\alpha_x}{2 \overline{\alpha_\psi} - \alpha_x}$$ where $\overline{\alpha_\psi}$ is the average of the coefficients of $\ket \psi$. Therefore, we have that
+    \begin{equation*}
+        \begin{split}
+            W \ket \psi &= \sum_x (2 \overline {\alpha_\psi} - \alpha_x) \ket x \\ 
+                        &= 2 \overline{\alpha_\psi} \sum_x \ket x - \sum_x \alpha_x \ket x \\ 
+                        &= 2 \rbk{\dfrac{1}{N} \sum_y \alpha_y} \rbk{\sum_x \ket x} - \ket \psi \\ 
+                        & = 2 \rbk{\dfrac{1}{\sqrt N} \sum_y \alpha_y}\rbk{\dfrac{1}{\sqrt N} \sum_x \ket x} - \ket \psi \\ 
+                        & = 2 \rbk{\dfrac{1}{\sqrt N} \sum_y \alpha_y} \ket s - \ket \psi \\  
+                        & = 2 \rbk{\dfrac{1}{\sqrt N} \sum_z \bra z} \rbk{ \sum_w \alpha_w \ket w} \ket s - \ket \psi \\ 
+                        & = 2 \braket{s|\psi} \ket s - \ket \psi \\  
+                        & = (2 \ket s \bra s - I) \ket \psi
+        \end{split}
+    \end{equation*}
+    which ultimately implies that $$W  = 2 \ket s \bra s - I$$
+}
