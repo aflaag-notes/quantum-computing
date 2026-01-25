@@ -50,17 +50,23 @@ TODO \todo{drawing}
 Now, among all possible $n$-th roots of unity we are going to provide a more specific definition. Let the \tbf{order of an $n$-th root of unity} $\omega$ be the smallest power $d$ such that $\omega^d = 1$. For instance, $(-1)^4 = 1$ indeed $-1$ is a $4$-th root of unity, however its order is 2 since $(-1)^2 = 1$ and $2 < 4$.
 
 \begin{frameddefn}{Principal $n$-th root of unity}
-    Given an $n$-th root of unity $\omega$, we say that $\omega$ is \tbf{principal} if and only if $\omega \neq 1$ and the order of $\omega$ is $n$.
+    Given an $n$-th root of unity $\omega$, we say that $\omega = e^{i \theta}$ is \tbf{principal} if and only if
+
+    \begin{itemize}
+        \item $\omega \neq 1$
+        \item $\omega$ is $n$
+        \item $\theta$ is minimal
+    \end{itemize}
 \end{frameddefn}
 
-In other words, the principal $n$-th root of unity is the first root (after 1) that we encounter on the unit circle. Indeed, thanks to Euler's formula we usually define the principal $n$-th root of unity as $$\omega := e^{2 \pi i /n}$$ since $\tfrac{2 \pi}{n}$ is the $n$-th slice of the unit circle. Furthermore, the second condition of the definition is usually not provided in terms of order of the root, and it's written as follows $$\forall p \in [n - 1] \quad \sum_{j = 0 }^{n - 1}{\omega^{jp}} = 0$$ Aside from the geometric interpretation of this sum, this is a finite complex geometric series with common ratio $\omega^p$, which implies that
+In other words, the principal $n$-th root of unity is the \curlyquotes{first} $n$-th root (after 1) that we encounter on the unit circle. Indeed, thanks to Euler's formula we usually define the principal $n$-th root of unity as $$\omega := e^{2 \pi i /n}$$ since $\tfrac{2 \pi}{n}$ is the $n$-th slice of the unit circle. Furthermore, the second condition of the definition is usually not provided in terms of order of the root, and it's written as follows $$\forall p \in [n - 1] \quad \sum_{j = 0 }^{n - 1}{\omega^{jp}} = 0$$ Aside from the geometric interpretation of this sum, this is a finite complex geometric series with common ratio $\omega^p$, which implies that
 
 \begin{itemize}
     \item if $\omega^p = 1$, then every term is $(\omega^p)^j = 1^j = 1$ for any $j$, meaning that the sum is equal to $$\sum_{j = 0}^{n - 1}{\omega^{jp }} = \sum_{j = 0}^{n - 1}{1} = n$$
     \item if $\omega^p \neq 1$, then we know that $$\sum_{j = 0}^{n - 1}{\omega^{jp }} = \dfrac{1 - (\omega^p)^n}{1 - \omega^p}$$ and this ratio is equal to 0 if and only if $$1 - (\omega^p)^n = 0 \iff \omega^{pn} = 1$$
 \end{itemize}
 
-Therefore, we have that this sum is equal to 0 if and only if $\omega^p \neq 1$ and $\omega^{pn} = 1$. Indeed, when $\omega^p = 1$ since $p \in [n - 1]$ it would imply that the order of $\omega$ is less than $n$, meaning that $\omega$ was not a principal root.
+Therefore, we have that this sum is equal to 0 if and only if $\omega^p \neq 1$ and $\omega^{pn} = 1$. Indeed, when $\omega^p = 1$ since $p \in [n - 1]$ this would imply that the order of $\omega$ is less than $n$, meaning that $\omega$ was not a principal root.
 
 Now that we presented roots of unity we can finally present how the DFT matrix is usually defined.
 
