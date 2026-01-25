@@ -165,19 +165,17 @@ How do we evaluate the adjoint of a given operator?
 	Given an operator $A$ defined over a scalar product vector space, it holds that $$a_{ij}^\dag = \overline{a_{ji}}$$
 \end{framedprop}
 
-This property is incredibly useful, because it implies that the adjoint operator of $A$ is its transposed conjugate matrix. Most notably, due to the way we defined our scalar product, it holds that for any column vector $\ket x$ we have that $$\bra x = \ket x^\dag$$ which gives an intuition of the reason why we defined our scalar product as such.
+This property is incredibly useful, because it implies that the adjoint operator of $A$ is its transposed conjugate matrix. Most notably, due to the way we defined our scalar product, it holds that for any column vector $\ket x$ we have that $$\bra x = \ket x^\dag$$ which further underlines the power of Dirac notation.
 
 \begin{frameddefn}{Positive operator}
 	An operator $A$ defined over a scalar product vector space $\mathcal H$ is said to be \tbf{positive} if it holds that $$\forall v \in \mathcal H \quad \braket{v|Av} \ge 0$$
 \end{frameddefn}
 
-\begin{framedprop}[label={positive prop}]{}
-	If an operator $A$ is positive, then it is Hermitian.
-\end{framedprop}
+The reason why we say that $A$ is \curlyquotes{positive} if it satisfies such property becomes obvious if we choose $v$ to be an eigenvector of $A$. Let $v$ be an eigenvector of $A$ associated to some eigenvalue $\lambda$ of $A$; then $$0 \le \braket{v|Av} = \bra v \lambda \ket v = \lambda \braket{v|v}$$ However, by definition of scalar product we know that $\braket{v|v} \ge 0$ for any $v$, which must imply that $\lambda \ge 0$ as well. In other words, if $A$ is positive all of its eigenvalues must be positive.
 
-\begin{proof}
-	TODO \todo{this proof is wrong}
-\end{proof}
+\begin{framedthm}[label={positive prop}]{}
+	If an operator $A$ is positive, then it is Hermitian.
+\end{framedthm}
 
 % \begin{proof}
 % 	Let $A$ be a positive operator, therefore $$\forall v \in \mathcal H \quad \braket{v|Av} \ge 0$$ We observe that if $\braket{v|Av} \ge 0$, this implicitly means that $\braket{v|Av}$ is a real value. This is important because then $$\forall v \in \mathcal H \quad \braket{v|Av} = \overline{\braket{v|Av}}$$ From this, we derive the following
@@ -527,6 +525,10 @@ The importance of the next theorem cannot be understated, and it will be used ex
 	Given a Hilbert space $\mathcal H$, and a normal operator $A$ defined on $\mathcal H$ whose eigenvalues are $\lambda_1, \ldots, \lambda_n$, the matrix $A$ can be rewritten as follows: $$A = \sum_{i = 1}^n{\lambda_i P_{\lambda_i}}$$
 \end{framedthm}
 
+\begin{proof}
+    We provide a proof of this theorem in \cref{spectral decomp proof}.
+\end{proof}
+
 The theorem above is sometimes written in the following different form $$A = \sum_{i = 1}^n{\lambda_i \ket{\lambda_i} \bra{\lambda_i}}$$ which \tit{seems} to imply that $P_{\lambda_i} = \ket{\lambda_i} \bra{\lambda_i}$, i.e. the projector onto the $i$-th eigenspace of $M$ is $\ket{\lambda_i} \bra{\lambda_i}$. This is a \tit{slight} notation abuse, and an example will make it clear. Consider the following matrix: $$A = \rmat{2 & 0 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 5}$$ It is easy to see that the eigenvalues of $A$ are only 2 and 5, however 2 is $2$-fold degenerate! Indeed, by solving $$M \ket v = 2 \ket v$$ we get an eigenspace of dimension 2, and we can choose $\{\ket {e_1}, \ket {e_2}\}$ as orthonormal eigenbasis; similarly, we find that $\{\ket {e_3}\}$ is an eigenbasis of the second eigenspace of dimension 1. In the end, this means that
 \begin{equation*}
 	\begin{split}
@@ -809,4 +811,30 @@ which is clearly a contradiction $\lightning$.
 	}
         
         Then, from the previous observation we have $$\forall x, y, z \in \mathcal H , \alpha, \beta \in \C \quad \braket{U(\alpha x + \beta y)|z} = \braket{\alpha Ux + \beta Uy|z}$$ and this last claim concludes that $$U(\alpha x + \beta y) = \alpha U x + \beta U y$$ meaning that $U$ is indeed linear.
+}
+
+\begin{framedprob}[label={spectral decomp proof}]{}
+    Prove the \nameref{spectral decomp} theorem.
+\end{framedprob}
+
+\solution{
+    TODO \todo{direct implication}
+
+    Now we will prove the converse implication. Let $A$ be an operator that can be written as $$A = \sum_i \lambda_i P_{\lambda_i}$$ where each $\lambda_i$ is an eigenvalue of $A$. Then, we have that
+    \begin{equation*}
+        \begin{split}
+            A^\dag A & = \rbk{\sum_i \lambda_i P_{\lambda_i}}^\dag \rbk{\sum_j \lambda_j P_{\lambda_j}} \\ 
+                     & = \rbk{\sum_i \overline{\lambda_i} P_{\lambda_i}} \rbk{\sum_j \lambda_j P_{\lambda_j}} \\ 
+                     & = \sum_i \sum_j \overline{\lambda_i} \lambda_j P_{\lambda_i} P_{\lambda_j}
+        \end{split}
+    \end{equation*}
+    and since projectors onto different eigenspaces are orthogonal between each other we have that
+    \begin{equation*}
+        \begin{split}
+            A^\dag A & = \sum_i \sum_j \overline{\lambda_i} \lambda_j P_{\lambda_i} P_{\lambda_j} \\ 
+                     & = \sum_i \overline \lambda_i \lambda_i P_{\lambda_i}^2 \\ 
+                     & = \sum_i \abs{\lambda_i}^2 P_{\lambda_i} \\ 
+        \end{split}
+    \end{equation*}
+    Finally, it is easy to see that computing $AA^\dag$ would yield the same result, proving that $A$ is indeed normal.
 }

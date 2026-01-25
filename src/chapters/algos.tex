@@ -177,11 +177,23 @@ We are now ready to prove the correctness of Deutsch's algorithm. To make things
 		=                                     & \dfrac{1}{2}\rbk{\rbk{(-1)^{f(0)} + (-1)^{f(1)}} \ket 0 + \rbk{(-1)^{f(0)} - (-1)^{f(1)}} \ket 1} \otimes \ket -_1 &                             \\
 	\end{alignedat}
 \end{equation*}
-Now, since the final operation of the circuit involves measuring $q_0 = \alpha \ket 0 + \beta \ket 1$, the only two things that we care about are its probability amplitudes, namely $$\alpha = \dfrac{1}{2}\rbk{(-1)^{f(0)} + (-1)^{f(1)}}$$ $$\beta = \dfrac{1}{2}\rbk{(-1)^{f(0)} + (-1)^{f(1)}}$$ and we see that
+Now, since the final operation of the circuit involves measuring $q_0 = \alpha \ket 0 + \beta \ket 1$, the only two things that we care about are its probability amplitudes, namely $$\alpha = \dfrac{1}{2}\rbk{(-1)^{f(0)} + (-1)^{f(1)}}$$ $$\beta = \dfrac{1}{2}\rbk{(-1)^{f(0)} - (-1)^{f(1)}}$$ and we see that
 
 \begin{itemize}
-	\item if $f(0) = f(1)$, then $$(-1)^{f(0)} = (-1)^{f(1)} \implies \soe{l}{\alpha = \tfrac{1}{2}\rbk{2(-1)^{f(0)}} = (-1)^{f(0)} \\ \beta = 0}$$ which implies that $$q_0 = (-1)^{f(0)} \ket 0 + 0 \cdot \ket 1 = (-1)^{f(0)} \ket 0$$ and we can ignore the $(-1)^{f(0)}$ factor since its a global phase
-	\item if $f(0) \neq f(1)$, then $$(-1)^{f(0)} = - (-1)^{f(1)} \implies \soe{l}{\alpha = 0 \\ \beta = \tfrac{1}{2}\rbk{2(-1)^{f(0)}} = (-1)^{f(0)}}$$ which implies that $$q_0 = 0 \cdot \ket 0 + (-1)^{f(0)} \ket 1 = (-1)^{f(0)} \ket 1$$ by the same reasoning as the other case
+    \item if $f(0) = f(1)$, then $$(-1)^{f(0)} = (-1)^{f(1)} \implies \soe{l}{\alpha = \tfrac{1}{2}\rbk{2(-1)^{f(0)}} = (-1)^{f(0)} \\ \beta = 0}$$ which implies that
+        \begin{equation*}
+            \begin{split}
+                & \Pr[\mbox{measure}(q_0) = \ket 0] = \abs{(-1)^{f(0)}}^2 = 1 \\ 
+                 & \Pr[\mbox{measure}(q_0) = \ket 1] = \abs{0}^2 = 0 \\
+            \end{split}
+        \end{equation*}
+    \item if $f(0) \neq f(1)$, then $$(-1)^{f(0)} = - (-1)^{f(1)} \implies \soe{l}{\alpha = 0 \\ \beta = \tfrac{1}{2}\rbk{2(-1)^{f(0)}} = (-1)^{f(0)}}$$ which implies that
+        \begin{equation*}
+            \begin{split}
+                & \Pr[\mbox{measure}(q_0) = \ket 0] = \abs{0}^2 = 0 \\
+                & \Pr[\mbox{measure}(q_0) = \ket 1] = \abs{(-1)^{f(0)}}^2 = 1 \\
+            \end{split} 
+        \end{equation*}
 \end{itemize}
 
 In the end, this proves that if $f(0) = f(1)$, $q_0$ will collapse to $\ket 0$, while if $f(0) \neq f(1)$ $q_1$ will colapse to $\ket 1$, proving that Deutsch's algorithm works correctly.

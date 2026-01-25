@@ -403,16 +403,30 @@ The partial trace of $A$ is defined analogously. We observe that, by \cref{trace
 
 The reduced density operator of $B$ is defined analogously.
 
-Firstly, it is not obvious that $\rho^A$ is in any sense a description for the state of system $A$, so we shall discuss the definition. For instance, suppose that the composite quantum system of $A$ and $B$ is described by $\rho^{AB}$ that can itself be written as follows: $$\rho^{AB} = \tau \otimes \sigma$$ where $\tau$ is a density operator for $A$, and $\sigma$ is a density operator for $B$. The connection with the reduced density operator is evident by computing $\rho^A$:
+Firstly, it is not obvious that $\rho^A$ is in any sense a description for the state of system $A$, so we shall discuss the definition. For instance, suppose that the composite quantum system of $A$ and $B$ is described by $\rho^{AB}$ that can itself be written as follows: $$\rho^{AB} = \tau \otimes \sigma$$ where $\tau$ is a density operator for $A$, and $\sigma$ is a density operator for $B$. First, suppose that $\tau$ and $\sigma$ represent pure states; then, the connection with the reduced density operator is evident by computing $\rho^A$
 \begin{equation*}
 	\begin{alignedat}{2}
-		\rho^A & = \tr_B(\rho)                &                                                 \\
-		       & = \tr_B(\tau \otimes \sigma) &                                                 \\
-		       & = \tau \tr(\sigma)           &                                                 \\
-		       & = \tau                       & \quad \quad (\mbox{by \cref{density op thm}}) & \\
+		\rho^A & = \tr_B(\rho)                &                                                         \\
+		       & = \tr_B(\tau \otimes \sigma) &                                                         \\
+		       & = \tau \tr(\sigma)           & \quad \quad (\mbox{since they represent pure states})   \\
+		       & = \tau                       & \quad \quad (\mbox{by \cref{density op thm}})         & \\
 	\end{alignedat}
 \end{equation*}
-Similarly, we get that $\rho^B = \sigma$.
+Similarly, we get that $\rho^B = \sigma$. For the general case, if we assume that $$\tau = \sum_{i = 1}^N p_1 \ket{\phi_i} \bra{\phi_i} \quad \quad \sigma = \sum_{i =1}^N q_i \ket{\psi_i}\bra {\psi_i}$$ then we get that
+\begin{equation*}
+	\begin{split}
+		\rho^A & = \tr_B(\rho)                                                                                                               \\
+		       & = \tr_B(\tau \otimes \sigma)                                                                                                \\
+		       & = \tr_B \rbk{\rbk{\sum_{i = 1}^N p_i \ket{\phi_i} \bra{\phi_i}} \otimes \rbk{\sum_{j = 1}^N q_j \ket{\psi_j} \bra{\psi_j}}} \\
+		       & = \tr_B \rbk{\sum_{i = 1}^n \sum_{j = 1}^N p_i q_j (\ket{\phi_i} \bra{\phi_i} \otimes \ket{\psi_j}\bra{\psi_j})}            \\
+		       & = \sum_{i = 1}^N \sum_{j = 1}^N p_i q_j \tr_B(\ket{\phi_i} \bra{\phi_i} \otimes \ket{\psi_j}\bra{\psi_j})                   \\
+		       & = \sum_{i = 1}^N \sum_{j = 1}^N p_i q_j \ket{\phi_i} \bra{\phi_i} \tr( \ket{\psi_j}\bra{\psi_j})                          \\
+		       & = \rbk{\sum_{i = 1}^N p_i \ket{\phi_i} \bra{\phi_i}} \rbk{\sum_{j = 1}^N q_j \tr(\ket{\psi_j} \bra {\psi_j})}               \\
+		       & = \rbk{\sum_{i = 1}^N p_i \ket{\phi_i} \bra{\phi_i}} \tr \rbk{\sum_{j = 1}^N q_j \ket{\psi_j} \bra{\psi_j}}                 \\
+		       & = \tau \tr(\sigma)                                                                                                          \\
+		       & = \tau
+	\end{split}
+\end{equation*}
 
 A more interesing example, however, is an \tbf{entangled system}. For instance, let's consider the bell state $$\ket{\Phi^+} := \dfrac{\ket{00} + \ket{11}}{\sqrt 2}$$ We can compute the density operator of this system by following the definition
 \begin{equation*}
@@ -426,8 +440,9 @@ As we already know, since this system is entangled there is no pair of subsystem
 \begin{equation*}
 	\begin{split}
 		\rho^A & = \tr_B(\rho)                                                                                                                  \\
-		       & = \tr_B \rbk{\dfrac{\ket{00} \bra{00} + \ket{11} \bra{00} + \ket{00} \bra{11} + \ket{11} \bra{00}}{2}}                         \\
-		       & = \dfrac{\tr_B(\ket{00} \bra{00}) + \tr_B(\ket{11} \bra{00}) + \tr_B(\ket{00} \bra{11} )+ \tr_B( \ket{11} \bra{00})}{2}        \\
+		       & = \tr_B \rbk{\dfrac{\ket{00} \bra{00} + \ket{11} \bra{00} + \ket{00} \bra{11} + \ket{11} \bra{11}}{2}}                         \\
+		       & = \dfrac{\tr_B(\ket{00} \bra{00}) + \tr_B(\ket{11} \bra{00}) + \tr_B(\ket{00} \bra{11} )+ \tr_B( \ket{11} \bra{11})}{2}        \\
+		       & = \dfrac{\tr_B(\ket 0 \bra 0 \otimes \ket 0 \bra 0) + \tr_B(\ket 1 \bra 0 \otimes \ket 1 \bra 0) + \tr_B(\ket 0 \bra 1 \otimes \ket 0 \bra 1 )+ \tr_B( \ket 1 \bra 1 \otimes \ket 1 \bra 1)}{2}        \\
 		       & = \dfrac{\ket 0 \bra 0 \braket{0|0} + \ket 1 \bra 0 \braket{0|1} + \ket 0 \bra 1 \braket{1|0} + \ket 1 \bra 1 \braket{1|1}}{2} \\
 		       & = \dfrac{\ket0 \bra 0 + \ket 1 \bra 1}{2}                                                                                      \\
 		       & = \dfrac{I}{2}                                                                                                                 \\
