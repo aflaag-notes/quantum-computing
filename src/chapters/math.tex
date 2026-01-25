@@ -212,19 +212,48 @@ At the beginning of the previous chapter we said that all quantum gates are \tit
 	Given a Hilbert space $\mathcal H$, and an operator $U$, we say that $U$ is \tbf{unitary} if it holds that $$UU^\dag = U^\dag U = I$$
 \end{frameddefn}
 
-In other words, $U$ is unitary if and only if its adjoint operator is also its inverse. An interesting characterization of unitary transformations is the following property.
+In other words, $U$ is unitary if and only if its adjoint operator is also its inverse. An interesting characterization of unitary transformations is proved in the theorem right after the following lemma.
 
-\begin{framedprop}[label={unitary alt def}]{Unitary operators (alt. def.)}
+\begin{framedlem}[label={xz yz lemma}]{}
+        Given $x, y \in \mathcal H$, if  $\braket{x|z} = \braket{y|z}$ for all $z \in \mathcal H$, then $x = y$.
+\end{framedlem}
+
+\begin{proof}
+    Fix a vector $z \in \mathcal H$; we observe that
+    \begin{equation*}
+            \begin{split}
+                         & \braket{x|z} = \braket{y|z}     \\
+                    \iff & \braket{x|z} - \braket{y|z} = 0 \\
+                    \iff & \braket{x - y|z} = 0
+            \end{split}
+    \end{equation*}
+    However, if this is true for every vector $z \in \mathcal H$ it means that the vector $x - y$ is orthogonal to every vector in $\mathcal H$, which must imply that $x - y$ is the 0 vector, thus $$x - y = 0 \iff x = y$$
+\end{proof}
+
+\begin{framedthm}[label={unitary alt def}]{Unitary operators (alt. def.)}
 	An operator $U$ defined over a Hilbert space $\mathcal H$ is unitary if and only if
 
 	\begin{itemize}
 		\item $U$ is surjective
 		\item $\forall x, y \in \mathcal H \quad \braket{Ux|Uy} = \braket{x|y}$ or equivalently, if it holds that $$\forall x \in \mathcal H \quad \norm{Ux} = \norm x$$
 	\end{itemize}
-\end{framedprop}
+\end{framedthm}
 
 \begin{proof}
-	TODO \todo{TODO}
+    Let $U$ be a unitary operator, any two vectors $x, y \in \mathcal H$; then, we have that $$\braket{Ux|Uy} = \braket{U^\dag Ux|y} = \braket{Ix|y} = \braket{x|y}$$ Moreover, we observe that if $$U^\dag U = UU^\dag = I$$ it must be that $$U^{-1} = U^\dag$$ which means that $U$ is invertible, i.e. bijective, and in particular it is surjective.
+
+    Conversely, suppose that $U$ is a surjective unitary operator such that $$\forall x, y \in \mathcal H \quad \braket{Ux|Uy} = \braket{x|y}$$ First, we need to prove that $U^{-1}$ exists, and since $U$ is required to be surjective we only need to prove that it is injective. By way of contradiction, suppose that $U$ is not injective, i.e. there are distinct $x_1, x_2 \in \mathcal H$ such that $Ux_1 = Ux_2$. Then, this implies that $$Ux_1 = U x_2 \iff U(x_1 - x_2) = 0$$ and since $x_1 \neq x_2$ it must be that $x_1 - x_2 \in \mathcal H$ is a non-zero vector in the kernel of $U$. However, by the second property of $U$ we have that $$\braket{x_1 - x_2| x_1 - x_2} = \braket{U(x_1 - x_2)| U(x_1- x_2)} = \braket{0|0} = 0$$ and by definition of scalar product $$\braket{x_1 - x_2|x_1 - x_2} = 0 \iff x_1 - x_2 = 0 \iff x_1 = x_2$$ which is a contradiction $\lightning$.
+
+    Now, fix a vector $y \in \mathcal H$; by surjectivity of $U$ we know that $$\exists z \in \mathcal H \quad y = Uz$$ which means that for any $x \in \mathcal H$ it holds that
+    \begin{equation*}
+        \begin{split}
+            \braket{x|U^\dag y} & = \braket{Ux|y} \\ 
+             & = \braket{Ux|Uz} \\ 
+              & = \braket{x|z} \\ 
+              & = \braket{x|U^{-1}y}
+        \end{split}
+    \end{equation*}
+    Therefore, by the previous lemma we conclude that $$\forall y \in \mathcal H \quad \braket{x|U^\dag y} = \braket{x|U^{-1}y} \implies U^\dag y = U^{-1} y$$ which means that $U^\dag$ behaves as $U^{-1}$ on any vector of $\mathcal H$. This means that $U^\dag$ is $U$'s inverse, concluding that $U$ is indeed unitary.
 \end{proof}
 
 In particular, we observe that the second property of this proposition is very interesting: the \tit{preservation of the scalar product}, i.e. the property for which $$\forall x, y \in \mathcal H \quad \braket{Ux|Uy} = \braket{x|y}$$ means that the operator $U$ does not change the geometric relationships between vectors --- i.e. their lengths and angles remain the same.
@@ -307,7 +336,7 @@ In other words, the trace of a matrix is the sum of the elements on its diagonal
 	\end{enumerate}
 \end{framedprop}
 
-In particular, we observe that the last property follow trivially from the cyclic property: $$\tr(UAU^\dag) = \tr(UU^\dag A) = \tr(I A) = \tr(A)$$ But perhaps most importantly, the following property holds.
+In particular, we observe that the last property follow trivially from the cyclic property: $$\tr(UAU^\dag) = \tr(U^\dag UA) = \tr(I A) = \tr(A)$$ But perhaps most importantly, the following property holds.
 
 \begin{framedprop}[label={trace prop}]{}
 	Given a matrix $A \in \C^{n \times n}$, and a vector $\ket v$, it holds that $$\tr(A \ket v \bra v) = \braket{v|Av}$$
@@ -794,23 +823,7 @@ which is clearly a contradiction $\lightning$.
                                               & = \braket{\alpha U x + \beta U y|z} \\
         \end{split}
     \end{equation*}
-    Now, consider the following property of the scalar product.
-
-	\claim{
-		Given $x, y \in \mathcal H$, if  $\braket{x|z} = \braket{y|z}$ for all $z \in \mathcal H$, then $x = y$.
-	}{
-		Fix a vector $z \in \mathcal H$; we observe that
-		\begin{equation*}
-			\begin{split}
-				     & \braket{x|z} = \braket{y|z}     \\
-				\iff & \braket{x|z} - \braket{y|z} = 0 \\
-				\iff & \braket{x - y|z} = 0
-			\end{split}
-		\end{equation*}
-		However, if this is true for every vector $z \in \mathcal H$ it means that the vector $x - y$ is orthogonal to every vector in $\mathcal H$, which must imply that $x - y$ is the 0 vector, thus $$x - y = 0 \iff x = y$$
-	}
-        
-        Then, from the previous observation we have $$\forall x, y, z \in \mathcal H , \alpha, \beta \in \C \quad \braket{U(\alpha x + \beta y)|z} = \braket{\alpha Ux + \beta Uy|z}$$ and this last claim concludes that $$U(\alpha x + \beta y) = \alpha U x + \beta U y$$ meaning that $U$ is indeed linear.
+    Then, from the previous observation we have $$\forall x, y, z \in \mathcal H , \alpha, \beta \in \C \quad \braket{U(\alpha x + \beta y)|z} = \braket{\alpha Ux + \beta Uy|z}$$ and by \cref{xz yz lemma} we conclude that $$U(\alpha x + \beta y) = \alpha U x + \beta U y$$ meaning that $U$ is indeed linear.
 }
 
 \begin{framedprob}[label={spectral decomp proof}]{}
