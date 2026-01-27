@@ -16,7 +16,7 @@ Even though quantum computation provides reversibility \curlyquotes{for free}, \
 
 First, let's start with a problem seemingly unrelated to our discussion. Given a Boolean function $\func{f}{\{0, 1\}^n}{\{0, 1\}}$, we would like to embed $f$ inside a quantum computation. However, when $n \ge 3$ we are guaranteed that $f(x)$ is not reversible --- it cannot be injective. This is a problem, since in quantum coputing all gates must be reversible --- given that quantum evolution is unitary. Thus, how do we turn $f$ into a reversible computation?
 
-We define a map $U_f$ defined as follows: $$\funcmap{U_f}{\{0, 1\}^{n + 1}}{\{0, 1\}^{n + 1}}{(x, y)}{(x, y \oplus f(x))}$$ First, we observe that $$(y \oplus f(x)) \oplus f(x) = y \oplus (f(x) \oplus f(x)) = y$$ which trivially proves that $U_f$ is reversible. Moreover, we can actually prove that when applied to qubits the corresponding quantum operator $$\funcmap{U_f}{\mathcal H}{\mathcal H}{\ket x \ket y}{\ket x \ket{y \oplus f(x)}}$$ is indeed unitary --- we observe that we are omitting the tensor product symbol in the function definition, as usual in the literature.
+We define a map $U_f$ defined as follows: $$\funcmap{U_f}{\{0, 1\}^{n + 1}}{\{0, 1\}^{n + 1}}{(x, y)}{(x, y \oplus f(x))}$$ First, we observe that $$(y \oplus f(x)) \oplus f(x) = y \oplus (f(x) \oplus f(x)) = y$$ which trivially proves that $U_f$ is reversible. Moreover, we can actually prove that when applied to qubits the corresponding quantum operator $$\funcmap{U_f}{\mathcal H \otimes \mathcal H'}{\mathcal H \otimes \mathcal H'}{\ket x \otimes \ket y}{\ket x \otimes \ket{y \oplus f(x)}}$$ is indeed unitary --- we observe that $$\dim(\mathcal H \otimes \mathcal H') = \dim(\mathcal H) \cdot \dim(\mathcal H') = 2^n \cdot 2 = 2^{n + 1}$$
 
 \begin{framedprop}{}
 	Given a Boolean function $\func{f}{\{0, 1\}^n}{\{0, 1\}}$, the operator $U_f$ is unitary.
@@ -75,9 +75,9 @@ We define a map $U_f$ defined as follows: $$\funcmap{U_f}{\{0, 1\}^{n + 1}}{\{0,
                     & = \sum_{x,y} \sum_{x', y'} \rbk{\ket x \delta_{x,x'} \bra{x'} \otimes \ket{y \oplus f(x)} \delta_{y,z} \bra{z \oplus f(x')}} & \\ 
                     & = \sum_{x,y} \ket x \bra{x} \otimes \ket{y \oplus f(x)} \bra{y \oplus f(x)} & \\ 
                     & = \sum_{x} \sum_{w} \ket x \bra{x} \otimes \ket{w} \bra{w} & \quad \quad (w := y \oplus f(x)) \\ 
-                    & = \rbk{\sum_{x} \ket x \bra x} \otimes \rbk{\sum_{w} \ket w \bra w} & \\ 
-                    & = I \otimes I & \\
-                    & = I & \\
+                    & = \rbk{\sum_{x \in \B^n} \ket x \bra x} \otimes \rbk{\sum_{w \in \B} \ket w \bra w} & \\ 
+                    & = I_{2^n} \otimes I_2 & \\
+                    & = I_{2^{n + 1}} & \\
         \end{alignedat}
     \end{equation*}
 \end{proof}

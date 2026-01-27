@@ -83,7 +83,7 @@ This formulation was refined in 1926 by Max Born \cite{born}, when he derived th
 	\begin{equation*}
 		\begin{alignedat}{2}
 			\Pr[\mbox{measure}(\ket \psi = \ket \lambda)] & = \Pr[A_\psi = \lambda | \ket \psi]            &                                    \\
-			                                              & = \braket{\psi|P_\lambda \psi}                 & \quad (\mbox{by \cref{meas post}}) \\
+			                                              & = \braket{\psi|P_\lambda \psi}                 & \quad (\mbox{by the \nameref{meas post}}) \\
 			                                              & = \braket{\psi|\lambda} \braket{\lambda| \psi}
 			                                              & = \abs{\braket{\psi|\lambda}}^2                &                                    \\
 		\end{alignedat}
@@ -106,7 +106,7 @@ Before presenting to the next postulate, another very important operator that is
 \end{framedprop}
 
 \begin{proof}
-	By \cref{meas post}, it follows that
+	By the \nameref{meas post}, it follows that
 	\begin{equation*}
 		\begin{alignedat}{2}
 			\abk{A}_\psi & = \Exp[A \mid \ket \psi]                                                    &                                                              \\
@@ -449,11 +449,11 @@ Now, we observe that $$\tr \rbk{\rbk{\dfrac{I}{2}}^2} = \dfrac{1}{2} < 1$$ and b
 \section{Exercises}
 
 \begin{framedprob}{}
-	Show that when the observable is a Hermitian operator, \cref{gen meas post dens} reduces to \cref{meas post}.
+	Show that when the observable is a Hermitian operator, \cref{gen meas post dens} reduces to the \nameref{meas post}.
 \end{framedprob}
 
 \solution{
-Assuming \cref{gen meas post dens}, we can now discuss the spacial case in which the observable is a Hermitian operator. Let $A$ be a Hermitian operator, and suppose that we have a system in a state described by some ensamble $\{p_i, \ket{\psi_i}\}_{i = 1}^N$. By the \nameref{spectral decomp} we know that $$A = \sum_{\lambda \in \mathrm{sp}(A)} \lambda P_\lambda$$ which means that the collection of measurement operators we have to consider is $$A = \{P_\lambda\}_{\lambda \in \mathrm{sp}(A)}$$ This implies that
+Assuming the \nameref{gen meas post dens}, we can now discuss the spacial case in which the observable is a Hermitian operator. Let $A$ be a Hermitian operator, and suppose that we have a system in a state described by some ensamble $\{p_i, \ket{\psi_i}\}_{i = 1}^N$. By the \nameref{spectral decomp} we know that $$A = \sum_{\lambda \in \mathrm{sp}(A)} \lambda P_\lambda$$ which means that the collection of measurement operators we have to consider is $$A = \{P_\lambda\}_{\lambda \in \mathrm{sp}(A)}$$ This implies that
 \begin{equation*}
 	\begin{split}
 		\Pr[A = \lambda| \rho] & = \tr(P_\lambda^\dag P_\lambda \rho)                               \\
@@ -465,5 +465,81 @@ Assuming \cref{gen meas post dens}, we can now discuss the spacial case in which
 		                       & = \sum_{i = 1}^N p_i \braket{\psi_i|P_\lambda \psi_i}              \\
 	\end{split}
 \end{equation*}
-Finally, by computing the total probability we get that $$\Pr[A = \lambda| \rho] = \sum_{i = 1}^N p_i \Pr[A = \lambda | \ket{\psi_i}]$$ thus concluding that $$\Pr[A = \lambda| \ket{\psi_i}] = \braket{\psi_i| P_\lambda \psi_i}$$ which indeed matches the definition provided in \cref{meas post}.
+Finally, by computing the total probability we get that $$\Pr[A = \lambda| \rho] = \sum_{i = 1}^N p_i \Pr[A = \lambda | \ket{\psi_i}]$$ thus concluding that $$\Pr[A = \lambda| \ket{\psi_i}] = \braket{\psi_i| P_\lambda \psi_i}$$ which indeed matches the definition provided in \nameref{meas post}.
+}
+
+\begin{framedprob}[label={deferred meas prob}]{}
+    Prove the validity of \nameref{deferred meas post} for an $n$-qubit unitary $U$.
+\end{framedprob}
+
+\solution{
+    Similar to the 2-qubits case, suppose that the state of the system is described as $$\ket \psi = \sum_{x \in \B^{n + 1}} \alpha_x \ket x$$ We observe that $x \in \B^{n + 1}$ since the first wire has 1 control qubit, and the second register contains the $n$ remaining qubits that will be transformed through $U$. Therefore, the two diagrams are identical as before:
+
+    \begin{figure}[H]
+    \centering
+    \begin{tabular}{ccc}
+        $\vcenter{
+            \Qcircuit @C=2em @R=2em {
+                & \qw & \meter      & \cctrl{1} & \cw \\
+                & \qw & \qw & \gate{U} & \qw \\ 
+            }
+        }$
+        & \qquad &
+        $\vcenter{
+            \Qcircuit @C=2em @R=2em {
+                & \qw & \ctrl{1} & \meter & \cw \\
+                & \qw & \gate{U} & \qw & \qw \\ 
+            }
+        }$
+    \end{tabular}
+\end{figure}
+
+    % \begin{figure}[H]
+    %     \centering
+    %     \begin{tabular}{ccc}
+    %
+    %         % \begin{figure}[H]
+    %                 \[
+    %                         \Qcircuit @C=2em @R=2em {
+    %                         &  \qw & \meter      & \cctrl{1} & \cw \\
+    %                         &  \qw & \qw & \gate{U} & \qw \\ 
+    %                         }
+    %                 \]
+    %         % \end{figure}
+    %         &\qquad&
+    %
+    %         % \begin{figure}[H]
+    %                 \[
+    %                         \Qcircuit @C=2em @R=2em {
+    %                         &  \qw & \ctrl{1} & \meter & \cw \\
+    %                         &  \qw & \gate{U} & \qw & \qw \\ 
+    %                         }
+    %                 \]
+    %         % \end{figure}
+    %
+    %     \end{tabular}
+    %
+    % \end{figure}
+
+    In the first case, we have that
+    \begin{equation*}
+        \begin{split}
+            & \Pr[\mbox{the first qubit collapses to $\ket 0$}] \\ 
+            = & \sum_{y \in \B^n}\Pr[\mbox{measure}(\ket{\psi}_0) = \ket{0y}] \\ 
+            = & \sum_{y \in \B^n} \abs{\alpha_{0y}}^2
+        \end{split}
+    \end{equation*}
+    and the same reasoning applies for the probability that it collapses to $\ket 1$. Therefore, after the first measurement we have that the state becomes $$\ket \psi \soe{ll}{\sum_{y \in \B^n} \ket{0y} & @ \ \sum_{y \in \B^n} \abs{\alpha_{0y}}^2 \\ \sum_{y \in \B^n} \ket{1y} & @ \ \sum_{y \in \B^n} \abs{\alpha_{1y}}^2}$$ Now, after applying the $U$ gate only if the first qubit has collapsed to $\ket 1$, the final state becomes $$\ket \psi \soe{ll}{\sum_{y \in \B^n} \ket{0y} & @ \ \sum_{y \in \B^n} \abs{\alpha_{0y}}^2 \\ \sum_{y \in \B^n} \ket 1 \otimes U  \ket{y} & @ \ \sum_{y \in \B^n} \abs{\alpha_{1y}}^2}$$
+
+    Differently, in the second case we simply have to distribute the controlled $U$ gate inside the state $\ket \psi$, which indeed yields the same result:
+    \begin{equation*}
+        \begin{split}
+            & \ket \psi \\ 
+            = & \sum_{x \in \B^{n + 1}} \alpha_x \ket x \\ 
+            \xrightarrow{\mathrm{C-}U(\ket \psi)} & \sum_{x \in \B^{n + 1}} \alpha_x \mbox{C-}U \ket x \\ 
+            = & \sum_{\substack{x \in \B^{n + 1} : \\ x = 0y}} \alpha_{0y} \mbox{C-}U \ket {0y} + \sum_{\substack{x \in \B^{n + 1} : \\ x = 1y}} \alpha_{1y} \mbox{C-}U \ket {1y} \\ 
+            = & \sum_{y \in \B^n} \alpha_{0y} \ket {0y} + \sum_{y \in \Bìn} \alpha_{1y} \ket 1 \otimes U \ket y \\ 
+            \xrightarrow{\mathrm{measure}(\ket \psi_0)} & \ket \psi \soe{ll}{\sum_{y \in \B^n} \ket{0y} & @ \ \sum_{y \in \B^n} \abs{\alpha_{0y}}^2 \\ \sum_{y \in \B^n} \ket 1 \otimes U \ket{y} & @ \ \sum_{y \in \B^n} \abs{\alpha_{1y}}^2} \\
+        \end{split}
+    \end{equation*}
 }
