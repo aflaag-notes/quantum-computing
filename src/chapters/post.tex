@@ -203,18 +203,18 @@ We have formulated quantum mechanics using state vectors and the four postulates
 The postulates we have just presented are internally consistent, however, to proceed further we require additional clarification regarding the \nameref{meas post}. In particular, in the statement of this postulate we required that measurables are self-adjoint (i.e. Hermitian) operators. To be precise, this is a special case of a more general formalization of the Measurement postulate which we need to discuss.
 
 \begin{framedpost}[label={gen meas post}]{General measurement postulate}
-	Quantum measurements are described by a collection $\{M_m\}$ of \tit{measurement operators} acting on the state space of the system being measured --- the index $m$ refers to the measurement outcomes that may occur in the experiment. If the state of the quantum system is $\ket \psi$ immediately before the measurement, then the probability that result $m$ occurs is given by $$\Pr[m \mid \ket \psi] = \bra \psi M_m^\dag M_m \ket \psi$$ and the measurement operators satisfy the \tbf{completeness equation} $$\sum_{m}{M_m^\dag M_m} = I$$
+	Quantum measurements are described by a collection $M = \{M_m\}$ of \tit{measurement operators} acting on the state space of the system being measured --- the index $m$ refers to the measurement outcomes that may occur in the experiment. If the state of the quantum system is $\ket \psi$ immediately before the measurement, then the probability that result $m$ occurs is given by $$\Pr[M = m \mid \ket \psi] = \bra \psi M_m^\dag M_m \ket \psi$$ and the measurement operators satisfy the \tbf{completeness equation} $$\sum_{m}{M_m^\dag M_m} = I$$
 \end{framedpost}
 
 We observe that the completeness equation expresses the fact that probabilities of the outcomes sum to one:
 \begin{equation*}
 	\begin{split}
-		\sum_{m}{\Pr[m \mid \ket \psi]} & = \sum_{m} {\bra \psi M_m^\dag M_m \ket \psi}     \\
+		\sum_{m}{\Pr[M = m \mid \ket \psi]} & = \sum_{m} {\bra \psi M_m^\dag M_m \ket \psi}     \\
 		% & = \abk{\psi \middle| \sum_{m}{M_m^\dag M_m} \middle| \psi} \\
-		                                & = \bra \psi \rbk{\sum_m {M_m^\dag M_m}} \ket \psi \\
-		                                & = \braket{\psi|I|\psi}                            \\
-		                                & = \braket{\psi|\psi}                              \\
-		                                & = 1
+		                                    & = \bra \psi \rbk{\sum_m {M_m^\dag M_m}} \ket \psi \\
+		                                    & = \braket{\psi|I|\psi}                            \\
+		                                    & = \braket{\psi|\psi}                              \\
+		                                    & = 1
 	\end{split}
 \end{equation*}
 
@@ -226,9 +226,9 @@ For instance, consider a single qubit $$\ket \psi = \alpha \ket 0 + \beta \ket 1
 		                            & = I             &                                        \\
 	\end{alignedat}
 \end{equation*}
-Then, the probability of obtaining 0 from measuring $\ket \psi$ is $$\Pr[0 \mid \ket \psi] = \braket{\psi|M_0^\dag M_0|\psi} = \braket{\psi|M_0|\psi} = \abs{\alpha}^2$$ and similarly we ge that $\Pr[1 \mid \ket \psi] = \abs{\beta}^2$, as we would expect.
+Then, the probability of obtaining 0 from measuring $\ket \psi$ is $$\Pr[M = 0 \mid \ket \psi] = \braket{\psi|M_0^\dag M_0|\psi} = \braket{\psi|M_0|\psi} = \abs{\alpha}^2$$ and similarly we ge that $\Pr[M = 1 \mid \ket \psi] = \abs{\beta}^2$, as we would expect.
 
-So, what is the connection with the initial version of the third postulate we originally provided? A special case of the General measurement postulate when the measurements are \tit{projective measurements}, i.e. measurements described by Hermitian operators. Indeed, for many applications of quantum computation and quantum information in general we are concerned primarily with projective measurements. By requiring that observables are Hermitian operators the third postulate reduces to the formulation we provided in the previous section, because any observable $M$ would have a spectral decomposition of $$M = \sum_{m}{m P_m}$$ which immediately implies that $$\Pr[m \mid \ket \psi] = \braket{\psi|P_m \psi}$$ as defined earlier.
+So, what is the connection with the initial version of the third postulate we originally provided? A special case of the General measurement postulate when the measurements are \tit{projective measurements}, i.e. measurements described by Hermitian operators. Indeed, for many applications of quantum computation and quantum information in general we are concerned primarily with projective measurements. By requiring that observables are Hermitian operators the third postulate reduces to the formulation we provided in the previous section, because any observable $M$ would have a spectral decomposition of $$M = \sum_{m}{m P_m}$$ We will discuss this fact in greater detail in the next section.
 
 \subsection{Postulates through density operators}
 
@@ -245,23 +245,21 @@ Suppose that we have closed quantum system described by some ensamble $\{p_i, \k
 Measurements can be also easily described through the density operator. Consider the \nameref{gen meas post}, and suppose we perform a measurement described by measurement operators $M_m$. If the initial state was $\ket{\psi_i}$, then we have that
 \begin{equation*}
 	\begin{alignedat}{2}
-		\Pr[m|\ket{\psi_i}] & = \braket{\psi_i|M_m^\dag M_m|\psi_i}         &                                           \\
-		                    & = \tr(M_m^\dag M_m \ket{\psi_i} \bra{\psi_i}) & \quad \quad (\mbox{by \cref{trace prop}}) \\
+		\Pr[M = m|\ket{\psi_i}] & = \braket{\psi_i|M_m^\dag M_m|\psi_i}         &                                           \\
+		                        & = \tr(M_m^\dag M_m \ket{\psi_i} \bra{\psi_i}) & \quad \quad (\mbox{by \cref{trace prop}}) \\
 	\end{alignedat}
 \end{equation*}
 Then, thanks to \cref{trace tricks}, by computing the total probability we obtain that
 \begin{equation*}
 	\begin{split}
-		\Pr[m] & = \sum_{i = 1}^N{p_i\Pr[m\mid \ket{\psi_i}]}                           \\
-		       & = \sum_{i = 1}^N{p_i \tr(M_m^\dag M_m \ket{\psi_i} \bra{\psi_i})}      \\
-		       & = \sum_{i = 1}^N{\tr(p_i M_m^\dag M_m \ket{\psi_i} \bra{\psi_i})}      \\
-		       & = \tr \rbk{\sum_{i = 1}^N{p_i M_m^\dag M_m \ket{\psi_i} \bra{\psi_i}}} \\
-		       & = \tr \rbk{M_m^\dag M_m \sum_{i = 1}^N{p_i \ket{\psi_i} \bra{\psi_i}}} \\
-		       & = \tr(M_m^\dag M_m \rho)                                               \\
+		\Pr[M = m] & = \sum_{i = 1}^N{p_i\Pr[M = m\mid \ket{\psi_i}]}                       \\
+		           & = \sum_{i = 1}^N{p_i \tr(M_m^\dag M_m \ket{\psi_i} \bra{\psi_i})}      \\
+		           & = \sum_{i = 1}^N{\tr(p_i M_m^\dag M_m \ket{\psi_i} \bra{\psi_i})}      \\
+		           & = \tr \rbk{\sum_{i = 1}^N{p_i M_m^\dag M_m \ket{\psi_i} \bra{\psi_i}}} \\
+		           & = \tr \rbk{M_m^\dag M_m \sum_{i = 1}^N{p_i \ket{\psi_i} \bra{\psi_i}}} \\
+		           & = \tr(M_m^\dag M_m \rho)                                               \\
 	\end{split}
 \end{equation*}
-
-TODO \todo{skipping rho m, if needed put it here and add what it is needed in the general meas post}
 
 This shows that the basic postulates of quantum mechanics related to unitary evolution and measurement can be rephrased in terms of density operators. However, we can do better: we will proivde a characterization of the density operator that does not rely on the idea of state vectors \tit{at all}. But first, as usual, we need some definitions. When a quantum system is an a known exact state $\ket \psi$, the system is said to be in a \tbf{pure state}, and in this case its density matrix operator is simply $$\rho = \ket \psi \bra \psi$$ Otherwise, if the state is now known and the system is described by an ensamble of states, we say that $\rho$ is in a \tbf{mixed state}. More specifically, we can distinguish between pure and mixed states as follows.
 
@@ -374,11 +372,9 @@ Given all we just discussed, we can finally rephrase the postulates through the 
 	The evolution of a \tit{closed} quantum system is described by a \tit{unitary transformation}, i.e. the state $\rho$ of the system at time $t_1$ is related to the state $\rho'$ of the system at time $t_2$ as follows $$\rho' = U \rho U^\dag$$ where $U(t_2, t_1) = e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}$.
 \end{framedpost}
 
-\begin{framedpost}{General measurement postulate (dens. op.)}
-	Quantum measurements are described by a collection $\{M_m\}$ of \tit{measurement operators} acting on the state space of the system being measured --- the index $m$ refers to the measurement outcomes that may occur in the experiment. If the state of the quantum system is $\rho$ immediately before the measurement, then the probability that result $m$ occurs is given by $$\Pr[m \mid \ket \psi] = \tr(M_m^\dag M_m \rho)$$ and the measurement operators satisfy the \tbf{completeness equation} $$\sum_{m}{M_m^\dag M_m} = I$$
+\begin{framedpost}[label={gen meas post dens}]{General measurement postulate (dens. op.)}
+	Quantum measurements are described by a collection $M =\{M_m\}$ of \tit{measurement operators} acting on the state space of the system being measured --- the index $m$ refers to the measurement outcomes that may occur in the experiment. If the state of the quantum system is $\rho$ immediately before the measurement, then the probability that result $m$ occurs is given by $$\Pr[M = m \mid \rho] = \tr(M_m^\dag M_m \rho)$$ and the measurement operators satisfy the \tbf{completeness equation} $$\sum_{m}{M_m^\dag M_m} = I$$
 \end{framedpost}
-
-TODO \todo{ex: do the projection one}
 
 \begin{framedpost}{Composite system postulate (dens. op.)}
 	The sate space of a composite physical system is the tensor product of the state spaces of the component physical systems. That is, given $n$ systems such that the $i$-th system is in state $\rho_i$, the joint state of the total system is $$\rho = \bigotimes_{i = 1}^n{\rho_i}$$
@@ -412,7 +408,7 @@ Firstly, it is not obvious that $\rho^A$ is in any sense a description for the s
 		       & = \tau                       & \quad \quad (\mbox{by \cref{density op thm}})         & \\
 	\end{alignedat}
 \end{equation*}
-Similarly, we get that $\rho^B = \sigma$. For the general case, if we assume that $$\tau = \sum_{i = 1}^N p_1 \ket{\phi_i} \bra{\phi_i} \quad \quad \sigma = \sum_{i =1}^N q_i \ket{\psi_i}\bra {\psi_i}$$ then we get that
+Similarly, we get that $\rho^B = \sigma$. For the general case, if we assume that $$\tau = \sum_{i = 1}^N p_i \ket{\phi_i} \bra{\phi_i} \quad \quad \sigma = \sum_{i =1}^N q_i \ket{\psi_i}\bra {\psi_i}$$ then we get that
 \begin{equation*}
 	\begin{split}
 		\rho^A & = \tr_B(\rho)                                                                                                               \\
@@ -420,7 +416,7 @@ Similarly, we get that $\rho^B = \sigma$. For the general case, if we assume tha
 		       & = \tr_B \rbk{\rbk{\sum_{i = 1}^N p_i \ket{\phi_i} \bra{\phi_i}} \otimes \rbk{\sum_{j = 1}^N q_j \ket{\psi_j} \bra{\psi_j}}} \\
 		       & = \tr_B \rbk{\sum_{i = 1}^n \sum_{j = 1}^N p_i q_j (\ket{\phi_i} \bra{\phi_i} \otimes \ket{\psi_j}\bra{\psi_j})}            \\
 		       & = \sum_{i = 1}^N \sum_{j = 1}^N p_i q_j \tr_B(\ket{\phi_i} \bra{\phi_i} \otimes \ket{\psi_j}\bra{\psi_j})                   \\
-		       & = \sum_{i = 1}^N \sum_{j = 1}^N p_i q_j \ket{\phi_i} \bra{\phi_i} \tr( \ket{\psi_j}\bra{\psi_j})                          \\
+		       & = \sum_{i = 1}^N \sum_{j = 1}^N p_i q_j \ket{\phi_i} \bra{\phi_i} \tr( \ket{\psi_j}\bra{\psi_j})                            \\
 		       & = \rbk{\sum_{i = 1}^N p_i \ket{\phi_i} \bra{\phi_i}} \rbk{\sum_{j = 1}^N q_j \tr(\ket{\psi_j} \bra {\psi_j})}               \\
 		       & = \rbk{\sum_{i = 1}^N p_i \ket{\phi_i} \bra{\phi_i}} \tr \rbk{\sum_{j = 1}^N q_j \ket{\psi_j} \bra{\psi_j}}                 \\
 		       & = \tau \tr(\sigma)                                                                                                          \\
@@ -439,13 +435,35 @@ A more interesing example, however, is an \tbf{entangled system}. For instance, 
 As we already know, since this system is entangled there is no pair of subsystems $A$ and $B$ that can produce it as a composite tensor product. Nevertherless, let's see what happens when we try to compute $\rho^A$
 \begin{equation*}
 	\begin{split}
-		\rho^A & = \tr_B(\rho)                                                                                                                  \\
-		       & = \tr_B \rbk{\dfrac{\ket{00} \bra{00} + \ket{11} \bra{00} + \ket{00} \bra{11} + \ket{11} \bra{11}}{2}}                         \\
-		       & = \dfrac{\tr_B(\ket{00} \bra{00}) + \tr_B(\ket{11} \bra{00}) + \tr_B(\ket{00} \bra{11} )+ \tr_B( \ket{11} \bra{11})}{2}        \\
-		       & = \dfrac{\tr_B(\ket 0 \bra 0 \otimes \ket 0 \bra 0) + \tr_B(\ket 1 \bra 0 \otimes \ket 1 \bra 0) + \tr_B(\ket 0 \bra 1 \otimes \ket 0 \bra 1 )+ \tr_B( \ket 1 \bra 1 \otimes \ket 1 \bra 1)}{2}        \\
-		       & = \dfrac{\ket 0 \bra 0 \braket{0|0} + \ket 1 \bra 0 \braket{0|1} + \ket 0 \bra 1 \braket{1|0} + \ket 1 \bra 1 \braket{1|1}}{2} \\
-		       & = \dfrac{\ket0 \bra 0 + \ket 1 \bra 1}{2}                                                                                      \\
-		       & = \dfrac{I}{2}                                                                                                                 \\
+		\rho^A & = \tr_B(\rho)                                                                                                                                                                                   \\
+		       & = \tr_B \rbk{\dfrac{\ket{00} \bra{00} + \ket{11} \bra{00} + \ket{00} \bra{11} + \ket{11} \bra{11}}{2}}                                                                                          \\
+		       & = \dfrac{\tr_B(\ket{00} \bra{00}) + \tr_B(\ket{11} \bra{00}) + \tr_B(\ket{00} \bra{11} )+ \tr_B( \ket{11} \bra{11})}{2}                                                                         \\
+		       & = \dfrac{\tr_B(\ket 0 \bra 0 \otimes \ket 0 \bra 0) + \tr_B(\ket 1 \bra 0 \otimes \ket 1 \bra 0) + \tr_B(\ket 0 \bra 1 \otimes \ket 0 \bra 1 )+ \tr_B( \ket 1 \bra 1 \otimes \ket 1 \bra 1)}{2} \\
+		       & = \dfrac{\ket 0 \bra 0 \braket{0|0} + \ket 1 \bra 0 \braket{0|1} + \ket 0 \bra 1 \braket{1|0} + \ket 1 \bra 1 \braket{1|1}}{2}                                                                  \\
+		       & = \dfrac{\ket0 \bra 0 + \ket 1 \bra 1}{2}                                                                                                                                                       \\
+		       & = \dfrac{I}{2}                                                                                                                                                                                  \\
 	\end{split}
 \end{equation*}
 Now, we observe that $$\tr \rbk{\rbk{\dfrac{I}{2}}^2} = \dfrac{1}{2} < 1$$ and by \cref{mixed prop} this immediately implies that the system is in a \tbf{mixed state}! Observe what just happened: the entangled system is in a \tit{pure state}, because $$\rho = \ket{\Phi^+} \bra{\Phi^+}$$ however, $\rho^A$ (and $\rho^B$ analogously) is mixed! This means that the state of the joint system is known \tit{exactly}, however the state of the first qubit is not maximally known. This strange property is another hallmark of quantum entanglement.
+
+\section{Exercises}
+
+\begin{framedprob}{}
+	Show that when the observable is a Hermitian operator, \cref{gen meas post dens} reduces to \cref{meas post}.
+\end{framedprob}
+
+\solution{
+Assuming \cref{gen meas post dens}, we can now discuss the spacial case in which the observable is a Hermitian operator. Let $A$ be a Hermitian operator, and suppose that we have a system in a state described by some ensamble $\{p_i, \ket{\psi_i}\}_{i = 1}^N$. By the \nameref{spectral decomp} we know that $$A = \sum_{\lambda \in \mathrm{sp}(A)} \lambda P_\lambda$$ which means that the collection of measurement operators we have to consider is $$A = \{P_\lambda\}_{\lambda \in \mathrm{sp}(A)}$$ This implies that
+\begin{equation*}
+	\begin{split}
+		\Pr[A = \lambda| \rho] & = \tr(P_\lambda^\dag P_\lambda \rho)                               \\
+		                       & = \tr(P_\lambda P_\lambda \rho)                                    \\
+		                       & = \tr(P_\lambda \rho)                                              \\
+		                       & = \tr \rbk{P_\lambda \sum_{i = 1}^N p_i \ket{\psi_i} \bra{\psi_i}} \\
+		                       & = \tr \rbk{\sum_{i = 1}^N p_i P_\lambda \ket{\psi_i} \bra{\psi_i}} \\
+		                       & = \sum_{i = 1}^N p_i \tr(P_\lambda \ket{\psi_i} \bra{\psi_i})      \\
+		                       & = \sum_{i = 1}^N p_i \braket{\psi_i|P_\lambda \psi_i}              \\
+	\end{split}
+\end{equation*}
+Finally, by computing the total probability we get that $$\Pr[A = \lambda| \rho] = \sum_{i = 1}^N p_i \Pr[A = \lambda | \ket{\psi_i}]$$ thus concluding that $$\Pr[A = \lambda| \ket{\psi_i}] = \braket{\psi_i| P_\lambda \psi_i}$$ which indeed matches the definition provided in \cref{meas post}.
+}

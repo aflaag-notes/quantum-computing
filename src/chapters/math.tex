@@ -389,6 +389,22 @@ In particular, we observe that the last property follow trivially from the cycli
 
 Interestingly enough, from this property we immediately derive that $$\tr( \ket v \bra v) = \braket{v|v}$$ which should not come as a surprise anyway, since the elements on the diagonal of $\ket v \bra v$ as exactly the elements of the sum in the scalar product of $\braket{v|v}$. We will discuss the importance of these equalities in later sections.
 
+\begin{framedprop}{}
+    Given a matrix $A \in \C^{n \times n}$, it holds that $$\tr(A^\dag)= \overline{\tr(A)}$$
+\end{framedprop}
+
+\begin{proof}
+    By \cref{conj transp}, we observe that $$\forall i \in [n] \quad a_{ii}^\dag = \overline{a_{ii}}$$ which immediately proves that 
+    \begin{equation*}
+        \begin{split}ì
+            \tr(A^\dag) & = \sum_{i = 1}^n a_{ii}^\dag \\ 
+                        & =  \sum_{i = 1}^n \overline{a_{ii}} \\ 
+                        & = \overline{\sum_{i = 1}^n a_{ii}} \\ 
+                        & = \tr(A)
+        \end{split}
+    \end{equation*}
+\end{proof}
+
 TODO \todo{show that the trace is indep of the chosen basis}
 
 \section{Spectral theory}
@@ -873,4 +889,12 @@ which is clearly a contradiction $\lightning$.
         \end{split}
     \end{equation*}
     Finally, it is easy to see that computing $AA^\dag$ would yield the same result, proving that $A$ is indeed normal.
+}
+
+\begin{framedprob}{}
+    Show that for any two complex numbers $z, w \neq 0$ it holds that $$\abs{\dfrac{z}{w}} = \dfrac{\abs z}{\abs w}$$
+\end{framedprob}
+
+\solution{
+    TODO \todo{da scrivere}
 }
