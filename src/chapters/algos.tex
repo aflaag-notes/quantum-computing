@@ -1,88 +1,33 @@
 \chapter{Quantum algorithms}
 
-Now that we presented all the mathematical tools we need to perform quantum computations, we are ready to explore some of the most famous and most important quantum algorithm that have been developed in recent years. But before introducing any algorithm, let's discuss \tit{why} we are interested in quantum computing at all --- keep in mind that is just a brief overview of the general ideas and we will delve into the exact details as soon as we present some quantum algorithm more in depth.
+Now that we presented all the mathematical tools we need to perform quantum computations, we are ready to explore some of the most famous and most important quantum algorithms that have been developed in recent years. But before introducing any algorithm, let's discuss \tit{why} we are interested in quantum computing at all --- keep in mind that is just a brief overview of the general ideas and we will delve into the exact details as soon as we present some quantum algorithms more in depth.
 
 Consider some computable function $f(x)$ and some classical algorithm that is able to compute it for any valid input $x$. If we have an input $x_1$, and we want to compute its output we need to run the algorithm in order to compute $f(x_1)$. Analogously, if we have another input $x_2$ we need to run the algorithm again in order to compute $f(x_2)$. In general, if we want to know the outputs $f(x_1), \ldots, f(x_N)$ of $N$ inputs $x_1, \ldots, x_N$, with classical computing we must run the algorithm $N$ distinct times, because there is no way to compute more than one output at a time. With quantum computers, however, we will see that not only this is possible, but we can actually compute \tit{all} the possible outputs related to all the possible inputs \tbf{simultaneously}. To the best of our knowledge, through the laws of quantum mechanics we \tit{really} can compute all the possible outputs $f(x)$ for each $x \in \B^n$ --- for a fixed input length $n$.
 
-How does this work in practice? Recall that we \tit{seemingly arbitrarily} decided to denote the vectors of the canonical basis with binary strings, such as $\ket{000}$, $\ket{001}$, $\ket{010}$ and so on (we chose $n = 3$ for this example). This is no coincidence: since this vectors form a basis, we can write any quantum state $\ket \psi$ as a linear combination of them, and by doing so we obtain something like $$\ket \psi = \sum_{x \in \B^3}{\alpha_x \ket x}$$ Say that we want to compute $f(x)$ for all $x \in \B^3$. In practice, we construct a unitary operator $U_f$ that implements $f$ \tbf{reversibly} --- a property that we will shortly outline --- for example by acting on an auxiliary register $$U_f(\ket x \otimes \ket 0) = \ket x \otimes \ket{f(x)}$$ Now, by linearity of quantum operators when we apply $U$ to $\ket \psi \otimes \ket 0$ we get that $$U (\ket \psi \otimes \ket 0) = \sum_{x \in \B^3}{\alpha_x U \ket x \ket 0} = \sum_{x \in \B^3} {\alpha_x \ket x \ket{f(x)}}$$ Notice what happened here! By only applying $U$ to $\ket \psi \ket 0$ we actually applied $U$ on \tit{all the vectors of the basis} \tbf{simultaneously}. This explains the choice of the labeling of the vectors of the canonical basis.
+How does this work in practice? Recall that we \tit{seemingly arbitrarily} decided to denote the vectors of the canonical basis with binary strings, such as $\ket{000}$, $\ket{001}$, $\ket{010}$ and so on (we chose $n = 3$ for this example). This is no coincidence: since this vectors form a basis, we can write any quantum state $\ket \psi$ as a linear combination of them, and by doing so we obtain something like $$\ket \psi = \sum_{x \in \B^3}{\alpha_x \ket x}$$ Say that we want to compute $f(x)$ for all $x \in \B^3$. In practice, we construct a unitary operator $U_f$ that implements $f$ \tbf{reversibly} --- a property that we will discuss in the following chapters --- for example by acting on an auxiliary register $$U_f(\ket x \otimes \ket 0) = \ket x \otimes \ket{f(x)}$$ Now, by linearity of quantum operators when we apply $U_f$ to $\ket \psi \otimes \ket 0$ we get that
+\begin{equation*}
+    \begin{split}
+        U_f (\ket \psi \otimes \ket 0) & = U_f \rbk{\rbk{\sum_{x \in \B^3} \alpha_x \ket x}\otimes \ket 0} \\ 
+                                       & = U_f \rbk{\sum_{x \in \B^3} \alpha_x \ket x \otimes \ket{0}} \\ 
+                                       & = \sum_{x \in \B^3} \alpha_x U_f (\ket x \otimes \ket{0}) \\ 
+                                       & = \sum_{x \in \B^3} \alpha_x \ket x \otimes \ket{f(x)}
+    \end{split}
+\end{equation*}
+Notice what happened here! By only applying $U$ to $\ket \psi \otimes \ket 0$ we actually applied $U_f$ --- and therefore $f(x)$ --- on \tit{all the vectors of the basis} \tbf{simultaneously}, hence computing each possible output. This explains the choice of the labeling of the vectors of the canonical basis.
 
-So, what's the catch? Well, we also recall that superpositions of states must be measured at some point, and this is the problem: when we measure the result of $U \ket \psi \ket 0$ we will inevitably only get only \tit{one} single outcome. In particular, if we measure both registers, we obtain only one $(x, f(x))$ pair for some $x \in \B^3$ with probability $\abs{\alpha_x}^2$. This makes finding \tit{useful} quantum algorithm extremely difficult, because even if we are performing all the computations at once we can only see 1 possible output, \tit{at random}. Hence, not only quantum algorithms are hard to discover because of this inherent limitation of quantum mechanics, but they must also be more efficient than any classical alternative we currently know, otherwise there is really no point in using this very complicated computing framework (both in terms of hardware and software). The algorithms that we will see in this chapter --- and also in the next one --- are some of the most important quantum procedures that we know, and sparked a lot of interest in this area of research in recent years.
-
-But before starting our discussion about quantum algorithms, we need to discuss the \tit{reversibility} aspect previously mentioned. When we introduced quantum operators we underlined the fact that each quantum gate has to be a \tit{unitary} operator, and we now have the mathematical foundation to know that if a matrix is unitary, it is clearly also invertible --- indeed, its adjoint is its inverse. This directly implies a very important property of quantum computation: except for the measurement operation, every quantum computation operation is \tbf{reversible}.
+So, what's the catch? Well, we also recall that superpositions of states must be measured at some point, and this is the problem: when we measure the result of $U_f ( \ket \psi \otimes \ket 0)$ we will inevitably get \tit{only one} outcome. This makes finding \tit{useful} quantum algorithms extremely difficult, because even if we are performing all the computations at once we can only see 1 possible output, \tit{at random}. Hence, not only quantum algorithms are hard to discover because of this inherent limitation of quantum mechanics, but they must also be more efficient than any classical alternative we currently know, otherwise there is really no point in using this very complicated computing framework (both in terms of hardware and software). The algorithms that we will see in this chapter --- and also in the next one --- are some of the most important quantum procedures that we know, and sparked a lot of interest in this area of research in recent years.
 
 \section{Deutsch's algorithm}
 
-Even though quantum computation provides reversibility \curlyquotes{for free}, \tit{classical computation} can still achieve invertibility of computation, as we will see in \cref{toffoli section}. However, the next characteristic that we are going to describe has no classical analogue.
+Before starting our discussion about quantum algorithms, we need to briefly introduce the \tit{reversibility} aspect mentioned in the introduction. When we introduced quantum operators we underlined the fact that each quantum gate has to be a \tit{unitary} operator, and we now have the mathematical foundation to know that if a matrix is unitary, it is clearly also invertible --- indeed, its adjoint is its inverse. This directly implies a very important property of quantum computation: except for the measurement operation, every quantum computation operation is \tbf{reversible}. We will explore reversibility in greater detail in \cref{toffoli section}.
 
-First, let's start with a problem seemingly unrelated to our discussion. Given a Boolean function $\func{f}{\{0, 1\}^n}{\{0, 1\}}$, we would like to embed $f$ inside a quantum computation. However, when $n \ge 3$ we are guaranteed that $f(x)$ is not reversible --- it cannot be injective. This is a problem, since in quantum coputing all gates must be reversible --- given that quantum evolution is unitary. Thus, how do we turn $f$ into a reversible computation?
+% Even though quantum computation provides reversibility \curlyquotes{for free}, \tit{classical computation} can still achieve invertibility of computation, as we will see in \cref{toffoli section}. However, the next characteristic that we are going to describe has no classical analogue.
 
-We define a map $U_f$ defined as follows: $$\funcmap{U_f}{\{0, 1\}^{n + 1}}{\{0, 1\}^{n + 1}}{(x, y)}{(x, y \oplus f(x))}$$ First, we observe that $$(y \oplus f(x)) \oplus f(x) = y \oplus (f(x) \oplus f(x)) = y$$ which trivially proves that $U_f$ is reversible. Moreover, we can actually prove that when applied to qubits the corresponding quantum operator $$\funcmap{U_f}{\mathcal H \otimes \mathcal H'}{\mathcal H \otimes \mathcal H'}{\ket x \otimes \ket y}{\ket x \otimes \ket{y \oplus f(x)}}$$ is indeed unitary --- we observe that $$\dim(\mathcal H \otimes \mathcal H') = \dim(\mathcal H) \cdot \dim(\mathcal H') = 2^n \cdot 2 = 2^{n + 1}$$
+To start off, we observe that the idea proposed in the introduction already has an enormous limitation! Any quantum gate \tit{must} be an invertible matrix, otherwise it would not be unitary by definition, but this means that generating the gate $U_f$ discussed above is not so trivial. Let's be more rigorous: given any Boolean function $\func{f}{\{0, 1\}^n}{\{0, 1\}}$, we would like to embed $f$ inside a quantum computation. However, when $n \ge 3$ we are guaranteed that $f(x)$ is not reversible --- it cannot be injective.
 
-\begin{framedprop}{}
-	Given a Boolean function $\func{f}{\{0, 1\}^n}{\{0, 1\}}$, the operator $U_f$ is unitary.
-\end{framedprop}
+Then, how do we embed $f$ into a reversible gate? We define a map $U_f$ defined as follows: $$\funcmap{U_f}{\{0, 1\}^{n + 1}}{\{0, 1\}^{n + 1}}{(x, y)}{(x, y \oplus f(x))}$$ First, we observe that $$(y \oplus f(x)) \oplus f(x) = y \oplus (f(x) \oplus f(x)) = y$$ which trivially proves that $U_f$ is reversible. Moreover, we can actually prove that when applied to qubits the corresponding quantum operator $$\funcmap{U_f}{\mathcal H \otimes \mathcal H'}{\mathcal H \otimes \mathcal H'}{\ket x \otimes \ket y}{\ket x \otimes \ket{y \oplus f(x)}}$$ is indeed unitary --- we observe that $$\dim(\mathcal H \otimes \mathcal H') = \dim(\mathcal H) \cdot \dim(\mathcal H') = 2^n \cdot 2 = 2^{n + 1}$$ We prove that $U_f$ is indeed unitary in \cref{unitary uf}. In the end, we have that the operator $U_f$ is precisely the quantum gate that allows us to embed $f$ into any quantum computation.
 
-\begin{proof}
-    The definition we provided of $U_f$ is component-wise, therefore to reconstruct the complete operator we can use the \tit{resolution of the identity}:
-    \begin{equation*}
-        \begin{split}
-            U_f & = U_f \cdot I \\ 
-                & = U_f \sum_{b}{\ket b \bra b}  \\
-                & = \sum_{b}{U_f \ket b \bra b}
-        \end{split}
-    \end{equation*}
-    We will omit the dimensions of the Hilbert spaces for brevity, as they are are not relevant. What we are really interested in is that $\ket b$ can surely be written as tensor product of some $\ket x \otimes \ket y$ for $b \in \B^{n + 1}$, $x \in \B^n$ and $y \in \B$. Therefore, the operator above can be rewritten as
-    \begin{equation*}
-        \begin{split}
-            U_f & = \sum_{b}{U_f \ket b \bra b} \\ 
-                & = \sum_{x}{\sum_{y}{U_f \ket x \ket y \bra x \bra y}} \\ 
-                & = \sum_{x}{\sum_{y}{\ket x \ket {y \oplus f(x)} \bra x \bra y}}
-        \end{split}
-    \end{equation*}
-    From now on, we will extensively utilize \cref{broken tensor}. First, we prove that $U_f$ is actually Hermitian.
-
-    \claim{
-        The operator $U_f$ is Hermitian.
-    }{
-        We compute $U_f^\dag$ as follows
-        \begin{equation*}
-            \begin{split}
-                U_f^\dag & = \sum_{x}{\sum_{y}{ \rbk{\ket x \ket {y \oplus f(x)} \bra x \bra y}^\dag}} \\ 
-                         & = \sum_{x}{\sum_{y}{\rbk{\ket x \bra x \otimes \ket {y \oplus f(x)} \bra y}^\dag}} \\
-                         & = \sum_{x}{\sum_{y}{\rbk{\ket x \bra x}^\dag \otimes \rbk{\ket {y \oplus f(x)} \bra y}^\dag}} \\
-                         & = \sum_{x}{\sum_{y}{\ket x \bra x \otimes \ket y \bra {y \oplus f(x)} }} \\ 
-                         & = \sum_{x}{\sum_{y}{\ket x \ket y \bra x \bra{y \oplus f(x)}}} \\ 
-            \end{split}
-        \end{equation*}
-        Now, let $y' := y \oplus f(x)$; then, by the properties of the XOR it follows that $$y = y' \oplus f(x)$$ which means that 
-        \begin{equation*}
-            \begin{split}
-                U_f & = \sum_{x}{\sum_{y}{\ket x \ket y \bra x \bra{y \oplus f(x)}}} \\ 
-                    & = \sum_{x}{\sum_{y'}{\ket x \ket{y' \oplus f(x)} \bra x \bra {y'}}} \\ 
-                    & = U_f 
-            \end{split}
-        \end{equation*}
-        proving that $U_f$ is indeed self-adjoint.
-    }
-
-    Hence, to conclude the proposition it suffices to show that $U_fU_f = I$ because $$U_f U_f^\dag = U_fU_f = U_f^\dag U_f$$ by Hermiticity. Therefore, we have that
-    \begin{equation*}
-        \begin{alignedat}{2}
-            U_f U_f & = \rbk{\sum_{x,y} \ket x \ket{y \oplus f(x)} \bra x \bra y} \rbk{\sum_{x',y'} \ket {x'} \ket{y' \oplus f(x')} \bra{x'} \bra{y'}} & \\   
-                    & = \sum_{x,y} \sum_{x'y'} \rbk{\ket x \ket {y \oplus f(x)} \bra x \bra y} \rbk{\ket {x'} \ket{y' \oplus f(x')} \bra {x'} \bra{y'}} & \\ 
-                    & = \sum_{x,y} \sum_{x',y'} \rbk{\ket x \bra x \otimes \ket{y \oplus f(x)} \bra y} \rbk{\ket {x'} \bra{x'} \otimes \ket{y' \oplus f(x')} \bra {y'}} & \\ 
-                    & = \sum_{x,y} \sum_{x', y'} \rbk{\ket x \braket{x|x'} \bra{x'} \otimes \ket{y \oplus f(x)} \braket{y|z} \ket{z \oplus f(x')}} & \quad \quad (z := y' \oplus f(x')) \\ 
-                    & = \sum_{x,y} \sum_{x', y'} \rbk{\ket x \delta_{x,x'} \bra{x'} \otimes \ket{y \oplus f(x)} \delta_{y,z} \bra{z \oplus f(x')}} & \\ 
-                    & = \sum_{x,y} \ket x \bra{x} \otimes \ket{y \oplus f(x)} \bra{y \oplus f(x)} & \\ 
-                    & = \sum_{x} \sum_{w} \ket x \bra{x} \otimes \ket{w} \bra{w} & \quad \quad (w := y \oplus f(x)) \\ 
-                    & = \rbk{\sum_{x \in \B^n} \ket x \bra x} \otimes \rbk{\sum_{w \in \B} \ket w \bra w} & \\ 
-                    & = I_{2^n} \otimes I_2 & \\
-                    & = I_{2^{n + 1}} & \\
-        \end{alignedat}
-    \end{equation*}
-\end{proof}
-
-In the end, we have that the operator $U_f$ is precisely the quantum gate that allows us to embed $f$ into any quantum computation. Moreover, we observe that
+From now on, we will omit the \curlyquotes{$\otimes$} symbol for brevity. Interestingly enough, given our definition of $U_f$ we notice that
 
 \begin{itemize}
 	\item $\ket y = \ket 0 \implies U_f \ket x \ket 0 = \ket x \ket{f(x)}$
@@ -98,7 +43,7 @@ However, until now we only considered already collapsed qubits, but what if we c
 		                  & = \dfrac{1}{\sqrt 2}(\ket 0 \ket{f(0)} + \ket{1} \ket{f(1)}) &                                      \\
 	\end{alignedat}
 \end{equation*}
-But notice what just happened: both $f(0)$ and $f(1)$ have been computed \tbf{simultaneously}, in one gate application. This has no classical equivalent, we would have to evaluate $f(0)$ and $f(1)$ \tit{separately}. This phenomenon is called \tbf{quantum parallelism}, and it can be achieved only because:
+Notice what just happened: both $f(0)$ and $f(1)$ have been computed \tbf{simultaneously}, in one gate application. This has no classical equivalent, we would have to evaluate $f(0)$ and $f(1)$ \tit{separately}. This phenomenon is called \tbf{quantum parallelism}, and it can be achieved only because:
 
 \begin{itemize}
 	\item qubits are in superpositions
@@ -161,6 +106,7 @@ Proving that this quantum circuit is correct, however, will be a little more inv
 \end{proof}
 
 We are now ready to prove the correctness of Deutsch's algorithm. To make things less cluttered, we will use the following standard notation: $$\ket + := \dfrac{1}{\sqrt 2}(\ket 0 + \ket 1) \quad \quad \ket - := \dfrac{1}{\sqrt 2}(\ket 0 - \ket 1)$$ In particular, we observe that $$H \ket 0 = \ket + \quad \quad H \ket 1 = \ket - $$ Moreover, we will omit the subscript of the corresponding qubit when the context is clear enough
+
 \begin{equation*}
 	\hspace{-0.7cm}
 	\begin{alignedat}{2}
@@ -196,11 +142,11 @@ Now, since the final operation of the circuit involves measuring $q_0 = \alpha \
         \end{equation*}
 \end{itemize}
 
-In the end, this proves that if $f(0) = f(1)$, $q_0$ will collapse to $\ket 0$, while if $f(0) \neq f(1)$ $q_1$ will colapse to $\ket 1$, proving that Deutsch's algorithm works correctly.
+In the end, this proves that if $f(0) = f(1)$, $q_0$ will collapse to $\ket 0$, while if $f(0) \neq f(1)$ then $q_0$ will colapse to $\ket 1$, proving that Deutsch's algorithm is correct.
 
 \section{Deutsch-Josza algorithm}
 
-Even though Deutsch's algorithm is quite interesting and offers advantages that classical computation cannot achieve, still it seems like it wouldn't be very usefult in practice. In fact, usually we are interested in the \tit{values} of $f(0)$ and $f(1)$, and as we already mentioned quantum mechanics will not allow us to compute both the values at the same time --- meaning that even if we use Deutsch's algorithm to now whether $f(0)$ is equal to $f(1)$ or not, we would still need to compute at least one between $f(0)$ and $f(1)$ in order to know both values.
+Even though Deutsch's algorithm is quite interesting and offers advantages that classical computation cannot achieve, it still seems like it wouldn't be very usefult in practice. In fact, we are usually interested in the \tit{values} of $f(0)$ and $f(1)$, and as we already mentioned quantum mechanics will not allow us to compute both the values at the same time --- meaning that even if we use Deutsch's algorithm to know whether $f(0)$ is equal to $f(1)$ or not, we would still need to compute at least one between $f(0)$ and $f(1)$ in order to know both values.
 
 This is because, in reality, the algorithm that we are using is only solving a particular case of a more complex problem. In fact, a couple of years later \textcite{dj} realized that if we use $q_1 = \ket 1$ and $q_0 = \ket{0}^{\otimes n}$ (i.e. we use $n$ qubits set to $\ket 0$) this algorithm is actually able to tell \tbf{constant} and \tbf{balanced} functions apart.
 
@@ -208,18 +154,18 @@ This is because, in reality, the algorithm that we are using is only solving a p
 	A Boolean function $\func{f}{\{0, 1\}^n}{\{0,1\}}$ is said to be \tbf{constant} if $$\exists b \in \{0, 1\} \quad \forall x \in \{0, 1\}^n \quad f(x) = b$$
 \end{frameddefn}
 
-The definition of constant Boolean function has nothing special, and balanced functions are exactly what the name suggests, i.e. half of the inputs output 0 and the other half output 1, which can be succintly expressed as follows.
+The definition of a constant Boolean function has nothing special, and balanced functions are exactly what the name suggests, i.e. half of the inputs output 0 and the other half output 1, which can be succintly expressed as follows.
 
 \begin{frameddefn}{Balanced function}
 	A Boolean function $\func{f}{\{0, 1\}^n}{\{0,1\}}$ is said to be \tbf{balanced} if it holds that $$\sum_{x \in \B^n}{f(x)} = 2^{n - 1}$$
 \end{frameddefn}
 
-We observe that a Boolean function can be neither constant nor balanced, so this decision problem is actually a \tbf{promise problem}: given a Boolean function $f$ that is either constant or balanced --- note that it cannot be both --- decide if the function is constant or balanced. Indeed, we see that Deutsch's algorithm solved the same exact problem for $n = 2$: in fact, if $f(0) = f(1)$ it means that $f$ is constant, otherwise the latter is balanced.
+We observe that a Boolean function can be neither constant nor balanced, so this decision problem is actually a \tbf{promise problem}: given a Boolean function $f$ that is either constant or balanced --- note that it cannot be both --- decide if the function is constant or balanced. Indeed, we see that Deutsch's algorithm solved the same exact problem for $n = 2$: if $f(0) = f(1)$ it means that $f$ is constant, otherwise it is balanced.
 
 Moreover, this problem actually shows the power of quantum parallelism more evidently: with a classical computation, to solve this decision problem we would need at most $$2^{n - 1} + 1 = O(2^n)$$ queries to $f$, instead our quantum computation still only requires \und{one} evaluation of $f$ to solve the problem.
 
 \begin{framedalgo}{Deutsch-Josza algorithm}
-	Given a Boolean function $f$ and $n + 1$ qubits, the algorithm returns $\ket{0}^{\otimes n}$ if $f$ is constant, $\ket 1$ otherwise. \\
+	Given a Boolean function $f$ and $n + 1$ qubits, the algorithm returns $\ket{0^n}$ if $f$ is constant, $\ket 1$ otherwise. \\
 	\hrule
 
 	\quad
@@ -292,19 +238,135 @@ Finally, we are ready to prove the correctness of the algorithm.
 	\end{alignedat}
 \end{equation*}
 
-Now note that this state describes the superposition of the system, but the next step of the algorithm will only measure $q_0$, therefore we can ignore $\ket -_1$ and just focus on the amplitudes of $q_0$. Then, by calling $$\forall b \in \B^n \quad \alpha_b := \dfrac{1}{2^n} \sum_{a \in \B^n}{(-1)^{f(a) + a \cdot b}}$$ we can rewrite $q_0$ as follows $$q_0 = \sum_{b \in \B^n}{\alpha_b \ket b}$$ Finally, since we want to determine the probability that $q_0$ collapses into the state $\ket{0}^{\otimes n}$ specifically, we can easily evaluate the associated amplitude of the latter, i.e. $$\alpha_{0^n} = \dfrac{1}{2^n}\sum_{a \in \B^n}{(-1)^{f(a)+ a \cdot 0^n}} = \dfrac{1}{2^n} \sum_{a \in \B^n}{(-1)^{f(a)}}$$ From this, we can easily conclude that:
+Now note that this state describes the superposition of the system, but the next step of the algorithm will only measure $q_0$, therefore we can ignore $\ket -_1$ and just focus on the amplitudes of $q_0$. Then, by calling $$\forall b \in \B^n \quad \alpha_b := \dfrac{1}{2^n} \sum_{a \in \B^n}{(-1)^{f(a) + a \cdot b}}$$ we can rewrite $q_0$ as follows $$q_0 = \sum_{b \in \B^n}{\alpha_b \ket b}$$ Finally, since we want to determine the probability that $q_0$ collapses into the state $\ket{0^n}$ specifically, we can easily evaluate the associated amplitude of the latter, i.e. $$\alpha_{0^n} = \dfrac{1}{2^n}\sum_{a \in \B^n}{(-1)^{f(a)+ a \cdot 0^n}} = \dfrac{1}{2^n} \sum_{a \in \B^n}{(-1)^{f(a)}}$$ From this, we can easily conclude that:
 
 \begin{itemize}
-	\item if $f$ is constant, then $$\alpha_{0^n} = \dfrac{1}{2^n} \sum_{a \in \B^n}{(-1)^{f(a)}} = \dfrac{1}{2^n} \cdot 2^n \cdot (-1)^{b} = (-1)^b$$ where $b \in \B$, meaning that it is guaranteed that $q_0$ will collapse to $0^n$
-	\item if $f$ is balanced, then $$\alpha_{0^n} = \dfrac{1}{2^n} \sum_{a \in \B}{(-1)^{f(a)}} = \dfrac{1}{2^n} \cdot 0 = 0$$ meaning that it is guaranteed that $q_0$ will \tit{not} collapse to $0^n$
+    \item if $f$ is constant, then
+        \begin{equation*}
+            \begin{alignedat}{2}
+                \Pr[\mbox{measure}(q_0) = \ket{0^n}] & = \abs{\alpha_{0^n}}^2 \\ 
+                                                               & = \abs{\dfrac{1}{2^n} \sum_{a \in \B^n}{(-1)^{f(a)}} }^2 \\ 
+                                                               & = \abs{\dfrac{1}{2^n} \cdot 2^n \cdot (-1)^{b} }^2 & \quad \quad (\forall a \in \B^n \quad f(a) = b \in \B)\\ 
+                                                               & = \abs{(-1)^b}^2 \\ 
+                                                            & = 1
+            \end{alignedat}
+        \end{equation*}
+       therefore $q_0$ is guaranteed to collapse to $\ket{0^n}$
+	\item if $f$ is balanced, then
+            \begin{equation*}
+                \begin{split}
+                    \Pr[\mbox{measure}(q_0) = \ket{0^n}] & = \abs{\alpha_{0^n}}^2 \\ 
+                                                         & = \abs{\dfrac{1}{2^n} \sum_{a \in \B^n}{(-1)^{f(a)}}} ^2 \\ 
+                                                         & = \abs{\dfrac{1}{2^n} \rbk{\sum_{\substack{a \in \B^n : \\ f(a) = 0}} (-1)^{f(a)} + \sum_{\substack{a \in \B^n : \\ f(a) = 1}} (-1)^{f(a)} }}^2 \\
+                                                         & = \abs{\dfrac{1}{2^n} \rbk{\sum_{\substack{a \in \B^n : \\ f(a) = 0}} 1 + \sum_{\substack{a \in \B^n : \\ f(a) = 1}} -1 }}^2 \\
+                                                         & = \abs{\dfrac{1}{2^n} \rbk{2^{n - 1} - 2^{n - 1}} }^2 \\ 
+                                                         & = \abs{\dfrac{1}{2^n} \cdot 0 }^2 \\ 
+                                                          & = 0
+                \end{split}
+            \end{equation*}
+            meaning that it is guaranteed that $q_0$ will \tit{not} collapse to $\ket{0^n}$.
 \end{itemize}
 
-\section{Exercies}
+\section{Exercises}
+
+\begin{framedprob}[label={unitary uf}]{}
+	Given a Boolean function $\func{f}{\{0, 1\}^n}{\{0, 1\}}$, the operator $U_f$ is unitary.
+\end{framedprob}
+
+\begin{proof}
+    The definition we provided of $U_f$ is component-wise, therefore to reconstruct the complete operator we can use the \tit{resolution of the identity}:
+    \begin{equation*}
+        \begin{split}
+            U_f & = U_f \cdot I \\ 
+                & = U_f \sum_{b}{\ket b \bra b}  \\
+                & = \sum_{b}{U_f \ket b \bra b}
+        \end{split}
+    \end{equation*}
+    We will omit the dimensions of the Hilbert spaces for brevity, as they are are not relevant. What we are really interested in is that $\ket b$ can surely be written as tensor product of some $\ket x \otimes \ket y$ for $b \in \B^{n + 1}$, $x \in \B^n$ and $y \in \B$. Therefore, the operator above can be rewritten as
+    \begin{equation*}
+        \begin{split}
+            U_f & = \sum_{b}{U_f \ket b \bra b} \\ 
+                & = \sum_{x}{\sum_{y}{U_f \ket x \ket y \bra x \bra y}} \\ 
+                & = \sum_{x}{\sum_{y}{\ket x \ket {y \oplus f(x)} \bra x \bra y}}
+        \end{split}
+    \end{equation*}
+    From now on, we will extensively utilize \cref{broken tensor}. First, we prove that $U_f$ is actually Hermitian.
+
+    \claim{
+        The operator $U_f$ is Hermitian.
+    }{
+        We compute $U_f^\dag$ as follows
+        \begin{equation*}
+            \begin{split}
+                U_f^\dag & = \sum_{x}{\sum_{y}{ \rbk{\ket x \ket {y \oplus f(x)} \bra x \bra y}^\dag}} \\ 
+                         & = \sum_{x}{\sum_{y}{\rbk{\ket x \bra x \otimes \ket {y \oplus f(x)} \bra y}^\dag}} \\
+                         & = \sum_{x}{\sum_{y}{\rbk{\ket x \bra x}^\dag \otimes \rbk{\ket {y \oplus f(x)} \bra y}^\dag}} \\
+                         & = \sum_{x}{\sum_{y}{\ket x \bra x \otimes \ket y \bra {y \oplus f(x)} }} \\ 
+                         & = \sum_{x}{\sum_{y}{\ket x \ket y \bra x \bra{y \oplus f(x)}}} \\ 
+            \end{split}
+        \end{equation*}
+        Now, let $y' := y \oplus f(x)$; then, by the properties of the XOR it follows that $$y = y' \oplus f(x)$$ which means that 
+        \begin{equation*}
+            \begin{split}
+                U_f & = \sum_{x}{\sum_{y}{\ket x \ket y \bra x \bra{y \oplus f(x)}}} \\ 
+                    & = \sum_{x}{\sum_{y'}{\ket x \ket{y' \oplus f(x)} \bra x \bra {y'}}} \\ 
+                    & = U_f 
+            \end{split}
+        \end{equation*}
+        proving that $U_f$ is indeed self-adjoint.
+    }
+
+    Hence, to conclude the proposition it suffices to show that $U_fU_f = I$ because $$U_f U_f^\dag = U_fU_f = U_f^\dag U_f$$ by Hermiticity. Therefore, we have that
+    \begin{equation*}
+        \begin{alignedat}{2}
+            U_f U_f & = \rbk{\sum_{x,y} \ket x \ket{y \oplus f(x)} \bra x \bra y} \rbk{\sum_{x',y'} \ket {x'} \ket{y' \oplus f(x')} \bra{x'} \bra{y'}} & \\   
+                    & = \sum_{x,y} \sum_{x'y'} \rbk{\ket x \ket {y \oplus f(x)} \bra x \bra y} \rbk{\ket {x'} \ket{y' \oplus f(x')} \bra {x'} \bra{y'}} & \\ 
+                    & = \sum_{x,y} \sum_{x',y'} \rbk{\ket x \bra x \otimes \ket{y \oplus f(x)} \bra y} \rbk{\ket {x'} \bra{x'} \otimes \ket{y' \oplus f(x')} \bra {y'}} & \\ 
+                    & = \sum_{x,y} \sum_{x', y'} \rbk{\ket x \braket{x|x'} \bra{x'} \otimes \ket{y \oplus f(x)} \braket{y|z} \ket{z \oplus f(x')}} & \quad \quad (z := y' \oplus f(x')) \\ 
+                    & = \sum_{x,y} \sum_{x', y'} \rbk{\ket x \delta_{x,x'} \bra{x'} \otimes \ket{y \oplus f(x)} \delta_{y,z} \bra{z \oplus f(x')}} & \\ 
+                    & = \sum_{x,y} \ket x \bra{x} \otimes \ket{y \oplus f(x)} \bra{y \oplus f(x)} & \\ 
+                    & = \sum_{x} \sum_{w} \ket x \bra{x} \otimes \ket{w} \bra{w} & \quad \quad (w := y \oplus f(x)) \\ 
+                    & = \rbk{\sum_{x \in \B^n} \ket x \bra x} \otimes \rbk{\sum_{w \in \B} \ket w \bra w} & \\ 
+                    & = I_{2^n} \otimes I_2 & \\
+                    & = I_{2^{n + 1}} & \\
+        \end{alignedat}
+    \end{equation*}
+\end{proof}
 
 \begin{framedprob}{}
-    TODO
+    Compute the final state of the following three-qubit circuit: 
+
+    \begin{figure}[H]
+            \[
+                    \Qcircuit @C=2em @R=2em {
+                    & \lstick{\ket 0} & \gate H & \ctrl{1} & \qw & \qw & \qw \\
+                    & \lstick{\ket 0} & \qw  & \targ & \gate H & \ctrl{1}      & \qw \\ 
+                    & \lstick{\ket 0} & \qw      & \qw & \qw      & \targ      & \qw                    }
+            \]
+    \end{figure}
 \end{framedprob}
 
 \solution{
-    TODO \todo{question 11 exam}
+    Let $q_0$, $q_1$ and $q_2$ be the three input qubits; to compute the final state of the quantum circuit, we do the following:
+    \begin{equation*}
+        \begin{split}
+            & q_0 \otimes q_1 \otimes q_2 \\ 
+            = & \ket 0 \otimes \ket 0 \otimes \ket 0\\ 
+            \xrightarrow{H(q_0)} & H \ket 0 \otimes \ket 0 \otimes \ket 0 \\ 
+             = & \ket + \otimes \ket 0 \otimes \ket 0 \\ 
+             = & \dfrac{1}{\sqrt 2}(\ket 0 + \ket 1) \otimes \ket 0 \otimes \ket 0 \\ 
+             = & \dfrac{1}{\sqrt 2}(\ket{00} + \ket{10}) \otimes \ket 0 \\
+             \xrightarrow{\mathrm{CNOT}(q_0, q_1)} & \dfrac{1}{\sqrt 2} (\mbox{CNOT}\ket{00} + \mbox{CNOT} \ket{10}) \otimes \ket 0 \\ 
+             = & \dfrac{1}{\sqrt 2} (\ket{00} + \ket{11}) \otimes \ket 0 \\ 
+             = & \dfrac{1}{\sqrt 2} (\ket 0 \otimes 0 + \ket 1 \otimes \ket 1) \otimes \ket 0 \\ 
+             \xrightarrow{H(q_1)} & \dfrac{1}{\sqrt 2} (\ket 0 \otimes H \ket 0 + \ket 1 \otimes H \ket 1) \otimes \ket 0 \\ 
+             = & \dfrac{1}{\sqrt 2} (\ket 0 \otimes \ket + + \ket 1 \otimes \ket - ) \otimes \ket 0 \\ 
+             = & \dfrac{1}{\sqrt 2} (\ket 0 \otimes \dfrac{1}{\sqrt 2} (\ket 0 + \ket 1) + \ket 1 \otimes \dfrac{1}{\sqrt 2} (\ket 0 - \ket 1)) \otimes \ket 0 \\ 
+             = & \dfrac{1}{\sqrt 2} (\dfrac{1}{\sqrt 2}(\ket {00} + \ket{01}) + \dfrac{1}{\sqrt 2}(\ket {10} - \ket{11})) \otimes \ket 0 \\ 
+             = & \dfrac{1}{2} (\ket{000} + \ket{010} + \ket{100} - \ket{110}) \\ 
+             = & \dfrac{1}{2} (\ket{0} \otimes \ket{00} + \ket{0} \otimes \ket{10} + \ket{1} \otimes \ket{00} - \ket{1} \otimes \ket{10}) \\ 
+             \xrightarrow{\mathrm{CNOT}(q_1, q_2)} & \dfrac{1}{2}(\ket 0 \otimes \mbox{CNOT} \ket{00} + \ket 0 \otimes \mbox{CNOT} \ket {10} + \ket 1 \otimes \mbox{CNOT} \ket {00} - \ket 1 \otimes \mbox{CNOT} \ket{10}) \\ 
+             = & \dfrac{1}{2} (\ket{000} + \ket{011} + \ket{100} - \ket{111}) \\
+        \end{split}
+    \end{equation*}
 }

@@ -407,3 +407,30 @@ Consider again the experiment performed by Alice and Bob, and let $\mathcal A$ b
 
 This is the core idea of the \tbf{E91 protocol}, published by \textcite{ekert} in 1991: suppose that Alice and Bob take a random portion of their qubits and use it in order to compute the quantity $\mathcal A$. Then, if we set $Q$, $R$, $S$ and $T$ as we outlined previously we are guaranteed that, without any external disturbance in the setting, the value of $\mathcal A$ will be $$\mathcal A \approx 2 \sqrt 2$$ This means that if Alice and Bob measure a value $\mathcal A \le 2$, then their correlations could have come from a locally realistic (and therefore \tit{predetermined}) model. And if their correlations could come from such a model, then Eve could have predicted all outcomes in advance, so their exchange would not be quantum-safe anymore and should be aborted. Hence, by chekcing the value of $\mathcal A$ Alice and Bob can choose to proceed with the exchange of the key or abort their attempt and try again.
 
+\section{Exercises}
+
+\begin{framedprob}{}
+	Write the single qubit $X$ gate as a sum of projectors.
+\end{framedprob}
+
+\solution{
+	Since $X$ is symmetric and real-valued, it is trivially Hermitian, which means that it admits spectral decomposition $$X = \sum_{\lambda \in \mathrm{sp}(X)} \lambda P_{\lambda}$$ First, we show that the eigenvalues of $X$ are $\pm 1$, as outlined in this chapter.
+
+	\claim{
+		$\mathrm{sp}(X) = \{-1, +1\}$.
+	}{
+		We compute the eigenvalues of $X$ as follows:
+		\begin{equation*}
+			\begin{split}
+				     & \det(X - \lambda I ) = 0            \\
+				=    & \det \rbk{\rmat{0               & 1 \\ \ & 0} - \rmat{\lambda & 0 \\ 0 & \lambda}} = 0 \\
+				=    & \det \rmat{- \lambda            & 1 \\ 1 - \lambda } = 0 \\
+				=    & \lambda^2 - 1 = 0                   \\
+				=    & (\lambda + 1) (\lambda - 1) = 0     \\
+				\iff & \lambda = \pm 1
+			\end{split}
+		\end{equation*}
+	}
+
+	Then, we need to find the projectors $P_1$ and $P_{-1}$. First, let $\lambda = 1$; we observe that $$X v = \lambda v = v \iff (X - I)v = 0 \iff \rmat{-1 & 1 \\ 1 & -1} \rmat{v_1 v_2} = 0$$ and solving for $v_1$ and $v_2$ we obtain that $$\soe{l}{v_2 - v_1 = 0 \\ v_1 - v_2 = 0} \implies v_1 = v_2 \implies v = \rmat{v_1 \\ v_1} = v_1 \rmat{1 \\ 1}$$ so the eigenspace associated to $\lambda = 1$ is the set of vectors that are scalar multiples of $\rmat{1 \\ 1}$, and in particular the normalized vector is obtained for $$\dfrac{1}{\sqrt{1 + 1}} \rmat{1 \\ 1} = \dfrac{1}{\sqrt 2} \rbk{\rmat{1 \\ 0} + \rmat{0 \\ 1} } = \dfrac{1}{\sqrt 2} (\ket 0 + \ket 1) = \ket +$$ This means that we can use $\ket +$ as basis for the $P_1$ eigenspace. We will skip the details of the calculations for $\lambda = -1$ since they are analogous, but we would end up with $\ket -$ instead of $\ket +$. In the end, this means that $$X = 1 \cdot P_1 - 1 \cdot P_{-1} = \ket + \bra + - \ket - \bra -$$
+}
