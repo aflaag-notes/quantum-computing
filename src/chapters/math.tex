@@ -760,10 +760,10 @@ which is clearly a contradiction $\lightning$.
     \claim{
         If $P$ is an idempotent operator, its only possible eigenvalues are 0 and 1.
     }{
-        By definition $v$ is an eigenvalue of $P$ associated to the eigenvector $\lambda$ if it holds that $$Pv = \lambda v$$ Hence, we observe that $$P^2 v = P (P v) = P (\lambda v) = \lambda Pv = \lambda(\lambda v) = \lambda^2 v$$ and therefore we have that $$\lambda^2 v = P^2 = Pv = \lambda v$$ which implies that $$\lambda^2v - \lambda v = 0 \iff (\lambda^2 - \lambda)v = 0$$ Finally, since $v$ is an eigenvector it holds that $v \neq 0$, therefore it must be that the last equation is true only if $$\lambda^2 - \lambda = 0 \iff \lambda = 0 \lor \lambda = 1$$
+        By definition $v$ is an eigenvalue of $P$ associated to the eigenvector $\lambda$ if it holds that $$Pv = \lambda v$$ Hence, we observe that $$P^2 v = P (P v) = P (\lambda v) = \lambda Pv = \lambda(\lambda v) = \lambda^2 v$$ and therefore we have that $$\lambda^2 v = P^2v = Pv = \lambda v$$ which implies that $$\lambda^2v - \lambda v = 0 \iff (\lambda^2 - \lambda)v = 0$$ Finally, since $v$ is an eigenvector it holds that $v \neq 0$, therefore it must be that the last equation is true only if $$\lambda^2 - \lambda = 0 \iff \lambda = 0 \lor \lambda = 1$$
     }
 
-    From this claim, we immediately obtain that each $\lambda_i$ is either 0 or 1, which means that its spectral decomposition can be written as $$P = \sum_j P_{\lambda_j}$$ for some non-zero eigenvalues $\lambda_j$ of $P$. Finally, since $P_{\lambda_j}$ are projectors onto different eigenspaces they are orthogonal between each other, which means that the statements follows immediately from \cref{projector sum}.
+    From this claim, we immediately obtain that each $\lambda_i$ is either 0 or 1, which means that its spectral decomposition can be written as $$P = \sum_j P_{\lambda_j}$$ for some non-zero eigenvalues $\lambda_j$ of $P$. Finally, since $P_{\lambda_j}$ are projectors onto different eigenspaces they are orthogonal between each other, which means that the statement follows immediately from \cref{projector sum}.
 }
 
 \begin{framedprob}{}
@@ -896,5 +896,13 @@ which is clearly a contradiction $\lightning$.
 \end{framedprob}
 
 \solution{
-    TODO \todo{da scrivere}
+    Let $z, w \neq 0$ bet two complex numbers, and consider their polar forms $$z = r e^{i \theta} \quad w = s e^{i \varphi}$$ where $\theta, \varphi \in \R$ and $r = \abs z$, $s = \abs w$. Most importantly, we observe that $r, s > 0$ since $z, w \neq 0$. This implies that
+    \begin{equation*}
+        \begin{alignedat}{2}
+            \abs{\dfrac{z}{w}} & = \abs{\dfrac{r e^{i \theta}}{s e^{e^{\varphi}}}} &  \\ 
+                               & = \abs{\dfrac{r}{s} \cdot e^{i (\theta - \varphi)}} & \\ 
+                               & = \dfrac{r}{s} \cdot \abs{e^{i (\theta - \varphi)}} & \quad \quad (\mbox{since $r, s > 0$}) \\ 
+                               & = \dfrac{\abs z}{\abs w} & \quad \quad (\forall \alpha \in \R \quad \abs{e^{i \alpha}} = 1) \\ 
+        \end{alignedat}
+    \end{equation*}
 }

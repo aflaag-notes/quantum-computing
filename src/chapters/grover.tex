@@ -441,3 +441,67 @@ Lastly, another problem that quantum counting solves is knowing if $M$ is 0 or n
     \end{equation*}
     which ultimately implies that $$W  = 2 \ket s \bra s - I$$
 }
+
+\begin{framedprob}{}
+    Given an array of size $N = 4$ which contains only one \curlyquotes{solution} element at index 3, prove that Grover's algorithm finds the solution in only 1 application of the $G$ operator.
+\end{framedprob}
+
+\solution{
+    First, we observe that since $N = 4$ we only need $n = 2$ qubits to perform Grover's algorithm, and in particular we also know that $$f(00) = f(01) = f(10) = 0 \quad \quad f(11) = 1$$ since the only solution element of the array is in the last position. Let's see what happens after running Grover's algorithm with only 1 application of the $G$ operator (we will omit the ancilla qubits in the calculations for brevity)
+    \begin{equation*}
+        \begin{split}
+            & q_0 \\ 
+            = & \ket{0}^{\otimes 2} \\ 
+            \xrightarrow{H^{\otimes 2}(q_0)} & (H \otimes H)(\ket 0 \otimes \ket 0) \\ 
+             = & H \ket 0 \otimes H \ket 0 \\ 
+              = & \ket + \otimes \ket + \\ 
+              = & \dfrac{1}{\sqrt 2}(\ket 0 + \ket 1) \otimes \dfrac{1}{\sqrt 2} (\ket 0 + \ket 1) \\ 
+              = & \dfrac{1}{2} (\ket {00} + \ket{01} + \ket{10} + \ket{11}) \\ 
+              \xrightarrow{O_f(q_0)} & \dfrac{1}{2} (O_f\ket {00} + O_f \ket{01} + O_f \ket{10} + O_f \ket{11}) \\ 
+              = & \dfrac{1}{2} (\ket{00} + \ket{01} + \ket{10} - \ket{11}) \\ 
+        \end{split}
+    \end{equation*}
+    The last part of the calculations involves applying the $W$ operator on the state, but since the calculations are quite dense we will see what happens with only one of the products and other ones can be proved to be analogous.
+    
+    \claim{
+        $W \ket{00} = \tfrac{1}{2}(- \ket{00} + \ket{01} + \ket{10} + \ket{11})$
+    }{
+        Recall that $\ket s = \dfrac{1}{\sqrt N} \sum_{x \in \B^n} \ket x$ therefore, in our case, we have that $$\ket s = \dfrac{1}{2}(\ket{00} +\ket{01} + \ket{10} + \ket{11})$$ and $\bra s$ is defined accordingly. Hence, we have that
+        \begin{equation*}
+            \begin{split}
+                & W \ket{00} \\ 
+                = & (2 \ket s \bra s - I) \ket{00} \\ 
+                = & 2 \ket s \braket{s|00} - \ket{00} \\ 
+                = & 2 \ket s \dfrac{1}{2}(\bra{00} + \bra{01} + \bra{10} + \bra{11}) \ket{00} - \ket {00} \\ 
+                = & \ket s (\braket{0|0} \braket{00} + \braket{0|0} \braket{1|0} + \braket{1|0} \braket{00} + \braket{1|0} \braket{1|0}) - \ket{00} \\ 
+                = & \ket s \abs{\braket{0|0}}^2 - \ket{00}  \\
+                = & \ket s  - \ket{00} \\ 
+                = & \dfrac{1}{2} (\ket{00} + \ket{01} + \ket{10} + \ket{11}) - \ket{00} \\ 
+                = & \dfrac{1}{2} (- \ket{00} + \ket{01} +\ket{10} + \ket{11})
+            \end{split}
+        \end{equation*}
+    }
+
+    Then, to conclude the calculations we see that 
+    \begin{equation*}
+        \begin{split}
+            & \dfrac{1}{2} (\ket{00} + \ket{01} + \ket{10} - \ket{11}) \\ 
+            \xrightarrow{W(q_0)} & \dfrac{1}{2}( W\ket{00} + W\ket{01} + W \ket{10} - W \ket{11}) \\ 
+            = & \dfrac{1}{2} \sbk{\dfrac{1}{2}(-\ket {00} + \ket{01} + \ket{10} + \ket{11}) + \dfrac{1}{2} (\ket{00} - \ket{01} + \ket{10} + \ket{11}) + W \ket {10} - W \ket{11}} \\
+            = & \dfrac{1}{2} \sbk{(\ket{10} + \ket{11}) + \dfrac{1}{2}(\ket {00} + \ket{01} - \ket{10} + \ket{11}) - \dfrac{1}{2}(\ket{00} + \ket{01} +\ket{10} -\ket{11})} \\
+            = & \dfrac{1}{2} \sbk{(\ket{10} + \ket{11})  + (- \ket{10} + \ket{11})} \\
+            = & \dfrac{1}{2} \cdot 2\cdot \ket{11} \\
+            = & \ket {11}
+        \end{split}
+    \end{equation*}
+    This proves that when measuring the final state, the qubit will collapse to the state $\ket{11}$ with probability 1, meaning that the solution is in fact at index 3.
+
+    Although this solution is perfectly valid, it does not really capture the idea of Grover's algorithm, so we want to briefly present a more \curlyquotes{intuitive} solution of this exercise. Since $\ket a$ is the superposition of all the non-solution indices, and $\ket b$ is the superposition of the solution indices, we have that $$\ket a = \dfrac{1}{\sqrt 3}(\ket{00} + \ket{01} + \ket{10}) \quad \quad \ket b = \ket{11}$$ and indeed $$\ket s = \dfrac{\sqrt 3}{2} \ket a + \dfrac{1}{2} \ket b$$ which means that $$\cos \theta = \dfrac{\sqrt 3}{2} \quad \quad \sin \theta = \dfrac{1}{2}$$ and the only possible angle satisfying these requirements is $\theta = \tfrac{\pi}{6}$. Indeed, since we know that the $G$ operator performs a rotation of its input by an angle of $2 \theta$, Grover's algorithm on this array would act as follows:
+
+    \begin{itemize}
+        \item first, apply $H^{\otimes 2}$ to $\ket 0 ^{\otimes 2}$, thus placing the input to $\ket s$; this means that the angle between the input and $\ket a$ is now $\tfrac{\pi}{6}$
+        \item then apply $G$, i.e. rotate the input by $$2 \theta = 2 \cdot \dfrac{\pi}{6} = \dfrac{\pi}{3}$$ which means that the angle between the input and $\ket s$ will now become $$\dfrac{\pi}{6} + \dfrac{\pi}{3} = \dfrac{\pi}{2}$$
+    \end{itemize}
+
+    In other words, the input now lies precisely over $\ket b$, meaning that Grover's algorithm correctly found the solution element with 1 application of the $G$ operator.
+}
