@@ -5,8 +5,8 @@ These are my [notes](<https://raw.githubusercontent.com/aflaag-notes/quantum-com
 ## Finished chapters
 
 - [ ] Chapter 1
-- [ ] Chapter 2
-- [ ] Chapter 3 (halfway finished)
+- [ ] Chapter 2  (halfway finished)
+- [ ] Chapter 3
 - [x] Chapter 4
 - [ ] Chapter 5
 - [ ] Chapter 6
