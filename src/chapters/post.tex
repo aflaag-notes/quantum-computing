@@ -27,9 +27,35 @@ We observe that the Schrödinger equation is a first-order linear differential e
 	\item $H$ which is the system \tit{Hamiltonian}, a self-adjoint operator that describes the total energy of the system
 \end{itemize}
 
-The solution of the Schrödinger equation is $$v(t_1) = U(t_2, t_1)v(t_1)$$ where $U(t_2, t_1)$ is called \tbf{time-evaluation operator}, and it is defined as follows: $$U(t_2, t_1) = e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}$$ (assuming $H$ does not depend on time). We recall that $H$ is a matrix, so we are raising $e$ to the power of a matrix, an operation that is defined by the power series of the exponential as follows: $$e^A = \sum_{n = 0}^\infty{\dfrac{A^n}{n!}}$$ What is interesting about this operator is that $U$ is \tbf{unitary}, and in order to show it is suffices to prove that $U^\dag = U^{-1}$. But how do we compute the adjoint of $U$? We observe that by the properties of the adjoint operation it holds that $$\rbk{e^A}^\dag = \rbk{\sum_{n = 0}^\infty{\dfrac{A^n}{n!}}}^\dag = \sum_{n = 0}^\infty{\dfrac{(A^n)^\dag}{n!}} = \sum_{n = 0}^\infty{\dfrac{(A^\dag)^n}{n!}} = e^{A^\dag}$$ which means that the adjoint of an exponential is the exponential of the adjoint --- to be precise, we implicitly used the fact that the adjoint operation is \tit{continuous}. This suffices to prove that $$U^\dag = \rbk{e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}}^\dag = e^{\rbk{-\tfrac{i}{\hbar}H(t_2 - t_1)}^\dag} = e^{\tfrac{i}{\hbar}H(t_2 - t_1)} = \rbk{e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}}^{-1} = U^{-1}$$
+The solution of the Schrödinger equation is $$v(t_1) = U(t_2, t_1)v(t_1)$$ where $U(t_2, t_1)$ is called \tbf{time-evaluation operator}, and it is defined as follows: $$U(t_2, t_1) = e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}$$ (assuming $H$ does not depend on time). However, we recall that $H$ is a matrix, so we are raising $e$ to the power of a matrix, an operation that is defined by the power series of the exponential as follows $$e^A = \sum_{n = 0}^\infty{\dfrac{A^n}{n!}}$$ This definition implies some interesting properties.
 
-This is a crucial characteristic for quantum mechanics: since $U$ is unitary, we know that it preserves the scalar product by \cref{unitary alt def}, therefore it also preserves \tbf{probabilities and norms}. This is why we say that evolution in quantum systems --- or \tit{quantum evolution}, for short --- is unitary. Indeed, the second postulate is sometimes formulated equivalently as follows.
+\begin{framedprop}{}
+    For any operator $A$ it holds that $$\rbk{e^A}^\dag = e^{A^\dag}$$
+\end{framedprop}
+
+\begin{proof}
+    Since the adjoint operation is continuous, we have that 
+    \begin{equation*}
+        \begin{split}
+            \rbk{e^A}^\dag  &= \rbk{\sum_{n = 0}^\infty{\dfrac{A^n}{n!}}}^\dag \\ 
+             & = \sum_{n = 0}^\infty{\dfrac{(A^n)^\dag}{n!}} \\ 
+             & = \sum_{n = 0}^\infty{\dfrac{(A^\dag)^n}{n!}} \\ 
+             & = e^{A^\dag}
+        \end{split}
+    \end{equation*}
+\end{proof}
+
+From this observation, since $H$ is self-adjoint we conclude that
+\begin{equation*}
+    \begin{split}
+        U^\dag & = \rbk{e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}}^\dag \\ 
+               & = e^{\rbk{-\tfrac{i}{\hbar}H(t_2 - t_1)}^\dag} \\ 
+               & = e^{\tfrac{i}{\hbar}H(t_2 - t_1)}  \\ 
+               & = \rbk{e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}}^{-1} \\ 
+               & = U^{-1}
+    \end{split}
+\end{equation*}
+which proves that $U$ is \tbf{unitary}! This is a crucial characteristic for quantum mechanics: since $U$ is unitary, we know that it preserves the scalar product by \cref{unitary alt def}, therefore it also preserves \tbf{probabilities and norms}. This is why we say that evolution in quantum systems --- or \tit{quantum evolution}, for short --- is unitary. Indeed, the second postulate is sometimes formulated equivalently as follows.
 
 \begin{framedpost}{Time evolution postulate (alt. ver.)}
 	The evolution of a \tit{closed} quantum system is described by a \tit{unitary transformation}. That is, the state $\ket \psi$ of the system at time $t_1$ is related to the state $\ket{\psi'}$ of the system at time $t_2$ as follows $$\ket{\psi'} = U \ket \psi$$ where $U(t_2, t_1) = e^{-\tfrac{i}{\hbar}H(t_2 - t_1)}$.
@@ -84,7 +110,7 @@ This formulation was refined in 1926 by Max Born \cite{born}, when he derived th
 		\begin{alignedat}{2}
 			\Pr[\mbox{measure}(\ket \psi = \ket \lambda)] & = \Pr[A_\psi = \lambda | \ket \psi]            &                                    \\
 			                                              & = \braket{\psi|P_\lambda \psi}                 & \quad (\mbox{by the \nameref{meas post}}) \\
-			                                              & = \braket{\psi|\lambda} \braket{\lambda| \psi}
+                                                                      & = \braket{\psi|\lambda} \braket{\lambda| \psi} & \\
 			                                              & = \abs{\braket{\psi|\lambda}}^2                &                                    \\
 		\end{alignedat}
 	\end{equation*}

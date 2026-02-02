@@ -497,24 +497,10 @@ Given a scalar product vector space $U$, and a linear subspace $V \subset U$, th
 	Given a Hilbert space $\mathcal H$, and a linear subspace $V \subset \mathcal H$, we say that $V$ is \tbf{topologically closed} if any sequence of vectors defined over $V$ converges in $V$.
 \end{frameddefn}
 
-Interestingly enough, given a topologically closed subspace $V \subset \mathcal H$ of some Hilbert space, we can write any vector $u \in V$ as the sum of two orthogonal vectors of $V$ and $V^\bot$, as follows. Let $\{f_1, \ldots, f_n\}$ be an orthonormal basis of $V$, and define the following vectors $$\forall u \in U \quad u_V := \sum_{i = 1}^n{\braket{f_i|v} f_i}$$ Then, if we call $$u_{V^\bot} := u - u_V$$, we see that
-% \begin{equation*}
-%     \begin{alignedat}{2}
-%         \braket{u_V|u_{V^\bot}} &= \braket{u_V|u - u_V} & \\ 
-%                                 &= \braket{u_V|u} - \braket{u_V|u_V} & \\ 
-%                                 &= \braket{\sum_{i = 1}^n{\braket{f_i|u} f_i}|u} - \braket{u_V|u_V} & \\ 
-%                                 &= \sum_{i = 1}^n{\braket{f_i|u} \braket{f_i|u}} - \braket{u_V|u_V} & \\ 
-%                                 &= \sum_{i = 1}^n{\abs{\braket{f_i|u}}^2} - \braket{u_V|u_V} & \\ 
-%                                 &= \sum_{i = 1}^n{\overline{\braket{f_i|u}} \braket{f_i|u}} & \quad (\mbox{since $\abs{z}^2 = z \cdot \overline z$}) \\ 
-%                                 & = \sum_{i = 1}^n{\sum_{j = 1}^n{\overline{\braket{f_i|u}} \braket{f_j|u} \delta_{i j}}} & \quad (\mbox{since $\delta_{ij} = \braket{f_i|f_j}$})
-%     \end{alignedat}
-% \end{equation*}
-TODO \todo{decommenta e finisci la formula} which indeed proves that $u_V$ and $u_{V^\bot}$ are orthogonal to each other.
-
-With this observation, we can finally define the projector operators.
+Interestingly enough, given a topologically closed subspace $V \subset \mathcal H$ of some Hilbert space, we can write any vector $u \in V$ as the sum of two orthogonal vectors of $V$ and $V^\bot$, as follows. Let $\{f_1, \ldots, f_n\}$ be an orthonormal basis of $V$, and define the following vectors $$\forall u \in U \quad u_V := \sum_{i = 1}^n{\braket{f_i|u} \ket{f_i}}$$ Then, if we call $$u_{V^\bot} := u - u_V$$ we see that we can actually show that that $u_V$ and $u_{V^\bot}$ are orthogonal to each other --- we will prove this fact in \cref{proj ex}. With this observation, we can finally define the projector operators.
 
 \begin{frameddefn}{Projector}
-	Given a Hilbert space $\mathcal H$, and a closed subspace $V \subset \mathcal H$, the \tbf{projector} operator that projects any given vector $v \in \mathcal H$ onto $V$ is defined as follows: $$\funcmap{P_V}{\mathcal H}{V}{u}{u_V = \sum_{i = 1}^n{\braket{f_i|u} f_i}}$$ where $\{f_1, \ldots, f_n\}$ is an orthonormal basis of $V$.
+    Given a Hilbert space $\mathcal H$, and a closed subspace $V \subset \mathcal H$, the \tbf{projector} operator that projects any given vector $v \in \mathcal H$ onto $V$ is defined as follows: $$\funcmap{P_V}{\mathcal H}{V}{u}{u_V = \sum_{i = 1}^n{\braket{f_i|u} \ket{f_i}}}$$ where $\{f_1, \ldots, f_n\}$ is an orthonormal basis of $V$.
 \end{frameddefn}
 
 Most importantly, given the map in the definition we have that the projector operator $P_V$ is defined as follows $$P_V := \sum_{i = 1}^n{\ket{f_i} \bra{f_i}}$$ Clearly, by definition of $u_{V^\bot}$ it holds that $$\funcmap{P_{V^\bot}}{\mathcal H}{V^\bot}{u}{u_{V^\bot} := u - u_V}$$ Moreover, since $P_V$ performs a projection, we have that $$\forall u \in \mathcal H \quad u \in V \iff P_Vu = u$$ and that $$\forall u \in \mathcal H \quad u \in V^\bot \iff P_V u = 0$$
@@ -528,7 +514,7 @@ Most importantly, given the map in the definition we have that the projector ope
 \end{framedthm}
 
 \begin{proof}
-	We first prove the direct implication. Suppose that $P_V$ is the projector of a vector space $V \subset \mathcal H$, meaning that $P_V$ can be written as $$P_V = \sum_{i = 1}^n \ket {f_i} \bra{f_i}$$ for some orthonormal basis $\{f_i\}_{i = 1}^n$ of $V$. Then, we observe that
+	We first prove the direct implication. Suppose that $P_V$ is the projector of a closed subspace $V \subset \mathcal H$, meaning that $P_V$ can be written as $$P_V = \sum_{i = 1}^n \ket {f_i} \bra{f_i}$$ for some orthonormal basis $\{f_i\}_{i = 1}^n$ of $V$. Then, we observe that
 	\begin{equation*}
 		\begin{split}
 			P_V^2 & = \rbk{\sum_{i = 1}^n \ket{f_i} \bra{f_i}} \rbk{\sum_{j = 1}^n \ket{f_j} \bra{f_j}} \\
@@ -552,7 +538,7 @@ Most importantly, given the map in the definition we have that the projector ope
 
 Given a Hilbert space $\mathcal H$, and two topologically closed subspaces $V, W \subset \mathcal H$, we say that $P_V$ and $P_W$ are \tbf{orthogonal} if it holds that $V \bot W$. Now, fix a vector $u \in \mathcal H$; by definition $P_Vu$ is a vector that lies inside $V$, therefore it holds that $$P_W(P_Vu) = 0$$ since $V \bot W$, and by the same reasoning applied on $W$ first we conclude that $$P_WP_V = P_VP_W = \mathbf 0$$ where $\mathbf 0$ is the \tbf{zero operator} --- indeed, it is a zero matrix.
 
-As a final note, if $A$ is an linear operator, and $\lambda$ is an eigenvalue of $A$, we denote with $P_\lambda$ the projector that projects vectors onto the eigenspace associated to $\lambda$.
+As a final note, if $A$ is a linear operator, and $\lambda$ is an eigenvalue of $A$, we denote with $P_\lambda$ the projector that projects vectors onto the eigenspace associated to $\lambda$.
 
 \begin{framedprop}[label={projector sum}]{}
 	If $P$ and $Q$ are two orthogonal projectors, then $P + Q$ is a projector.
@@ -605,7 +591,7 @@ which clearly shows that, in general, $P_{\lambda_i} \neq \ket{\lambda_i} \bra{\
 
 \subsection{General definition}
 
-The last operation that we need to introduce into our mathematical background is the \tbf{tensor product}. There are multiple ways to define the tensor product.
+The last operation that we need to introduce into our mathematical background is the \tbf{tensor product}, and there are multiple ways to define it. We will first show the most general form, then we will see what version we will employ for our purposes.
 
 \begin{frameddefn}{Tensor product}
 	Given two vector spaces $V$ and $W$ defined over the same field, the \tbf{tensor product} $V \otimes W$ is a vector space together with a bilinear map $$\func{\otimes}{V \times W}{V \otimes W}$$ such that for every vector space $X$, and a bilinear map $\func{f}{V \times W}{X}$ there exists a unique linear map $\func{\tilde f}{V \otimes W}{X}$ with $$f = \tilde f \circ \otimes$$
@@ -662,9 +648,9 @@ We may call the first two as \tit{distributive properties}. Let's consider an ex
 		 & = \rmat{ac                                                                                                                                      \\ ad \\ bc \\ bd} \\
 	\end{split}
 \end{equation*}
-Thus, in our example we have that $\tilde f = \varphi$ itself and $X = \R^4$, indeed $f = \varphi \circ \otimes$ is a function that maps pairs of two-dimensional vectors in $\R^2 \times \R^2$ into 4-dimensional vectors inside $\R^4$. This example also shows that the definition of tensor product does not depend on the choice of the vector space $X$, and for our purposes it is practical to choose a vector space that is isomporphic to $V \otimes W$.
+Thus, in our example we have that $\tilde f = \varphi$ itself and $X = \R^4$, indeed $f = \varphi \circ \otimes$ is a function that maps pairs of 2-dimensional vectors in $\R^2 \times \R^2$ into 4-dimensional vectors inside $\R^4$. This example also shows that the definition of tensor product does not depend on the choice of the vector space $X$, and for our purposes it is practical to choose a vector space that is isomporphic to $V \otimes W$.
 
-What is the purpose of the tensor product in the first place? Given a vector space $V$, let $$\mbox{Functions}(V) := \{\func{f}{V}{K}\}$$ be the set of functions from $V$ to some other field $K$. It can be proven that this set forms a \tbf{vector space}. Then, the \tbf{tensor product} is the mathematical object that enables the following $$\mbox{Functions}(V \times W) = \mbox{Functions}(V) \otimes \mbox{Functions}(W)$$ This property is very useful as it allows to reason about functions on $V \times W$ not as a completely new object, but by studying it in terms of functions on $V$ and $W$ individually. In general, it allows to deal with objects that are \curlyquotes{more managable}. For instance, in our previous example the pair $\rbk{ \rmat{a \\ b}, \rmat{c \\ d}} \in \R^2 \times \R^2$ lies on a \tit{grid}, while an object $\rmat{ac \\ ad \\ bc \\ bd} \in \R^4$ is just a 4-dimensional vector.
+What is the purpose of the tensor product in the first place? Given a vector space $V$, let $$\mbox{Functions}(V) := \{\func{f}{V}{\mathbb K}\}$$ be the set of functions from $V$ to some other field $\mathbb K$. It can be proven that this set forms a \tbf{vector space}. Then, the \tbf{tensor product} is the mathematical object that enables the following equality $$\mbox{Functions}(V \times W) = \mbox{Functions}(V) \otimes \mbox{Functions}(W)$$ This property is very useful as it allows to reason about functions on $V \times W$ not as a completely new object, but by studying it in terms of functions on $V$ and $W$ individually. In general, it allows to deal with objects that are \curlyquotes{more managable}. For instance, in our previous example the pair $\rbk{ \rmat{a \\ b}, \rmat{c \\ d}} \in \R^2 \times \R^2$ lies on a \tit{grid}, while an object $\rmat{ac \\ ad \\ bc \\ bd} \in \R^4$ is just a 4-dimensional vector.
 
 Lastly, from the definition we observe that $$\dim(V \otimes W) = \dim V \cdot \dim W$$ indeed $V$ and $W$ can have different dimensions. For instance, a pair of vectors $(v, w) \in \R^2 \times \R^3$ lies in a 5-dimensional space, since $$\dim(V \times W) = \dim V + \dim W$$ however the tensor product generates a bigger space of size $$\dim (\R^2 \otimes \R^3) = \dim \R^2 \cdot \dim \R^3 = 2 \cdot 3 = 6$$ Indeed, we have that $$\R^2 \times \R^3 \cong \R^5 \quad \quad \R^2 \otimes \R^3 \cong \R^6$$
 
@@ -688,7 +674,7 @@ where the last column vector contains \tit{all} the pairs $(\alpha_i, \beta_j)$ 
 
 \subsection{Kronecker product}
 
-To conclude this chapter, let's look at the tensor product from the point of view of quantum computing. Until now, we presented examples regarding real-valued vectors, however, when talking about Hibert spaces in quantum computing we often need \tit{complex} values, as we already know. Consider a qubit $$\ket \psi = \alpha \ket 0 + \beta \ket 1$$ From this very formulation, we see that we are representing $\ket \psi$ under the \tbf{computational basis} $\{\ket 0, \ket 1\}$ we already encountered. However, since $\alpha, \beta \in \C$ this implies that $\ket \psi \in \C^2$. Now, consider a unitary operator acting on one qubit, for example the Hadamard gate $$H = \dfrac{1}{\sqrt 2} \rmat{1 & 1 \\ 1 & -1}$$ Our next goal is to compute $H \otimes H$. Clearly $H \in \C^{2 \times 2}$, therefore $H \otimes H \in \C^{2 \times 2} \otimes \C^{2 \times 2}$ which yields a space isomporphic to $\C^{16}$. However, since $H$ is a matrix it is not convenient to express the result inside $\C^{16}$, so we usually represent it inside $\C^{4 \times 4}$, which is still isomporphic to $\C^{16}$. After some calculations, we can show that $$H \otimes H = \dfrac{1}{2} \rmat{1 & 1 & 1 & 1 \\ 1 & -1 & 1 & -1 \\ 1 & 1 & -1 & -1 \\ 1  & -1 & -1 & 1}$$ However, we notice an interesting pattern in this result: this $4 \times 4$ matrix is essentially split into 4 sections that are \curlyquotes{multiples} of $H$ $$H \otimes H = \dfrac{1}{\sqrt 2} \rmat{1 \cdot H & 1 \cdot H \\ 1 \cdot H & -1 \cdot H}$$ In fact, for any two matrices $$A = \rmat{a & b \\ c & d} \quad \quad B = \rmat{e & f \\ g & h}$$ it holds that $$A \otimes B = \rmat{a B & b B \\ c B & d B } = \rmat{ae & af & be & bf \\ ag & ah & bg & bh \\ ce & cf & de & df \\ cg & ch & dg & dh}$$
+To conclude this chapter, let's look at the tensor product from the point of view of quantum computing. Until now, we presented examples regarding real-valued vectors, however, when talking about Hibert spaces in quantum computing we need \tit{complex} values, as we already know. Consider a qubit $$\ket \psi = \alpha \ket 0 + \beta \ket 1$$ From this very formulation, we see that we are representing $\ket \psi$ under the \tbf{computational basis} $\{\ket 0, \ket 1\}$ we already encountered. However, since $\alpha, \beta \in \C$ this implies that $\ket \psi \in \C^2$. Now, consider a unitary operator acting on one qubit, for example the Hadamard gate $$H = \dfrac{1}{\sqrt 2} \rmat{1 & 1 \\ 1 & -1}$$ Our next goal is to compute $H \otimes H$. Clearly $H \in \C^{2 \times 2}$, therefore $H \otimes H \in \C^{2 \times 2} \otimes \C^{2 \times 2}$ which yields a space isomporphic to $\C^{16}$. However, since $H$ is a matrix it is not convenient to express the result inside $\C^{16}$, so we usually represent it inside $\C^{4 \times 4}$, which is still isomporphic to $\C^{16}$. After some calculations, we can show that $$H \otimes H = \dfrac{1}{2} \rmat{1 & 1 & 1 & 1 \\ 1 & -1 & 1 & -1 \\ 1 & 1 & -1 & -1 \\ 1  & -1 & -1 & 1}$$ However, we notice an interesting pattern in this result: this $4 \times 4$ matrix is essentially split into 4 sections that are \curlyquotes{multiples} of $H$ $$H \otimes H = \dfrac{1}{\sqrt 2} \rmat{1 \cdot H & 1 \cdot H \\ 1 \cdot H & -1 \cdot H}$$ In fact, for any two matrices $$A = \rmat{a & b \\ c & d} \quad \quad B = \rmat{e & f \\ g & h}$$ it holds that $$A \otimes B = \rmat{a B & b B \\ c B & d B } = \rmat{ae & af & be & bf \\ ag & ah & bg & bh \\ ce & cf & de & df \\ cg & ch & dg & dh}$$
 
 We are finally ready to provide the formulation of the tensor product we will adopt for our purposes.
 
@@ -696,7 +682,7 @@ We are finally ready to provide the formulation of the tensor product we will ad
 	Given two matrices $A \in \mathbb F^{m \times n}$ and $B \in \mathbb F^{p \times q}$ defined over some field $\mathbb F$, the \tbf{Kronecker product} between $A$ and $B$ defines $A \otimes B$ as follows $$A \otimes B = \rmat{a_{11} B & \ldots & a_{1n}B \\ \vdots & \ddots & \vdots \\ a_{m1} B & \ldots & a_{mn} B} \in \F^{mp \times nq}$$
 \end{frameddefn}
 
-As an example, we observe that $$\rmat{a \\ b} \otimes \rmat{c \\ d} = \rmat{a \rmat{c \\ d} \\ b \rmat{c \\ d}} = \rmat{ac \\ ad \\ bc \\ bd}$$ which matches our previous results. From now on, we will assume that the output of any tensor product is in this form. Most importantly, through the Kronecker product the following property holds, which will be used extensively through these notes.
+As an example, we observe that $$\rmat{a \\ b} \otimes \rmat{c \\ d} = \rmat{a \rmat{c \\ d} \\ b \rmat{c \\ d}} = \rmat{ac \\ ad \\ bc \\ bd}$$ which matches our previous results. From now on, we will assume that the output of any tensor product is in this form. Most importantly, through the Kronecker product the following properties hold, which will be used extensively throughout these notes.
 
 \begin{framedprop}[label={broken tensor}]{}
 	For any field $\mathbb F$, given two matrices $A$ and $B$ and two vectors $v$ and $w$ such that $$A \in \mathbb F ^{m \times n} \quad B \in \mathbb F^{p \times q} \quad v \in \mathbb F^n \quad w \in \mathbb F^q$$ it holds that $$(A \otimes B)(v \otimes w) = Av \otimes Bw$$
@@ -705,8 +691,6 @@ As an example, we observe that $$\rmat{a \\ b} \otimes \rmat{c \\ d} = \rmat{a \
 \begin{framedprop}[label={tensor adj}]{}
 	For any two matrices $A$ and $B$ defined over a Hilbert space, it holds that $$(A \otimes B)^\dag = A^\dag \otimes B^\dag$$
 \end{framedprop}
-
-Another very important property of the tensor product is the way it behaves together with our scalar product.
 
 \begin{framedprop}[label={tensor scalar}]{}
 	For any four vectors $\ket a, \ket c \in \mathcal H_1$ and $\ket b, \ket d \in \mathcal H_2$ of two Hilbert spaces $\mathcal H_1$ and $\mathcal H_2$, it holds that $$\braket{a \otimes b| c \otimes d} = \braket{a|c} \braket{b|d}$$
@@ -735,7 +719,7 @@ which ultimately concludes that $$\norm{\bigotimes_{i = 1}^n q_i} = 1$$
 }
 
 \begin{framedprob}{}
-	Let $\{f_i\}_{i = 1}^n$ be an orthonormal basis of a vector space $V$, and fix a vector $u \in V$; then, consider $$u_V := \sum_{i = 1}^n{\braket{f_i|u} f_i}$$ Prove that the definition of $u_V$ does not depend on the choice of $\{f_i\}_{i = 1}^n$
+    Let $\{f_i\}_{i = 1}^n$ be an orthonormal basis of a vector space $V$, and fix a vector $u \in V$; then, consider $$u_V := \sum_{i = 1}^n{\braket{f_i|u} \ket{f_i}}$$ Prove that the definition of $u_V$ does not depend on the choice of $\{f_i\}_{i = 1}^n$
 \end{framedprob}
 
 \solution{
@@ -825,22 +809,22 @@ which is clearly a contradiction $\lightning$.
     Then, since the vector norm is defined positive we ultimately conclude that $$\norm{u + v}^2 \le (\norm u + \norm v)^2 \implies \norm{u + v} \le \norm u + \norm v$$
 }
 
-\begin{framedprob}{}
-    Prove the second property of the \nameref{spectral thm}, i.e. that the eigenvalues of a unitary operator are complex values of modulus 1.
-\end{framedprob}
-
-\solution{
-    Let $U$ be a unitary transformation defined over some Hilbert space $\mathcal H$; by \cref{unitary alt def} we know that $$\forall x, y \in \mathcal H \quad \braket{Ux|Uy} = \braket{x|y}$$ Let $v \in \mathcal H$ be an eigenvector of $U$, i.e. there exists $\lambda \in \mbox{sp}(U)$ such that $$U \ket v = \lambda v$$ Then, we have that
-    \begin{equation*}
-        \begin{split}
-            \braket{v|v} & = \braket{Uv|Uv} \\ 
-                         & = \braket{\lambda v|\lambda v} \\
-                            & = \overline \lambda \bra v \cdot \lambda \ket v \\ 
-                            & = \abs{\lambda}^2 \braket{v|v}
-        \end{split}
-    \end{equation*}
-    and since $v \neq 0$ because it is an eigenvector of $U$ we have that $$\braket{v|v} = \abs{\lambda}^2 \braket{v|v} \iff 1 = \abs{\lambda}^2 \implies \abs{\lambda} = 1$$
-}
+% \begin{framedprob}{}
+%     Prove the second property of the \nameref{spectral thm}, i.e. that the eigenvalues of a unitary operator are complex values of modulus 1.
+% \end{framedprob}
+%
+% \solution{
+%     Let $U$ be a unitary transformation defined over some Hilbert space $\mathcal H$; by \cref{unitary alt def} we know that $$\forall x, y \in \mathcal H \quad \braket{Ux|Uy} = \braket{x|y}$$ Let $v \in \mathcal H$ be an eigenvector of $U$, i.e. there exists $\lambda \in \mbox{sp}(U)$ such that $$U \ket v = \lambda v$$ Then, we have that
+%     \begin{equation*}
+%         \begin{split}
+%             \braket{v|v} & = \braket{Uv|Uv} \\ 
+%                          & = \braket{\lambda v|\lambda v} \\
+%                             & = \overline \lambda \bra v \cdot \lambda \ket v \\ 
+%                             & = \abs{\lambda}^2 \braket{v|v}
+%         \end{split}
+%     \end{equation*}
+%     and since $v \neq 0$ because it is an eigenvector of $U$ we have that $$\braket{v|v} = \abs{\lambda}^2 \braket{v|v} \iff 1 = \abs{\lambda}^2 \implies \abs{\lambda} = 1$$
+% }
 
 \begin{framedprob}{}
     Show that if an operator is unitary, it must be linear.
@@ -909,4 +893,32 @@ which is clearly a contradiction $\lightning$.
                                & = \dfrac{\abs z}{\abs w} & \quad \quad (\forall \alpha \in \R \quad \abs{e^{i \alpha}} = 1) \\ 
         \end{alignedat}
     \end{equation*}
+}
+
+\begin{framedprob}[label={prob ex}]{}
+    Show that $u_V$ and $u_{V^\bot}$ are orthogonal.
+\end{framedprob}
+
+\solution{
+    Recall that $$\forall u \in V \quad u_V := \sum_{i = 1}^n \braket{f_i|u} \ket{f_i}$$ for some orthonormal basis $\{f_i\}_{i = 1}^n$ of $V$. Then, we have that
+    \begin{equation*}
+        \begin{split}
+            \braket{u_V|u_{V^\bot}} &= \braket{u_V | u - u_{V^\bot}} \\ 
+                                    & = \braket{u_V | u} - \braket{u_V|u_V} \\ 
+                                    & = \sum_{i = 1}^n \overline{\braket{f_i|u}} \braket{f_i|u} - \sum_{i =1}^n \overline{\braket{f_i|u}} \bra{f_i} \ket {u_V} \\
+                                    & = \sum_{i = 1}^n \abs{\braket{f_i|u}}^2 - \sum_{i =1}^n \overline{\braket{f_i|u}} \bra{f_i}\rbk{\sum_{j = 1}^n \braket{f_j|u} \ket{f_j}} \\
+                                    & = \sum_{i = 1}^n \abs{\braket{f_i|u}}^2 - \sum_{i = 1}^n \sum_{j = 1}^n \overline{\braket{f_i|u}} \bra{f_i} \braket{f_j|u} \ket{f_j } \\
+                                    & = \sum_{i = 1}^n \abs{\braket{f_i|u}}^2 - \sum_{i = 1}^n \abs{\braket{f_i|u}}^2 \\
+                                    & = 0
+        \end{split}
+    \end{equation*}
+    which indeed proves that $u_V$ and $u_{V^\bot}$ are orthogonal.
+}
+
+\begin{framedprob}{}
+    TODO
+\end{framedprob}
+
+\solution{
+    TODO \todo{es sulle radici}
 }

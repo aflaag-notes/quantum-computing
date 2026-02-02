@@ -27,10 +27,10 @@
 \contentsline {subsection}{\numberline {3.1.2}Second postulate}{54}{subsection.3.1.2}%
 \contentsline {subsection}{\numberline {3.1.3}Third postulate}{56}{subsection.3.1.3}%
 \contentsline {subsection}{\numberline {3.1.4}Fourth postulate}{59}{subsection.3.1.4}%
-\contentsline {section}{\numberline {3.2}The density operator}{60}{section.3.2}%
+\contentsline {section}{\numberline {3.2}The density operator}{61}{section.3.2}%
 \contentsline {subsection}{\numberline {3.2.1}Generalization of the third postulate}{61}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Postulates through density operators}{62}{subsection.3.2.2}%
-\contentsline {subsection}{\numberline {3.2.3}Entangled systems}{69}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.2.2}Postulates through density operators}{63}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Entangled systems}{70}{subsection.3.2.3}%
 \contentsline {section}{\numberline {3.3}Exercises}{72}{section.3.3}%
 \contentsline {chapter}{\numberline {4}Quantum algorithms}{75}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Deutsch's algorithm}{76}{section.4.1}%

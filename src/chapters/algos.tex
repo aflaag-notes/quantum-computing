@@ -7,8 +7,7 @@ Consider some computable function $f(x)$ and some classical algorithm that is ab
 How does this work in practice? Recall that we \tit{seemingly arbitrarily} decided to denote the vectors of the canonical basis with binary strings, such as $\ket{000}$, $\ket{001}$, $\ket{010}$ and so on (we chose $n = 3$ for this example). This is no coincidence: since this vectors form a basis, we can write any quantum state $\ket \psi$ as a linear combination of them, and by doing so we obtain something like $$\ket \psi = \sum_{x \in \B^3}{\alpha_x \ket x}$$ Say that we want to compute $f(x)$ for all $x \in \B^3$. In practice, we construct a unitary operator $U_f$ that implements $f$ \tbf{reversibly} --- a property that we will discuss in the following chapters --- for example by acting on an auxiliary register $$U_f(\ket x \otimes \ket 0) = \ket x \otimes \ket{f(x)}$$ Now, by linearity of quantum operators when we apply $U_f$ to $\ket \psi \otimes \ket 0$ we get that
 \begin{equation*}
     \begin{split}
-        U_f (\ket \psi \otimes \ket 0) & = U_f \rbk{\rbk{\sum_{x \in \B^3} \alpha_x \ket x}\otimes \ket 0} \\ 
-                                       & = U_f \rbk{\sum_{x \in \B^3} \alpha_x \ket x \otimes \ket{0}} \\ 
+        U_f (\ket \psi \otimes \ket 0) & = U_f \rbk{\sum_{x \in \B^3} \alpha_x \ket x \otimes \ket 0} \\ 
                                        & = \sum_{x \in \B^3} \alpha_x U_f (\ket x \otimes \ket{0}) \\ 
                                        & = \sum_{x \in \B^3} \alpha_x \ket x \otimes \ket{f(x)}
     \end{split}
