@@ -1,6 +1,6 @@
 \chapter{Mathematical foundations}
 
-Now that we have introduced some preliminary concepts in quantum mechanics and quantum computation, we can turn to the \tbf{mathematical foundations} that will allow us to develop a deeper understanding of the tools ahead. By the end of this chapter, we will be ready to state the postulates of quantum mechanics in a precise form. To prepare for that, we must first lay out several essential definitions and structures.
+Now that we have introduced some preliminary concepts in quantum mechanics and quantum computation, we can turn our attention to the \tbf{mathematical foundations} that will allow us to develop a deeper understanding of the tools ahead. By the end of this chapter, we will be ready to state the postulates of quantum mechanics in a precise form. To prepare for that, we must first lay out several essential definitions and structures.
 
 We will start our mathematical discussion with the definition of \tbf{scalar product} --- we will assume the definitions of vector space, basis and linear independence are already known by the reader.
 
@@ -14,7 +14,7 @@ We will start our mathematical discussion with the definition of \tbf{scalar pro
 	\end{itemize}
 \end{frameddefn}
 
-We see that the first property is the \tit{linearity} of the scalar product, while the second property is usually referred to as \tit{conjugate-symmetry}. Scalar products are also called \tit{inner product}, and are used to define many other tools on top of the vector space considered.
+We see that the first property is the \tit{linearity} of the scalar product, while the second property is usually referred to as \tit{conjugate-symmetry}. Scalar products are also called \tit{inner products}, and are used to define many other tools on top of the vector space considered.
 
 \begin{framedprop}{}
 	For any scalar product vector space $V$, any scalar product satisfies the following property: $$\forall u, v, w \in V, \alpha, \beta \in \C \quad \braket{\alpha u + \beta v, w} = \overline \alpha \braket{u, w} + \overline \beta \braket{v, w}$$
@@ -52,32 +52,32 @@ In particular, the scalar product that we are going to use for our purposes is d
 	\end{itemize}
 \end{proof}
 
+From now on, when we refer to a \curlyquotes{scalar product} we will refer to the Hermitian product.
+
 \begin{framedprop}[label={hermitian prod prop}]{}
-    Given a scalar product vector space $V$, for any two vectors $u, v \in V$ it holds that $$\braket{u|v} = \braket{\overline v | \overline u}$$
+    Given a scalar product vector space $V$, for any two vectors $u, v \in V$ it holds that $$\braket{u,v} = \braket{\overline v , \overline u}$$
 \end{framedprop}
 
 \begin{proof}
     Fix any two vectors $u, v \in V$; then, we have that
     \begin{equation*}
         \begin{split}
-            \braket{u|v} & = \overline{\braket{v|u}} \\ 
+            \braket{u,v} & = \overline{\braket{v,u}} \\ 
                          & = \overline{\sum_{i = 1}^n \overline{u_i}v_i} \\ 
                          & = \sum_{i = 1}^n \overline{\overline{u_i} v_i} \\ 
                          & = \sum_{i = 1}^n \overline{\overline{v_i}} \cdot \overline{u_i} \\ 
-                          & = \braket{\overline v|\overline u}
+                          & = \braket{\overline v,\overline u}
         \end{split}
     \end{equation*}
 \end{proof}
 
-From now on, when we refer to a \curlyquotes{scalar product} we will refer to the Hermitian product.
-
-We are finally ready to explain the \curlyquotes{braket} that we used from the beginning of the previous chapter. This notation was invented by the Nobel Prize in Physics \href{https://it.wikipedia.org/wiki/Paul_Dirac}{Paul Dirac}, and it works as follows: first, observe that our scalar product can be rewritten as follows $$\braket{u, v} = \rmat{\overline{u_1} \cdots \overline{u_n}} \rmat{v_1 \\ \vdots \\ v_n}$$ To be precise, this product would yield a $1 \times 1$ matrix, which can be interpreted as a scalar. Through Dirac notation, we will write $$\braket{u, v} = \braket{u | v}$$ where $\bra u$ is called \tbf{bra}, and $\ket v$ is called \tbf{ket} (as in \curlyquotes{bra-ket}). In other words, we have that $\ket v$ is just a regular column vector $v \in V$ $$\ket v = \rmat{v_1 \\ \vdots \\ v_n}$$ defined over some scalar product vector space $V$, while $\bra u$ is a \tit{linear map} that acts as follows: $$\funcmap{\bra \cdot}{V}{\overline V}{\rmat{u_1 \cdots u_n}}{\rmat{\overline{u_1} \cdots \overline{u_n}}}$$ We observe that from this very definition we can already see the power of the Dirac notation: by writing $$\bra u \cdot \ket v$$ we are writing the product between a row conjugated vector $u$ and a column vector $v$, which will ultimately yield $1 \times 1$ vector containing exatcly $\braket{u, v}$! Therefore, this allows us to write that $$\bra u \cdot \ket v = \braket{u|v}$$
+We are finally ready to explain the \curlyquotes{braket} notation that we used from the beginning of the previous chapter. This notation was invented by the Nobel Prize in Physics \href{https://it.wikipedia.org/wiki/Paul_Dirac}{Paul Dirac}, and it works as follows: first, observe that the Hermitian product can be rewritten as follows $$\braket{u, v} = \rmat{\overline{u_1} \cdots \overline{u_n}} \rmat{v_1 \\ \vdots \\ v_n}$$ To be precise, this product would yield a $1 \times 1$ matrix, which can be interpreted as a scalar. Through Dirac notation, we will write $$\braket{u, v} = \braket{u | v}$$ where $\bra u$ is called \tbf{bra}, and $\ket v$ is called \tbf{ket} (as in \curlyquotes{bra-ket}). In other words, we have that $\ket v$ is just a regular column vector $v \in V$ $$\ket v = \rmat{v_1 \\ \vdots \\ v_n}$$ defined over some scalar product vector space $V$, while $\bra u$ is a \tit{linear map} that acts as follows: $$\funcmap{\bra \cdot}{V}{\overline V}{\rmat{u_1 \\ \vdots \\ u_n}}{\rmat{\overline{u_1} & \cdots & \overline{u_n}}}$$ We observe that from this very definition we can already see the power of the Dirac notation: by writing $$\bra u \cdot \ket v$$ we are writing the product between a row conjugated vector $u$ and a column vector $v$, which will ultimately yield $1 \times 1$ vector containing exatcly $\braket{u, v}$! Therefore, this allows us to write that $$\bra u \cdot \ket v = \braket{u|v}$$
 
 \begin{framedthm}[label={cs ineq}]{Cauchy-Schwarz inequality}
 	Given a scalar product vector space $V$, it holds that $$\forall u, v \in V \quad \abs{\braket{u|v}} \le \sqrt{\braket{u|u} \braket{v|v}}$$ where the equality holds if and only if $u$ and $v$ are linearly independent.
 \end{framedthm}
 
-Moreover, our scalar product induces a \tbf{norm}, which is defined as follows.
+Moreover, the Hermitian product induces a \tbf{norm}, which is defined as follows.
 
 \begin{frameddefn}{Norm}
 	Given a scalar product vector space $V$, the \tbf{norm} of a vector $v \in V$ is defined as follows $$\norm v := \sqrt{\braket{v|v}}$$
@@ -86,11 +86,11 @@ Moreover, our scalar product induces a \tbf{norm}, which is defined as follows.
 We observe that by \cref{hermitian prod prop} we immediately derive that $$\forall v \in V \quad \norm{v} = \norm{\overline v}$$
 
 \begin{frameddefn}{Orthogonality}
-    Given a scalar product vector space $V$, two vectors $u, v \in V$ are said to be \tbf{orthogonal} if $\braket{u|v} = 0$
+    Given a scalar product vector space $V$, two vectors $u, v \in V$ are said to be \tbf{orthogonal} if $\braket{u|v} = 0$.
 \end{frameddefn}
 
 \begin{frameddefn}{Orthonormal basis}
-	Given a scalar product vector space $V$, a basis $\{e_1, \ldots, e_n\}$ is said to be \tbf{orthonormal} if $$\forall i, j \in [n] \quad \braket{e_i | e_j} = \delta_{ij}$$ where $\delta_{ij} = \soe{ll}{1 & i = j \\ 0 & i \neq j}$ is called \tbf{Kronecker delta}.
+    Given a scalar product vector space $V$, a basis $\{e_i\}_{i = 1}^n$ is said to be \tbf{orthonormal} if $$\forall i, j \in [n] \quad \braket{e_i | e_j} = \delta_{ij}$$ where $\delta_{ij} = \soe{ll}{1 & i = j \\ 0 & i \neq j}$ is called \tbf{Kronecker delta}.
 \end{frameddefn}
 
 Let's see the Dirac notation in action. Consider an orthonormal basis $\{e_1, \ldots, e_n\}$ for some scalar product vector space $V$; by definition, we know that we can write any vector $u \in V$ as follows $$u = \sum_{i = 1}^n{\alpha_i e_i}$$ for some coefficients $\alpha_1, \ldots, \alpha_n \in \C$. Now, we observe that for all $i \in [n]$
@@ -104,7 +104,7 @@ Let's see the Dirac notation in action. Consider an orthonormal basis $\{e_1, \l
 		               & = \alpha_i                                                       & \\
 	\end{alignedat}
 \end{equation*}
-Indeed, with the scalar product we can compute the projection of $u$ onto the $i$-th vector of the basis. Hence, we can rewrite the first equation as follows: $$\ket u = \sum_{i = 1}^n{\alpha_i \ket{e_i}} = \sum_{i = 1}^n{\braket{e_i|u} \ket{e_i}}$$ In particular, we observe that $$\ket u = \sum_{i = 1}^n{\ket{e_i} \braket{e_i|u}} \implies I = \sum_{i = 1}^n{\ket{e_i} \bra{e_i}}$$ which is a famous identity in quantum mechanics called \tbf{resolution of the identity}. In particular, this identity directly implies the following useful property. As a final note, by the properties of scalar products we also have that $$\braket{v|u} = \bra{v} \sum_{i = 1}^n{\ket{e_i} \braket{e_i|u}} = \sum_{i= 1}^n{\braket{v|e_i} \braket{e_i|u}}$$
+Indeed, with the scalar product we can compute the projection of $u$ onto the $i$-th vector of the basis. Hence, we can rewrite the first equation as follows: $$\ket u = \sum_{i = 1}^n{\alpha_i \ket{e_i}} = \sum_{i = 1}^n{\braket{e_i|u} \ket{e_i}} = \sum_{i = 1}^n{ \ket{e_i} \braket{e_i|u}}$$ In particular, from the last equality by linearity of the scalar product we have that $$\ket u = \rbk{\sum_{i = 1}^n{\ket{e_i} \bra{e_i}}} \ket u \implies I = \sum_{i = 1}^n{\ket{e_i} \bra{e_i}}$$ which is a famous identity in quantum mechanics called \tbf{resolution of the identity}.
 
 \section{Hilbert spaces}
 
@@ -114,7 +114,7 @@ Now that we covered Dirac notation, we can describe what are \tbf{Hilbert spaces
 	Given a scalar product vector space $V$, and a vector sequence $\{v_m\}_{m \in \N}$ defined over $V$, we say that the sequence \tbf{converges weakly} to a vector $v \in V$ if $$\forall w \in V \quad \lim_{m \to + \infty}{\braket{v_m|w}} = \braket{v|w}$$
 \end{frameddefn}
 
-In other words, this type ocf convergence requires all projections of $v_m$ along any fixed direction $w$ to approach the projection of $v$. Differently, the next type of convergence is more strict.
+In other words, this type of convergence requires all projections of $v_m$ along any fixed direction $w$ to approach the projection of $v$. Differently, the next type of convergence is more strict.
 
 \begin{frameddefn}{Strong convergence}
 	Given a scalar product vector space $V$, and a vector sequence $\{v_m\}_{m \in \N}$ defined over $V$, we say that the sequence \tbf{converges strongly} to a vector $v \in V$ if $$\lim_{m \to + \infty}{\norm{v - v_m}} = 0$$
@@ -182,7 +182,7 @@ How do we evaluate the adjoint of a given operator?
 	Given an operator $A$ defined over a scalar product vector space, it holds that $$a_{ij}^\dag = \overline{a_{ji}}$$
 \end{framedprop}
 
-This property is incredibly useful, because it implies that the adjoint operator of $A$ is its transposed conjugate matrix. Most notably, due to the way we defined our scalar product, it holds that for any column vector $\ket x$ we have that $$\bra x = \ket x^\dag$$ which further underlines the power of Dirac notation.
+This property is incredibly useful, because it implies that the adjoint operator of $A$ is its transposed conjugate matrix. Most notably, for any column vector $\ket x$ it holds that $$\bra x = \ket x^\dag$$ which further underlines the power of Dirac notation.
 
 \begin{frameddefn}{Positive operator}
 	An operator $A$ defined over a scalar product vector space $\mathcal H$ is said to be \tbf{positive} if it holds that $$\forall v \in \mathcal H \quad \braket{v|Av} \ge 0$$
@@ -223,7 +223,7 @@ The reason why we say that $A$ is \curlyquotes{positive} if it satisfies such pr
 % 	From this claim, we have that $$\forall v \in \mathcal H \quad \braket{v|Av} = \braket{v|A^\dag v} \iff \braket{A^\dag v|v} = \braket{Av|v} \implies A^\dag v = Av$$ which implies that $A$ must be Hermitian.
 % \end{proof}
 
-At the beginning of the previous chapter we said that all quantum gates are \tit{unitary transformations}, but we did now provide a definition of unitary. Now we are ready to introduce it, and start to grasp why we are discussing Hilbert spaces.
+At the beginning of the previous chapter we said that all quantum gates are \tit{unitary transformations}, but we did now provide a definition of \tbf{unitarity}.
 
 \begin{frameddefn}{Unitary operators}
 	Given a Hilbert space $\mathcal H$, and an operator $U$, we say that $U$ is \tbf{unitary} if it holds that $$UU^\dag = U^\dag U = I$$
@@ -257,9 +257,15 @@ In other words, $U$ is unitary if and only if its adjoint operator is also its i
 \end{framedthm}
 
 \begin{proof}
-    Let $U$ be a unitary operator, any two vectors $x, y \in \mathcal H$; then, we have that $$\braket{Ux|Uy} = \braket{U^\dag Ux|y} = \braket{Ix|y} = \braket{x|y}$$ Moreover, we observe that if $$U^\dag U = UU^\dag = I$$ it must be that $$U^{-1} = U^\dag$$ which means that $U$ is invertible, i.e. bijective, and in particular it is surjective.
+    Let $U$ be a unitary operator, and fix any two vectors $x, y \in \mathcal H$; then, we have that $$\braket{Ux|Uy} = \braket{U^\dag Ux|y} = \braket{Ix|y} = \braket{x|y}$$ Moreover, we observe that if $$U^\dag U = UU^\dag = I$$ it must be that $$U^{-1} = U^\dag$$ which means that $U$ is invertible, i.e. bijective, and in particular it is surjective.
 
-    Conversely, suppose that $U$ is a surjective unitary operator such that $$\forall x, y \in \mathcal H \quad \braket{Ux|Uy} = \braket{x|y}$$ First, we need to prove that $U^{-1}$ exists, and since $U$ is required to be surjective we only need to prove that it is injective. By way of contradiction, suppose that $U$ is not injective, i.e. there are distinct $x_1, x_2 \in \mathcal H$ such that $Ux_1 = Ux_2$. Then, this implies that $$Ux_1 = U x_2 \iff U(x_1 - x_2) = 0$$ and since $x_1 \neq x_2$ it must be that $x_1 - x_2 \in \mathcal H$ is a non-zero vector in the kernel of $U$. However, by the second property of $U$ we have that $$\braket{x_1 - x_2| x_1 - x_2} = \braket{U(x_1 - x_2)| U(x_1- x_2)} = \braket{0|0} = 0$$ and by definition of scalar product $$\braket{x_1 - x_2|x_1 - x_2} = 0 \iff x_1 - x_2 = 0 \iff x_1 = x_2$$ which is a contradiction $\lightning$.
+    Conversely, suppose that $U$ is a surjective unitary operator such that $$\forall x, y \in \mathcal H \quad \braket{Ux|Uy} = \braket{x|y}$$ First, we need to prove that $U^{-1}$ exists.
+
+    \claim{
+        $U$ is invertible.
+    }{
+        Since $U$ is required to be surjective we only need to prove that it is injective. By way of contradiction, suppose that $U$ is not injective, i.e. there are distinct $x_1, x_2 \in \mathcal H$ such that $Ux_1 = Ux_2$. Then, this implies that $$Ux_1 = U x_2 \iff U(x_1 - x_2) = 0$$ and since $x_1 \neq x_2$ it must be that $x_1 - x_2 \in \mathcal H$ is a non-zero vector in the kernel of $U$. However, by the second property of $U$ we have that $$\braket{x_1 - x_2| x_1 - x_2} = \braket{U(x_1 - x_2)| U(x_1- x_2)} = \braket{0|0} = 0$$ and by definition of scalar product $$\braket{x_1 - x_2|x_1 - x_2} = 0 \iff x_1 - x_2 = 0 \iff x_1 = x_2$$ which is a contradiction $\lightning$.
+    }
 
     Now, fix a vector $y \in \mathcal H$; by surjectivity of $U$ we know that $$\exists z \in \mathcal H \quad y = Uz$$ which means that for any $x \in \mathcal H$ it holds that
     \begin{equation*}
@@ -284,7 +290,7 @@ In particular, we observe that the second property of this proposition is very i
 \end{proof}
 
 \begin{framedprop}{}
-    An operator $U$ is unitary if and only if $U^T$ is also unitary.
+    An operator $U$ is unitary if and only if $U^T$ is unitary.
 \end{framedprop}
 
 \begin{proof}
@@ -296,7 +302,7 @@ In particular, we observe that the second property of this proposition is very i
 \end{framedprop}
 
 \begin{proof}
-    Let $U$ be a unitary operator, therefore $U$ preserves the scalar product. In particular, we observe that $$\forall i, j \quad \braket{Ue_i|Ue_j} = \braket{e_i|e_j} = \delta_{ij}$$ and since $Ue_i$ and $Ue_i$ are the $i$-th and $j$-th columns of $U$, respectively, this immediately proves that $U$'s columns are orthonormal. To prove the same result for the rows, we first observe that $U^Te_i$ and $U^Te_j$ are the $i$-th and $j$-th rows of $U$, respectively. However, by the previous proposition we know that $U$ is unitary if and only if $U^T$ is unitary, which means that $$\forall i, j \quad \braket{U^T e_i | U^T e_j} = \braket{e_i|e_j} = \delta_{ij} $$ which immediately concludes the proof.
+    Let $U$ be a unitary operator, therefore $U$ preserves the scalar product. In particular, we observe that $$\forall i, j \quad \braket{Ue_i|Ue_j} = \braket{e_i|e_j} = \delta_{ij}$$ and since $Ue_i$ and $Ue_j$ are the $i$-th and $j$-th columns of $U$ respectively, this immediately proves that $U$'s columns are orthonormal. To prove the same result for the rows, we first observe that $U^Te_i$ and $U^Te_j$ are the $i$-th and $j$-th rows of $U$, respectively. However, by the previous proposition we know that $U$ is unitary if and only if $U^T$ is unitary, which means that $$\forall i, j \quad \braket{U^T e_i | U^T e_j} = \braket{e_i|e_j} = \delta_{ij} $$ which immediately concludes the proof.
 \end{proof}
 
 \begin{framedprop}[label={unitary prod}]{}
@@ -311,9 +317,7 @@ In particular, we observe that the second property of this proposition is very i
 	Given a Hilbert space $\mathcal H$, and an operator $A$, we say that $A$ is \tbf{normal} if it satisfies the following property $$A^\dag A = AA^\dag$$
 \end{frameddefn}
 
-Clearly, from their definition we immediately see that both self-adjoint and unitary operators are both normal.
-
-Lastly, say that we know that how an operator $U$ acts on some input $\ket x$, and we want to derive $U$. How can we do this?
+Clearly, from their definition we immediately see that both self-adjoint and unitary operators are normal.
 
 \begin{framedprop}[label={U constr}]{}
 	For any operator $U$ in a Hilbert space $\mathcal H$, if $\mathcal B$ is a base of $\mathcal H$ it holds that $$U = \sum_{b \in \mathcal B}{U \ket b \bra b}$$
@@ -351,7 +355,7 @@ In other words, the trace of a matrix is the sum of the elements on its diagonal
 	\end{enumerate}
 \end{framedprop}
 
-In particular, we observe that the last property follow trivially from the cyclic property: $$\tr(UAU^\dag) = \tr(U^\dag UA) = \tr(I A) = \tr(A)$$ But perhaps most importantly, the following property holds.
+In particular, we observe that the last property follows trivially from the cyclic property: $$\tr(UAU^\dag) = \tr(U^\dag UA) = \tr(I A) = \tr(A)$$ However, most importantly, the following property holds.
 
 \begin{framedprop}[label={trace prop}]{}
 	Given a matrix $A \in \C^{n \times n}$, and a vector $\ket v$, it holds that $$\tr(A \ket v \bra v) = \braket{v|Av}$$
@@ -387,7 +391,7 @@ In particular, we observe that the last property follow trivially from the cycli
     \end{equation*}
 \end{proof}
 
-Interestingly enough, from this property we immediately derive that $$\tr( \ket v \bra v) = \braket{v|v}$$ which should not come as a surprise anyway, since the elements on the diagonal of $\ket v \bra v$ as exactly the elements of the sum in the scalar product of $\braket{v|v}$. We will discuss the importance of these equalities in later sections.
+Interestingly enough, from this property we immediately derive that $$\tr( \ket v \bra v) = \braket{v|v}$$ which should not come as a surprise anyway, since the elements on the diagonal of $\ket v \bra v$ are exactly the elements of the sum in the scalar product of $\braket{v|v}$. We will discuss the importance of these equalities in the next chapter.
 
 \begin{framedprop}{}
     Given a matrix $A \in \C^{n \times n}$, it holds that $$\tr(A^\dag)= \overline{\tr(A)}$$
@@ -405,7 +409,7 @@ Interestingly enough, from this property we immediately derive that $$\tr( \ket 
     \end{equation*}
 \end{proof}
 
-TODO \todo{show that the trace is indep of the chosen basis}
+We show another very interesting fact of the trace in \cref{indep trace}.
 
 \section{Spectral theory}
 
@@ -467,7 +471,7 @@ The following theorem provides a characterization of the eigenvalues and eigenve
                                          & = \mu \braket{v|w} & \\ 
                 \end{alignedat}
             \end{equation*}
-            Hence, we conclude that $$\lambda \braket{v|w} = \mu \braket{v|w} \iff (\lambda - \mu) \braket{v|w} = 0$$ and since $\lambda \neq \mu$ it must be that $\braket{v|w} = 0$.
+            Hence, we conclude that $$\lambda \braket{v|w} = \mu \braket{v|w} \iff (\lambda - \mu) \braket{v|w} = 0$$ and since $\lambda \neq \mu$ it must be that $\braket{v|w} = 0$. \todo{manca da dimostrare per le unitarie tbh}
     \end{enumerate}
 \end{proof}
 
@@ -481,7 +485,7 @@ Moreover, for finite-dimensional Hilbert spaces the following holds.
 
 \section{Projectors}
 
-Next, we are going to discuss \tbf{projectors}, which are another very crucial pieces of quantum computation. We saw how scalar products are able to perform projection over desired direction, in fact we will use the Dirac notation to define precise operators for our purposes. But as always, first some preliminary definitions.
+Next, we are going to discuss \tbf{projectors}, which play a very important role in quantum mechanics and quantum computing. We saw how scalar products are able to perform projections over arbitrary directions, in fact we will use the Dirac notation to define precise operators for our purposes. But as always, we first some preliminary definitions.
 
 \begin{frameddefn}{Orthogonal space}
 	Given a scalar product vector space $U$, and two linear subspaces $V, W \subset U$, we say that $V$ is orthogonal to $W$ if $$\forall v \in V, w \in W \quad \braket{v|w} = 0$$

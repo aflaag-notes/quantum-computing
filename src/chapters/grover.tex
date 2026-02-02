@@ -426,11 +426,11 @@ Lastly, another problem that quantum counting solves is knowing if $M$ is 0 or n
 \end{framedprob}
 
 \solution{
-    Let $\ket \psi$ be a qubit, i.e. $$\ket \psi = \sum_x \alpha_x \ket x$$ for some coefficients $\alpha_x$, and assume that $W$ computes the inversion about the mean of each $\alpha_x$. This means that $$\func{W}{\alpha_x}{2 \overline{\alpha_\psi} - \alpha_x}$$ where $\overline{\alpha_\psi}$ is the average of the coefficients of $\ket \psi$. Therefore, we have that
+Let $\ket \psi$ be a qubit, i.e. $$\ket \psi = \sum_x \alpha_x \ket x$$ for some coefficients $\alpha_x$, and assume that $W$ computes the inversion about the mean of each $\alpha_x$. This means that $$\func{W}{\alpha_x}{2 \overline{\alpha}_\psi - \alpha_x}$$ where $\overline{\alpha}_\psi$ is the average of the coefficients of $\ket \psi$. Therefore, we have that
     \begin{equation*}
         \begin{split}
-            W \ket \psi &= \sum_x (2 \overline {\alpha_\psi} - \alpha_x) \ket x \\ 
-                        &= 2 \overline{\alpha_\psi} \sum_x \ket x - \sum_x \alpha_x \ket x \\ 
+        W \ket \psi &= \sum_x (2 \overline {\alpha}_\psi - \alpha_x) \ket x \\ 
+                    &= 2 \overline{\alpha}_\psi \sum_x \ket x - \sum_x \alpha_x \ket x \\ 
                         &= 2 \rbk{\dfrac{1}{N} \sum_y \alpha_y} \rbk{\sum_x \ket x} - \ket \psi \\ 
                         & = 2 \rbk{\dfrac{1}{\sqrt N} \sum_y \alpha_y}\rbk{\dfrac{1}{\sqrt N} \sum_x \ket x} - \ket \psi \\ 
                         & = 2 \rbk{\dfrac{1}{\sqrt N} \sum_y \alpha_y} \ket s - \ket \psi \\  

@@ -19,61 +19,61 @@
 \contentsline {section}{\numberline {2.3}Projectors}{36}{section.2.3}%
 \contentsline {section}{\numberline {2.4}Tensor product}{41}{section.2.4}%
 \contentsline {subsection}{\numberline {2.4.1}General definition}{41}{subsection.2.4.1}%
-\contentsline {subsection}{\numberline {2.4.2}Kronecker product}{44}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.2}Kronecker product}{45}{subsection.2.4.2}%
 \contentsline {section}{\numberline {2.5}Exercises}{47}{section.2.5}%
-\contentsline {chapter}{\numberline {3}Postulates of quantum mechanics}{53}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Postulates of quantum mechanics}{53}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}First postulate}{53}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.1.2}Second postulate}{53}{subsection.3.1.2}%
-\contentsline {subsection}{\numberline {3.1.3}Third postulate}{55}{subsection.3.1.3}%
-\contentsline {subsection}{\numberline {3.1.4}Fourth postulate}{58}{subsection.3.1.4}%
-\contentsline {section}{\numberline {3.2}The density operator}{59}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Generalization of the third postulate}{60}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Postulates through density operators}{61}{subsection.3.2.2}%
-\contentsline {subsection}{\numberline {3.2.3}Entangled systems}{68}{subsection.3.2.3}%
-\contentsline {section}{\numberline {3.3}Exercises}{71}{section.3.3}%
-\contentsline {chapter}{\numberline {4}Quantum algorithms}{74}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Deutsch's algorithm}{75}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Deutsch-Josza algorithm}{80}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Exercises}{84}{section.4.3}%
-\contentsline {chapter}{\numberline {5}Quantum Phase Estimation}{88}{chapter.5}%
-\contentsline {section}{\numberline {5.1}A recap on the Discrete Fourier Transform}{88}{section.5.1}%
-\contentsline {section}{\numberline {5.2}The Quantum Fourier Transform}{92}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}The quantum circuit}{96}{subsection.5.2.1}%
-\contentsline {section}{\numberline {5.3}Quantum Phase Estimation}{98}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Variational Quantum Algorithms}{102}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Variable Quantum Eigensolver}{104}{subsection.5.4.1}%
-\contentsline {chapter}{\numberline {6}Shor's algorithm}{108}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Order-finding problem}{108}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Shor's algorithm}{117}{section.6.2}%
-\contentsline {chapter}{\numberline {7}Grover's algorithm}{119}{chapter.7}%
-\contentsline {section}{\numberline {7.1}The search problem}{119}{section.7.1}%
-\contentsline {subsection}{\numberline {7.1.1}Another perspective}{129}{subsection.7.1.1}%
-\contentsline {section}{\numberline {7.2}Fixed-Point Quantum Search}{130}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Quantum counting}{135}{section.7.3}%
-\contentsline {section}{\numberline {7.4}Exercises}{136}{section.7.4}%
-\contentsline {chapter}{\numberline {8}Quantum circuits}{140}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Rotation operators}{140}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Controlled operators}{143}{section.8.2}%
-\contentsline {subsection}{\numberline {8.2.1}Single-qubit conditioning}{143}{subsection.8.2.1}%
-\contentsline {subsection}{\numberline {8.2.2}Multi-qubit conditioning}{145}{subsection.8.2.2}%
-\contentsline {section}{\numberline {8.3}Universality}{148}{section.8.3}%
-\contentsline {subsection}{\numberline {8.3.1}Exact quantum universality}{149}{subsection.8.3.1}%
-\contentsline {subsection}{\numberline {8.3.2}Approximate universality}{151}{subsection.8.3.2}%
-\contentsline {chapter}{\numberline {9}Quantum Key Distribution}{154}{chapter.9}%
-\contentsline {section}{\numberline {9.1}Background}{155}{section.9.1}%
-\contentsline {subsection}{\numberline {9.1.1}The No-cloning theorem}{155}{subsection.9.1.1}%
-\contentsline {subsection}{\numberline {9.1.2}Measurements}{156}{subsection.9.1.2}%
-\contentsline {section}{\numberline {9.2}The BB84 protocol}{158}{section.9.2}%
-\contentsline {subsection}{\numberline {9.2.1}Eve's attacks}{160}{subsection.9.2.1}%
-\contentsline {section}{\numberline {9.3}Bell's inequalities}{163}{section.9.3}%
-\contentsline {section}{\numberline {9.4}Exercises}{171}{section.9.4}%
-\contentsline {chapter}{\numberline {10}Quantum Error Correction}{173}{chapter.10}%
-\contentsline {section}{\numberline {10.1}Repetition codes}{173}{section.10.1}%
-\contentsline {subsection}{\numberline {10.1.1}Three bits bit flip code}{173}{subsection.10.1.1}%
-\contentsline {subsection}{\numberline {10.1.2}Three qubits bit flip code}{174}{subsection.10.1.2}%
-\contentsline {subsection}{\numberline {10.1.3}Three qubits phase flip code}{176}{subsection.10.1.3}%
-\contentsline {subsection}{\numberline {10.1.4}The Shor code}{177}{subsection.10.1.4}%
-\contentsline {section}{\numberline {10.2}Linear codes}{179}{section.10.2}%
-\contentsline {subsection}{\numberline {10.2.1}The Hamming code}{184}{subsection.10.2.1}%
-\contentsline {subsection}{\numberline {10.2.2}The Steane code}{186}{subsection.10.2.2}%
+\contentsline {chapter}{\numberline {3}Postulates of quantum mechanics}{54}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Postulates of quantum mechanics}{54}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}First postulate}{54}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Second postulate}{54}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Third postulate}{56}{subsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.1.4}Fourth postulate}{59}{subsection.3.1.4}%
+\contentsline {section}{\numberline {3.2}The density operator}{60}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Generalization of the third postulate}{61}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Postulates through density operators}{62}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Entangled systems}{69}{subsection.3.2.3}%
+\contentsline {section}{\numberline {3.3}Exercises}{72}{section.3.3}%
+\contentsline {chapter}{\numberline {4}Quantum algorithms}{75}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Deutsch's algorithm}{76}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Deutsch-Josza algorithm}{81}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Exercises}{85}{section.4.3}%
+\contentsline {chapter}{\numberline {5}Quantum Phase Estimation}{89}{chapter.5}%
+\contentsline {section}{\numberline {5.1}A recap on the Discrete Fourier Transform}{89}{section.5.1}%
+\contentsline {section}{\numberline {5.2}The Quantum Fourier Transform}{93}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}The quantum circuit}{97}{subsection.5.2.1}%
+\contentsline {section}{\numberline {5.3}Quantum Phase Estimation}{99}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Variational Quantum Algorithms}{103}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Variable Quantum Eigensolver}{105}{subsection.5.4.1}%
+\contentsline {chapter}{\numberline {6}Shor's algorithm}{109}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Order-finding problem}{109}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Shor's algorithm}{118}{section.6.2}%
+\contentsline {chapter}{\numberline {7}Grover's algorithm}{120}{chapter.7}%
+\contentsline {section}{\numberline {7.1}The search problem}{120}{section.7.1}%
+\contentsline {subsection}{\numberline {7.1.1}Another perspective}{130}{subsection.7.1.1}%
+\contentsline {section}{\numberline {7.2}Fixed-Point Quantum Search}{131}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Quantum counting}{136}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Exercises}{137}{section.7.4}%
+\contentsline {chapter}{\numberline {8}Quantum circuits}{141}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Rotation operators}{141}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Controlled operators}{144}{section.8.2}%
+\contentsline {subsection}{\numberline {8.2.1}Single-qubit conditioning}{144}{subsection.8.2.1}%
+\contentsline {subsection}{\numberline {8.2.2}Multi-qubit conditioning}{146}{subsection.8.2.2}%
+\contentsline {section}{\numberline {8.3}Universality}{149}{section.8.3}%
+\contentsline {subsection}{\numberline {8.3.1}Exact quantum universality}{150}{subsection.8.3.1}%
+\contentsline {subsection}{\numberline {8.3.2}Approximate universality}{152}{subsection.8.3.2}%
+\contentsline {chapter}{\numberline {9}Quantum Key Distribution}{155}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Background}{156}{section.9.1}%
+\contentsline {subsection}{\numberline {9.1.1}The No-cloning theorem}{156}{subsection.9.1.1}%
+\contentsline {subsection}{\numberline {9.1.2}Measurements}{158}{subsection.9.1.2}%
+\contentsline {section}{\numberline {9.2}The BB84 protocol}{159}{section.9.2}%
+\contentsline {subsection}{\numberline {9.2.1}Eve's attacks}{161}{subsection.9.2.1}%
+\contentsline {section}{\numberline {9.3}Bell's inequalities}{164}{section.9.3}%
+\contentsline {section}{\numberline {9.4}Exercises}{173}{section.9.4}%
+\contentsline {chapter}{\numberline {10}Quantum Error Correction}{175}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Repetition codes}{175}{section.10.1}%
+\contentsline {subsection}{\numberline {10.1.1}Three bits bit flip code}{175}{subsection.10.1.1}%
+\contentsline {subsection}{\numberline {10.1.2}Three qubits bit flip code}{176}{subsection.10.1.2}%
+\contentsline {subsection}{\numberline {10.1.3}Three qubits phase flip code}{178}{subsection.10.1.3}%
+\contentsline {subsection}{\numberline {10.1.4}The Shor code}{179}{subsection.10.1.4}%
+\contentsline {section}{\numberline {10.2}Linear codes}{181}{section.10.2}%
+\contentsline {subsection}{\numberline {10.2.1}The Hamming code}{186}{subsection.10.2.1}%
+\contentsline {subsection}{\numberline {10.2.2}The Steane code}{188}{subsection.10.2.2}%

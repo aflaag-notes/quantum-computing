@@ -1,76 +1,67 @@
 \chapter{Quantum Key Distribution}
 
-Why is Shor's algorithm so important? Most widely used \tbf{public-key cryptography} algorithms rely on the difficulty of one of the three following mathematical problems:
+In \cref{shor chapt} we presented Shor's algorithm, which shows how current public-key cryptography is \tit{vulnerable} to quantum attacks. Although we know that current quantum computers cannot realistically handle such computations, theoretical algorithms such as Shor's already outline the need for \tbf{quantum-safe cryptography}. Indeed, we are already designing new \tit{quantum-safe} protocols in order to prepare for the so called \tbf{Q-Day}, the day when current algorithms will be truly vulnerable to quantum computing attacks.
 
-\begin{itemize}
-	\item the Integer Factorization problem
-	\item the Discrete Logarithm problem
-	\item the Elliptic-Curve Discrete Logarithm problem
-\end{itemize}
+In this chapter we will introduce a protocol for \tbf{quantum key distribution (QKD)}, a cryptographic technique that enables two parties to establish a \tit{shared secret key} with security guaranteed by the fundamental \underline{laws of quantum mechanics} rather than computational assumptions. Unlike classical key exchange methods, whose security relies on the presumed difficulty of certain mathematical problems, QKD exploits uniquely quantum features. As we will see, any attempt to intercept the quantum communication unavoidably introduces detectable errors, allowing the legitimate users to assess the security of the generated key.
 
-In particular, all of the problems are currently \tit{vary hard} to solve efficiently, and basically any modern cryptosystem is based on the fact that we don't know any fast-enough algorithm that is able to solve them. However, all of these could be easily solved on a sufficiently powerful quantum computer that runs Shor's algorithm, as we already seen. \todo{explain details}
-
-Nevertheless, at the time of writing quantum computers lack the processing power to break widely used cyrptographic algorithm, so we are still safe from a world without crypto. However, because of the length of time required for migration to \tbf{quantum-safe cryptograpy}, are already desining new algorithms to prepare for the so called \tbf{Q-Day}, the day when current algorithms will be vulnerable to quantum computing attacks. For example, NIST already initiated a proces to quotes \curlyquotes{solicit, evaluate and standardize one or more quantum-resistand public-key cryptography algorithms}.
-
-In this chapter we will cover \todo{vedi de che parla prima de parla a vuoto}
-
-is a \tbf{Quantum Key Distribution (QKD)} protocol. In particular, we are interested in finding secure protocols that able to allow two parties to share a \tit{private key} quantum-safely.
+In particular, we will present the first and most widely studied QKD protocol, called \tbf{BB84}. In the BB84 protocol information is encoded in the quantum states of single photons prepared in one of two mutually unbiased bases. The sender and receiver later compare their basis choices over a public classical channel and retain only the outcomes corresponding to matching bases. The security of BB84 arises from the \nameref{nct} (which will be proved shortly) and the fact that non-orthogonal quantum states cannot be perfectly distinguished, ensuring that any eavesdropping attempt produces observable discrepancies in the key statistics. Lastly, in the final section of the chapter we will present the \tbf{Bell inequalities}, another very important peculiarity of quantum mechanics that can be used to assess the security of the exchanged secret key.
 
 \section{Background}
 
 \subsection{The No-cloning theorem} \label{no-cloning}
 
-Before explaining any protocol however, we need to talk about a theorem that we did not properly discuss in \cref{quantum teleportation}, namely the \tbf{No-cloning theorem}. In particular, we stated that there is no quantum transformation that copies \underline{any} quantum state. Now that we have the mathematical tools to prove the theorem, we can actually show the real formulation of the theorem. But first, let's try to understand what it means to \curlyquotes{clone} a qubit. Say that we have a qubit set to some unknown superposition of states $\ket \chi$ that we would like to clone; in other words, we need an ancilla qubit $\ket \gamma$ and some operator $U$ (which must be unitary) such that $$U(\ket \chi \otimes \ket \gamma) = \ket \chi \otimes \ket \chi$$ Essentially, the ancilla qubit is used to store the clone of $\ket \chi$. We observe that the initial state of the ancilla can be considered to be some fixed superposition, since the qubit $\ket \chi$ is \tit{unknown} and we want $U$ to work on any possible state. However, the No-cloning theorem states that such a transformation $U$ cannot exist if the choice of the possible state for $\ket \chi$ isn't restricted enough.
+As stated in the introduction, before introducing any QKD protocol we need to discuss a theorme that we only introduced in \cref{quantum teleportation}, namely the \tbf{No-cloning theorem}. In particular, we stated that there is no quantum transformation that copies \underline{any} quantum state. Now that we have the mathematical tools to prove the theorem, we can actually show its real formulation. But first, let's try to understand what it means to \curlyquotes{clone} a qubit. Say that we have a qubit set to some unknown superposition of states $\ket \chi$ that we would like to clone; in other words, we need an ancilla qubit $\ket \gamma$ and some operator $U$ (which must be unitary) such that $$U(\ket \chi \otimes \ket \gamma) = \ket \chi \otimes \ket \chi$$ Essentially, the ancilla qubit is used to store the clone of $\ket \chi$. We observe that the initial state of the ancilla can be considered to be some fixed superposition, since the qubit $\ket \chi$ is \tit{unknown} and we want $U$ to work on any possible state. However, the No-cloning theorem states that such a transformation $U$ cannot exist if the choice of the possible state for $\ket \chi$ isn't restricted enough.
 
 \begin{framedthm}[label={nct}]{No-cloning theorem}
-	Let $\mathcal H$ be a Hilbert space, and let $S \subseteq \mathcal H$ be a set of vectors. If $S$ contains two distinct non-orthogonal vectors, there is no unitary operator $$\func{U}{\mathcal H \otimes \mathcal H}{\mathcal H \otimes \mathcal H}$$ such that there exists a fixed vector $\ket \gamma \in \mathcal H$ such that $$\forall \ket \chi \in S \quad U(\ket \chi \otimes \ket \gamma) = \ket \chi \otimes \ket \chi$$
+	Let $\mathcal H$ be a Hilbert space, and let $S \subseteq \mathcal H$ be a set of normalized vectors. If $S$ contains two distinct non-orthogonal vectors, there is no unitary operator $$\func{U}{\mathcal H \otimes \mathcal H}{\mathcal H \otimes \mathcal H}$$ such that there exists a fixed vector $\ket \gamma \in \mathcal H$ such that $$\forall \ket \chi \in S \quad U(\ket \chi \otimes \ket \gamma) = \ket \chi \otimes \ket \chi$$
 \end{framedthm}
 
 \begin{proof}
 	By way of contradiction, suppose that there exists a unitary transformation $U$ for which there exists a fixed $\ket \gamma \in \mathcal H$ that can be universally used as ancilla qubit to copy any $\ket \chi \in S$. Moreover, let $\ket \psi, \ket \phi \in S$ two distinct vectors such that $\braket{\psi|\phi} \neq 0$ meaning that they are non-orthogonal. Because $U$ is unitary, by \cref{unitary alt def} we know that it must preserve the scalar product, meaning that $$\forall x, y \in \mathcal H \quad \braket{Ux|Uy} = \braket{x|y}$$ In particular, this must hold for $$x = \ket \psi \otimes \ket \gamma$$ $$y = \ket \phi \otimes \ket \gamma$$ however we see that
 	\begin{equation*}
 		\begin{alignedat}{2}
-			     & \braket{U(\ket \psi \otimes \ket \gamma)| U(\ket \phi \otimes \ket \gamma)} = \braket{ \psi \otimes  \gamma|  \phi \otimes \gamma} &                                   \\
-			\iff & \braket{ \psi \otimes \psi | \phi \otimes \phi} = \braket{\psi \otimes \gamma| \phi \otimes \gamma}                                &                                   \\
-			\iff & \braket{\psi|\phi} \braket{\psi|\phi} = \braket{\psi| \phi} \braket{\gamma|\gamma}                                                 &                                   \\
-			\iff & \braket{\psi|\phi} = 1                                                                                                             & \quad (\braket{\phi|\psi} \neq 0) \\
-			\iff & \ket \psi = \ket \phi
+			         & \braket{U(\ket \psi \otimes \ket \gamma)| U(\ket \phi \otimes \ket \gamma)} = \braket{ \psi \otimes  \gamma|  \phi \otimes \gamma} &                                   \\
+			\iff     & \braket{ \psi \otimes \psi | \phi \otimes \phi} = \braket{\psi \otimes \gamma| \phi \otimes \gamma}                                &                                   \\
+			\iff     & \braket{\psi|\phi} \braket{\psi|\phi} = \braket{\psi| \phi} \braket{\gamma|\gamma}                                                 &                                   \\
+			\iff     & \braket{\psi|\phi} = 1                                                                                                             & \quad (\braket{\phi|\psi} \neq 0) \\
+			\implies & \ket \psi = \ket \phi
 		\end{alignedat}
 	\end{equation*}
-	This means that $\ket \psi$ and $\ket \phi$ are actually the same vector, contradicting the fact that we chose them distinct in $S$ $\lightning$.
+	where the last implication comes from the fact that $S$ was chosen to contain only normalized vectors of $\mathcal H$. This means that $\ket \psi$ and $\ket \phi$ are actually the same vector, contradicting the fact that we chose them distinct in $S$ $\lightning$.
 \end{proof}
 
 The most important details of this formulation are the following:
 
 \begin{itemize}
+	\item requiring that $S$ only contains normalized vectors does not lose generality because qubits are always assumed to be normalized
 	\item we require $S$ to have at least two distinct non-orthogonal vectors
 	\item the theorem is defined on a \tit{set} of vectors $S$ which may not necessarily be the whole Hilbert space considered
 \end{itemize}
 
-The second observation is crucial because depending on the choice of $S$ \curlyquotes{cloning} is \tit{possible}. Indeed, suppose that we restrict our interest in the set of the only two states $\ket 0$ and $\ket 1$, i.e. $S = \{\ket 0, \ket 1\}$ In this scenario, we \tit{can} actually define an operator such that $$\exists \ket \gamma \quad \forall \ket \chi \in \{\ket 0, \ket 1\} \quad U(\ket \chi \otimes \ket \gamma) = \ket \chi \otimes \ket \chi$$ and it's just a CNOT with $y = \ket 0$: $$\mbox{CNOT}(\ket 0 \otimes \ket 0) = \ket 0 \otimes \ket 0$$ $$\mbox{CNOT}(\ket 1 \otimes \ket 1) = \ket 1 \otimes \ket 1$$ This operation is called \tbf{duplication}, and depending on the set $S$ it can be performed without any issue. As a final note, we observe that the No-cloning theorem is usually stated as follows.
+In particular, the last observation is crucial because depending on the choice of $S$ \curlyquotes{cloning} is \tit{possible}. Indeed, suppose that we restrict our interest in the set of the only two states $\ket 0$ and $\ket 1$, i.e. $S = \{\ket 0, \ket 1\}$ In this scenario, we \tit{can} actually define an operator such that $$\exists \ket \gamma \quad \forall \ket \chi \in \{\ket 0, \ket 1\} \quad U(\ket \chi \otimes \ket \gamma) = \ket \chi \otimes \ket \chi$$ and it's just a CNOT with $\ket \gamma = \ket 0$: $$\mbox{CNOT}(\ket 0 \otimes \ket 0) = \ket 0 \otimes \ket 0$$ $$\mbox{CNOT}(\ket 1 \otimes \ket 1) = \ket 1 \otimes \ket 1$$ This operation is called \tbf{duplication}, and depending on the set $S$ it can be performed without any issue. As a final note, we observe that the No-cloning theorem is usually stated as follows.
 
 \begin{framedcor}{}
 	There is no quantum transformation that copies an unknown quantum state.
 \end{framedcor}
 
-This is just the particular case in which $S = \mathcal H$, and $\mathcal H$ obviously contains non-orthogonal pair of distinct states.
+This is just the particular case in which $S$, contains any possible normalized vector of $\mathcal H$, which obviously contains non-orthogonal pairs of distinct quantum states.
 
-The hypothesis of the No-cloning theorem regarding the choice of $S$ is used strategically by the BB84 protocol, as we will see in the next section.
+As we wil see in the subsequent sections, the hypothesis of the No-cloning theorem regarding the choice of $S$ is used strategically by the BB84 protocol in order to ensure quantum-safety. But before explaining the details of the protocol, we still need some preliminary concepts.
 
 \subsection{Measurements} \label{measurements}
 
-Before describing the next step of the protocol, we need to do a step back and talk about \tit{measurement} in greater detail. Each time we discussed \curlyquotes{measuring} we never actually mentioned that when we are \tit{physically} performing a measurement what we are really doing is applying a \curlyquotes{polarizing lens} to the final state. For instance, this operation can be implemented through \href{https://en.wikipedia.org/wiki/Faraday_rotator}{Faraday rotators}, which leverage the \tbf{Faraday effect}:
+Each time we discussed \curlyquotes{measuring} we never actually mentioned that when we are \tit{physically} performing a measurement what we are really doing is applying a \curlyquotes{polarizing lens} to the final state. For instance, this operation can be implemented through \href{https://en.wikipedia.org/wiki/Faraday_rotator}{Faraday rotators}, which leverage the \tbf{Faraday effect}:
 
 \centeredsvg[A Faraday polarization rotator.]{0.5}{../assets/faraday}
 
-This is important because it means that when we talk about measurement we need to define the \curlyquotes{angle} at which we perform it. Mathematically speaking, this is equivalent to defining the \tbf{basis of choice} for the measurement --- we always consider orthonormal bases only, so all the possible bases of a space are identical up to a rotation. Indeed, the importance of the choice of the basis can be illustrated through the BB84 protocol itself.
+This is important because it means that when we talk about measurement we need to define the \curlyquotes{angle} at which we perform it. Mathematically speaking, this is equivalent to defining the \tbf{basis of choice} for the measurement --- we always consider orthonormal bases only, so all the possible bases of a space are identical up to a rotation. Let's see how different bases behaave
 
 \begin{itemize}
 	\item If we have a qubit in the state $\ket \phi = \ket +$, we know that the probability of getting either $\ket 0$ or $\ket 1$ when measured in the Z basis is precisely 50\% for both outcomes because $$\Pr[\mbox{measure$(\ket \phi) = \ket 0$}] = \abs{\braket{+|0}}^2 = \dfrac{1}{2}$$
 	\item Now, consider the orthonormal basis formed by the vector $\ket +$ and $\ket - $ --- which is usually called \tbf{X basis}; we observe that this space is just a rotation of 45° clockwise of the Z basis. This space is interesting: when we measure a qubit $\ket \phi$ set to the state $\ket 0$ in the Z basis we get $\ket 0$ with 100\% certainty, however in the X basis we have that $$\Pr[\mbox{measure$(\ket \phi) = \ket 0$}] = \abs{\braket{0|+}}^2 = \dfrac{1}{2}$$ Indeed, as we would expect $\ket 0$ and $\ket 1$ in the X basis behave exactly as $\ket +$ and $\ket - $ do in the Z one.
 \end{itemize}
 
-We will see how the BB84 protocol takes advantage of this fact later in our discussion. The last detail that we want to mention about measurements in non-diagonal bases is that we can actually define unitary operators that allow us to perform measurements in the Z basis no matter the basis of choice, by first applying some particular unitary operator that creates a \curlyquotes{map} between the two bases. For instance, say that we have some vector $$\ket v = \alpha \ket + + \beta \ket -$$ defined in the X basis, and we want to measure this vector in the Z basis. This can be done by first applying the following operator: $$U = \ket 0 \bra + + \ket 1 \bra -$$ In fact, it holds that
+We will see how the BB84 protocol takes advantage of this fact later in our discussion. The last detail that we want to mention about measurements in \curlyquotes{unusual} bases is that we can actually define unitary operators that allow us to perform measurements in the Z basis no matter the basis of choice, by first applying some particular unitary operator that creates a \curlyquotes{map} between the two bases. For instance, say that we have some vector $$\ket v = \alpha \ket + + \beta \ket -$$ defined in the X basis, and we want to measure this vector in the Z basis. This can be done by first applying the following operator: $$U = \ket 0 \bra + + \ket 1 \bra -$$ In fact, it holds that
 \begin{equation*}
 	\begin{split}
 		U \ket v & = (\ket 0 \bra + + \ket 1 \bra - )(\alpha \ket + + \beta \ket -)                               \\
@@ -78,7 +69,7 @@ We will see how the BB84 protocol takes advantage of this fact later in our disc
 		         & = \alpha \ket 0 + \beta \ket 1
 	\end{split}
 \end{equation*}
-We can actually generalize this idea: if we have two bases $\{f_i\}_{i = 1}^n$ and $\{g_i\}_{i = 1}^n$ an operator that maps each $f_i$ to $g_i$ for all $i \in [n]$ is exactly $$U_{fg} = \sum_{i = 1}^n \ket{g_i}\bra{f_i}$$ Interestingly enough, we already know an operator that acts as a map between the X and the Z bases:
+We can actually generalize this idea: if we have two bases $\{f_i\}_{i = 1}^n$ and $\{g_i\}_{i = 1}^n$ an operator that maps each $f_i$ to $g_i$ for all $i \in [n]$ is exactly $$U_{fg} = \sum_{i = 1}^n \ket{g_i}\bra{f_i}$$ We show that any change of basis matrix is unitary in \cref{indep trace}. Interestingly enough, we already know an operator that acts as a map between the X and the Z bases:
 \begin{equation*}
 	\begin{split}
 		U & = \ket 0 \bra + + \ket 1 \bra -     \\
@@ -93,7 +84,7 @@ This should not come as a suprise, since we already knew that $$H \ket 0 = \ket 
 
 \section{The BB84 protocol}
 
-The key exchange procedure we will present is called \tbf{BB84 protocol}, and it was published in 1984 by \textcite{bb84}. The protocol works as follows: suppose that our two usual protagonists Alice and Bob need to share a key quantum-safely. At the beginning, Alice will choose two random binary strings $(4 + \delta)n$-long --- for some $\delta > 0$ sufficiently large --- which are usually referred to as $a$ and $b$. Then, depending on the bits of these two strings she will construct a superposition of states based on the following table:
+We are finally ready to discuss the \tbf{BB84 protocol}, which was published in 1984 by \textcite{bb84} by Bennett and Brassard. The protocol works as follows: suppose that our two usual protagonists Alice and Bob need to share a key quantum-safely. At the beginning, Alice will choose two random binary strings $(4 + \delta)n$-long --- for some $\delta > 0$ sufficiently large --- which are usually referred to as $a$ and $b$. Then, depending on the bits of these two strings she will construct a superposition of states based on the following table:
 
 \begin{center}
 	\begin{tabular}{cc|c}
@@ -120,24 +111,24 @@ For example, if her two random strings are $$a = 01101$$ $$b = 00110$$ then she 
 
 Now that Alice has constructed her superposition $\ket \psi$, she will send it to Bob which will receive $\mathcal E(\ket \psi)$, where $\mathcal E$ describes the quantum operation due to the combined effect of the channel's noise and Eve's actions --- we will describe what Eve can do later in our discussion.
 
-Bob will then proceed to generate a random string of $(4 + \delta)n$ bits as well, which we will call $b'$, and based on this very string he will measure the received quantum superposition --- in particular, if $b_i' = 0$ he will use the Z base, and if $b_i' = 1$ he will employ the X one. In our example, assuming that Bob generated the random string $$b' = 10111$$ he will measure something like $$\mbox{measure}(\ket \psi) = \ket - \otimes \ket 1 \otimes \ket - \otimes \ket + \otimes \ket + $$ We observe that the first and the last states randomly collapsed to $\ket -$ and $\ket +$ respectively because they were measured in the wrong basis --- indeed, the original string was $b = 00110$ and $b \oplus b' = 10001$. Bob then tries to reconstruct the original string $a$ based on its $b'$, thus getting the string $$a' = 11100$$ When this process is complete, Bob publicly announces that he measured the superposition he received in the authenticated channel to Alice.
+Bob will then proceed to generate a random string of $(4 + \delta)n$ bits as well, which we will call $b'$, and based on this very string he will measure the received quantum superposition --- in particular, if $b_i' = 0$ he will use the Z base, and if $b_i' = 1$ he will use the X one. In our example, assuming that Bob generated the random string $$b' = 10111$$ he will measure something like this $$\mbox{measure}(\ket \psi) = \ket - \otimes \ket 1 \otimes \ket - \otimes \ket + \otimes \ket + $$ We observe that the first and the last states randomly collapsed to $\ket -$ and $\ket +$ respectively because they were measured in the wrong basis --- indeed, the original string was $b = 00110$ and $b \oplus b' = 10001$. Bob then tries to reconstruct the original string $a$ based on its $b'$, thus getting the string $$a' = 11100$$ When this process is complete, Bob publicly announces that he measured the superposition he received in the authenticated channel to Alice.
 
-After Alice has heard that Bob has measured the state, she can proceed to send $b$ itself \tit{as it is} over the authenticated public channel to Bob --- we will see why she is sure that she can perform this operation safely. Through $b$ Bob can then discard all the bits of $a'$ that were generated through wrong bits of $b'$ --- we observe that their remaining bits satisfy $a_i = a'_i$ for all kept indices $i$. This step is usually called \tbf{basis reconciliation}, and the expected number of bits kept by Bob after this step is $$\Exp[\mbox{kept bits}] = \sum_{i = 1}^{(4 + \delta)n}{1 \cdot \Pr[b_i = b_i']} = \sum_{i = 1}^{(4 + \delta)n}{\dfrac{1}{2}} = \dfrac{1}{2} \cdot (4 + \delta)n = \rbk{2 + \dfrac{\delta}{2}}n$$ At this point, Alice and Bob will agree on $2n$ bits to keep from the reconciled string (which can be done again through the public medium) --- $\delta$ can be chosen sufficiently large so that there at least $2n$ bits to choose with exponentially high probability.
+After Alice has heard that Bob has measured the state, she can proceed to send $b$ itself \tit{as it is} over the authenticated public channel to Bob --- we will see why she is sure that she can perform this operation safely. Through $b$ Bob can then discard all the bits of $a'$ that were generated through wrong bits of $b'$ --- we observe that their remaining bits satisfy $a_i = a'_i$ for all kept indices $i$. This step is usually called \tbf{basis reconciliation}, and the expected number of bits kept by Bob after this step is $$\Exp[\mbox{kept bits}] = \sum_{i = 1}^{(4 + \delta)n}{1 \cdot \Pr[b_i = b_i']} = \sum_{i = 1}^{(4 + \delta)n}{\dfrac{1}{2}} = \dfrac{1}{2} \cdot (4 + \delta)n = \rbk{2 + \dfrac{\delta}{2}}n$$ At this point, Alice and Bob will agree on $2n$ bits to keep from the reconciled string (which can be done again through the public medium) --- $\delta$ can be chosen sufficiently large so that there are at least $2n$ bits to choose with exponentially high probability.
 
-At this point, the protocol is basically finished, and the last step involves \tbf{error correction} which has to take into account both the possible noise of the quantum medium, and the potential actions of Eve. Thus, as final step Alice and Bob agree on a split of their $2n$ bits into 2 sets of $n$ bits (choosen UAR), such that half of them will be used as the \tbf{shared key}, and the other half are used as \tit{check bits}. In particular, Alice and Bob publicly share the check bits, such that
+At this point, the protocol is basically finished, and the last step involves \tbf{error checking and error correction} which has to take into account both the possible noise of the quantum medium, and the potential actions of Eve. Thus, as final step Alice and Bob agree on a split of their $2n$ bits into 2 sets of $n$ bits (choosen UAR), such that half of them will be used as the \tbf{shared key}, and the other half are used as \tit{check bits}. In particular, Alice and Bob publicly share the check bits, such that
 
 \begin{itemize}
 	\item if more than $t$ bits disagree, they abort and re-try the protocol from the start
-	\item if less that $t$ bits disagree, the error rate is estimated and used to apply \tit{error correction} algorithms to the key bits --- we will not cover the details of the error correction procedures since they are not part of the key distribution protocol itself
+	\item if less that $t$ bits disagree, the error rate is estimated and used to apply \tit{error correction} algorithms to the key bits --- we will not cover the details of the error correction procedures since they are not part of the key distribution protocol itself.
 \end{itemize}
 
 \subsection{Eve's attacks}
 
-Now, it's time to discuss the Eve's role in the protocol. Suppose that Eve has access to the quantum channel Alice and Bob are using, and wants to understand the key they are trying to share. At the beginning of the protocol Alice sends her $\ket \psi$ which encodes the states she generated through $a$ and $b$, so what happens if Eve can see this qubit? Due to the No-cloning theorem, she cannot clone $\ket \psi$ because in our case we have that $$S = \{\ket 0, \ket 1, \ket +, \ket - \}$$ and half of the possible pairs are actually non-orthogonal. However, she could theoretically do is intercept $\ket \psi$, measure it herself, and send the qubit back to Bob acting as a \tit{man-in-the-middle} --- and Bob would have no way to know this actually happened. Nevertheless, nor Bob neither Eve know the sequence of bases Alice chose originally, so the best thing Eve can do is try randomly (exactly as Bob does in the protocol anyway). Hence, fix a state $\ket \psi_i$ of the states that constitute $\ket \psi$; the following can happen:
+Now, it's time to discuss Eve's role in the protocol. Suppose that Eve has access to the quantum channel Alice and Bob are using, and wants to understand the key they are trying to share. At the beginning of the protocol Alice sends her $\ket \psi$ which encodes the states she generated through $a$ and $b$, so what happens if Eve can see this qubit? Due to the No-cloning theorem, she cannot clone $\ket \psi$ because in our case we have that $$S = \{\ket 0, \ket 1, \ket +, \ket - \}$$ and half of the possible pairs are actually non-orthogonal. However, what she could theoretically do is intercept $\ket \psi$, measure it herself, and send the qubit back to Bob acting as a \tit{man-in-the-middle} --- and Bob would have no way to know this actually happened. Nevertheless, nor Bob neither Eve know the sequence of bases Alice chose originally, so the best thing Eve can do is try randomly (exactly as Bob does in the protocol anyway). Hence, fix a state $\ket {\psi_i}$ of the states that constitute $\ket \psi$; the following can happen:
 
 \begin{itemize}
-	\item Eve chooses the correct basis for $\ket \psi_i$: this means that she does not introduce any disturbance to the state Bob will receive, and Bob still has 50\% chance of recovering Alice's original qubit
-	\item Eve chooses the wrong basis for $\ket \psi_i$: this means that she introduces some disturbance to the state Bob will receive, in the sense that now Bob has only 25\% chance of recovering Alice's original qubit
+	\item Eve chooses the correct basis for $\ket{\psi_i}$: this means that she does not introduce any disturbance to the state Bob will receive, and Bob still has 50\% chance of recovering Alice's original qubit
+	\item Eve chooses the wrong basis for $\ket{\psi_i}$: this means that she introduces some disturbance to the state Bob will receive, in the sense that now Bob has only 25\% chance of recovering Alice's original qubit
 \end{itemize}
 
 For instance, suppose that Alice sends $\ket +$; if Eve guesses the correct basis it holds that
@@ -174,7 +165,7 @@ which is still less than $\tfrac{1}{2}$.
 
 We observe that, on average, with big enough bit strings the chance that Eve correctly chooses each basis can be made exponentially low. Moreover, Eve's actions are exactly the reason why in the last step of the algorithm we perform a thresholded check on the error rate: if the error rate is too high (some noise has to be expected) on average it probably means that someone eavesdropped on the channel.
 
-Is this everything Eve can do? The attack we presented has a very high chance of introducing too much disturbance and being detected by the error rate check step, so for Eve to have some chance of not being detected she needs to \tbf{avoid introducing disturbance completely}. The idea is based on the fact that she actually does not need to apply the full No-cloning theorem: suppose that there exists some unitary operator $U$ that on input $\ket \psi \otimes \ket x$ --- for some state $\ket x$ --- it behaves as follows: $$U(\ket \psi \otimes \ket x) = \ket \psi \otimes \ket y$$ In other words, $U$ leaves $\ket \psi$ unchanged and turns $\ket x$ into $\ket y$. For now, consider $\ket \psi$ as 1 single qubit. If such operator exists, Eve could use it in order to try to measure $\ket y$ in a later moment and gain some information about $\ket \psi$, without ever measuring the latter directly.
+Is this everything Eve can do? The attack we presented has a very high chance of introducing too much disturbance and being detected by the error rate check step, so for Eve to have some chance of not being detected she needs to \tbf{avoid introducing disturbance completely}. How can she achieve this? The idea is based on the fact that she actually does not need to apply the full No-cloning theorem: suppose that there exists some unitary operator $U$ that on input $\ket \psi \otimes \ket x$ --- for some state $\ket x$ --- it behaves as follows: $$U(\ket \psi \otimes \ket x) = \ket \psi \otimes \ket y$$ In other words, $U$ leaves $\ket \psi$ unchanged and turns $\ket x$ into $\ket y$. For now, consider $\ket \psi$ as 1 single qubit. If such an operator exists, Eve could use it in order to try to measure $\ket y$ in a later moment and gain some information about $\ket \psi$, without ever measuring the latter directly.
 
 This idea seems compelling, however for Eve's attack to be effective $U$ must compute as follows: $$U(\ket \psi \otimes \ket x) = \ket \psi \otimes \ket y$$ $$U(\ket \phi \otimes \ket x) = \ket \phi \otimes \ket{y'}$$ where $\ket y$ and $\ket{y'}$ must be \tbf{different}. In this way
 
@@ -194,7 +185,7 @@ Suppose that Alice sends some qubit which can be either $\ket \psi$ or $\ket \ph
 		\iff & \braket{\psi|\phi} \braket{y|y'} = \braket{\psi| \phi}                                                         & \\
 	\end{alignedat}
 \end{equation*}
-We observe that between all the possible choices of pairs of $\ket \psi$ and $\ket \phi$, half of them are such that $\braket{\psi|\phi} \neq 0$, i.e. $\ket \psi$ and $\ket \phi$ are \tit{non-orthogonal}. This means that we can simplify the last equality even more, obtaining that
+We observe that between all the possible choices of pairs of $\ket \psi$ and $\ket \phi$, half of them are such that $\braket{\psi|\phi} \neq 0$, i.e. $\ket \psi$ and $\ket \phi$ are \tit{non-orthogonal}. This means that for appropriate choices of $\ket \psi$ and $\ket \phi$ we can simplify the last equality even more, obtaining that
 \begin{equation*}
 	\begin{alignedat}{2}
 		     & \braket{\psi|\phi} \braket{y|y'} = \braket{\psi| \phi} &                                   \\
@@ -202,7 +193,7 @@ We observe that between all the possible choices of pairs of $\ket \psi$ and $\k
 		\iff & \ket{y} = \ket{y'}                                     &                                   \\
 	\end{alignedat}
 \end{equation*}
-Once again, through an argument fairly similar of the one we used for the No-cloning theorem, this proves that such an operator $U$ cannot exist, which means that there is no way for Eve to gain any information at all without introducing disturbance.
+Once again, through an argument fairly similar to the one we used for the No-cloning theorem, this proves that such an operator $U$ cannot exist that works for all the possible values of $\ket \psi$ and $\ket \phi$, which means that there is no way for Eve to gain any information at all without introducing disturbance.
 
 % Furthermore, we observe that this condition of non-orthogonality is precisly why the BB84 protocol chooses the Z and the X basis, which are non-orthogonal between each other. In fact, let's see what happens if the choice of Alice was restricted to only vectors $\ket \psi$ and $\ket \phi$ that are orthogonal. For instance, say that $$\ket \psi, \ket \phi \in \{\ket 0, \ket 1\}$$ In this scenario, Eve actually \tit{has chance} to recover some information without introducing disturbance. Indeed, a transformation $U$ such that $$U (\ket 0 \otimes \ket 0) = \ket 0 \otimes \ket 0$$ $$U (\ket 1 \otimes \ket 0) = \ket 1 \otimes \ket 1$$ is literally just a CNOT on $\ket 0$ where Alice's qubit is the control bit. This shows that the non-orthogonality condition guarantees the security of the protocol itself.
 
@@ -212,7 +203,7 @@ Lastly, we observe that BB84 requires Alice to wait before hearing back from Bob
 
 \section{Bell's inequalities}
 
-Imagine we perform the following experiment: there are two parties involved, namely Alice and Bob, and a third party Charlie which prepares two particles. It does not matter how he prepares the particles, the only thing that matters is that he is capable of repeating the experimental procedure which he uses. Once he has completed the preparation procedure, he sends one particle to Alice, and one to Bob.
+In this section we are going to present a very strange phenomenon of Nature that only quantum mechanics seems to be able to explain. For now, set the discussion of QKD protocols aside, and imagine we perform the following experiment: there are two parties involved, namely Alice and Bob, and a third party Charlie which prepares two particles. It does not matter how he prepares the particles, the only thing that matters is that he is capable of repeating the experimental procedure which he uses. Once he has completed the preparation procedure, he sends one particle to Alice, and one to Bob.
 
 After Alice receives her particle, she performs a measurement on it. In particular, let's imagine that she has available two different measurement apparatuses, which measure different physical properties that we will label as $P_Q$ and $P_R$, respectively. For simplicity, we can suppose that the measurements can each have one of two outcomes, namely $+1$ or $-1$, and the outcome of measuring property $P_Q$ and $P_R$ are described by two random variables $Q, R \in \{+1, -1\}$ respectively. It is also important to assume that Alice does not know in advance which measurement she will choose to perform, instead when she receives her particle she flips a coin and chooses which property to measure accordingly. Similarly, suppose that Bob is capable of measuring one of two properties, $P_S$ or $P_T$, and the outcomes of such measurements are also described by random variables $S, T \in \{ + 1, -1\}$. Again, the choice of the measurement apparatus is random, and we also assume that Alice and Bob do their measurements \tit{at the same time}. This implies that there is no way for Alice's measurement to disturb the result of Bob's measurement (and vice versa) since physical influences cannot propagate faster than light. Interestingly, we can obtain the following result.
 
@@ -242,15 +233,14 @@ Now, we are going to introduce quantum mechanics in the picture and see what hap
 
 \begin{itemize}
 	\item it's easy to prove that its eigenvalues are exactly $+1$ and $-1$
-	\item it can also be easily calculated that $\ket 0$ is an eigenvector of $Z$ associated to $+1$, and $\ket 1$ is an eigenvector of $Z$ associated to $-1$ (by solving $Z - \lambda I =0$ for $\lambda \in \{-1, +1\}$)
-
+	\item it can also be easily calculated that $\ket 0$ is an eigenvector of $Z$ associated to $+1$, and $\ket 1$ is an eigenvector of $Z$ associated to $-1$
 \end{itemize}
 
 This matrix seems to have everything we need for our purposes, so let's set the random variable $Q$ equal to $Z$. Now, we need to find another observable (i.e. another self-adjoint operator) to assign to Alice, which also has $+1$ and $-1$ as eigenvalues and that \tit{does not commute} with $Q$, meaning that $$QR \neq RQ$$ This is a crucial detail because we want to express the fact that the order of measurements matters, otherwise the outcomes could be modeled by a single classical random variable. This is easy enough by again turning our attention to the Pauli matrices, in particular we just need to set $R = X$, in fact
 
 \begin{itemize}
 	\item the eigenvalues of $X$ are $+1$ and $-1$
-	\item $\ket +$ is an eigenvector of $X$ associated to $+1$, and $\ket -$ is an eigenvector of $X$ associated to $-1$ (obtained by solving $X - \lambda I = 0$ for $\lambda \in \{-1, + 1\}$)
+	\item $\ket +$ is an eigenvector of $X$ associated to $+1$, and $\ket -$ is an eigenvector of $X$ associated to $-1$
 	\item it can be easily shown that $$ZX = - XZ$$
 \end{itemize}
 
@@ -338,6 +328,7 @@ Our next goal is to evaluate the same quantity calculated in the Bell inequality
 	\claim[Claim 3]{
 		$\Exp[R \otimes T \mid \ket{\Psi^-}] = \tfrac{1}{\sqrt 2}$.
 	}{
+		By \cref{exp of an op} we have that
 		\begin{equation*}
 			\begin{split}
 				\Exp[R \otimes T \mid \ket{\Psi^-}] & = \Exp[X \otimes (-iHY) \mid \ket{\Psi^-}]                                                   \\
@@ -382,14 +373,14 @@ What? The Bell inequality told us that the LHS could not ever exceed 2, however 
 
 Short answer: we are not sure. Over the years, multiple experiments have been done to check the prediction of quantum mechanics versus the Bell inequality, and the results are resoundingly in favor of the quantum mechanical outcome. Most notably, in 2022 the Nobel Prize in Physics was awarded to Aspect, Clauser and Zeilinger for having established experimentally the violation of Bell inequalities. In simpler terms, the Bell inequality it \tit{not} obeyed by Nature.
 
-What does this mean? It means that at least one of the assumptions that went into the derivation of the Bell inequality must be incorrect. However, we notice that in the experiment we described we relied upon very few assumptions. Among all the various hypotheses on which assumptions are wrong that have been made over the years, two arguments mainly stand out.
+What does this mean? It means that at least one of the assumptions that went into the derivation of the Bell inequality must be incorrect. However, we notice that in the experiment we described we relied upon \tit{very few assumptions}. Among all the various hypotheses on which assumptions are wrong that have been made over the years, two arguments mainly stand out.
 
 \begin{enumerate}
 	\item Assumption of \tbf{realism}: this assumes that the physical properties $P_Q$, $P_R$, $P_S$ and $P_T$ have definite values $Q$, $R$, $S$ and $T$ which exist independent of observation. In fact, our intuition would suggest that every measurement outcome has a definite value \tit{before} it is measured: when we say that $$Q, R, S, T \in \{+1, -1\}$$ we are also presupposing that the properties to be measured exist before we even perform the measurements. Classically, through measurement we are only looking at definite values that were \curlyquotes{already there}.
 	\item Assumption of \tbf{weak locality}: this assumes that measurement performed by Alice does not influence the result of Bob's measurement. In other words, this assumes that Alice's choice of measurement cannot change Bob's values, and vice versa. We want to underline that with this assumption we are not talking about the \tit{outcomes}, only about the \tit{choice} of which measurement apparatus one party selects.
 \end{enumerate}
 
-Together, these two assumptions are known as the assumptions of \tbf{local realism}. Clearly they seem to be plausible assumptions that match our everyday experience, yet the Bell inequalities show that at least one of the two is incorrect. Most of the physicists believe that the assumption to be dropped is realism, indeed current quantum mechanics believes that there are no values of $Q$, $R$, $S$ and $T$ inside the particles and we can only talk about possible measurement outcomes along with their probabilities, but such outcomes \underline{do not exist} before our measurement. Indeed, this is exactly what we have been assuming from the start: we consider \tit{superposition} of states that collapse only after we have performed our measurement.
+Together, these two assumptions are known as the assumptions of \tbf{local realism}. Clearly they seem to be plausible assumptions that match our everyday experience, yet the Bell inequalities show that at least one of the two is incorrect. Most physicists believe that the assumption to be dropped is realism, indeed current quantum mechanics believes that there are no values of $Q$, $R$, $S$ and $T$ inside the particles and we can only talk about possible measurement outcomes along with their probabilities, but such outcomes \underline{do not exist} before our measurement. Indeed, this is exactly what we have been assuming from the start: we consider \tit{superpositions} of states that collapse only after we have performed our measurement.
 
 To be precise, there is a third possible assumption to consider that we might deem false, which is called \tbf{measurement independence}, through which we assume that there exists the possibility of free choice between the measurements that Alice and Bob can perform. However, if this presumption if false, it implies that \tit{free will does not exist} and there are some kind of \curlyquotes{hidden variables} that know what settings Alice and Bob will choose in advance. Nevertheless, to this day almost no physicist believes this assumption to be false, so we will only focus on the first two.
 
@@ -403,11 +394,9 @@ The choices for $S$ and $T$ are just the matrices that maximize this bound, give
 
 To this day, it is not known if the world follows either one of them with certainty, but this discrepancy between the classical and the quantum model must imply that the world is not \tit{locally realistic}. Modern quantum mechanics believes in weak locality but not in realism, and interestingly enough such assumption can actually be leveraged in order to design a more quantum-secure key distribution protocol!
 
-Consider again the experiment performed by Alice and Bob, and let $\mathcal A$ be the quantity $$\mathcal A := \abk{QS} + \abk{RS} + \abk{RT} - \abk{QT}$$ Can an eavesdropper Eve disturb this experiment without any of the two parties involved notice? Recall that the choice of measurements performed by Alice and Bob are executed \tit{randomly}, which means that Eve has no way to know in advance which setting Alice and Bob will pick --- not even Alice and Bob do! Therefore, if Eve wants to cheat successfully she must find a way to arrange the context such that she knows all the possible outcomes in advance regardless of the choices of the measurement apparatus performed by the two parties. In other words, Eve must be able to set things up in such a way that she can predict all possible outcomes ahead of time. However, because we are assuming that Nature is weakly local, Eve cannot influence nor Alice's neither Bob's outcomes after they chose which property to measure. This must imply that the only chance she has to cheat is to have some way of \curlyquotes{assigning} an outcome to every possible setting \tit{in advance}. This is exactly \tbf{realism}, and by Bell inequality any system that is locally realistic must yield a value of $\mathcal A \le 2$.
+Consider again the experiment performed by Alice and Bob, and let $\mathcal A$ be the quantity $$\mathcal A := \braket{Q \otimes S} + \braket{R \otimes S} + \braket{R \otimes T} - \braket{Q \otimes T}$$ Can an eavesdropper Eve disturb this experiment without any of the two parties involved notice? Recall that the choice of measurements performed by Alice and Bob are executed \tit{randomly}, which means that Eve has no way to know in advance which setting Alice and Bob will pick --- not even Alice and Bob do! Therefore, if Eve wants to cheat successfully she must find a way to arrange the context such that she knows all the possible outcomes in advance regardless of the choices of the measurement apparatus performed by the two parties. In other words, Eve must be able to set things up in such a way that she can predict all possible outcomes ahead of time. However, because we are assuming that Nature is weakly local, Eve cannot influence nor Alice's neither Bob's outcomes after they chose which property to measure. This must imply that the only chance she has to cheat is to have some way of \curlyquotes{assigning} an outcome to every possible setting \tit{in advance}. This is exactly \tbf{realism}, and by the Bell inequality any system that is locally realistic must yield a value of $\mathcal A \le 2$.
 
-This is the core idea of the \tbf{E91 protocol}, published by \textcite{ekert} in 1991: suppose that Alice and Bob take a random portion of their qubits and use it in order to compute the quantity $\mathcal A$. Then, if we set $Q$, $R$, $S$ and $T$ as we outlined previously we are guaranteed that, without any external disturbance in the setting, the value of $\mathcal A$ will be $$\mathcal A \approx 2 \sqrt 2$$ This means that if Alice and Bob measure a value $\mathcal A \le 2$, then their correlations could have come from a locally realistic (and therefore \tit{predetermined}) model. And if their correlations could come from such a model, then Eve could have predicted all outcomes in advance, so their exchange would not be quantum-safe anymore and should be aborted. Hence, by chekcing the value of $\mathcal A$ Alice and Bob can choose to proceed with the exchange of the key or abort their attempt and try again.
-
-\section{Exercises}
+This is the core idea of the \tbf{E91 protocol}, published by \textcite{ekert} in 1991: suppose that Alice and Bob take a random portion of their qubits and use it to compute the quantity $\mathcal A$. Then, if we set $Q$, $R$, $S$ and $T$ as we outlined previously we are guaranteed that, without any external disturbance in the setting, the value of $\mathcal A$ will be $$\mathcal A \approx 2 \sqrt 2$$ This means that if Alice and Bob measure a value $\mathcal A \le 2$, then their correlations could have come from a locally realistic (and therefore \tit{predetermined}) model. And if their correlations could come from such a model, then Eve could have predicted all outcomes in advance, so their exchange would not be quantum-safe anymore and should be aborted. Hence, by chekcing the value of $\mathcal A$ Alice and Bob can choose to proceed with the exchange of the key or abort their attempt and try again.
 
 \begin{framedprob}{}
 	Write the single qubit $X$ gate as a sum of projectors.
@@ -423,8 +412,8 @@ This is the core idea of the \tbf{E91 protocol}, published by \textcite{ekert} i
 		\begin{equation*}
 			\begin{split}
 				     & \det(X - \lambda I ) = 0            \\
-				=    & \det \rbk{\rmat{0               & 1 \\ \ & 0} - \rmat{\lambda & 0 \\ 0 & \lambda}} = 0 \\
-				=    & \det \rmat{- \lambda            & 1 \\ 1 - \lambda } = 0 \\
+				=    & \det \rbk{\rmat{0               & 1 \\ 1 & 0} - \rmat{\lambda & 0 \\ 0 & \lambda}} = 0 \\
+				=    & \det \rmat{- \lambda            & 1 \\ 1 & - \lambda } = 0 \\
 				=    & \lambda^2 - 1 = 0                   \\
 				=    & (\lambda + 1) (\lambda - 1) = 0     \\
 				\iff & \lambda = \pm 1
@@ -432,5 +421,41 @@ This is the core idea of the \tbf{E91 protocol}, published by \textcite{ekert} i
 		\end{equation*}
 	}
 
-	Then, we need to find the projectors $P_1$ and $P_{-1}$. First, let $\lambda = 1$; we observe that $$X v = \lambda v = v \iff (X - I)v = 0 \iff \rmat{-1 & 1 \\ 1 & -1} \rmat{v_1 v_2} = 0$$ and solving for $v_1$ and $v_2$ we obtain that $$\soe{l}{v_2 - v_1 = 0 \\ v_1 - v_2 = 0} \implies v_1 = v_2 \implies v = \rmat{v_1 \\ v_1} = v_1 \rmat{1 \\ 1}$$ so the eigenspace associated to $\lambda = 1$ is the set of vectors that are scalar multiples of $\rmat{1 \\ 1}$, and in particular the normalized vector is obtained for $$\dfrac{1}{\sqrt{1 + 1}} \rmat{1 \\ 1} = \dfrac{1}{\sqrt 2} \rbk{\rmat{1 \\ 0} + \rmat{0 \\ 1} } = \dfrac{1}{\sqrt 2} (\ket 0 + \ket 1) = \ket +$$ This means that we can use $\ket +$ as basis for the $P_1$ eigenspace. We will skip the details of the calculations for $\lambda = -1$ since they are analogous, but we would end up with $\ket -$ instead of $\ket +$. In the end, this means that $$X = 1 \cdot P_1 - 1 \cdot P_{-1} = \ket + \bra + - \ket - \bra -$$
+	Then, we need to find the projectors $P_1$ and $P_{-1}$. First, let $\lambda = 1$; we observe that $$X v = \lambda v = v \iff (X - I)v = 0 \iff \rmat{-1 & 1 \\ 1 & -1} \rmat{v_1 \\  v_2} = 0$$ and solving for $v_1$ and $v_2$ we obtain that $$\soe{l}{v_2 - v_1 = 0 \\ v_1 - v_2 = 0} \implies v_1 = v_2 \implies v = \rmat{v_1 \\ v_1} = v_1 \rmat{1 \\ 1}$$ so the eigenspace associated to $\lambda = 1$ is the set of vectors that are scalar multiples of $\rmat{1 \\ 1}$, and in particular the normalized vector is obtained for $$\dfrac{1}{\sqrt{1 + 1}} \rmat{1 \\ 1} = \dfrac{1}{\sqrt 2} \rbk{\rmat{1 \\ 0} + \rmat{0 \\ 1} } = \dfrac{1}{\sqrt 2} (\ket 0 + \ket 1) = \ket +$$ This means that we can use $\ket +$ as basis for the $P_1$ eigenspace. We will skip the details of the calculations for $\lambda = -1$ since they are analogous, but we would end up with $\ket -$ instead of $\ket +$. In the end, this means that $$X = 1 \cdot P_1 - 1 \cdot P_{-1} = \ket + \bra + - \ket - \bra -$$
+}
+
+\section{Exercises}
+
+\begin{framedprob}[label={indep trace}]{}
+	Prove that the trace independent of the chosen basis.
+\end{framedprob}
+
+\solution{
+Let $\{f_i\}_{i = 1}^n$ and $\{g_i\}_{i = 1}^n$ be two orthonormal bases of the same Hilbert space, and consider the following basis-change martix: $$U_{fg} = \sum_{i = 1}^n \ket{g_i} \bra{f_i}$$
+
+\claim{
+	$U_{fg}$ is unitary.
+}{
+	Its easy to check that $$U_{fg}^\dag = \sum_{i = 1}^n \ket{f_i} \bra{g_i}$$ which immediately imlpies that
+	\begin{equation*}
+		\begin{alignedat}{2}
+			U_{fg}U_{fg}^\dag & = \rbk{\sum_{i = 1}^n \ket{g_i} \bra{f_i}} \rbk{\sum_{i = 1}^n \ket{f_i} \bra{g_i}} &                                                     \\
+			                  & = \sum_{i = 1}^n \sum_{j = 1}^n \ket{g_i} \braket{f_i|f_j} \bra{g_j}                &                                                     \\
+			                  & = \sum_{i = 1}^n \ket{g_i} \bra{g_i}                                                & \quad \quad (\mbox{by orthonormality of the bases}) \\
+			                  & = I                                                                                 &                                                     \\
+		\end{alignedat}
+	\end{equation*}
+	We will not prove the other product since it is analogous.
+}
+
+Now, we recall that $$U_{fg} \ket{f_i} = \sum_{j = 1}^n \ket{g_j} \braket{f_j|f_i}  = \ket{g_i}$$ since $U_{fg}$ maps vectors of $\{f_i\}_{i = 1}^n$ into vectors of $\{g_i\}_{i = 1}^n$. Then, let $\{f_i\}_{i = 1}^n = \{e_i\}_{i = 1}^n$, i.e. let the first be the canonical basis, and consider the following change of basis matrix $$U_{eg} = \sum_{i = 1}^n \ket{g_i} \bra{e_i}$$ Let $A$ by any matrix defined over the same Hilbert space. In the first chapters we saw how we could write the trace of $A$ as follows $$\tr(A) = \sum_{i = 1}^n \braket{e_i|A|e_i}$$ Howver, since $$U_{eg} \ket{e_i} = \ket{g_i} \quad \quad \bra{e_i} U_{eg}^\dag = \bra{g_i}$$ we can also rewrite the trace as
+\begin{equation*}
+	\begin{split}
+		\tr(A) & = \tr(U_{eg} U_{eg}^\dag A)                            \\
+		       & = \tr(U_{eg}^\dag A U_{eg})                            \\
+		       & = \sum_{i = 1}^n \braket{e_i|U_{eg}^\dag A U_{eg}|e_i} \\
+		       & = \sum_{i = 1}^n \braket{g_i|A|g_i}                    \\
+	\end{split}
+\end{equation*}
+which means that we can define the trace of $A$ both in terms of $\{e_i\}_{i = 1}^n$ and in terms of $\{g_i\}_{i = 1}^n$, proving that $\tr(A)$ is independent of the basis of choice --- provided that the chosen basis is orthonormal.
 }
